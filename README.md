@@ -108,7 +108,7 @@ bearbeitet werden. Zu beachten:
   (z. B. in Visual Studio Code oder Notepad++) ist das schnell erledigt.
 - **Farben und Abstände** stehen gesammelt am Anfang von
   `assets/css/style.css` im Block `:root` und lassen sich dort zentral ändern.
-  Das Farbthema ist Navy-Blau (`--c-primary: #1b2c5c`) mit hellem Grau
+  Das Farbthema ist Navy-Blau (`--c-primary: #22376c`) mit hellem Grau
   (`--c-surface: #f2f4f7`), abgestimmt auf das Praxislogo.
 - **Logo:** Im Kopfbereich steht derzeit nur der Schriftzug. Sobald die
   Originaldatei des Praxislogos vorliegt, sie als `assets/img/logo.svg`

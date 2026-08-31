@@ -9,16 +9,16 @@
    -------------------------------------------------------------------------- */
 :root {
   /* Farben – Navy-Blau mit hellem Grau */
-  --c-primary:        #1b2c5c;
-  --c-primary-dark:   #111d3f;
-  --c-primary-light:  #2f4680;
+  --c-primary:        #22376c;
+  --c-primary-dark:   #16264c;
+  --c-primary-light:  #35508c;
   --c-accent:         #2f5fa8;
   --c-accent-dark:    #234a82;
   --c-accent-soft:    #e8ecf4;
 
   --c-text:           #1f2733;
   --c-text-muted:     #5a6577;
-  --c-heading:        #172443;
+  --c-heading:        #1b2a4e;
 
   --c-bg:             #ffffff;
   --c-surface:        #f2f4f7;
