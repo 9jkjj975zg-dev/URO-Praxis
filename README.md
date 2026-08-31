@@ -301,7 +301,17 @@ In diesem Fall müssen die Datenschutzerklärung ergänzt und – falls ein exte
 Dienstleister eingesetzt wird – ein Vertrag zur Auftragsverarbeitung
 geschlossen werden.
 
-## 12. Lokal ansehen
+## 12. Weitere Unterlagen
+
+**Checkliste zum Google-Unternehmensprofil** – eine Arbeitsliste zum Abhaken in
+zehn Abschnitten, von der Bestätigung des Zugangs bis zur laufenden Pflege:
+<https://claude.ai/code/artifact/022c1f6b-1f43-4672-89a8-e5fc0c719e8e>
+
+Das Google-Profil wirkt bei lokaler Suche schneller als jede Maßnahme auf der
+eigenen Website und kostet nichts außer Zeit. Es gehört deshalb vor die
+Feinarbeit an der Seite.
+
+## 13. Lokal ansehen
 
 Ein Doppelklick auf `index.html` genügt. Alternativ mit einem lokalen
 Webserver, was näher an der späteren Auslieferung ist:
