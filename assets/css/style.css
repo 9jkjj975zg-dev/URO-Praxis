@@ -268,36 +268,35 @@ strong { color: var(--c-heading); }
 .brand { display: flex; align-items: center; gap: .7rem; text-decoration: none; color: inherit; }
 .brand__mark { width: 44px; height: 44px; flex: none; }
 
-/* Beim Laden kreisen die beiden Sicheln aus entgegengesetzten Richtungen
-   ein und rasten mit leichtem Nachschwingen ineinander. Die Animation
-   startet, wenn der Kopfbereich gezeichnet wird – als eingebettete Grafik
-   also genau dann, wenn man hinschaut. Gesamtdauer rund 1,7 Sekunden. */
+/* Beim Laden kommen die beiden Sicheln aus entgegengesetzten Ecken herein:
+   die graue von links oben, die blaue von rechts unten und mit 300
+   Millisekunden Abstand – man sieht sie nacheinander ankommen. Sie gleiten
+   ohne Nachschwingen an ihren Platz. Gesamtdauer rund 1,7 Sekunden.
+
+   Die Animation laeuft, wenn der Kopfbereich gezeichnet wird. Deshalb steckt
+   das Logo als eingebettete Grafik im Markup und nicht in einem <img>: dort
+   waere sie schon beim Dekodieren abgelaufen, also bevor irgendjemand
+   hinsieht. */
 .brand__teil {
   transform-box: view-box;
   transform-origin: 50% 50%;
-  animation-duration: 1150ms;
-  animation-timing-function: cubic-bezier(.32, .1, .2, 1);
+  animation-duration: 1300ms;
+  animation-timing-function: cubic-bezier(.17, .72, .22, 1);
   animation-fill-mode: both;
 }
 .brand__teil--grau { animation-name: logo-grau; animation-delay: 120ms; }
-.brand__teil--navy { animation-name: logo-navy; animation-delay: 520ms; }
+.brand__teil--navy { animation-name: logo-navy; animation-delay: 420ms; }
 
 @keyframes logo-grau {
-  0%   { opacity: 0; transform: rotate(-215deg) scale(.5); }
-  45%  { opacity: 1; }
-  70%  { transform: rotate(13deg) scale(1.07); }
-  85%  { transform: rotate(-5deg) scale(.985); }
-  94%  { transform: rotate(2deg) scale(1.004); }
-  100% { opacity: 1; transform: rotate(0deg) scale(1); }
+  0%   { opacity: 0; transform: translate(-30%, -22%) rotate(-12deg) scale(.88); }
+  35%  { opacity: 1; }
+  100% { opacity: 1; transform: none; }
 }
 
 @keyframes logo-navy {
-  0%   { opacity: 0; transform: rotate(215deg) scale(.5); }
-  45%  { opacity: 1; }
-  70%  { transform: rotate(-13deg) scale(1.07); }
-  85%  { transform: rotate(5deg) scale(.985); }
-  94%  { transform: rotate(-2deg) scale(1.004); }
-  100% { opacity: 1; transform: rotate(0deg) scale(1); }
+  0%   { opacity: 0; transform: translate(30%, 22%) rotate(12deg) scale(.88); }
+  35%  { opacity: 1; }
+  100% { opacity: 1; transform: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

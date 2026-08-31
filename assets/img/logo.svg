@@ -2,7 +2,8 @@
      Freigestellt aus der Originaldatei Rech_Vektor.svg der Praxis;
      Pfade und Farben unveraendert uebernommen.
 
-     Beim Laden bauen sich die beiden Sicheln nacheinander auf. Die
+     Beim Laden kommen die beiden Sicheln aus entgegengesetzten Ecken
+     herein und legen sich ineinander. Die
      Animation steckt in dieser Datei, laeuft also ueberall, wo das Logo
      eingebunden ist. Wer im Betriebssystem "Bewegung reduzieren"
      eingeschaltet hat, sieht das Logo sofort fertig.
@@ -18,16 +19,24 @@
       .teil {
         transform-box: view-box;
         transform-origin: 50% 50%;
-        animation: aufbau 700ms cubic-bezier(.22, .78, .3, 1) both;
+        animation-duration: 1300ms;
+        animation-timing-function: cubic-bezier(.17, .72, .22, 1);
+        animation-fill-mode: both;
       }
-      .teil--grau { animation-delay: 60ms; }
-      .teil--navy { animation-delay: 240ms; }
+      .teil--grau { animation-name: logo-grau; animation-delay: 120ms; }
+      .teil--navy { animation-name: logo-navy; animation-delay: 420ms; }
 
-      @keyframes aufbau {
-        from { opacity: 0; transform: rotate(-40deg) scale(.86); }
-        to   { opacity: 1; transform: rotate(0deg) scale(1); }
+      @keyframes logo-grau {
+        0%   { opacity: 0; transform: translate(-30%, -22%) rotate(-12deg) scale(.88); }
+        35%  { opacity: 1; }
+        100% { opacity: 1; transform: none; }
       }
-    }
+
+      @keyframes logo-navy {
+        0%   { opacity: 0; transform: translate(30%, 22%) rotate(12deg) scale(.88); }
+        35%  { opacity: 1; }
+        100% { opacity: 1; transform: none; }
+      }
   </style>
   <g class="teil teil--grau">
     <g transform="matrix(1,0,0,1,-1078.18,1110.02)">
