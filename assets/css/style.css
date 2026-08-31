@@ -262,6 +262,25 @@ strong { color: var(--c-heading); }
 
 .brand { display: flex; align-items: center; gap: .7rem; text-decoration: none; color: inherit; }
 .brand__mark { width: 44px; height: 44px; flex: none; }
+
+/* Beim Laden bauen sich die beiden Sicheln nacheinander auf. Die Animation
+   startet, wenn der Kopfbereich gezeichnet wird – als eingebettete Grafik
+   also genau dann, wenn man hinschaut. */
+.brand__teil {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: logo-aufbau 800ms cubic-bezier(.28, .72, .28, 1) both;
+}
+.brand__teil--navy { animation-delay: 220ms; }
+
+@keyframes logo-aufbau {
+  from { opacity: 0; transform: rotate(-45deg) scale(.82); }
+  to   { opacity: 1; transform: rotate(0deg) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand__teil { animation: none; }
+}
 .brand__text { display: flex; flex-direction: column; line-height: 1.18; }
 .brand__name { font-weight: 700; color: var(--c-heading); font-size: 1.08rem; letter-spacing: -.01em; }
 .brand__sub { font-size: .78rem; color: var(--c-text-muted); letter-spacing: .04em; text-transform: uppercase; }
@@ -857,45 +876,6 @@ strong { color: var(--c-heading); }
   background: var(--c-hinweis-marke);
   color: #fff;
 }
-
-/* --------------------------------------------------------------------------
-   16a2. Erklaerbild zur Vasektomie
-   -------------------------------------------------------------------------- */
-.erklaer {
-  background: #fff;
-  border: 1px solid var(--c-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-  overflow: hidden;
-}
-.erklaer__buehne {
-  background: var(--c-surface);
-  border-bottom: 1px solid var(--c-border);
-  padding: 1.25rem;
-}
-.erklaer__buehne svg { width: 100%; height: auto; display: block; max-width: 520px; margin-inline: auto; }
-
-.erklaer__text { padding: 1.5rem 1.75rem; }
-.erklaer__schritt { font-size: .78rem; font-weight: 700; letter-spacing: .09em;
-  text-transform: uppercase; color: var(--c-accent-dark); }
-.erklaer__titel { margin: .3rem 0 .5rem; font-size: 1.15rem; }
-.erklaer__beschreibung { margin: 0; color: var(--c-text-muted); min-height: 4.6em; }
-
-.erklaer__fuss {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 1rem; padding: 0 1.75rem 1.5rem;
-}
-.erklaer__punkte { display: flex; gap: .5rem; list-style: none; margin: 0; padding: 0; }
-.erklaer__punkte button {
-  width: 11px; height: 11px; padding: 0; border-radius: 50%;
-  border: 1px solid var(--c-border); background: #fff; cursor: pointer;
-}
-.erklaer__punkte button[aria-current="true"] { background: var(--c-accent); border-color: var(--c-accent); }
-.erklaer__knoepfe { display: flex; gap: .6rem; }
-
-/* Zeichnung: nur der jeweils aktive Schritt ist sichtbar */
-.erklaer [data-phase] { transition: opacity .35s ease; }
-@media (prefers-reduced-motion: reduce) { .erklaer [data-phase] { transition: none; } }
 
 /* --------------------------------------------------------------------------
    16b. Patientenstimmen
