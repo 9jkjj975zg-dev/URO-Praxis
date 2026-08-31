@@ -420,6 +420,58 @@
 </section>
 
 
+<section class="section" id="orientierung">
+  <div class="wrap wrap--narrow">
+    <div class="section-head section-head--center">
+      <p class="eyebrow">Kurze Orientierung</p>
+      <h2>Welche Vorsorge kommt für Sie infrage?</h2>
+      <p>
+        Vier Fragen, dann sehen Sie, welche Untersuchungen in Ihrer Situation üblich sind
+        und wer sie bezahlt. Es werden keine Angaben gespeichert oder übertragen &ndash;
+        die Auswertung entsteht direkt in Ihrem Browser.
+      </p>
+    </div>
+
+    <form class="check" id="vorsorge-check" novalidate>
+      <fieldset class="check__frage">
+        <legend><span class="check__nr">1</span> Wie alt sind Sie?</legend>
+        <label class="check__wahl"><input type="radio" name="alter" value="u45" required> unter 45 Jahre</label>
+        <label class="check__wahl"><input type="radio" name="alter" value="45bis64"> 45 bis 64 Jahre</label>
+        <label class="check__wahl"><input type="radio" name="alter" value="ab65"> 65 Jahre oder älter</label>
+      </fieldset>
+
+      <fieldset class="check__frage">
+        <legend><span class="check__nr">2</span> Ist in Ihrer Familie Prostatakrebs aufgetreten &ndash; bei Vater oder Bruder?</legend>
+        <label class="check__wahl"><input type="radio" name="familie" value="ja" required> Ja</label>
+        <label class="check__wahl"><input type="radio" name="familie" value="nein"> Nein</label>
+        <label class="check__wahl"><input type="radio" name="familie" value="unklar"> Weiß ich nicht</label>
+      </fieldset>
+
+      <fieldset class="check__frage">
+        <legend><span class="check__nr">3</span> Wann waren Sie zuletzt zur urologischen Vorsorge?</legend>
+        <label class="check__wahl"><input type="radio" name="letzte" value="jahr" required> Im letzten Jahr</label>
+        <label class="check__wahl"><input type="radio" name="letzte" value="laenger"> Vor mehr als einem Jahr</label>
+        <label class="check__wahl"><input type="radio" name="letzte" value="nie"> Noch nie</label>
+      </fieldset>
+
+      <fieldset class="check__frage">
+        <legend><span class="check__nr">4</span> Wie sind Sie versichert?</legend>
+        <label class="check__wahl"><input type="radio" name="kasse" value="gkv" required> Gesetzlich</label>
+        <label class="check__wahl"><input type="radio" name="kasse" value="pkv"> Privat oder beihilfeberechtigt</label>
+        <label class="check__wahl"><input type="radio" name="kasse" value="sz"> Als Selbstzahler</label>
+      </fieldset>
+
+      <p class="btn-row">
+        <button type="submit" class="btn btn--accent">Auswertung anzeigen</button>
+        <button type="reset" class="btn btn--outline">Zurücksetzen</button>
+      </p>
+    </form>
+
+    <div class="check__ergebnis" id="check-ergebnis" hidden tabindex="-1"></div>
+  </div>
+</section>
+
+
 <section class="section section--surface" id="fragen">
   <div class="wrap wrap--narrow">
     <div class="section-head section-head--center">

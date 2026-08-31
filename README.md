@@ -84,6 +84,16 @@ kommentiert und auf den Rechtsseiten sichtbar als **[bitte ergänzen]** markiert
   wohin die Seite hochgeladen wird) sowie der Link auf die Datenschutzerklärung
   von arzt-direkt im Abschnitt „Online-Terminbuchung“
 
+### Orientierungshilfe zur Vorsorge
+
+Auf `leistung-vorsorge.html` steht unter „Welche Vorsorge kommt für Sie
+infrage?“ ein kurzer Fragebogen. Er berechnet kein Risiko und gibt keine
+Empfehlung, sondern zeigt nur, welche Untersuchungen üblicherweise infrage
+kommen und wer sie bezahlt. Die Auswertung läuft vollständig im Browser der
+Besucher, es werden keine Angaben gespeichert oder übertragen. Die Inhalte
+stehen in `assets/js/main.js` im Abschnitt 6 – die Texte lassen sich dort
+direkt ändern.
+
 ### Online-Terminkalender
 
 Alle Terminschaltflächen zeigen auf den Kalender von arzt-direkt (zollsoft

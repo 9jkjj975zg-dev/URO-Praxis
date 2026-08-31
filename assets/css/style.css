@@ -1002,3 +1002,115 @@ strong { color: var(--c-heading); }
   .hero h1, .page-head h1, .hero__lead, .page-head p { color: #000; }
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; }
 }
+
+
+/* --------------------------------------------------------------------------
+   Orientierungshilfe zur Vorsorge (leistung-vorsorge.html)
+   -------------------------------------------------------------------------- */
+.check {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.check__frage {
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  background: var(--c-bg);
+  padding: 1.1rem 1.25rem 1.25rem;
+  margin: 0;
+}
+
+.check__frage legend {
+  font-weight: 600;
+  color: var(--c-heading);
+  padding: 0 .35rem 0 0;
+  display: flex;
+  align-items: baseline;
+  gap: .6rem;
+}
+
+.check__nr {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: var(--c-accent-soft);
+  color: var(--c-primary);
+  font-size: .85rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.check__wahl {
+  display: flex;
+  align-items: baseline;
+  gap: .6rem;
+  padding: .45rem 0 .45rem 2.2rem;
+  cursor: pointer;
+}
+
+.check__wahl:first-of-type { margin-top: .6rem; }
+.check__wahl input { margin: 0; flex: none; }
+
+.check__ergebnis {
+  margin-top: 2rem;
+  border: 1px solid var(--c-border);
+  border-top: 4px solid var(--c-accent);
+  border-radius: var(--radius);
+  background: var(--c-bg);
+  padding: 1.75rem;
+}
+
+.check__ergebnis:focus { outline: none; }
+.check__ergebnis:focus-visible { outline: 3px solid var(--c-focus); outline-offset: 3px; }
+.check__ergebnis h3 { margin: 0 0 1rem; color: var(--c-heading); }
+.check__ergebnis h3 + * { margin-top: 0; }
+.check__vorspann { margin: 0 0 1.25rem; color: var(--c-text-muted); }
+
+.check__liste { list-style: none; margin: 0; padding: 0; display: flex;
+                flex-direction: column; gap: 1.25rem; }
+
+.check__punkt { border-top: 1px solid var(--c-border); padding-top: 1.1rem; }
+.check__punkt:first-child { border-top: none; padding-top: 0; }
+.check__punkt p { margin: .4rem 0 0; }
+
+.check__punkt-kopf {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .5rem .9rem;
+}
+
+.check__punkt-kopf h4 { margin: 0; font-size: 1.02rem; color: var(--c-heading); flex: 1 1 14rem; }
+.check__fein { font-size: .92rem; color: var(--c-text-muted); }
+
+.marke {
+  flex: none;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  padding: .2rem .6rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.marke--kasse  { background: #e4efe7; color: #1f5d3a; }
+.marke--selbst { background: var(--c-hinweis-bg); color: var(--c-hinweis-text); }
+.marke--goae   { background: var(--c-accent-soft); color: var(--c-primary); }
+
+.check__liste + h3 { margin-top: 1.9rem; }
+.check__merken { margin: 0 0 1.5rem; padding-left: 1.2rem; }
+.check__merken li + li { margin-top: .5rem; }
+.check__ergebnis .note { margin-top: 1.5rem; }
+.check__weiter { margin: 1.25rem 0 0; font-weight: 600; }
+
+@media (max-width: 560px) {
+  .check__frage { padding: 1rem; }
+  .check__wahl { padding-left: 0; }
+  .check__ergebnis { padding: 1.25rem; }
+}
