@@ -1,5 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="12" fill="#0e4f63"/>
-  <path d="M21 17v16a11 11 0 0 0 22 0V17" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
-  <circle cx="32" cy="45" r="5" fill="#3f9e93"/>
+  <rect width="64" height="64" rx="12" fill="#ffffff"/>
+  <defs>
+    <mask id="rechRingKlein">
+      <rect width="64" height="64" fill="#000"/>
+      <circle cx="32" cy="32" r="24" fill="#fff"/>
+      <circle cx="28.5" cy="29.5" r="13.5" fill="#000"/>
+    </mask>
+  </defs>
+  <g mask="url(#rechRingKlein)">
+    <rect x="0"  y="0" width="31" height="64" fill="#868d96"/>
+    <rect x="31" y="0" width="33" height="64" fill="#2b3f77"/>
+  </g>
 </svg>

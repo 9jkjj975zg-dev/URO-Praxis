@@ -8,23 +8,24 @@
    1. Design-Tokens
    -------------------------------------------------------------------------- */
 :root {
-  /* Farben */
-  --c-primary:        #0e4f63;
-  --c-primary-dark:   #093a4a;
-  --c-primary-light:  #14657f;
-  --c-accent:         #3f9e93;
-  --c-accent-dark:    #2e7d74;
-  --c-accent-soft:    #e4f2f0;
+  /* Farben – Navy-Blau mit hellem Grau */
+  --c-primary:        #1b2c5c;
+  --c-primary-dark:   #111d3f;
+  --c-primary-light:  #2f4680;
+  --c-accent:         #2f5fa8;
+  --c-accent-dark:    #234a82;
+  --c-accent-soft:    #e8ecf4;
 
-  --c-text:           #1d2b32;
-  --c-text-muted:     #566a74;
-  --c-heading:        #0b3d4d;
+  --c-text:           #1f2733;
+  --c-text-muted:     #5a6577;
+  --c-heading:        #172443;
 
   --c-bg:             #ffffff;
-  --c-surface:        #f3f8fa;
-  --c-surface-2:      #e8f1f4;
-  --c-border:         #d7e4e9;
+  --c-surface:        #f2f4f7;
+  --c-surface-2:      #e3e8ef;
+  --c-border:         #d5dbe5;
 
+  /* bewusst warmer Fokusrahmen: hebt sich klar von Blau und Grau ab */
   --c-focus:          #b8560f;
 
   /* Typografie */
@@ -40,8 +41,8 @@
   --radius: 10px;
   --radius-lg: 16px;
 
-  --shadow-sm: 0 1px 2px rgba(11, 61, 77, .06), 0 2px 8px rgba(11, 61, 77, .05);
-  --shadow-md: 0 4px 12px rgba(11, 61, 77, .08), 0 12px 28px rgba(11, 61, 77, .07);
+  --shadow-sm: 0 1px 2px rgba(20, 32, 58, .06), 0 2px 8px rgba(20, 32, 58, .05);
+  --shadow-md: 0 4px 12px rgba(20, 32, 58, .08), 0 12px 28px rgba(20, 32, 58, .07);
 
   --header-h: 76px;
 }
@@ -184,7 +185,7 @@ strong { color: var(--c-heading); }
    -------------------------------------------------------------------------- */
 .topbar {
   background: var(--c-primary-dark);
-  color: #cfe3ea;
+  color: #c8d2e4;
   font-size: .875rem;
 }
 .topbar__inner {
@@ -339,14 +340,15 @@ strong { color: var(--c-heading); }
    -------------------------------------------------------------------------- */
 .hero {
   background:
-    radial-gradient(1000px 520px at 82% -10%, rgba(63,158,147,.30), transparent 62%),
+    radial-gradient(1000px 520px at 82% -10%, rgba(72,116,190,.34), transparent 62%),
     linear-gradient(160deg, var(--c-primary) 0%, var(--c-primary-dark) 100%);
   color: #fff;
   padding: clamp(3.25rem, 7vw, 6rem) 0;
 }
+.hero .eyebrow { color: #93aade; }   /* auf dunklem Grund aufhellen */
 .hero h1 { color: #fff; max-width: 20ch; }
 .hero__text { max-width: 60ch; }
-.hero__lead { font-size: 1.2rem; color: #d6e8ee; margin-bottom: 2rem; }
+.hero__lead { font-size: 1.2rem; color: #c8d2e4; margin-bottom: 2rem; }
 .hero .btn-row { margin-bottom: 2.25rem; }
 
 .hero__facts {
@@ -358,8 +360,8 @@ strong { color: var(--c-heading); }
   border-top: 1px solid rgba(255,255,255,.2);
 }
 .hero__fact { display: flex; gap: .8rem; align-items: flex-start; }
-.hero__fact svg { flex: none; width: 22px; height: 22px; color: var(--c-accent); margin-top: .25rem; }
-.hero__fact-label { font-size: .78rem; text-transform: uppercase; letter-spacing: .09em; color: #9dc4d0; }
+.hero__fact svg { flex: none; width: 22px; height: 22px; color: #7e9ad4; margin-top: .25rem; }
+.hero__fact-label { font-size: .78rem; text-transform: uppercase; letter-spacing: .09em; color: #94a2be; }
 .hero__fact-value { color: #fff; font-weight: 600; }
 .hero__fact-value a { color: #fff; text-decoration: none; }
 .hero__fact-value a:hover { text-decoration: underline; color: #fff; }
@@ -371,13 +373,13 @@ strong { color: var(--c-heading); }
   padding: clamp(2.5rem, 5vw, 4rem) 0;
 }
 .page-head h1 { color: #fff; margin-bottom: .4rem; }
-.page-head p { color: #cfe3ea; max-width: 65ch; margin-bottom: 0; font-size: 1.1rem; }
+.page-head p { color: #c8d2e4; max-width: 65ch; margin-bottom: 0; font-size: 1.1rem; }
 
-.breadcrumb { font-size: .875rem; margin-bottom: 1rem; color: #9dc4d0; }
+.breadcrumb { font-size: .875rem; margin-bottom: 1rem; color: #94a2be; }
 .breadcrumb ol { list-style: none; display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; }
 .breadcrumb li::after { content: "›"; margin-left: .4rem; color: rgba(255,255,255,.45); }
 .breadcrumb li:last-child::after { content: ""; }
-.breadcrumb a { color: #cfe3ea; }
+.breadcrumb a { color: #c8d2e4; }
 .breadcrumb a:hover { color: #fff; }
 
 /* --------------------------------------------------------------------------
@@ -440,7 +442,7 @@ strong { color: var(--c-heading); }
 .hours td { color: var(--c-text-muted); }
 .hours tr:last-child th, .hours tr:last-child td { border-bottom: 0; }
 .hours tr.is-today th, .hours tr.is-today td { background: var(--c-accent-soft); color: var(--c-primary-dark); font-weight: 600; }
-.hours .closed { color: #8a9aa3; }
+.hours .closed { color: #858e9e; }
 
 /* --------------------------------------------------------------------------
    9. Kontaktdaten-Liste
@@ -509,7 +511,7 @@ strong { color: var(--c-heading); }
 }
 .field input:focus, .field select:focus, .field textarea:focus {
   border-color: var(--c-accent);
-  outline: 3px solid rgba(63,158,147,.25);
+  outline: 3px solid rgba(47,95,168,.25);
   outline-offset: 0;
 }
 .field textarea { min-height: 150px; resize: vertical; }
@@ -542,8 +544,9 @@ strong { color: var(--c-heading); }
   color: #fff;
   padding: clamp(2.5rem, 5vw, 3.75rem) 0;
 }
+.cta-band .eyebrow { color: #b9c9e8; }
 .cta-band h2 { color: #fff; }
-.cta-band p { color: #dceeeb; max-width: 58ch; }
+.cta-band p { color: #cbd6e9; max-width: 58ch; }
 .cta-band__inner { display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; justify-content: space-between; }
 .cta-band__text > :last-child { margin-bottom: 0; }
 
@@ -552,12 +555,12 @@ strong { color: var(--c-heading); }
    -------------------------------------------------------------------------- */
 .site-footer {
   background: var(--c-primary-dark);
-  color: #b9d3dc;
+  color: #b2bcd0;
   padding: 3.25rem 0 1.75rem;
   font-size: .95rem;
 }
 .site-footer h2, .site-footer h3 { color: #fff; font-size: 1rem; margin-bottom: .9rem; letter-spacing: .02em; }
-.site-footer a { color: #dceaef; text-decoration: none; }
+.site-footer a { color: #d6ddea; text-decoration: none; }
 .site-footer a:hover { color: #fff; text-decoration: underline; }
 .site-footer ul { list-style: none; padding: 0; margin: 0; }
 .site-footer li { margin-bottom: .5rem; }
@@ -574,7 +577,7 @@ strong { color: var(--c-heading); }
   gap: 1rem;
   justify-content: space-between;
   font-size: .875rem;
-  color: #9dbcc7;
+  color: #99a5bc;
 }
 .footer__legal { display: flex; flex-wrap: wrap; gap: 1.25rem; }
 

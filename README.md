@@ -108,6 +108,11 @@ bearbeitet werden. Zu beachten:
   (z. B. in Visual Studio Code oder Notepad++) ist das schnell erledigt.
 - **Farben und Abstände** stehen gesammelt am Anfang von
   `assets/css/style.css` im Block `:root` und lassen sich dort zentral ändern.
+  Das Farbthema ist Navy-Blau (`--c-primary: #1b2c5c`) mit hellem Grau
+  (`--c-surface: #f2f4f7`), abgestimmt auf das Praxislogo.
+- **Logo:** `assets/img/logo.svg` ist derzeit ein Nachbau des Praxislogos.
+  Sobald die Originaldatei vorliegt, diese Datei ersetzen (am besten als SVG);
+  gleiches gilt für `assets/img/favicon.svg`.
 - **Neue Leistungsseite:** eine bestehende `leistung-*.html` kopieren, Inhalt,
   `<title>`, `description` und `canonical` anpassen, anschließend in der
   Navigation (in allen Dateien), in `leistungen.html` und in `sitemap.xml`
