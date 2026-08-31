@@ -89,7 +89,10 @@
         "-- gesendet ueber das Kontaktformular der Website --"
       ];
 
-      var betreff = "Terminanfrage: " + (get("anliegen") || "Allgemeine Anfrage");
+      // Versicherungsstatus in den Betreff: die Praxis sieht ihn schon im Posteingang
+      var vers = get("versicherung");
+      var betreff = "Terminanfrage: " + (get("anliegen") || "Allgemeine Anfrage") +
+                    (vers ? " (" + vers + ")" : "");
       var ziel = form.getAttribute("data-mailto") || "kontakt@hanau-urologie.de";
 
       window.location.href =

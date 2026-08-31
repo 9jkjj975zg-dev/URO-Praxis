@@ -198,7 +198,8 @@
       <h2>Terminanfrage</h2>
       <p>
         Sie können uns Ihr Anliegen auch schriftlich schicken. Wir melden uns während unserer
-        Sprechzeiten bei Ihnen zurück, um einen Termin abzustimmen.
+        Sprechzeiten bei Ihnen zurück, um in Ruhe einen passenden Termin abzustimmen.
+        Die Angabe zur Versicherung hilft uns, gleich die richtige Terminlänge einzuplanen.
       </p>
 
       <div class="note note--warn">
@@ -237,13 +238,13 @@
             <input type="email" id="email" name="email" autocomplete="email">
           </div>
           <div class="field">
-            <label for="versicherung">Versicherung</label>
-            <select id="versicherung" name="versicherung">
+            <label for="versicherung">Versicherung <span class="req" aria-hidden="true">*</span></label>
+            <select id="versicherung" name="versicherung" required>
               <option value="">Bitte wählen</option>
               <option>Gesetzlich versichert</option>
               <option>Privat versichert</option>
               <option>Beihilfe / Postbeamtenkrankenkasse / KVB</option>
-              <option>Selbstzahler</option>
+              <option>Selbstzahler (Leistung auf eigene Rechnung)</option>
             </select>
           </div>
         </div>
@@ -257,6 +258,7 @@
             <option>Onkologische Nachsorge</option>
             <option>Ultraschalluntersuchung</option>
             <option>Kinderwunschberatung</option>
+            <option>Selbstzahlerleistung nach Preisliste</option>
             <option>Beschwerden beim Wasserlassen</option>
             <option>Sonstiges</option>
           </select>
