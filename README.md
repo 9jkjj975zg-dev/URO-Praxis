@@ -203,8 +203,10 @@ länger.
 
 - **Nichts erfinden.** Erfundene Bewertungen sind irreführende Werbung und
   abmahnfähig.
-- **Keine vollen Nachnamen, keine Diagnosen.** Dass jemand in Behandlung war,
-  ist ein Gesundheitsdatum. Vorname und Anfangsbuchstabe genügen.
+- **Nur Initialen, keine Diagnosen.** Dass jemand in Behandlung war, ist ein
+  Gesundheitsdatum. Die Stimmen sind deshalb mit Initialen gezeichnet
+  (`G.W.`, `F.H.`). Wo kein Nachname bekannt ist, steht nur ein Buchstabe —
+  Initialen zu erfinden, damit es gleichmäßig aussieht, wäre falsch.
 - **Keine Heilungsversprechen.** Aussagen, die einen Behandlungserfolg in
   Aussicht stellen, sind nach § 3 Heilmittelwerbegesetz unzulässig — auch
   dann, wenn ein Patient sie so geschrieben hat. Solche Sätze beim Übernehmen
