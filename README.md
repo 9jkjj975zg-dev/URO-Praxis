@@ -81,7 +81,17 @@ Alle Stellen, an denen noch Angaben fehlen, sind im Quelltext mit `TODO`
 kommentiert und auf den Rechtsseiten sichtbar als **[bitte ergänzen]** markiert:
 
 - `datenschutz.html`: Hosting-Anbieter (steht erst fest, wenn entschieden ist,
-  wohin die Seite hochgeladen wird)
+  wohin die Seite hochgeladen wird) sowie der Link auf die Datenschutzerklärung
+  von arzt-direkt im Abschnitt „Online-Terminbuchung“
+
+### Online-Terminkalender
+
+Alle Terminschaltflächen zeigen auf den Kalender von arzt-direkt (zollsoft
+GmbH), der mit der Praxisverwaltungssoftware verknüpft ist. Die Adresse steht an
+genau einer Stelle – in `layout.py` unter `TERMIN_URL`. Ändert sich der Link,
+genügt es, ihn dort zu ersetzen; alle Seiten übernehmen ihn beim nächsten
+Erzeugen. Ist das Feld leer, erscheint überall ein sichtbar markierter
+Platzhalter statt eines toten Links.
 - `kontakt.html`: Parkmöglichkeiten, nächstgelegene Haltestelle und Buslinien
   (die Barrierefreiheit ist von der Praxis bestätigt und eingetragen)
 - `praxis.html`: Werdegang und Zusatzbezeichnungen der Ärztin und des Arztes

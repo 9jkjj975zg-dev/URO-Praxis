@@ -185,6 +185,11 @@ strong { color: var(--c-heading); }
 .btn--light { background: #fff; color: var(--c-primary); }
 .btn--light:hover { background: var(--c-accent-soft); color: var(--c-primary-dark); }
 
+/* Platzhalter, solange in layout.py keine TERMIN_URL eingetragen ist –
+   sichtbar unfertig, damit nichts Halbfertiges unbemerkt online geht */
+.btn--offen { opacity: .75; cursor: not-allowed; }
+.btn--offen em { font-style: normal; font-size: .85em; opacity: .8; }
+
 .btn--outline-light { background: transparent; color: #fff; border-color: rgba(255,255,255,.65); }
 .btn--outline-light:hover { background: rgba(255,255,255,.14); color: #fff; border-color: #fff; }
 
