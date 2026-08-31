@@ -26,6 +26,7 @@ erreichbar.
 | Datei | Inhalt |
 |---|---|
 | `index.html` | Startseite mit Zielgruppen-Einstiegen, Leistungsübersicht, Sprechzeiten, FAQ |
+| `aktuelles.html` | Meldungen: Urlaub, Schließzeiten, gesetzliche Änderungen |
 | `praxis.html` | Praxis und Team, Arbeitsweise, Zusammenarbeit in der Region |
 | `leistungen.html` | Übersicht aller Leistungen und häufiger Behandlungsanlässe |
 | `leistung-vorsorge.html` | Krebsfrüherkennung, PSA, Vorsorge ab 45 |
@@ -60,6 +61,8 @@ Suchergebnissen und **müssen vor dem Livegang gegengeprüft werden**:
 - [ ] **Anschrift** Sophie-Scholl-Platz 4a, 63452 Hanau
 - [ ] **Namen und Titel** der Ärztin und des Arztes sowie deren Schwerpunkte
       (`praxis.html`, siehe `TODO`-Kommentare im Quelltext)
+- [ ] **Meldungen auf `aktuelles.html`** und der Text im **Hinweisbalken** –
+      derzeit Beispieltexte, siehe Abschnitt 5
 - [ ] Eine eventuelle **offene Akutsprechstunde** ist bewusst nicht aufgeführt,
       weil sie nicht verifiziert werden konnte. Falls es sie gibt, in
       `kontakt.html` und `index.html` ergänzen.
@@ -97,7 +100,51 @@ kommentiert und auf den Rechtsseiten sichtbar als **[bitte ergänzen]** markiert
 5. Die Seite anschließend in der Google Search Console eintragen und die
    `sitemap.xml` einreichen.
 
-## 5. Inhalte ändern
+## 5. Aktuelles pflegen
+
+Für Urlaubs- und Schließzeiten, geänderte Sprechzeiten oder Hinweise auf
+gesetzliche Neuerungen gibt es zwei zusammengehörige Stellen:
+
+**a) Der Hinweisbalken ganz oben** erscheint auf jeder Seite und nennt die
+eine wichtigste Meldung. Er ist in jeder HTML-Datei zwischen den Kommentaren
+`Hinweisbalken: Anfang` und `Hinweisbalken: Ende` zu finden:
+
+```html
+<div class="hinweisbalken">
+  <div class="wrap hinweisbalken__inner">
+    <span class="hinweisbalken__marke">Aktuell</span>
+    <p>Hier steht die Meldung.</p>
+    <a href="aktuelles.html">Alle Meldungen</a>
+  </div>
+</div>
+```
+
+- **Text ändern:** die Zeile zwischen `<p>` und `</p>` anpassen — in allen
+  HTML-Dateien, am schnellsten per „In allen Dateien suchen und ersetzen".
+- **Ausblenden:** wenn es gerade nichts zu melden gibt, den ganzen Block von
+  `Anfang` bis `Ende` löschen oder in einen HTML-Kommentar setzen.
+- **Farbe ändern:** die vier Werte `--c-hinweis-*` am Anfang von
+  `assets/css/style.css`. Dort ist eine blaugraue Alternative als Kommentar
+  hinterlegt, falls der Sandton nicht gefällt.
+
+**b) Die Seite `aktuelles.html`** enthält die vollständige Liste. Jede Meldung
+ist ein `<article class="meldung">`-Block zwischen den Kommentaren
+`Meldungen: Anfang` und `Meldungen: Ende`. Eine neue Meldung anlegen:
+
+1. Einen bestehenden `<article>`-Block vollständig kopieren und **oben**
+   einfügen — die neueste Meldung steht zuerst.
+2. Datum an zwei Stellen anpassen: in `datetime="2026-12-21"` (Format
+   Jahr-Monat-Tag, für Suchmaschinen) und im sichtbaren Text daneben.
+3. Kategorie (`meldung__art`), Überschrift und Text anpassen.
+4. Die wichtigste Meldung bekommt zusätzlich die Klasse `meldung--wichtig`
+   und wird dann farblich hervorgehoben. Diese Klasse sollte immer nur eine
+   Meldung tragen — und zur Meldung im Hinweisbalken passen.
+5. Überholte Meldungen einfach löschen.
+
+> Die vier Meldungen im Auslieferungszustand sind **Beispiele**. Bitte vor dem
+> Livegang durch echte Meldungen ersetzen oder löschen.
+
+## 6. Inhalte ändern
 
 Alle Seiten sind eigenständige HTML-Dateien und können mit jedem Texteditor
 bearbeitet werden. Zu beachten:
@@ -122,7 +169,7 @@ bearbeitet werden. Zu beachten:
   Navigation (in allen Dateien), in `leistungen.html` und in `sitemap.xml`
   ergänzen.
 
-## 6. Technische Eigenschaften
+## 7. Technische Eigenschaften
 
 - **Keine externen Ressourcen.** Es werden keine Schriftarten, Skripte, Karten
   oder Bilder von fremden Servern geladen. Dadurch sind kein Cookie-Banner und
@@ -141,7 +188,7 @@ bearbeitet werden. Zu beachten:
 - Die Seite funktioniert vollständig **auch ohne JavaScript**; JavaScript
   verbessert lediglich Klappmenü, Tageshervorhebung und Formularversand.
 
-## 7. Kontaktformular
+## 8. Kontaktformular
 
 Da es sich um eine rein statische Website ohne Server-Programm handelt, öffnet
 das Formular auf `kontakt.html` das E-Mail-Programm der Besucherin oder des
@@ -160,7 +207,7 @@ In diesem Fall müssen die Datenschutzerklärung ergänzt und – falls ein exte
 Dienstleister eingesetzt wird – ein Vertrag zur Auftragsverarbeitung
 geschlossen werden.
 
-## 8. Lokal ansehen
+## 9. Lokal ansehen
 
 Ein Doppelklick auf `index.html` genügt. Alternativ mit einem lokalen
 Webserver, was näher an der späteren Auslieferung ist:

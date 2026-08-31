@@ -28,6 +28,23 @@
 <body>
 <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
 
+<!-- ===================== Hinweisbalken: Anfang =========================
+     Kurze Meldung ganz oben, z. B. Urlaub oder geaenderte Sprechzeiten.
+
+     ÄNDERN:    Den Text zwischen <p> und </p> anpassen.
+     AUSBLENDEN: Diesen gesamten Block von "Anfang" bis "Ende" loeschen.
+     ACHTUNG:   Der Block steht in jeder HTML-Datei. Am schnellsten mit
+                "In allen Dateien suchen und ersetzen" im Editor aendern.
+     ==================================================================== -->
+<div class="hinweisbalken">
+  <div class="wrap hinweisbalken__inner">
+    <span class="hinweisbalken__marke">Aktuell</span>
+    <p>Unsere Praxis ist vom 21. Dezember 2026 bis 1. Januar 2027 geschlossen.</p>
+    <a href="aktuelles.html">Alle Meldungen</a>
+  </div>
+</div>
+<!-- ====================== Hinweisbalken: Ende ========================== -->
+
 <div class="topbar">
   <div class="wrap topbar__inner">
     <span class="topbar__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Sophie-Scholl-Platz 4a, 63452 Hanau</span>
@@ -54,6 +71,9 @@
 <ul class="nav__list">
 <li class="nav__item">
 <a class="nav__link" href="index.html">Startseite</a>
+</li>
+<li class="nav__item">
+<a class="nav__link" href="aktuelles.html">Aktuelles</a>
 </li>
 <li class="nav__item">
 <a class="nav__link" href="praxis.html">Praxis</a>
@@ -220,6 +240,7 @@
       <div>
         <h3>Service</h3>
         <ul>
+          <li><a href="aktuelles.html">Aktuelles</a></li>
           <li><a href="privatpatienten.html">Privatpatienten &amp; Beihilfe</a></li>
           <li><a href="praxis.html">Praxis &amp; Team</a></li>
           <li><a href="kontakt.html">Kontakt &amp; Anfahrt</a></li>
