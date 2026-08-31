@@ -37,6 +37,7 @@ erreichbar.
 | `leistung-ambulante-operationen.html` | Ambulante Operationen |
 | `leistung-kinderwunsch.html` | Kinderwunschberatung, Spermiogramm |
 | `privatpatienten.html` | Privatpatienten, Beihilfe, PBeaKK, KVB, Selbstzahler |
+| `selbstzahler-preise.html` | Preisliste der Selbstzahlerleistungen |
 | `kontakt.html` | Kontaktdaten, Sprechzeiten, Terminformular, Anfahrt, Bereitschaftsdienst |
 | `impressum.html` | Impressum nach § 5 DDG |
 | `datenschutz.html` | Datenschutzerklärung nach DSGVO |
@@ -61,6 +62,11 @@ Suchergebnissen und **müssen vor dem Livegang gegengeprüft werden**:
 - [ ] **Anschrift** Sophie-Scholl-Platz 4a, 63452 Hanau
 - [ ] **Namen und Titel** der Ärztin und des Arztes sowie deren Schwerpunkte
       (`praxis.html`, siehe `TODO`-Kommentare im Quelltext)
+- [ ] **Preise auf `selbstzahler-preise.html`** – in der Spalte „Preis" steht überall
+      `Betrag eintragen`. Diese Platzhalter durch die tatsächlichen Beträge ersetzen
+      und dabei die Auszeichnung `<span class="preis-offen">…</span>` entfernen, sodass
+      nur noch der Betrag im `<td class="preis-betrag">` steht. Außerdem den Stand der
+      Liste unten auf der Seite eintragen (`data-preisstand`).
 - [ ] **Markenfarben:** Das Logo verwendet Navy `#274088` und Grau `#666666`.
       Die Schaltflächen der Website liegen bei `#2f5fa8`. Wer beides exakt
       angleichen möchte, setzt `--c-accent` in `assets/css/style.css` auf
