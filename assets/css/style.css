@@ -145,6 +145,8 @@ strong { color: var(--c-heading); }
 }
 .skip-link:focus { left: 0; color: #fff; }
 
+.nb { white-space: nowrap; }
+
 .visually-hidden {
   position: absolute; width: 1px; height: 1px;
   padding: 0; margin: -1px; overflow: hidden;
@@ -422,7 +424,6 @@ strong { color: var(--c-heading); }
   gap: .15rem .75rem;
   font-variant-numeric: tabular-nums;
 }
-.hero__zeiten .nb { white-space: nowrap; }
 .hero__fact-value a:hover { text-decoration: underline; color: #fff; }
 
 /* Kompakter Seitenkopf fuer Unterseiten */
