@@ -1,0 +1,13 @@
+# Betriebssystem
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editoren
+.vscode/
+.idea/
+*.swp
+*~
+
+# Abhaengigkeiten und Build-Reste (auf dieser Seite nicht verwendet)
+node_modules/
