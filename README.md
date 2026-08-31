@@ -80,10 +80,8 @@ Suchergebnissen und **müssen vor dem Livegang gegengeprüft werden**:
 Alle Stellen, an denen noch Angaben fehlen, sind im Quelltext mit `TODO`
 kommentiert und auf den Rechtsseiten sichtbar als **[bitte ergänzen]** markiert:
 
-- `impressum.html`: Umsatzsteuer-Identifikationsnummer,
-  Berufshaftpflichtversicherung (Name, Anschrift, Geltungsbereich)
-- `datenschutz.html`: Datenschutzbeauftragte(r), Hosting-Anbieter,
-  Speicherdauer der Server-Logdateien, Stand der Erklärung
+- `datenschutz.html`: Hosting-Anbieter (steht erst fest, wenn entschieden ist,
+  wohin die Seite hochgeladen wird)
 - `kontakt.html`: Parkmöglichkeiten, nächstgelegene Haltestelle und Buslinien
   (die Barrierefreiheit ist von der Praxis bestätigt und eingetragen)
 - `praxis.html`: Werdegang und Zusatzbezeichnungen der Ärztin und des Arztes
