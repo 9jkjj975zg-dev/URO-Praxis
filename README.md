@@ -65,7 +65,6 @@ Suchergebnissen und **müssen vor dem Livegang gegengeprüft werden**:
       Die Schaltflächen der Website liegen bei `#2f5fa8`. Wer beides exakt
       angleichen möchte, setzt `--c-accent` in `assets/css/style.css` auf
       `#274088`.
-- [ ] **Patientenstimmen** auf der Startseite – drei Platzhalter, siehe unten
 - [ ] **Meldungen auf `aktuelles.html`** und der Text im **Hinweisbalken** –
       derzeit Beispieltexte, siehe Abschnitt 5
 - [ ] Eine eventuelle **offene Akutsprechstunde** ist bewusst nicht aufgeführt,
@@ -186,38 +185,30 @@ bearbeitet werden. Zu beachten:
 ## 7. Patientenstimmen
 
 Auf der Startseite steht unter der FAQ ein Abschnitt „Patientenstimmen" mit
-drei Karten. Diese Karten enthalten **Platzhalter, keine echten Zitate**.
+vier Karten. Sie enthalten **echte Bewertungen von Google**, gekürzt und in
+Rechtschreibung und Zeichensetzung geglättet, inhaltlich unverändert.
 
-**Vor der Veröffentlichung entweder ersetzen oder löschen.** Beides ist in
-`index.html` zwischen den Kommentaren `Patientenstimmen: Anfang` und
-`Patientenstimmen: Ende` zu finden.
+Zu finden in `index.html` zwischen den Kommentaren `Patientenstimmen: Anfang`
+und `Patientenstimmen: Ende`. Eine weitere Stimme aufnehmen: eine
+`<figure class="stimme">` kopieren, Zitat und Angabe in `<figcaption>`
+anpassen. Ab fünf Karten wird die letzte Zeile ungleichmäßig — dann besser
+eine ältere Stimme austauschen.
 
-Zum Ersetzen je Karte:
+**Was dabei zu beachten ist**
 
-1. Die Klasse `stimme--platzhalter` entfernen (aus `class="stimme
-   stimme--platzhalter"` wird `class="stimme"`).
-2. Den Text im `<blockquote>` durch die echte Rückmeldung ersetzen.
-3. In `<figcaption>` Vorname, Alter und Anlass eintragen.
-4. Zum Schluss den orangefarbenen Hinweiskasten darunter löschen — er ist nur
-   als Erinnerung gedacht.
-
-Wenn der Abschnitt nicht gebraucht wird: das gesamte `<section>`-Element von
-`<section class="section section--surface">` bis `</section>` entfernen.
-
-**Rechtlicher Rahmen.** Erfundene Bewertungen sind irreführende Werbung und
-abmahnfähig. Für echte Äußerungen gilt:
-
-- Es braucht eine **schriftliche Einwilligung** der Patientin oder des
-  Patienten zur Veröffentlichung; die Einwilligung ist jederzeit widerrufbar.
-- Dass jemand in Behandlung war, ist ein Gesundheitsdatum. Deshalb sind
-  **keine Nachnamen und keine Diagnosen** zu nennen; Vorname und Alter genügen.
-- Keine Heilungsversprechen und keine Aussagen, die einen Behandlungserfolg
-  in Aussicht stellen (§ 3 Heilmittelwerbegesetz).
-- Im Zweifel bei der Landesärztekammer Hessen nachfragen — die Auskunft ist
-  kostenlos.
-
-Eine Alternative ohne diesen Aufwand: auf bestehende Bewertungen bei Google
-oder jameda verlinken, statt Zitate selbst zu veröffentlichen.
+- **Nichts erfinden.** Erfundene Bewertungen sind irreführende Werbung und
+  abmahnfähig.
+- **Keine vollen Nachnamen, keine Diagnosen.** Dass jemand in Behandlung war,
+  ist ein Gesundheitsdatum. Vorname und Anfangsbuchstabe genügen.
+- **Keine Heilungsversprechen.** Aussagen, die einen Behandlungserfolg in
+  Aussicht stellen, sind nach § 3 Heilmittelwerbegesetz unzulässig — auch
+  dann, wenn ein Patient sie so geschrieben hat. Solche Sätze beim Übernehmen
+  weglassen.
+- **Herkunft nennen.** Die Unterzeile „Google-Bewertung" macht die Quelle
+  überprüfbar und die Aussage dadurch glaubwürdiger.
+- Bewertungstexte gehören urheberrechtlich ihren Verfassern. Kurze Zitate mit
+  Quellenangabe sind üblich; wer ganz sichergehen will, holt die Zustimmung
+  ein oder verlinkt stattdessen auf das Google-Profil.
 
 ## 8. Bilder einsetzen
 
