@@ -1,14 +1,6 @@
+<!-- Vorlaeufiges Browsersymbol. Wird durch das Praxislogo ersetzt, sobald es vorliegt. -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="12" fill="#ffffff"/>
-  <defs>
-    <mask id="rechRingKlein">
-      <rect width="64" height="64" fill="#000"/>
-      <circle cx="32" cy="32" r="24" fill="#fff"/>
-      <circle cx="28.5" cy="29.5" r="13.5" fill="#000"/>
-    </mask>
-  </defs>
-  <g mask="url(#rechRingKlein)">
-    <rect x="0"  y="0" width="31" height="64" fill="#868d96"/>
-    <rect x="31" y="0" width="33" height="64" fill="#2b3f77"/>
-  </g>
+  <rect width="64" height="64" rx="12" fill="#1b2c5c"/>
+  <text x="32" y="45" text-anchor="middle" fill="#ffffff"
+        font-family="Helvetica, Arial, sans-serif" font-size="38" font-weight="700">R</text>
 </svg>

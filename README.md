@@ -110,9 +110,13 @@ bearbeitet werden. Zu beachten:
   `assets/css/style.css` im Block `:root` und lassen sich dort zentral ändern.
   Das Farbthema ist Navy-Blau (`--c-primary: #1b2c5c`) mit hellem Grau
   (`--c-surface: #f2f4f7`), abgestimmt auf das Praxislogo.
-- **Logo:** `assets/img/logo.svg` ist derzeit ein Nachbau des Praxislogos.
-  Sobald die Originaldatei vorliegt, diese Datei ersetzen (am besten als SVG);
-  gleiches gilt für `assets/img/favicon.svg`.
+- **Logo:** Im Kopfbereich steht derzeit nur der Schriftzug. Sobald die
+  Originaldatei des Praxislogos vorliegt, sie als `assets/img/logo.svg`
+  ablegen und in **jeder** HTML-Datei im Kopfbereich das vorbereitete
+  Kommentarfeld im `<a class="brand">` durch
+  `<img class="brand__mark" src="assets/img/logo.svg" alt="" width="40" height="40">`
+  ersetzen. Außerdem ersetzen: `assets/img/favicon.svg` (Browsersymbol) sowie
+  die `og:image`-Angabe und der `logo`-Eintrag in den strukturierten Daten.
 - **Neue Leistungsseite:** eine bestehende `leistung-*.html` kopieren, Inhalt,
   `<title>`, `description` und `canonical` anpassen, anschließend in der
   Navigation (in allen Dateien), in `leistungen.html` und in `sitemap.xml`
