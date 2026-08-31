@@ -113,6 +113,8 @@
   });
 })();
 
+/* @vorschau-anfang – die folgenden Bloecke uebernimmt auch die Vorschau */
+
 /* ==========================================================================
    Nachtrag: seitlich scrollbare Patientenstimmen
    Das Scrollen selbst macht der Browser. Dieses Skript blendet nur die
@@ -154,3 +156,102 @@
   window.addEventListener("resize", knoepfeAktualisieren);
   knoepfeAktualisieren();
 })();
+
+/* ==========================================================================
+   Nachtrag: Erklaerbild zur Vasektomie
+   Alle vier Schritte stehen im HTML. Dieses Skript blendet jeweils einen
+   ein und schaltet Text, Zaehler und Punkte mit. Ohne JavaScript bleibt
+   Schritt 1 sichtbar; der Fliesstext der Seite beschreibt den Ablauf
+   ohnehin vollstaendig.
+   ========================================================================== */
+(function () {
+  "use strict";
+
+  var kasten = document.querySelector("[data-erklaer]");
+  if (!kasten) return;
+
+  var SCHRITTE = [
+    { titel: "Vorher",
+      text: "Die Spermien reifen im Hoden und im Nebenhoden. Über den Samenleiter gelangen " +
+            "sie beim Samenerguss nach außen. Er ist der einzige Weg – und genau hier setzt " +
+            "der Eingriff an." },
+    { titel: "Örtliche Betäubung und Zugang",
+      text: "Der Bereich wird örtlich betäubt. Über einen sehr kleinen Zugang am Hodensack " +
+            "wird der Samenleiter aufgesucht. Sie sind während des Eingriffs wach und " +
+            "ansprechbar." },
+    { titel: "Durchtrennen und Verschließen",
+      text: "Ein kurzes Stück des Samenleiters wird entfernt, die beiden Enden werden " +
+            "verschlossen und voneinander getrennt. Auf der Gegenseite geschieht dasselbe. " +
+            "Der Zugang ist so klein, dass meist keine Naht nötig ist." },
+    { titel: "Danach",
+      text: "Hoden und Hormonhaushalt arbeiten unverändert weiter, ebenso Erektion, " +
+            "Orgasmus und Samenerguss. Die Spermien werden weiterhin gebildet, gelangen " +
+            "aber nicht mehr in das Ejakulat und werden vom Körper abgebaut. Bis zwei " +
+            "Kontrolluntersuchungen das bestätigen, müssen Sie weiter verhüten." }
+  ];
+
+  var buehne     = kasten.querySelector(".erklaer__buehne");
+  var zaehler    = kasten.querySelector("[data-erklaer-zaehler]");
+  var titel      = kasten.querySelector("[data-erklaer-titel]");
+  var text       = kasten.querySelector("[data-erklaer-text]");
+  var punkteListe = kasten.querySelector("[data-erklaer-punkte]");
+  var knoepfe    = kasten.querySelectorAll("[data-erklaer-richtung]");
+  var phasen     = kasten.querySelectorAll("[data-phase]");
+
+  var aktuell = 0;
+
+  // Punkte zum direkten Anspringen erzeugen
+  SCHRITTE.forEach(function (schritt, i) {
+    var li = document.createElement("li");
+    var b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("aria-label", "Schritt " + (i + 1) + ": " + schritt.titel);
+    b.addEventListener("click", function () { zeige(i); });
+    li.appendChild(b);
+    punkteListe.appendChild(li);
+  });
+  var punkte = punkteListe.querySelectorAll("button");
+
+  function zeige(i) {
+    aktuell = Math.max(0, Math.min(SCHRITTE.length - 1, i));
+
+    phasen.forEach(function (g, n) {
+      var an = n === aktuell;
+      g.style.opacity = an ? "1" : "0";
+      // Unsichtbare Schritte duerfen keine Klicks abfangen
+      g.style.pointerEvents = an ? "" : "none";
+    });
+
+    zaehler.textContent = "Schritt " + (aktuell + 1) + " von " + SCHRITTE.length;
+    titel.textContent = SCHRITTE[aktuell].titel;
+    text.textContent = SCHRITTE[aktuell].text;
+
+    punkte.forEach(function (b, n) {
+      b.setAttribute("aria-current", n === aktuell ? "true" : "false");
+    });
+    knoepfe.forEach(function (b) {
+      var richtung = Number(b.dataset.erklaerRichtung);
+      b.disabled = richtung < 0 ? aktuell === 0 : aktuell === SCHRITTE.length - 1;
+    });
+  }
+
+  knoepfe.forEach(function (b) {
+    b.addEventListener("click", function () {
+      zeige(aktuell + Number(b.dataset.erklaerRichtung));
+    });
+  });
+
+  // Mit den Pfeiltasten blaettern, wenn die Buehne den Fokus hat
+  buehne.tabIndex = 0;
+  buehne.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight") { e.preventDefault(); zeige(aktuell + 1); }
+    if (e.key === "ArrowLeft")  { e.preventDefault(); zeige(aktuell - 1); }
+  });
+
+  // Alle Phasen uebereinanderlegen, damit die Buehne nicht springt
+  phasen.forEach(function (g) { g.style.transition = "opacity .35s ease"; });
+
+  zeige(0);
+})();
+
+/* @vorschau-ende */

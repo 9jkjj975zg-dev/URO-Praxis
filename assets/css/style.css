@@ -859,6 +859,45 @@ strong { color: var(--c-heading); }
 }
 
 /* --------------------------------------------------------------------------
+   16a2. Erklaerbild zur Vasektomie
+   -------------------------------------------------------------------------- */
+.erklaer {
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.erklaer__buehne {
+  background: var(--c-surface);
+  border-bottom: 1px solid var(--c-border);
+  padding: 1.25rem;
+}
+.erklaer__buehne svg { width: 100%; height: auto; display: block; max-width: 520px; margin-inline: auto; }
+
+.erklaer__text { padding: 1.5rem 1.75rem; }
+.erklaer__schritt { font-size: .78rem; font-weight: 700; letter-spacing: .09em;
+  text-transform: uppercase; color: var(--c-accent-dark); }
+.erklaer__titel { margin: .3rem 0 .5rem; font-size: 1.15rem; }
+.erklaer__beschreibung { margin: 0; color: var(--c-text-muted); min-height: 4.6em; }
+
+.erklaer__fuss {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; padding: 0 1.75rem 1.5rem;
+}
+.erklaer__punkte { display: flex; gap: .5rem; list-style: none; margin: 0; padding: 0; }
+.erklaer__punkte button {
+  width: 11px; height: 11px; padding: 0; border-radius: 50%;
+  border: 1px solid var(--c-border); background: #fff; cursor: pointer;
+}
+.erklaer__punkte button[aria-current="true"] { background: var(--c-accent); border-color: var(--c-accent); }
+.erklaer__knoepfe { display: flex; gap: .6rem; }
+
+/* Zeichnung: nur der jeweils aktive Schritt ist sichtbar */
+.erklaer [data-phase] { transition: opacity .35s ease; }
+@media (prefers-reduced-motion: reduce) { .erklaer [data-phase] { transition: none; } }
+
+/* --------------------------------------------------------------------------
    16b. Patientenstimmen
    -------------------------------------------------------------------------- */
 /* Waagerechte Leiste: auf dem Handy wischen, am Rechner ueber die Pfeile

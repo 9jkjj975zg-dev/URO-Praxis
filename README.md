@@ -248,7 +248,22 @@ liegt nicht im Projekt, ist aber in der Git-Historie erhalten.
 Achten Sie bei Fotos von Mitarbeitenden und Patientinnen und Patienten auf eine
 schriftliche Einwilligung zur Veröffentlichung.
 
-## 9. Technische Eigenschaften
+## 9. Erklärbild zur Vasektomie
+
+Auf `leistung-vasektomie.html` steht ein schematisches Erklärbild in vier
+Schritten. Alle vier Zeichnungen liegen als `<g data-phase="…">` im selben
+SVG übereinander; das Skript blendet jeweils eine ein. Die Texte zu den
+Schritten stehen **nicht** im HTML, sondern im Feld `SCHRITTE` in
+`assets/js/main.js` — dort werden sie auch geändert.
+
+Ohne JavaScript bleibt Schritt 1 sichtbar. Das ist bewusst so: Der Ablauf ist
+im Fließtext der Seite ohnehin vollständig beschrieben, das Bild ergänzt ihn
+nur.
+
+Bedienbar über die Pfeile, die Punkte darunter und mit den Pfeiltasten, sobald
+die Zeichnung den Fokus hat.
+
+## 10. Technische Eigenschaften
 
 - **Keine externen Ressourcen.** Es werden keine Schriftarten, Skripte, Karten
   oder Bilder von fremden Servern geladen. Dadurch sind kein Cookie-Banner und
@@ -267,7 +282,7 @@ schriftliche Einwilligung zur Veröffentlichung.
 - Die Seite funktioniert vollständig **auch ohne JavaScript**; JavaScript
   verbessert lediglich Klappmenü, Tageshervorhebung und Formularversand.
 
-## 10. Kontaktformular
+## 11. Kontaktformular
 
 Da es sich um eine rein statische Website ohne Server-Programm handelt, öffnet
 das Formular auf `kontakt.html` das E-Mail-Programm der Besucherin oder des
@@ -286,7 +301,7 @@ In diesem Fall müssen die Datenschutzerklärung ergänzt und – falls ein exte
 Dienstleister eingesetzt wird – ein Vertrag zur Auftragsverarbeitung
 geschlossen werden.
 
-## 11. Lokal ansehen
+## 12. Lokal ansehen
 
 Ein Doppelklick auf `index.html` genügt. Alternativ mit einem lokalen
 Webserver, was näher an der späteren Auslieferung ist:
