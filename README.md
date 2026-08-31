@@ -127,7 +127,12 @@ eine wichtigste Meldung. Er ist in jeder HTML-Datei zwischen den Kommentaren
   `assets/css/style.css`. Dort ist eine blaugraue Alternative als Kommentar
   hinterlegt, falls der Sandton nicht gefällt.
 
-**b) Die Seite `aktuelles.html`** enthält die vollständige Liste. Jede Meldung
+**b) Der Abschnitt „Aktuelles" auf der Startseite** zeigt die zwei neuesten
+Meldungen als Kurzfassung. Er steht in `index.html` und ist im Quelltext als
+`<p class="eyebrow">Aus der Praxis</p>` zu finden. Die Texte dort sind Kopien
+der ersten Absätze von `aktuelles.html` — beim Aktualisieren bitte mitziehen.
+
+**c) Die Seite `aktuelles.html`** enthält die vollständige Liste. Jede Meldung
 ist ein `<article class="meldung">`-Block zwischen den Kommentaren
 `Meldungen: Anfang` und `Meldungen: Ende`. Eine neue Meldung anlegen:
 
@@ -140,6 +145,10 @@ ist ein `<article class="meldung">`-Block zwischen den Kommentaren
    und wird dann farblich hervorgehoben. Diese Klasse sollte immer nur eine
    Meldung tragen — und zur Meldung im Hinweisbalken passen.
 5. Überholte Meldungen einfach löschen.
+
+**Kurz gesagt:** Eine neue Meldung berührt drei Stellen — den Hinweisbalken
+(in allen Dateien), den Abschnitt auf der Startseite und die Seite
+`aktuelles.html`.
 
 > Die vier Meldungen im Auslieferungszustand sind **Beispiele**. Bitte vor dem
 > Livegang durch echte Meldungen ersetzen oder löschen.
