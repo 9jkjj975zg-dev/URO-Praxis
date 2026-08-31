@@ -61,6 +61,10 @@ Suchergebnissen und **müssen vor dem Livegang gegengeprüft werden**:
 - [ ] **Anschrift** Sophie-Scholl-Platz 4a, 63452 Hanau
 - [ ] **Namen und Titel** der Ärztin und des Arztes sowie deren Schwerpunkte
       (`praxis.html`, siehe `TODO`-Kommentare im Quelltext)
+- [ ] **Markenfarben:** Das Logo verwendet Navy `#274088` und Grau `#666666`.
+      Die Schaltflächen der Website liegen bei `#2f5fa8`. Wer beides exakt
+      angleichen möchte, setzt `--c-accent` in `assets/css/style.css` auf
+      `#274088`.
 - [ ] **Teamfoto** – auf `praxis.html` und `index.html` ist der Platz
       reserviert; die Bilddatei fehlt noch (siehe Abschnitt „Bilder einsetzen")
 - [ ] **Meldungen auf `aktuelles.html`** und der Text im **Hinweisbalken** –
@@ -168,13 +172,12 @@ bearbeitet werden. Zu beachten:
   `assets/css/style.css` im Block `:root` und lassen sich dort zentral ändern.
   Das Farbthema ist Navy-Blau (`--c-primary: #22376c`) mit hellem Grau
   (`--c-surface: #f2f4f7`), abgestimmt auf das Praxislogo.
-- **Logo:** Im Kopfbereich steht derzeit nur der Schriftzug. Sobald die
-  Originaldatei des Praxislogos vorliegt, sie als `assets/img/logo.svg`
-  ablegen und in **jeder** HTML-Datei im Kopfbereich das vorbereitete
-  Kommentarfeld im `<a class="brand">` durch
-  `<img class="brand__mark" src="assets/img/logo.svg" alt="" width="40" height="40">`
-  ersetzen. Außerdem ersetzen: `assets/img/favicon.svg` (Browsersymbol) sowie
-  die `og:image`-Angabe und der `logo`-Eintrag in den strukturierten Daten.
+- **Logo:** `assets/img/logo.svg` enthält das Praxislogo, freigestellt aus der
+  Originaldatei der Praxis. Die unveränderte Vorlage liegt zur Sicherung unter
+  `assets/img/Rech_Vektor-original.svg` — sie enthält neben dem Logo weitere
+  Objekte auf einer großen Zeichenfläche und ist für die Website nicht
+  geeignet. `assets/img/favicon.svg` zeigt dasselbe Logo auf weißem Grund als
+  Browsersymbol.
 - **Neue Leistungsseite:** eine bestehende `leistung-*.html` kopieren, Inhalt,
   `<title>`, `description` und `canonical` anpassen, anschließend in der
   Navigation (in allen Dateien), in `leistungen.html` und in `sitemap.xml`
