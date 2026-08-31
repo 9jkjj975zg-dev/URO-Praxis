@@ -188,11 +188,16 @@ Auf der Startseite steht unter der FAQ ein Abschnitt „Patientenstimmen" mit
 vier Karten. Sie enthalten **echte Bewertungen von Google**, gekürzt und in
 Rechtschreibung und Zeichensetzung geglättet, inhaltlich unverändert.
 
+Die Karten stehen in einer **seitlich scrollbaren Leiste**: auf dem Handy
+wischen, am Rechner über die beiden Pfeile darunter, mit dem Mausrad oder mit
+den Pfeiltasten, sobald die Leiste angeklickt wurde. Die Pfeile blendet das
+Skript ein; ohne JavaScript bleibt die Leiste trotzdem scrollbar.
+
 Zu finden in `index.html` zwischen den Kommentaren `Patientenstimmen: Anfang`
 und `Patientenstimmen: Ende`. Eine weitere Stimme aufnehmen: eine
 `<figure class="stimme">` kopieren, Zitat und Angabe in `<figcaption>`
-anpassen. Ab fünf Karten wird die letzte Zeile ungleichmäßig — dann besser
-eine ältere Stimme austauschen.
+anpassen — die Anzahl spielt keine Rolle mehr, die Leiste wird einfach
+länger.
 
 **Was dabei zu beachten ist**
 

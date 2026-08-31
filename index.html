@@ -440,7 +440,8 @@
 
          Abschnitt entfernen: das ganze <section> loeschen.
          ============================================================== -->
-    <div class="stimmen">
+    <div class="stimmen" data-stimmen tabindex="0" role="group"
+         aria-label="Patientenstimmen – seitlich scrollbar">
 
       <figure class="stimme">
         <span class="stimme__marke" aria-hidden="true">„</span>
@@ -481,6 +482,19 @@
         <figcaption>Shingo · Google-Bewertung</figcaption>
       </figure>
 
+    </div>
+
+    <!-- Pfeile: bleiben ohne JavaScript ausgeblendet, gescrollt wird dann
+         mit dem Finger, dem Mausrad oder den Pfeiltasten. -->
+    <div class="stimmen-steuerung" data-stimmen-steuerung hidden>
+      <button class="stimmen-knopf" type="button" data-richtung="-1" aria-label="Vorherige Stimmen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <button class="stimmen-knopf" type="button" data-richtung="1" aria-label="Weitere Stimmen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
     </div>
     <!-- ================= Patientenstimmen: Ende ====================== -->
 

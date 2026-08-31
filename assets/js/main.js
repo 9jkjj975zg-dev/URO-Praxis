@@ -112,3 +112,45 @@
     el.textContent = String(new Date().getFullYear());
   });
 })();
+
+/* ==========================================================================
+   Nachtrag: seitlich scrollbare Patientenstimmen
+   Das Scrollen selbst macht der Browser. Dieses Skript blendet nur die
+   Pfeile ein und schaltet sie an den Enden ab.
+   ========================================================================== */
+(function () {
+  "use strict";
+
+  var bahn = document.querySelector("[data-stimmen]");
+  var steuerung = document.querySelector("[data-stimmen-steuerung]");
+  if (!bahn || !steuerung) return;
+
+  steuerung.hidden = false;
+
+  var zurueck = steuerung.querySelector('[data-richtung="-1"]');
+  var vor = steuerung.querySelector('[data-richtung="1"]');
+
+  function schrittweite() {
+    var karte = bahn.querySelector(".stimme");
+    return karte ? karte.getBoundingClientRect().width + 20 : bahn.clientWidth;
+  }
+
+  // Wegen des Innenabstands ruht die Leiste nicht exakt bei 0, daher Toleranz
+  var TOLERANZ = 8;
+
+  function knoepfeAktualisieren() {
+    var rest = bahn.scrollWidth - bahn.clientWidth - bahn.scrollLeft;
+    zurueck.disabled = bahn.scrollLeft <= TOLERANZ;
+    vor.disabled = rest <= TOLERANZ;
+  }
+
+  steuerung.addEventListener("click", function (e) {
+    var knopf = e.target.closest("button[data-richtung]");
+    if (!knopf) return;
+    bahn.scrollBy({ left: Number(knopf.dataset.richtung) * schrittweite() });
+  });
+
+  bahn.addEventListener("scroll", knoepfeAktualisieren, { passive: true });
+  window.addEventListener("resize", knoepfeAktualisieren);
+  knoepfeAktualisieren();
+})();
