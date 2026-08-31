@@ -168,14 +168,17 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
         <div>
           <span class="hero__fact-label">Sprechzeiten</span>
-          <span class="hero__fact-value">Mo, Di, Do 07:30–16:30 · Mi, Fr 07:30–13:00</span>
+          <span class="hero__fact-value hero__zeiten">
+            <span>Mo, Di, Do</span><span><span class="nb">07:30–13:00</span> und <span class="nb">14:00–16:30</span></span>
+            <span>Mi, Fr</span><span class="nb">07:30–13:00</span>
+          </span>
         </div>
       </div>
       <div class="hero__fact">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
         <div>
           <span class="hero__fact-label">Adresse</span>
-          <span class="hero__fact-value">Sophie-Scholl-Platz 4a, 63452 Hanau</span>
+          <span class="hero__fact-value">Sophie-Scholl-Platz 4a<br>63452 Hanau</span>
         </div>
       </div>
       <div class="hero__fact">
@@ -328,19 +331,17 @@
 
     <div>
       <!-- ==================== Teamfoto: Anfang =======================
-           EINSETZEN: Die Bilddatei als assets/img/team-rech.jpg ablegen,
-           dann den Block <div class="foto foto--platzhalter"> ... </div>
-           loeschen und stattdessen die auskommentierte Zeile darunter
-           verwenden (die beiden Kommentarzeichen entfernen).
+           AUSTAUSCHEN: neue Datei als assets/img/team-rech.jpg ablegen
+           (1200 Pixel breit) und als assets/img/team-rech@2x.jpg fuer
+           hochaufloesende Bildschirme (2000 Pixel breit). Bei anderen
+           Seitenverhaeltnissen width und height mit anpassen.
            ============================================================== -->
       <figure class="foto">
-        <div class="foto foto--platzhalter" style="border:0;box-shadow:none;border-radius:0">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></svg>
-          <strong>Hier kommt das Teamfoto</strong>
-          <span>Bilddatei als <code>assets/img/team-rech.jpg</code> ablegen</span>
-        </div>
-        <!-- <img src="assets/img/team-rech.jpg" width="2000" height="1430"
-             alt="Daniel Rech und Dr. med. Alessa Rech, Fachaerzte fuer Urologie"> -->
+        <img src="assets/img/team-rech.jpg"
+             srcset="assets/img/team-rech.jpg 1200w, assets/img/team-rech@2x.jpg 2000w"
+             sizes="(max-width: 980px) 100vw, 540px"
+             width="1200" height="867" loading="lazy" decoding="async"
+             alt="Daniel Rech und Dr. med. Alessa Rech, Fachärztin und Facharzt für Urologie">
         <figcaption>Dr. med. Alessa Rech und Daniel Rech, Fachärztin und Facharzt für Urologie</figcaption>
       </figure>
       <!-- ===================== Teamfoto: Ende ========================= -->

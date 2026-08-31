@@ -65,8 +65,6 @@ Suchergebnissen und **müssen vor dem Livegang gegengeprüft werden**:
       Die Schaltflächen der Website liegen bei `#2f5fa8`. Wer beides exakt
       angleichen möchte, setzt `--c-accent` in `assets/css/style.css` auf
       `#274088`.
-- [ ] **Teamfoto** – auf `praxis.html` und `index.html` ist der Platz
-      reserviert; die Bilddatei fehlt noch (siehe Abschnitt „Bilder einsetzen")
 - [ ] **Meldungen auf `aktuelles.html`** und der Text im **Hinweisbalken** –
       derzeit Beispieltexte, siehe Abschnitt 5
 - [ ] Eine eventuelle **offene Akutsprechstunde** ist bewusst nicht aufgeführt,
@@ -185,20 +183,24 @@ bearbeitet werden. Zu beachten:
 
 ## 7. Bilder einsetzen
 
-**Teamfoto.** Auf `praxis.html` (Abschnitt „Unser Team") und auf `index.html`
-(Abschnitt „Unsere Praxis") ist der Platz bereits reserviert. So setzen Sie das
-Bild ein:
+**Teamfoto.** Das Foto ist auf `praxis.html` (Abschnitt „Unser Team") und auf
+`index.html` (Abschnitt „Unsere Praxis") eingebunden. Es liegt in zwei Größen
+vor, damit Handys nicht unnötig viel laden:
 
-1. Die Bilddatei als `assets/img/team-rech.jpg` ablegen. Empfehlung: Breite
-   1600–2000 Pixel, als JPEG gespeichert, Dateigröße unter 400 KB. Größere
-   Dateien machen die Seite auf dem Handy unnötig langsam.
-2. In beiden Dateien den Block zwischen den Kommentaren `Teamfoto: Anfang`
-   und `Teamfoto: Ende` bearbeiten: das `<div class="foto foto--platzhalter">`
-   samt Inhalt löschen und bei der darunter stehenden `<img>`-Zeile die
-   Kommentarzeichen `<!--` und `-->` entfernen.
-3. Im `alt`-Attribut steht die Bildbeschreibung für blinde Nutzerinnen und
-   Nutzer sowie für Suchmaschinen — bitte stehen lassen und bei Bedarf
-   anpassen.
+| Datei | Größe | Verwendung |
+|---|---|---|
+| `assets/img/team-rech.jpg` | 1200 × 867 px, 76 KB | normale Bildschirme |
+| `assets/img/team-rech@2x.jpg` | 2000 × 1445 px, 161 KB | hochauflösende Bildschirme |
+
+Zum Austauschen beide Dateien in denselben Maßen ersetzen. Bei einem anderen
+Seitenverhältnis müssen in beiden HTML-Dateien zusätzlich `width` und `height`
+am `<img>`-Element angepasst werden, sonst springt das Layout beim Laden.
+
+Das `alt`-Attribut enthält die Bildbeschreibung für blinde Nutzerinnen und
+Nutzer sowie für Suchmaschinen — bitte stehen lassen und bei Bedarf anpassen.
+
+Die unbearbeitete Originaldatei aus dem Fotostudio (4257 × 3075 px, 7,9 MB)
+liegt nicht im Projekt, ist aber in der Git-Historie erhalten.
 
 **Weitere Bilder** (Porträts, Praxisräume) funktionieren nach demselben Muster.
 Achten Sie bei Fotos von Mitarbeitenden und Patientinnen und Patienten auf eine

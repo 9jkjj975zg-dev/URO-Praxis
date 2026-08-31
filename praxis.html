@@ -120,19 +120,17 @@
     </div>
 
       <!-- ==================== Teamfoto: Anfang =======================
-           EINSETZEN: Die Bilddatei als assets/img/team-rech.jpg ablegen,
-           dann den Block <div class="foto foto--platzhalter"> ... </div>
-           loeschen und stattdessen die auskommentierte Zeile darunter
-           verwenden (die beiden Kommentarzeichen entfernen).
+           AUSTAUSCHEN: neue Datei als assets/img/team-rech.jpg ablegen
+           (1200 Pixel breit) und als assets/img/team-rech@2x.jpg fuer
+           hochaufloesende Bildschirme (2000 Pixel breit). Bei anderen
+           Seitenverhaeltnissen width und height mit anpassen.
            ============================================================== -->
-      <figure class="foto">
-        <div class="foto foto--platzhalter" style="border:0;box-shadow:none;border-radius:0">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></svg>
-          <strong>Hier kommt das Teamfoto</strong>
-          <span>Bilddatei als <code>assets/img/team-rech.jpg</code> ablegen</span>
-        </div>
-        <!-- <img src="assets/img/team-rech.jpg" width="2000" height="1430"
-             alt="Daniel Rech und Dr. med. Alessa Rech, Fachaerzte fuer Urologie"> -->
+      <figure class="foto foto--breit">
+        <img src="assets/img/team-rech.jpg"
+             srcset="assets/img/team-rech.jpg 1200w, assets/img/team-rech@2x.jpg 2000w"
+             sizes="(max-width: 900px) 100vw, 820px"
+             width="1200" height="867"
+             alt="Daniel Rech und Dr. med. Alessa Rech, Fachärztin und Facharzt für Urologie">
         <figcaption>Dr. med. Alessa Rech und Daniel Rech, Fachärztin und Facharzt für Urologie</figcaption>
       </figure>
       <!-- ===================== Teamfoto: Ende ========================= -->

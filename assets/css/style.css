@@ -403,9 +403,26 @@ strong { color: var(--c-heading); }
 }
 .hero__fact { display: flex; gap: .8rem; align-items: flex-start; }
 .hero__fact svg { flex: none; width: 22px; height: 22px; color: #7e9ad4; margin-top: .25rem; }
-.hero__fact-label { font-size: .78rem; text-transform: uppercase; letter-spacing: .09em; color: #94a2be; }
+.hero__fact-label {
+  display: block;
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  color: #94a2be;
+  margin-bottom: .15rem;
+}
 .hero__fact-value { color: #fff; font-weight: 600; }
 .hero__fact-value a { color: #fff; text-decoration: none; }
+
+/* Sprechzeiten im Kopfbereich: Tage und Zeiten spaltenweise ausgerichtet */
+.hero__zeiten {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: start;
+  gap: .15rem .75rem;
+  font-variant-numeric: tabular-nums;
+}
+.hero__zeiten .nb { white-space: nowrap; }
 .hero__fact-value a:hover { text-decoration: underline; color: #fff; }
 
 /* Kompakter Seitenkopf fuer Unterseiten */
@@ -545,6 +562,8 @@ strong { color: var(--c-heading); }
   box-shadow: var(--shadow-sm);
 }
 .foto img { width: 100%; height: auto; display: block; }
+.foto--breit { max-width: 820px; margin-inline: auto; }
+
 .foto figcaption {
   padding: .9rem 1.3rem;
   font-size: .9rem;
