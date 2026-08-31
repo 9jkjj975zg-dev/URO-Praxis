@@ -204,6 +204,8 @@ strong { color: var(--c-heading); }
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
+  text-align: center;
   gap: .45rem 1rem;
   padding: .7rem 0;
 }
@@ -230,8 +232,9 @@ strong { color: var(--c-heading); }
 .topbar__inner {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 1.5rem;
+  justify-content: center;
+  text-align: center;
+  gap: .4rem 1.75rem;
   padding: .5rem 0;
 }
 .topbar a { color: #fff; text-decoration: none; display: inline-flex; align-items: center; gap: .4rem; }
