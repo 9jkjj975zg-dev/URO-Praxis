@@ -65,6 +65,7 @@ Suchergebnissen und **müssen vor dem Livegang gegengeprüft werden**:
       Die Schaltflächen der Website liegen bei `#2f5fa8`. Wer beides exakt
       angleichen möchte, setzt `--c-accent` in `assets/css/style.css` auf
       `#274088`.
+- [ ] **Patientenstimmen** auf der Startseite – drei Platzhalter, siehe unten
 - [ ] **Meldungen auf `aktuelles.html`** und der Text im **Hinweisbalken** –
       derzeit Beispieltexte, siehe Abschnitt 5
 - [ ] Eine eventuelle **offene Akutsprechstunde** ist bewusst nicht aufgeführt,
@@ -181,7 +182,43 @@ bearbeitet werden. Zu beachten:
   Navigation (in allen Dateien), in `leistungen.html` und in `sitemap.xml`
   ergänzen.
 
-## 7. Bilder einsetzen
+## 7. Patientenstimmen
+
+Auf der Startseite steht unter der FAQ ein Abschnitt „Patientenstimmen" mit
+drei Karten. Diese Karten enthalten **Platzhalter, keine echten Zitate**.
+
+**Vor der Veröffentlichung entweder ersetzen oder löschen.** Beides ist in
+`index.html` zwischen den Kommentaren `Patientenstimmen: Anfang` und
+`Patientenstimmen: Ende` zu finden.
+
+Zum Ersetzen je Karte:
+
+1. Die Klasse `stimme--platzhalter` entfernen (aus `class="stimme
+   stimme--platzhalter"` wird `class="stimme"`).
+2. Den Text im `<blockquote>` durch die echte Rückmeldung ersetzen.
+3. In `<figcaption>` Vorname, Alter und Anlass eintragen.
+4. Zum Schluss den orangefarbenen Hinweiskasten darunter löschen — er ist nur
+   als Erinnerung gedacht.
+
+Wenn der Abschnitt nicht gebraucht wird: das gesamte `<section>`-Element von
+`<section class="section section--surface">` bis `</section>` entfernen.
+
+**Rechtlicher Rahmen.** Erfundene Bewertungen sind irreführende Werbung und
+abmahnfähig. Für echte Äußerungen gilt:
+
+- Es braucht eine **schriftliche Einwilligung** der Patientin oder des
+  Patienten zur Veröffentlichung; die Einwilligung ist jederzeit widerrufbar.
+- Dass jemand in Behandlung war, ist ein Gesundheitsdatum. Deshalb sind
+  **keine Nachnamen und keine Diagnosen** zu nennen; Vorname und Alter genügen.
+- Keine Heilungsversprechen und keine Aussagen, die einen Behandlungserfolg
+  in Aussicht stellen (§ 3 Heilmittelwerbegesetz).
+- Im Zweifel bei der Landesärztekammer Hessen nachfragen — die Auskunft ist
+  kostenlos.
+
+Eine Alternative ohne diesen Aufwand: auf bestehende Bewertungen bei Google
+oder jameda verlinken, statt Zitate selbst zu veröffentlichen.
+
+## 8. Bilder einsetzen
 
 **Teamfoto.** Das Foto ist auf `praxis.html` (Abschnitt „Unser Team") und auf
 `index.html` (Abschnitt „Unsere Praxis") eingebunden. Es liegt in zwei Größen
@@ -206,7 +243,7 @@ liegt nicht im Projekt, ist aber in der Git-Historie erhalten.
 Achten Sie bei Fotos von Mitarbeitenden und Patientinnen und Patienten auf eine
 schriftliche Einwilligung zur Veröffentlichung.
 
-## 8. Technische Eigenschaften
+## 9. Technische Eigenschaften
 
 - **Keine externen Ressourcen.** Es werden keine Schriftarten, Skripte, Karten
   oder Bilder von fremden Servern geladen. Dadurch sind kein Cookie-Banner und
@@ -225,7 +262,7 @@ schriftliche Einwilligung zur Veröffentlichung.
 - Die Seite funktioniert vollständig **auch ohne JavaScript**; JavaScript
   verbessert lediglich Klappmenü, Tageshervorhebung und Formularversand.
 
-## 9. Kontaktformular
+## 10. Kontaktformular
 
 Da es sich um eine rein statische Website ohne Server-Programm handelt, öffnet
 das Formular auf `kontakt.html` das E-Mail-Programm der Besucherin oder des
@@ -244,7 +281,7 @@ In diesem Fall müssen die Datenschutzerklärung ergänzt und – falls ein exte
 Dienstleister eingesetzt wird – ein Vertrag zur Auftragsverarbeitung
 geschlossen werden.
 
-## 10. Lokal ansehen
+## 11. Lokal ansehen
 
 Ein Doppelklick auf `index.html` genügt. Alternativ mit einem lokalen
 Webserver, was näher an der späteren Auslieferung ist:

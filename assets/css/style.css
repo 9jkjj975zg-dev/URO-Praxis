@@ -404,6 +404,11 @@ strong { color: var(--c-heading); }
   border-top: 1px solid rgba(255,255,255,.2);
 }
 .hero__fact { display: flex; gap: .8rem; align-items: flex-start; }
+
+@media (min-width: 900px) {
+  /* Die Sprechzeiten sind die laengste Angabe und bekommen mehr Platz */
+  .hero__facts { grid-template-columns: 1.6fr 1fr 1fr; }
+}
 .hero__fact svg { flex: none; width: 22px; height: 22px; color: #7e9ad4; margin-top: .25rem; }
 .hero__fact-label {
   display: block;
@@ -795,6 +800,47 @@ strong { color: var(--c-heading); }
   background: var(--c-hinweis-marke);
   color: #fff;
 }
+
+/* --------------------------------------------------------------------------
+   16b. Patientenstimmen
+   -------------------------------------------------------------------------- */
+.stimmen {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+}
+
+.stimme {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
+}
+.stimme__marke {
+  display: block;
+  font-size: 2.6rem;
+  line-height: .8;
+  color: var(--c-surface-2);
+  font-weight: 700;
+  margin-bottom: .4rem;
+}
+.stimme blockquote { margin: 0 0 1.25rem; }
+.stimme blockquote p { margin: 0; line-height: 1.65; }
+.stimme figcaption {
+  margin-top: auto;
+  padding-top: .9rem;
+  border-top: 1px solid var(--c-border);
+  color: var(--c-text-muted);
+  font-size: .9rem;
+}
+.stimme--platzhalter { border-style: dashed; border-color: var(--c-hinweis-rand); background: var(--c-hinweis-bg); }
+.stimme--platzhalter blockquote p { color: var(--c-hinweis-text); font-style: italic; }
+.stimme--platzhalter .stimme__marke { color: var(--c-hinweis-rand); }
+.stimme--platzhalter figcaption { border-top-color: var(--c-hinweis-rand); color: var(--c-hinweis-text); }
 
 /* --------------------------------------------------------------------------
    17. Druck & Bewegungsreduktion
