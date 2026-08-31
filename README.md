@@ -61,6 +61,8 @@ Suchergebnissen und **müssen vor dem Livegang gegengeprüft werden**:
 - [ ] **Anschrift** Sophie-Scholl-Platz 4a, 63452 Hanau
 - [ ] **Namen und Titel** der Ärztin und des Arztes sowie deren Schwerpunkte
       (`praxis.html`, siehe `TODO`-Kommentare im Quelltext)
+- [ ] **Teamfoto** – auf `praxis.html` und `index.html` ist der Platz
+      reserviert; die Bilddatei fehlt noch (siehe Abschnitt „Bilder einsetzen")
 - [ ] **Meldungen auf `aktuelles.html`** und der Text im **Hinweisbalken** –
       derzeit Beispieltexte, siehe Abschnitt 5
 - [ ] Eine eventuelle **offene Akutsprechstunde** ist bewusst nicht aufgeführt,
@@ -178,7 +180,28 @@ bearbeitet werden. Zu beachten:
   Navigation (in allen Dateien), in `leistungen.html` und in `sitemap.xml`
   ergänzen.
 
-## 7. Technische Eigenschaften
+## 7. Bilder einsetzen
+
+**Teamfoto.** Auf `praxis.html` (Abschnitt „Unser Team") und auf `index.html`
+(Abschnitt „Unsere Praxis") ist der Platz bereits reserviert. So setzen Sie das
+Bild ein:
+
+1. Die Bilddatei als `assets/img/team-rech.jpg` ablegen. Empfehlung: Breite
+   1600–2000 Pixel, als JPEG gespeichert, Dateigröße unter 400 KB. Größere
+   Dateien machen die Seite auf dem Handy unnötig langsam.
+2. In beiden Dateien den Block zwischen den Kommentaren `Teamfoto: Anfang`
+   und `Teamfoto: Ende` bearbeiten: das `<div class="foto foto--platzhalter">`
+   samt Inhalt löschen und bei der darunter stehenden `<img>`-Zeile die
+   Kommentarzeichen `<!--` und `-->` entfernen.
+3. Im `alt`-Attribut steht die Bildbeschreibung für blinde Nutzerinnen und
+   Nutzer sowie für Suchmaschinen — bitte stehen lassen und bei Bedarf
+   anpassen.
+
+**Weitere Bilder** (Porträts, Praxisräume) funktionieren nach demselben Muster.
+Achten Sie bei Fotos von Mitarbeitenden und Patientinnen und Patienten auf eine
+schriftliche Einwilligung zur Veröffentlichung.
+
+## 8. Technische Eigenschaften
 
 - **Keine externen Ressourcen.** Es werden keine Schriftarten, Skripte, Karten
   oder Bilder von fremden Servern geladen. Dadurch sind kein Cookie-Banner und
@@ -197,7 +220,7 @@ bearbeitet werden. Zu beachten:
 - Die Seite funktioniert vollständig **auch ohne JavaScript**; JavaScript
   verbessert lediglich Klappmenü, Tageshervorhebung und Formularversand.
 
-## 8. Kontaktformular
+## 9. Kontaktformular
 
 Da es sich um eine rein statische Website ohne Server-Programm handelt, öffnet
 das Formular auf `kontakt.html` das E-Mail-Programm der Besucherin oder des
@@ -216,7 +239,7 @@ In diesem Fall müssen die Datenschutzerklärung ergänzt und – falls ein exte
 Dienstleister eingesetzt wird – ein Vertrag zur Auftragsverarbeitung
 geschlossen werden.
 
-## 9. Lokal ansehen
+## 10. Lokal ansehen
 
 Ein Doppelklick auf `index.html` genügt. Alternativ mit einem lokalen
 Webserver, was näher an der späteren Auslieferung ist:
