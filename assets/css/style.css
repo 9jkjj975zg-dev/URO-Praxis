@@ -451,14 +451,14 @@ strong { color: var(--c-heading); }
 .card__more::after { content: " →"; }
 
 .card__icon {
-  width: 48px; height: 48px;
+  width: 52px; height: 52px;
   border-radius: 12px;
   background: var(--c-accent-soft);
   color: var(--c-primary);
   display: grid; place-items: center;
   margin-bottom: 1rem;
 }
-.card__icon svg { width: 24px; height: 24px; }
+.card__icon svg { width: 28px; height: 28px; }
 
 /* --------------------------------------------------------------------------
    8. Sprechzeiten-Tabelle
