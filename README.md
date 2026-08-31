@@ -80,6 +80,7 @@ kommentiert und auf den Rechtsseiten sichtbar als **[bitte ergänzen]** markiert
 - `datenschutz.html`: Datenschutzbeauftragte(r), Hosting-Anbieter,
   Speicherdauer der Server-Logdateien, Stand der Erklärung
 - `kontakt.html`: Parkmöglichkeiten, nächstgelegene Haltestelle und Buslinien
+  (die Barrierefreiheit ist von der Praxis bestätigt und eingetragen)
 - `praxis.html`: Werdegang und Zusatzbezeichnungen der Ärztin und des Arztes
 
 > **Hinweis:** Impressum und Datenschutzerklärung sind sorgfältig erstellte
