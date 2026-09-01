@@ -480,8 +480,6 @@ strong { color: var(--c-heading); }
    6. Hero
    -------------------------------------------------------------------------- */
 .hero {
-  position: relative;
-  overflow: hidden;
   background:
     radial-gradient(1000px 520px at 82% -10%, rgba(72,116,190,.34), transparent 62%),
     linear-gradient(160deg, var(--c-primary) 0%, var(--c-primary-dark) 100%);
@@ -490,21 +488,27 @@ strong { color: var(--c-heading); }
 }
 .hero .eyebrow { color: #93aade; }   /* auf dunklem Grund aufhellen */
 .hero h1 { color: #fff; }
-.hero > .wrap { position: relative; z-index: 1; }
 
-/* Wasserzeichen: Logo-Symbol schwach durchscheinend im Hintergrund,
-   rein dekorativ und ohne Einfluss auf die Bedienung der Seite. */
-.hero__wasserzeichen {
+/* Wasserzeichen: Logo-Symbol schwach durchscheinend im Hintergrund, liegt in
+   main statt in der Hero-Sektion und bleibt so auch beim Weiterscrollen
+   sichtbar. mix-blend-mode sorgt dafuer, dass es sowohl auf dem dunklen
+   Hero als auch auf den hellen Abschnitten darunter erkennbar bleibt.
+   Rein dekorativ und ohne Einfluss auf die Bedienung der Seite. */
+#inhalt { position: relative; overflow-x: hidden; }
+.seiten__wasserzeichen {
   position: absolute;
-  top: 50%;
-  right: -6%;
-  transform: translateY(-50%);
-  width: min(60vw, 640px);
+  top: 480px;
+  right: -4%;
+  width: min(58vw, 620px);
   height: auto;
-  fill: #fff;
-  opacity: .08;
+  fill: var(--c-primary);
+  opacity: .5;
+  mix-blend-mode: multiply;
   pointer-events: none;
   z-index: 0;
+}
+@media (max-width: 900px) {
+  .seiten__wasserzeichen { top: 620px; width: min(80vw, 420px); }
 }
 /* Zweizeilige Hauptueberschrift: der Ort steht gross, die Haltung darunter
    kleiner. Beides bleibt eine einzige h1 – fuer Suchmaschinen und fuer
