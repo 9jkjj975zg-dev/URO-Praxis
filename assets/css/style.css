@@ -118,7 +118,9 @@ img, svg { max-width: 100%; height: auto; display: block; }
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-weight: 600;
+  /* Jost ist variabel – 550 liegt zwischen halbfett und fett und ist eine
+     gueltige Angabe, keine Naeherung. */
+  font-weight: 550;
   font-synthesis: none;
   color: var(--c-heading);
   line-height: 1.2;
@@ -343,7 +345,7 @@ strong { color: var(--c-heading); }
   .brand__teil { animation: none; }
 }
 .brand__text { display: flex; flex-direction: column; line-height: 1.18; }
-.brand__name { font-family: var(--font-display); font-weight: 600; font-synthesis: none;
+.brand__name { font-family: var(--font-display); font-weight: 550; font-synthesis: none;
                color: var(--c-heading); font-size: 1.1rem; letter-spacing: .005em; }
 .brand__sub { font-size: .78rem; color: var(--c-text-muted); letter-spacing: .04em; text-transform: uppercase; }
 
@@ -480,8 +482,8 @@ strong { color: var(--c-heading); }
 
 .hero__titel-zusatz {
   display: block;
-  margin-top: .6rem;
-  font-size: .44em;
+  margin-top: .65rem;
+  font-size: .53em;
   font-weight: 400;
   line-height: 1.35;
   letter-spacing: .01em;
@@ -489,7 +491,7 @@ strong { color: var(--c-heading); }
 }
 
 @media (max-width: 640px) {
-  .hero__titel-zusatz { font-size: .52em; }
+  .hero__titel-zusatz { font-size: .58em; }
 }
 
 .hero__lead { font-size: 1.2rem; color: #c8d2e4; margin-bottom: 2rem; }
