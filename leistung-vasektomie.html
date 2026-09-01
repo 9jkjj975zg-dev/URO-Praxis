@@ -239,10 +239,16 @@
           <path class="schema__leiter" d="M198 202C212 176 220 148 240 126 254 110 266 100 280 96"/>
           <path class="schema__leiter" d="M362 202C348 176 340 148 320 126 306 110 294 100 280 96"/>
 
-          <!-- Schritt 1: das Stück, das entnommen wird -->
-          <g class="schema__stueck">
+          <!-- Schritt 1 und 2: das entnommene Stück, erst in situ, dann zur Seite gelegt -->
+          <g class="schema__probe schema__probe--links">
             <path class="schema__leiter" d="M178 240C186 226 190 214 198 202"/>
+          </g>
+          <g class="schema__probe schema__probe--rechts">
             <path class="schema__leiter" d="M382 240C374 226 370 214 362 202"/>
+          </g>
+          <g class="schema__probenschild">
+            <text class="schema__mini" x="280" y="258" text-anchor="middle">zur feingeweblichen</text>
+            <text class="schema__mini" x="280" y="276" text-anchor="middle">Untersuchung</text>
           </g>
 
           <!-- Schritt 3: die Enden sind abgebunden -->

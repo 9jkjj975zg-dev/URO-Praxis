@@ -1274,11 +1274,33 @@ strong { color: var(--c-heading); }
    sehen; kommt die Grafik ins Bild, laeuft die Folge einmal ab.
    Zeitachse bei 11 s: 1. Schritt bis 2,6 s, 2. bis 5,4 s, 3. bis 8,2 s,
    danach bleibt der 4. stehen.                                              */
-.schema__stueck,
+.schema__probe,
+.schema__probenschild,
 .schema__knoten,
 .schema__s1, .schema__s2, .schema__s3 { opacity: 0; }
 
-.schema--laeuft .schema__stueck { animation: schema-p1 11s linear both; }
+/* Das entnommene Stueck liegt zunaechst im Samenleiter und wandert beim
+   zweiten Schritt in die Mitte, wo die Beschriftung dazu steht.            */
+.schema__probe { transform-box: fill-box; transform-origin: 50% 50%; }
+.schema--laeuft .schema__probe--links {
+  animation: schema-probe-links 11s ease-in-out both;
+}
+.schema--laeuft .schema__probe--rechts {
+  animation: schema-probe-rechts 11s ease-in-out both;
+}
+.schema--laeuft .schema__probenschild { animation: schema-p2 11s linear both; }
+
+@keyframes schema-probe-links {
+  0%, 23.6%   { opacity: 1; transform: none }
+  33%, 49.1%  { opacity: 1; transform: translate(74px, -2px) rotate(-14deg) }
+  52.7%, 100% { opacity: 0; transform: translate(74px, -2px) rotate(-14deg) }
+}
+@keyframes schema-probe-rechts {
+  0%, 23.6%   { opacity: 1; transform: none }
+  33%, 49.1%  { opacity: 1; transform: translate(-74px, -2px) rotate(14deg) }
+  52.7%, 100% { opacity: 0; transform: translate(-74px, -2px) rotate(14deg) }
+}
+
 .schema--laeuft .schema__knoten { animation: schema-p3 11s linear both; }
 .schema--laeuft .schema__knick  { animation: schema-p4 11s linear both; }
 .schema--laeuft ~ .schema__schritt .schema__s1 { animation: schema-p1 11s linear both; }
@@ -1323,7 +1345,9 @@ strong { color: var(--c-heading); }
 .schema__wieder:hover { color: var(--c-accent); border-color: var(--c-accent); }
 
 @media (prefers-reduced-motion: reduce) {
-  .schema--laeuft .schema__stueck,
+  .schema--laeuft .schema__probe--links,
+  .schema--laeuft .schema__probe--rechts,
+  .schema--laeuft .schema__probenschild,
   .schema--laeuft .schema__knoten,
   .schema--laeuft .schema__knick,
   .schema--laeuft ~ .schema__schritt > span { animation: none; }
