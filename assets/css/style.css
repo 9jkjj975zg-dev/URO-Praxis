@@ -1,3 +1,39 @@
+/* --------------------------------------------------------------------------
+   0. Schriftart fuer Ueberschriften: Didact Gothic
+   Die Dateien liegen unter assets/fonts/ auf dem eigenen Server. Sie werden
+   bewusst NICHT von Google nachgeladen: sonst ginge bei jedem Seitenaufruf
+   die IP-Adresse der Besucher an einen Dritten, und die Seite braeuchte eine
+   Einwilligung.
+
+   Didact Gothic steht unter der SIL Open Font License 1.1 (Daniel Johnson),
+   siehe assets/fonts/LIESMICH.txt.
+
+   Wichtig: Die Schrift gibt es nur in einem Schnitt (normal, 400). Deshalb
+   stehen alle Ueberschriften auf 400 und font-synthesis ist abgeschaltet –
+   sonst wuerde der Browser eine Fettschrift errechnen, die bei einer
+   geometrischen Schrift unsauber aussieht.
+   -------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Didact Gothic";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/didact-gothic-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Didact Gothic";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/didact-gothic-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+                 U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF,
+                 U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
 /* ==========================================================================
    Urologische Gemeinschaftspraxis Rech — Stylesheet
    Eine einzige CSS-Datei fuer die gesamte Website.
@@ -37,6 +73,9 @@
   --c-hinweis-marke:  #b07c2c;
 
   /* Typografie */
+  /* Ueberschriften geometrisch, Fliesstext in der Systemschrift: die
+     geometrischen Formen sind auf langen Strecken anstrengender zu lesen. */
+  --font-display: "Didact Gothic", "Century Gothic", "Questrial", var(--font-base);
   --font-base: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
                "Noto Sans", Arial, sans-serif;
   --fs-base: 1.0625rem;   /* 17px */
@@ -79,16 +118,21 @@ body {
 img, svg { max-width: 100%; height: auto; display: block; }
 
 h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-synthesis: none;
   color: var(--c-heading);
-  line-height: 1.25;
+  line-height: 1.22;
   margin: 0 0 .6em;
-  font-weight: 700;
-  letter-spacing: -.01em;
+  letter-spacing: 0;
+  /* Didact Gothic setzt die Wortabstaende sehr weit – leicht zusammenziehen,
+     sonst reissen Ueberschriften wie "Was die Krankenkasse zahlt" auf. */
+  word-spacing: -.05em;
 }
-h1 { font-size: clamp(1.9rem, 1.3rem + 2.4vw, 2.9rem); }
-h2 { font-size: clamp(1.5rem, 1.15rem + 1.5vw, 2.1rem); }
-h3 { font-size: clamp(1.15rem, 1.05rem + .5vw, 1.35rem); }
-h4 { font-size: 1.05rem; }
+h1 { font-size: clamp(2rem, 1.35rem + 2.6vw, 3.05rem); }
+h2 { font-size: clamp(1.55rem, 1.18rem + 1.6vw, 2.2rem); }
+h3 { font-size: clamp(1.2rem, 1.08rem + .55vw, 1.42rem); }
+h4 { font-size: 1.1rem; }
 
 p, ul, ol, dl, table { margin: 0 0 1.15rem; }
 ul, ol { padding-left: 1.35rem; }
@@ -303,7 +347,9 @@ strong { color: var(--c-heading); }
   .brand__teil { animation: none; }
 }
 .brand__text { display: flex; flex-direction: column; line-height: 1.18; }
-.brand__name { font-weight: 700; color: var(--c-heading); font-size: 1.08rem; letter-spacing: -.01em; }
+.brand__name { font-family: var(--font-display); font-weight: 400; font-synthesis: none;
+               color: var(--c-heading); font-size: 1.12rem; letter-spacing: .005em;
+               word-spacing: -.05em; }
 .brand__sub { font-size: .78rem; color: var(--c-text-muted); letter-spacing: .04em; text-transform: uppercase; }
 
 .nav-toggle {
@@ -439,12 +485,13 @@ strong { color: var(--c-heading); }
 
 .hero__titel-zusatz {
   display: block;
-  margin-top: .55rem;
-  font-size: .46em;
-  font-weight: 500;
+  margin-top: .6rem;
+  font-size: .44em;
+  font-weight: 400;
   line-height: 1.35;
-  letter-spacing: .005em;
-  color: rgba(255, 255, 255, .82);
+  letter-spacing: .01em;
+  word-spacing: normal;   /* die Engfuehrung der Ueberschrift hier zuruecknehmen */
+  color: rgba(255, 255, 255, .88);
 }
 
 @media (max-width: 640px) {

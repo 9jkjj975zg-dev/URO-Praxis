@@ -84,6 +84,20 @@ kommentiert und auf den Rechtsseiten sichtbar als **[bitte ergänzen]** markiert
   wohin die Seite hochgeladen wird) sowie der Link auf die Datenschutzerklärung
   von arzt-direkt im Abschnitt „Online-Terminbuchung“
 
+### Schriftart
+
+Überschriften und die Wortmarke stehen in **Didact Gothic**, der Fließtext in
+der Systemschrift des jeweiligen Geräts. Die beiden Schriftdateien liegen unter
+`assets/fonts/` und werden vom eigenen Server ausgeliefert, nicht von Google
+nachgeladen – sonst ginge bei jedem Seitenaufruf die IP-Adresse der Besucher an
+einen Dritten, und die Seite bräuchte eine Einwilligung. Einzelheiten und die
+Lizenz stehen in `assets/fonts/LIESMICH.txt`.
+
+Die Schrift gibt es nur in einem Schnitt. Alle Überschriften stehen deshalb auf
+`font-weight: 400`, und `font-synthesis: none` verhindert, dass der Browser eine
+Fettschrift errechnet. Wer eine Überschrift stärker hervorheben will, arbeitet
+mit Größe und Farbe, nicht mit Fettung.
+
 ### Orientierungshilfe zur Vorsorge
 
 Auf `leistung-vorsorge.html` steht unter „Welche Vorsorge kommt für Sie

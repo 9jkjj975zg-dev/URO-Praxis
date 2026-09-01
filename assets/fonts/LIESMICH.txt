@@ -1,0 +1,24 @@
+Didact Gothic
+=============
+
+Entwurf: Daniel Johnson
+Lizenz:  SIL Open Font License, Version 1.1 (OFL-1.1)
+Bezug:   https://fonts.google.com/specimen/Didact+Gothic
+
+Die OFL erlaubt es ausdruecklich, die Schrift kostenfrei zu verwenden, auf
+eigenen Servern bereitzustellen und weiterzugeben - auch fuer gewerbliche
+Zwecke. Einzige Bedingung: Die Schrift darf nicht fuer sich allein verkauft
+werden, und dieser Lizenzhinweis muss erhalten bleiben.
+
+In diesem Ordner liegen zwei Ausschnitte der Schrift:
+
+  didact-gothic-latin.woff2       lateinische Grundzeichen
+  didact-gothic-latin-ext.woff2   erweiterte lateinische Zeichen
+
+Beide werden in assets/css/style.css ueber @font-face eingebunden und vom
+eigenen Server ausgeliefert. Sie werden bewusst NICHT von Google nachgeladen:
+Dabei ginge die IP-Adresse jedes Besuchers an einen Dritten, was eine
+Einwilligung erfordern wuerde.
+
+Die Schrift gibt es nur in einem Schnitt (normal, 400). Deshalb stehen alle
+Ueberschriften auf font-weight 400 und font-synthesis ist abgeschaltet.
