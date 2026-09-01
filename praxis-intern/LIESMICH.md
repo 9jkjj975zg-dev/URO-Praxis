@@ -142,6 +142,34 @@ Das ist eine sorgfältig erstellte Vorlage, aber keine Rechtsberatung. Wie bei
 Impressum und Datenschutzerklärung gilt: einmal von der Landesärztekammer oder
 anwaltlich prüfen lassen – einmal geprüft, trägt es jahrelang.
 
+### Wenn Sie Hilfe zu diesem Werkzeug brauchen
+
+Das Werkzeug läuft ausschließlich auf dem Praxisrechner. Wer daran etwas ändert –
+eine Kollegin, ein Dienstleister, ein KI-Assistent –, bekommt dabei die Patientendaten
+nicht zu sehen, denn die Daten und der Programmtext sind zwei getrennte Dinge.
+
+Zu Ende gedacht heißt das aber auch: **Die Daten dürfen die Praxis nicht auf dem
+Umweg über die Fehlersuche verlassen.** Wer bei einem Problem hilft, braucht sie
+nämlich nie. Was gefahrlos weitergegeben werden kann:
+
+- die **Kopfzeile** des Exports, also nur die Spaltennamen – daran lässt sich jedes
+  Zuordnungsproblem klären;
+- die Beschreibung eines Datumsformats (`31.12.2025`) statt des Datensatzes selbst;
+- eine mit den Beispieldaten nachgestellte Datei;
+- Bildschirmfotos, auf denen keine Liste mit echten Namen zu sehen ist.
+
+Was **nicht** hinausgeht: die Exportdatei, die Rückschreibedatei, die
+Dokumentationsliste, ein Bildschirmfoto der Auswahlliste, ein einzelner echter
+Datensatz. Auch nicht „nur zum Ausprobieren“ und auch nicht in verkürzter Form –
+Name plus Geburtsdatum plus Untersuchungsdatum ist bereits ein Gesundheitsdatensatz
+nach Artikel 9 DSGVO.
+
+Aus demselben Grund gehören Exportdateien nicht in den Projektordner der Website:
+Was dort eingecheckt wird, liegt anschließend auf GitHub. `.gitignore` sperrt
+deshalb `*.csv`, `*.xlsx` und die vom Werkzeug erzeugten Dateinamen. Legen Sie
+Exporte lieber in einen eigenen Ordner außerhalb des Projekts und löschen Sie sie
+nach dem Durchgang.
+
 ### Was das Werkzeug bewusst nicht tut
 
 Es versendet nichts. Kein automatischer E-Mail- oder SMS-Versand, keine

@@ -11,3 +11,16 @@ desktop.ini
 
 # Abhaengigkeiten und Build-Reste (auf dieser Seite nicht verwendet)
 node_modules/
+
+# Patientendaten
+# Ein Export aus tomedo, eine Rueckschreibedatei oder eine Dokumentationsliste
+# darf nie in die Versionsverwaltung geraten: Was hier eingecheckt wird, liegt
+# anschliessend auf GitHub und in jeder Arbeitskopie. Diese Regeln fangen eine
+# versehentlich im Projektordner abgelegte Datei ab. Die Website selbst
+# verwendet keine Tabellendateien, die Regeln kosten also nichts.
+*.csv
+*.tsv
+*.xlsx
+*.xls
+recall-erinnert-*
+recall-dokumentation-*
