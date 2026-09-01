@@ -659,6 +659,13 @@ strong { color: var(--c-heading); }
 .preis-umfang { white-space: nowrap; font-size: .92rem; }
 .preis-betrag { white-space: nowrap; font-weight: 700; color: var(--c-heading); text-align: right; }
 /* Platzhalter, solange die Betraege fehlen – nach dem Eintragen entfaellt er */
+.preis-fest {
+  font-weight: 600;
+  color: var(--c-heading);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
 .preis-offen {
   display: inline-block;
   background: var(--c-hinweis-bg);
