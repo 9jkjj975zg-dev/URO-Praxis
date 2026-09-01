@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /404.html
+Disallow: /praxis-intern/
 
 Sitemap: https://www.hanau-urologie.de/sitemap.xml

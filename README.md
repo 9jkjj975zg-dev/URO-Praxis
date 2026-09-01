@@ -168,7 +168,9 @@ Platzhalter statt eines toten Links.
 1. Alle Dateien und Ordner in das Web-Verzeichnis des Hosting-Pakets hochladen
    (üblicherweise `httpdocs`, `public_html` oder `www`) – einschließlich des
    Ordners `assets` und der Datei `.htaccess` (versteckte Dateien im
-   FTP-Programm sichtbar schalten).
+   FTP-Programm sichtbar schalten). **Ausgenommen: der Ordner
+   `praxis-intern/`** – er enthält ein Werkzeug für die Praxis und gehört nicht
+   ins Netz (siehe Abschnitt 13).
 2. Im Hosting-Paket ein TLS-Zertifikat aktivieren (bei den meisten Anbietern
    kostenlos über Let's Encrypt).
 3. `.htaccess` sorgt für Weiterleitung auf HTTPS, eine einheitliche Domain und
@@ -380,3 +382,26 @@ python3 -m http.server 8000
 ```
 
 Danach im Browser `http://localhost:8000` aufrufen.
+
+## 13. Praxisinterne Werkzeuge
+
+Im Ordner `praxis-intern/` liegt **`recall-vorsorge.html`** – ein Werkzeug für die
+Erinnerung an die urologische Vorsorge. Es gehört nicht zur Website und **darf nicht
+mit hochgeladen werden**; `robots.txt` und `.htaccess` sperren den Ordner
+zusätzlich, falls es doch einmal passiert.
+
+Das Werkzeug schließt die Lücke, die das Praxisverwaltungssystem lässt: Es liest
+einen Listenexport aus tomedo, rechnet nach einem einstellbaren Muster aus, wer zur
+nächsten Vorsorge fällig ist, und erzeugt daraus Serienbriefe, E-Mail-Texte und eine
+Telefonliste. Angeschrieben werden nur Patienten, die die erweiterte Vorsorge schon
+einmal selbst bezahlt haben und denen damals kein Kontrolltermin genannt wurde;
+wer in geregelter Kontrolle steht, wird ausgenommen.
+
+Es ist eine einzige Datei ohne Zubehör: Doppelklick genügt, keine Installation, kein
+Server. Sie kann keine Netzverbindung aufbauen – die Content-Security-Policy im Kopf
+der Datei verbietet es –, sodass Patientendaten den Rechner nicht verlassen. Versendet
+wird nichts automatisch; Briefe, E-Mails und Anrufe gehen wie bisher von der Praxis aus.
+
+Einzelheiten, die nötigen Exportspalten, der monatliche Ablauf und ein
+Formulierungsvorschlag für die Einwilligung stehen in `praxis-intern/LIESMICH.md`
+sowie im Werkzeug selbst unter dem Reiter „Anleitung“.

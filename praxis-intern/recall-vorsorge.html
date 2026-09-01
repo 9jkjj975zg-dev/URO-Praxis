@@ -1,0 +1,1819 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<!--
+  Diese Datei sperrt sich selbst gegen jede Netzverbindung: connect-src 'none'
+  verbietet dem Skript jedes Nachladen und jedes Senden, form-action 'none'
+  jedes Abschicken eines Formulars. Die Patientendaten koennen den Rechner
+  also nicht verlassen, auch nicht versehentlich.
+-->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; form-action 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'">
+<title>Recall Vorsorge &ndash; Urologische Gemeinschaftspraxis Rech</title>
+<style>
+/* ==========================================================================
+   Recall-Werkzeug fuer die Vorsorge-Erinnerung
+   Eine einzige Datei, ohne Zubehoer, ohne Server, ohne Internet.
+   Farben wie auf der Praxis-Website (assets/css/style.css).
+   ========================================================================== */
+:root {
+  --c-primary:      #22376c;
+  --c-primary-dark: #16264c;
+  --c-accent:       #2f5fa8;
+  --c-accent-soft:  #e8ecf4;
+  --c-text:         #1f2733;
+  --c-muted:        #5a6577;
+  --c-bg:           #ffffff;
+  --c-surface:      #f2f4f7;
+  --c-surface-2:    #e3e8ef;
+  --c-line:         #ccd3de;
+  --c-ok:           #1c6b45;
+  --c-ok-bg:        #e4f2ea;
+  --c-warn:         #8a5a12;
+  --c-warn-bg:      #fbf1de;
+  --c-stop:         #8f2f2f;
+  --c-stop-bg:      #f8e8e8;
+  --radius:         6px;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--c-text);
+  background: var(--c-surface);
+}
+h1, h2, h3 { color: var(--c-primary); line-height: 1.25; margin: 0 0 .5em; font-weight: 600; }
+h1 { font-size: 1.5rem; }
+h2 { font-size: 1.2rem; margin-top: 1.8em; }
+h3 { font-size: 1.02rem; margin-top: 1.4em; }
+p  { margin: 0 0 .8em; }
+a  { color: var(--c-accent); }
+small, .klein { font-size: .86rem; color: var(--c-muted); }
+code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: .9em;
+       background: var(--c-surface-2); padding: .1em .35em; border-radius: 3px; }
+
+/* ---- Kopf ---------------------------------------------------------------- */
+.kopf { background: var(--c-primary); color: #fff; padding: 1rem 1.25rem .9rem; }
+.kopf h1 { color: #fff; margin: 0; font-size: 1.25rem; }
+.kopf p  { margin: .2rem 0 0; color: #c8d2e6; font-size: .88rem; }
+.kopf .stand { float: right; font-size: .82rem; color: #c8d2e6; }
+
+/* ---- Reiter -------------------------------------------------------------- */
+.reiter { display: flex; flex-wrap: wrap; gap: 2px; background: var(--c-primary-dark); padding: 0 .6rem; }
+.reiter button {
+  appearance: none; border: 0; background: transparent; color: #c3cee4;
+  font: inherit; font-size: .92rem; padding: .6rem .85rem; cursor: pointer;
+  border-bottom: 3px solid transparent;
+}
+.reiter button:hover { color: #fff; }
+.reiter button[aria-selected="true"] { color: #fff; background: var(--c-surface); color: var(--c-primary);
+  border-bottom-color: var(--c-accent); border-radius: var(--radius) var(--radius) 0 0; }
+.reiter button .zahl { display: inline-block; margin-left: .4em; background: rgba(255,255,255,.18);
+  border-radius: 10px; padding: 0 .45em; font-size: .8em; }
+.reiter button[aria-selected="true"] .zahl { background: var(--c-accent-soft); color: var(--c-primary); }
+.reiter button:disabled { opacity: .45; cursor: not-allowed; }
+
+/* ---- Flaeche ------------------------------------------------------------- */
+.blatt { max-width: 1180px; margin: 1.1rem auto 4rem; padding: 0 1.25rem; }
+.karte { background: var(--c-bg); border: 1px solid var(--c-line); border-radius: var(--radius);
+         padding: 1.1rem 1.25rem; margin-bottom: 1.1rem; }
+.karte > :first-child { margin-top: 0; }
+.zwei { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+@media (max-width: 820px) { .zwei { grid-template-columns: 1fr; } }
+
+/* ---- Bedienelemente ------------------------------------------------------ */
+button.knopf, label.knopf {
+  appearance: none; font: inherit; font-weight: 500; cursor: pointer;
+  background: var(--c-accent); color: #fff; border: 1px solid var(--c-accent);
+  padding: .45rem .9rem; border-radius: var(--radius); display: inline-block;
+}
+button.knopf:hover, label.knopf:hover { background: var(--c-primary); border-color: var(--c-primary); }
+button.knopf.leise, label.knopf.leise { background: #fff; color: var(--c-accent); }
+button.knopf.leise:hover { background: var(--c-accent-soft); color: var(--c-primary); }
+button.knopf:disabled { opacity: .5; cursor: not-allowed; background: #fff; color: var(--c-muted); border-color: var(--c-line); }
+button.klein-knopf { font: inherit; font-size: .82rem; padding: .15rem .5rem; cursor: pointer;
+  background: #fff; border: 1px solid var(--c-line); border-radius: 4px; color: var(--c-accent); }
+button.klein-knopf:hover { background: var(--c-accent-soft); }
+input[type="text"], input[type="number"], input[type="date"], select, textarea {
+  font: inherit; color: var(--c-text); background: #fff;
+  border: 1px solid var(--c-line); border-radius: 4px; padding: .3rem .45rem; max-width: 100%;
+}
+textarea { width: 100%; line-height: 1.5; }
+input:focus-visible, select:focus-visible, textarea:focus-visible,
+button:focus-visible, label.knopf:focus-within { outline: 2px solid var(--c-accent); outline-offset: 1px; }
+fieldset { border: 1px solid var(--c-line); border-radius: var(--radius); margin: 0 0 1rem; padding: .8rem 1rem 1rem; }
+legend { font-weight: 600; color: var(--c-primary); padding: 0 .35em; }
+.feldzeile { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin-bottom: .55rem; }
+.feldzeile label:first-child { min-width: 15rem; }
+.hinweis-feld { flex-basis: 100%; margin: -.2rem 0 .4rem; }
+
+/* ---- Tabellen ------------------------------------------------------------ */
+.tabelle-rahmen { overflow-x: auto; border: 1px solid var(--c-line); border-radius: var(--radius); }
+table { border-collapse: collapse; width: 100%; font-size: .9rem; background: #fff; }
+th, td { text-align: left; padding: .38rem .6rem; border-bottom: 1px solid var(--c-line); vertical-align: top; }
+thead th { background: var(--c-surface); position: sticky; top: 0; font-weight: 600; color: var(--c-primary);
+           white-space: nowrap; }
+tbody tr:hover { background: #fafbfd; }
+td.rechts, th.rechts { text-align: right; white-space: nowrap; }
+td.datum { white-space: nowrap; }
+
+/* ---- Marken -------------------------------------------------------------- */
+.marke { display: inline-block; font-size: .78rem; font-weight: 600; padding: .05rem .45rem;
+         border-radius: 10px; white-space: nowrap; }
+.marke.ok   { background: var(--c-ok-bg);   color: var(--c-ok); }
+.marke.warn { background: var(--c-warn-bg); color: var(--c-warn); }
+.marke.stop { background: var(--c-stop-bg); color: var(--c-stop); }
+.marke.neutral { background: var(--c-surface-2); color: var(--c-muted); }
+
+/* ---- Meldungen ----------------------------------------------------------- */
+.merk { border-left: 4px solid var(--c-accent); background: var(--c-accent-soft);
+        padding: .7rem .9rem; border-radius: 0 var(--radius) var(--radius) 0; margin: 0 0 1rem; }
+.merk.warn { border-left-color: #c99a3a; background: var(--c-warn-bg); }
+.merk.stop { border-left-color: #b45252; background: var(--c-stop-bg); }
+.merk p:last-child { margin-bottom: 0; }
+
+/* ---- Zahlenspiegel ------------------------------------------------------- */
+.spiegel { display: flex; flex-wrap: wrap; gap: .8rem; margin: 0 0 1rem; }
+.spiegel div { background: var(--c-surface); border: 1px solid var(--c-line); border-radius: var(--radius);
+               padding: .5rem .9rem; min-width: 8.5rem; }
+.spiegel b { display: block; font-size: 1.5rem; color: var(--c-primary); line-height: 1.2; }
+.spiegel span { font-size: .82rem; color: var(--c-muted); }
+
+/* ---- E-Mail-Karten ------------------------------------------------------- */
+.mailkarte { border: 1px solid var(--c-line); border-radius: var(--radius); margin-bottom: .8rem; background: #fff; }
+.mailkarte > header { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center;
+  background: var(--c-surface); padding: .4rem .7rem; border-bottom: 1px solid var(--c-line); }
+.mailkarte > header b { color: var(--c-primary); }
+.mailkarte > header .wachsen { flex: 1; }
+.mailkarte pre { margin: 0; padding: .7rem .9rem; white-space: pre-wrap; word-break: break-word;
+  font-family: inherit; font-size: .92rem; }
+
+/* ==========================================================================
+   Druck: Briefe und Telefonliste
+   Am Bildschirm sind beide Bereiche versteckt; erst beim Drucken wird
+   je nach data-druck der passende Bereich sichtbar und alles andere weg.
+   ========================================================================== */
+#druckbereich { display: none; }
+@page { size: A4; margin: 20mm 20mm 20mm 24mm; }
+
+@media print {
+  body { background: #fff; font-size: 11pt; }
+  body[data-druck] .app { display: none !important; }
+  body[data-druck] #druckbereich { display: block; }
+  .brief { page-break-after: always; break-after: page; }
+  .brief:last-child { page-break-after: auto; break-after: auto; }
+  .telefonliste { page-break-after: auto; }
+  a { color: inherit; text-decoration: none; }
+}
+
+/* Briefbogen nach DIN 5008 (Form A) */
+.brief { position: relative; min-height: 245mm; font-size: 11pt; line-height: 1.5; }
+.brief .absenderzeile { font-size: 7.5pt; color: #333; border-bottom: .4pt solid #777;
+  padding-bottom: 1mm; margin-bottom: 2mm; }
+.brief .anschrift { min-height: 27mm; margin-bottom: 8mm; white-space: pre-line; }
+.brief .datumzeile { text-align: right; margin-bottom: 8mm; }
+.brief .betreff { font-weight: 700; margin-bottom: 6mm; }
+.brief .text { white-space: pre-wrap; }
+.brief .fuss { margin-top: 10mm; font-size: 8pt; color: #444; border-top: .4pt solid #999; padding-top: 2mm;
+  white-space: pre-line; }
+.telefonliste table { font-size: 10pt; }
+.telefonliste .haken { display: inline-block; width: 4mm; height: 4mm; border: .6pt solid #333; }
+
+/* ---- Kleinigkeiten ------------------------------------------------------- */
+.versteckt { display: none !important; }
+.werkzeugleiste { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-bottom: 1rem; }
+.werkzeugleiste .wachsen { flex: 1; }
+ul.knapp { margin: .2rem 0 .8rem; padding-left: 1.2rem; }
+ul.knapp li { margin-bottom: .25rem; }
+.regelrahmen { overflow-x: auto; }
+.regelzeile { display: grid; min-width: 46rem;
+  grid-template-columns: minmax(11rem, 1.6fr) minmax(9rem, 1fr) 5.5rem 5.5rem 7.5rem 2rem;
+  gap: .4rem; align-items: center; margin-bottom: .4rem; }
+.regelzeile input[type="number"] { width: 100%; }
+.regelzeile button { justify-self: center; }
+.regelkopf { font-size: .8rem; color: var(--c-muted); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+<header class="kopf">
+  <span class="stand">Praxisintern &middot; nicht auf den Webserver hochladen</span>
+  <h1>Recall Vorsorge</h1>
+  <p>Erinnerung an die erweiterte Vorsorge &ndash; f&uuml;r Selbstzahler- und Privatvorsorgen ohne vereinbarte Wiedervorlage</p>
+</header>
+
+<nav class="reiter" role="tablist" aria-label="Arbeitsschritte">
+  <button role="tab" id="r-daten"    aria-selected="true"  aria-controls="b-daten">1. Daten</button>
+  <button role="tab" id="r-muster"   aria-selected="false" aria-controls="b-muster">2. Muster</button>
+  <button role="tab" id="r-liste"    aria-selected="false" aria-controls="b-liste">3. Auswahl <span class="zahl" id="z-liste">0</span></button>
+  <button role="tab" id="r-briefe"   aria-selected="false" aria-controls="b-briefe">4. Briefe <span class="zahl" id="z-briefe">0</span></button>
+  <button role="tab" id="r-mails"    aria-selected="false" aria-controls="b-mails">5. E-Mails <span class="zahl" id="z-mails">0</span></button>
+  <button role="tab" id="r-telefon"  aria-selected="false" aria-controls="b-telefon">6. Telefon <span class="zahl" id="z-telefon">0</span></button>
+  <button role="tab" id="r-zurueck"  aria-selected="false" aria-controls="b-zurueck">7. R&uuml;ckschreiben</button>
+  <button role="tab" id="r-hilfe"    aria-selected="false" aria-controls="b-hilfe">Anleitung</button>
+</nav>
+
+<main class="blatt">
+
+<!-- ====================================================================== -->
+<!-- 1. DATEN                                                                -->
+<!-- ====================================================================== -->
+<section id="b-daten" role="tabpanel" aria-labelledby="r-daten">
+
+  <div class="merk">
+    <p><strong>Die Daten bleiben auf diesem Rechner.</strong> Diese Datei l&auml;dt nichts nach und
+    sendet nichts &ndash; sie darf es technisch nicht einmal (siehe Anleitung, Abschnitt
+    &bdquo;Datenschutz&ldquo;). Die eingelesene Liste steht nur im Arbeitsspeicher des Browsers und ist
+    weg, sobald Sie das Fenster schlie&szlig;en. Gespeichert werden ausschlie&szlig;lich Ihre
+    Einstellungen &ndash; Muster, Textvorlagen, Spaltenzuordnung &ndash;, niemals Patientendaten.</p>
+  </div>
+
+  <div class="karte">
+    <h2>Export aus tomedo einlesen</h2>
+    <p class="klein">CSV oder Textdatei, Trennzeichen Semikolon, Komma oder Tabulator.
+      Umlaute in UTF-8 oder Windows-1252 &ndash; beides wird erkannt.
+      Welche Spalten der Export enthalten sollte, steht in der Anleitung.</p>
+    <div class="werkzeugleiste">
+      <label class="knopf">Datei ausw&auml;hlen&hellip;
+        <input type="file" id="datei" accept=".csv,.txt,.tsv,text/csv,text/plain" class="versteckt">
+      </label>
+      <button class="knopf leise" id="beispiel">Beispieldaten laden</button>
+      <span class="wachsen"></span>
+      <button class="knopf leise" id="verwerfen" disabled>Daten verwerfen</button>
+    </div>
+    <p id="dateimeldung" class="klein"></p>
+  </div>
+
+  <div class="karte versteckt" id="karte-zuordnung">
+    <h2>Spalten zuordnen</h2>
+    <p class="klein">Die Zuordnung wird aus den &Uuml;berschriften geraten und gespeichert &ndash;
+      beim n&auml;chsten Export mit denselben Spalten ist hier nichts mehr zu tun.
+      Pflicht ist allein das <strong>Datum der letzten Vorsorge</strong>; alles andere
+      verbessert nur das Ergebnis.</p>
+    <div id="zuordnung"></div>
+    <div class="werkzeugleiste" style="margin-top:1rem">
+      <button class="knopf" id="berechnen">Auswertung starten</button>
+      <button class="knopf leise" id="zuordnung-zuruecksetzen">Zuordnung neu raten</button>
+    </div>
+  </div>
+
+  <div class="karte versteckt" id="karte-vorschau">
+    <h2>Erste Zeilen zur Kontrolle</h2>
+    <div class="tabelle-rahmen"><table id="vorschau"></table></div>
+  </div>
+
+</section>
+
+<!-- ====================================================================== -->
+<!-- 2. MUSTER                                                               -->
+<!-- ====================================================================== -->
+<section id="b-muster" role="tabpanel" aria-labelledby="r-muster" hidden>
+
+  <div class="karte">
+    <h2>Wer wird angeschrieben</h2>
+    <p>Angeschrieben wird nur, wer die erweiterte Vorsorge schon einmal
+      <strong>selbst bezahlt hat</strong> &ndash; als Selbstzahler- oder Privatleistung &ndash; und wem
+      damals <strong>kein Kontrolltermin</strong> genannt wurde. Wer in geregelter Kontrolle oder
+      Nachsorge steht, wird bewusst ausgenommen: diese Patienten werden ohnehin einbestellt,
+      und eine Erinnerung an eine kostenpflichtige Leistung w&auml;re hier unpassend.</p>
+
+    <fieldset>
+      <legend>Einschluss</legend>
+      <div class="feldzeile">
+        <label for="e-abrechnung">Abrechnung oder Versichertenstatus enth&auml;lt</label>
+        <input type="text" id="e-abrechnung" size="52">
+      </div>
+      <p class="klein hinweis-feld">Stichw&ouml;rter durch Komma getrennt. Trifft eines zu, gilt die
+        Vorsorge als selbst bezahlt. Leer lassen, wenn der Export diese Spalte nicht hat.</p>
+      <div class="feldzeile">
+        <label for="e-leistung">oder Leistung / Paket enth&auml;lt</label>
+        <input type="text" id="e-leistung" size="52">
+      </div>
+      <p class="klein hinweis-feld">Erkennt die Vorsorge an der abgerechneten Leistung, etwa am
+        Paketnamen oder an GO&Auml;-Ziffern.</p>
+      <div class="feldzeile">
+        <label><input type="checkbox" id="e-streng"> Nur Datens&auml;tze nehmen, auf die eines dieser
+          Stichw&ouml;rter zutrifft</label>
+      </div>
+      <p class="klein hinweis-feld">Empfohlen. Ohne Haken kommen auch Datens&auml;tze in die Liste,
+        bei denen weder Abrechnung noch Leistung erkennbar sind &ndash; brauchbar nur, wenn Sie
+        ohnehin schon in tomedo auf Selbstzahler gefiltert haben.</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>Ausschluss</legend>
+      <div class="feldzeile">
+        <label for="a-kontrolle">Wiedervorlage / Merkmal enth&auml;lt</label>
+        <input type="text" id="a-kontrolle" size="52">
+      </div>
+      <p class="klein hinweis-feld">Wer hier trifft, steht in geregelter Kontrolle und wird
+        <strong>nicht</strong> angeschrieben.</p>
+      <div class="feldzeile">
+        <label><input type="checkbox" id="a-wiedervorlage" checked> Ausschlie&szlig;en, wenn ein
+          Wiedervorlage-Datum eingetragen ist</label>
+      </div>
+      <div class="feldzeile">
+        <label><input type="checkbox" id="a-termin" checked> Ausschlie&szlig;en, wenn bereits ein
+          k&uuml;nftiger Termin vereinbart ist</label>
+      </div>
+      <div class="feldzeile">
+        <label><input type="checkbox" id="a-einwilligung" checked> Nur mit dokumentierter
+          Einwilligung anschreiben</label>
+      </div>
+      <p class="klein hinweis-feld">Die Erinnerung an eine kostenpflichtige Leistung ist Werbung.
+        Ohne Haken erscheinen auch Patienten ohne vermerkte Einwilligung &ndash; bitte nur, wenn die
+        Einwilligung auf anderem Weg gesichert ist. F&uuml;r E-Mail ist sie ohnehin zwingend.</p>
+      <div class="feldzeile">
+        <label for="a-hoechstalter">H&ouml;chstalter</label>
+        <input type="number" id="a-hoechstalter" min="0" max="120" step="1" style="width:6rem"> Jahre
+      </div>
+      <p class="klein hinweis-feld">0 schaltet die Altersgrenze ab. Ohne Geburtsdatum im Export
+        greift sie nicht.</p>
+    </fieldset>
+  </div>
+
+  <div class="karte">
+    <h2>In welchem Abstand</h2>
+    <p class="klein">Die Regeln werden von oben nach unten gepr&uuml;ft; die erste zutreffende
+      bestimmt den Abstand. Ein Intervall, das im Export beim einzelnen Patienten steht, hat
+      immer Vorrang. <strong>0 Monate</strong> bedeutet: nicht erinnern.</p>
+    <p class="klein">Ausgeliefert wird der Jahresrhythmus, den auch
+      <code>leistung-vorsorge.html</code> nennt: zw&ouml;lf Monate f&uuml;r alle. Die eine
+      Beispielregel zeigt nur, wie sich davon abweichen l&auml;sst. Welche Abst&auml;nde
+      tats&auml;chlich sinnvoll sind, ist eine &auml;rztliche Entscheidung &ndash; das Werkzeug
+      trifft sie nicht.</p>
+    <div class="regelrahmen">
+      <div class="regelzeile regelkopf">
+        <span>Regel</span><span>Paket enth&auml;lt</span><span>Alter ab</span><span>Alter bis</span>
+        <span>Abstand</span><span></span>
+      </div>
+      <div id="regeln"></div>
+    </div>
+    <div class="werkzeugleiste" style="margin-top:.6rem">
+      <button class="knopf leise" id="regel-neu">Regel hinzuf&uuml;gen</button>
+      <div class="feldzeile" style="margin:0">
+        <label for="standard-intervall">Wenn keine Regel trifft:</label>
+        <input type="number" id="standard-intervall" min="0" max="120" step="1" style="width:5rem"> Monate
+      </div>
+    </div>
+  </div>
+
+  <div class="karte">
+    <h2>Zeitfenster</h2>
+    <div class="zwei">
+      <div>
+        <div class="feldzeile">
+          <label for="stichtag">Stichtag</label>
+          <input type="date" id="stichtag">
+        </div>
+        <div class="feldzeile">
+          <label for="bisdatum">Erinnerungen f&auml;llig bis</label>
+          <input type="date" id="bisdatum">
+        </div>
+        <p class="klein">&Uuml;blich ist der letzte Tag des laufenden Monats: dann bekommen Sie
+          alles, was in diesem Durchgang zu schreiben ist.</p>
+      </div>
+      <div>
+        <div class="feldzeile">
+          <label for="vorlauf">Vorlauf vor dem F&auml;lligkeitstag</label>
+          <input type="number" id="vorlauf" min="0" max="52" step="1" style="width:5rem"> Wochen
+        </div>
+        <div class="feldzeile">
+          <label for="karenz">Nicht erneut erinnern innerhalb von</label>
+          <input type="number" id="karenz" min="0" max="60" step="1" style="width:5rem"> Monaten
+        </div>
+        <div class="feldzeile">
+          <label for="maxueber">H&ouml;chstens &uuml;berf&auml;llig seit</label>
+          <input type="number" id="maxueber" min="0" max="240" step="1" style="width:5rem"> Monaten
+        </div>
+        <p class="klein">Die letzte Angabe verhindert, dass Patienten angeschrieben werden, deren
+          Vorsorge so lange zur&uuml;ckliegt, dass sie l&auml;ngst woanders in Behandlung sind.
+          0 schaltet die Grenze ab.</p>
+      </div>
+    </div>
+    <div class="werkzeugleiste" style="margin-top:.8rem">
+      <button class="knopf" id="neu-berechnen">Auswertung aktualisieren</button>
+      <span class="wachsen"></span>
+      <button class="knopf leise" id="einst-sichern">Einstellungen sichern&hellip;</button>
+      <label class="knopf leise">Einstellungen laden&hellip;
+        <input type="file" id="einst-laden" accept=".json,application/json" class="versteckt"></label>
+      <button class="knopf leise" id="einst-standard">Auf Standard zur&uuml;cksetzen</button>
+    </div>
+  </div>
+
+</section>
+
+<!-- ====================================================================== -->
+<!-- 3. AUSWAHL                                                              -->
+<!-- ====================================================================== -->
+<section id="b-liste" role="tabpanel" aria-labelledby="r-liste" hidden>
+  <div id="liste-leer" class="merk">
+    <p>Noch keine Auswertung. Lesen Sie unter <strong>1. Daten</strong> einen Export ein oder laden
+      Sie die Beispieldaten.</p>
+  </div>
+  <div id="liste-inhalt" class="versteckt">
+    <div class="spiegel" id="spiegel"></div>
+    <div class="karte">
+      <h2>Zum Anschreiben vorgesehen</h2>
+      <div class="werkzeugleiste">
+        <button class="klein-knopf" id="alle-an">Alle ausw&auml;hlen</button>
+        <button class="klein-knopf" id="alle-aus">Auswahl aufheben</button>
+        <span class="wachsen"></span>
+        <label class="klein">Kanal &auml;ndern f&uuml;r Ausgew&auml;hlte:
+          <select id="kanal-massen">
+            <option value="">&mdash;</option>
+            <option value="brief">Brief</option>
+            <option value="mail">E-Mail</option>
+            <option value="telefon">Telefon</option>
+          </select>
+        </label>
+      </div>
+      <div class="tabelle-rahmen"><table id="tab-faellig"></table></div>
+    </div>
+    <div class="karte">
+      <h2>Nicht angeschrieben <span class="klein" id="z-uebersprungen"></span></h2>
+      <p class="klein">Diese Liste ist die eigentliche Kontrolle: Hier steht zu jedem Datensatz,
+        warum er herausgefallen ist. Stimmt ein Grund nicht, geh&ouml;rt das Muster ge&auml;ndert &ndash;
+        nicht die Liste von Hand nachgebessert.</p>
+      <div class="tabelle-rahmen"><table id="tab-uebersprungen"></table></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- 4. BRIEFE                                                               -->
+<!-- ====================================================================== -->
+<section id="b-briefe" role="tabpanel" aria-labelledby="r-briefe" hidden>
+
+  <div class="karte">
+    <h2>Angaben der Praxis</h2>
+    <p class="klein">Einmal eintragen &ndash; die Angaben stehen anschlie&szlig;end in Briefen,
+      E-Mails und auf der Telefonliste und werden gespeichert.</p>
+    <div class="zwei">
+      <div>
+        <div class="feldzeile"><label for="p-name">Praxisname</label>
+          <input type="text" id="p-name" size="34"></div>
+        <div class="feldzeile"><label for="p-strasse">Stra&szlig;e</label>
+          <input type="text" id="p-strasse" size="34"></div>
+        <div class="feldzeile"><label for="p-ort">PLZ und Ort</label>
+          <input type="text" id="p-ort" size="34"></div>
+        <div class="feldzeile"><label for="p-unterschrift">Unterzeichnet von</label>
+          <input type="text" id="p-unterschrift" size="34"></div>
+      </div>
+      <div>
+        <div class="feldzeile"><label for="p-telefon">Telefon</label>
+          <input type="text" id="p-telefon" size="34"></div>
+        <div class="feldzeile"><label for="p-mail">E-Mail</label>
+          <input type="text" id="p-mail" size="34"></div>
+        <div class="feldzeile"><label for="p-termin">Terminkalender (Adresse)</label>
+          <input type="text" id="p-termin" size="34"></div>
+        <div class="feldzeile"><label for="p-fuss">Fu&szlig;zeile des Briefes</label></div>
+        <textarea id="p-fuss" rows="3"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="karte">
+    <h2>Brieftext</h2>
+    <p class="klein">Platzhalter in geschweiften Klammern werden ersetzt:
+      <code>{briefanrede}</code> <code>{anrede}</code> <code>{titel}</code> <code>{vorname}</code>
+      <code>{nachname}</code> <code>{patientennummer}</code> <code>{letzte_vorsorge}</code>
+      <code>{monate_her}</code> <code>{faellig_am}</code> <code>{paket}</code>
+      <code>{praxis}</code> <code>{telefon}</code> <code>{terminlink}</code> <code>{datum}</code></p>
+    <div class="feldzeile"><label for="brief-betreff">Betreff</label>
+      <input type="text" id="brief-betreff" size="52"></div>
+    <textarea id="brief-text" rows="16"></textarea>
+    <div class="werkzeugleiste" style="margin-top:.8rem">
+      <button class="knopf" id="briefe-drucken">Briefe drucken</button>
+      <button class="knopf leise" id="briefe-vorschau">Vorschau aktualisieren</button>
+      <button class="knopf leise" id="brief-standard">Text auf Standard zur&uuml;cksetzen</button>
+      <span class="wachsen"></span>
+      <span class="klein" id="briefe-anzahl"></span>
+    </div>
+    <p class="klein">Im Druckdialog des Browsers bitte Kopf- und Fu&szlig;zeilen abschalten und
+      &bdquo;Hintergrundgrafiken&ldquo; nicht ben&ouml;tigt. Statt zu drucken l&auml;sst sich dort
+      auch &bdquo;Als PDF sichern&ldquo; w&auml;hlen &ndash; dann liegt ein Stapel Briefe als eine
+      Datei vor.</p>
+  </div>
+
+  <div class="karte" id="brief-vorschau-karte">
+    <h3>Vorschau des ersten Briefes</h3>
+    <div id="brief-vorschau" style="background:#fff;border:1px solid var(--c-line);padding:1.2rem"></div>
+  </div>
+
+</section>
+
+<!-- ====================================================================== -->
+<!-- 5. E-MAILS                                                              -->
+<!-- ====================================================================== -->
+<section id="b-mails" role="tabpanel" aria-labelledby="r-mails" hidden>
+
+  <div class="merk warn">
+    <p><strong>E-Mail nur mit ausdr&uuml;cklicher Einwilligung.</strong> Die Erinnerung an eine
+      kostenpflichtige Leistung ist Werbung; f&uuml;r Werbung per E-Mail verlangt &sect; 7 UWG die
+      vorherige ausdr&uuml;ckliche Einwilligung, f&uuml;r den Gesundheitsbezug zus&auml;tzlich
+      Artikel 9 DSGVO. Versendet wird bewusst nicht aus diesem Werkzeug, sondern von Ihnen aus dem
+      Praxispostfach &ndash; und bitte einzeln oder mit Blindkopie, nie mit sichtbarem Verteiler.
+      Halten Sie den Text neutral: kein Befund, keine Diagnose im Betreff.</p>
+  </div>
+
+  <div class="karte">
+    <h2>E-Mail-Text</h2>
+    <div class="feldzeile"><label for="mail-betreff">Betreff</label>
+      <input type="text" id="mail-betreff" size="52"></div>
+    <textarea id="mail-text" rows="13"></textarea>
+    <div class="werkzeugleiste" style="margin-top:.8rem">
+      <button class="knopf" id="mails-aufbauen">Vorschau aktualisieren</button>
+      <button class="knopf leise" id="mails-alle-kopieren">Alle als Textliste kopieren</button>
+      <button class="knopf leise" id="mail-standard">Text auf Standard zur&uuml;cksetzen</button>
+      <span class="wachsen"></span>
+      <span class="klein" id="mails-anzahl"></span>
+    </div>
+  </div>
+
+  <div id="mailliste"></div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- 6. TELEFONLISTE                                                         -->
+<!-- ====================================================================== -->
+<section id="b-telefon" role="tabpanel" aria-labelledby="r-telefon" hidden>
+  <div class="karte">
+    <h2>Anrufliste f&uuml;r die Anmeldung</h2>
+    <p class="klein">Sortiert nach F&auml;lligkeit &ndash; das L&auml;ngste zuerst. Die Liste
+      enth&auml;lt bewusst keine Befunde, nur das, was f&uuml;r den Anruf n&ouml;tig ist.
+      Nach dem Telefonieren geh&ouml;rt sie in die Aktenvernichtung, nicht in die Ablage.</p>
+    <div class="werkzeugleiste">
+      <button class="knopf" id="telefon-drucken">Telefonliste drucken</button>
+      <span class="wachsen"></span>
+      <span class="klein" id="telefon-anzahl"></span>
+    </div>
+    <div class="tabelle-rahmen"><table id="tab-telefon"></table></div>
+    <h3>Gespr&auml;chsleitfaden</h3>
+    <textarea id="telefon-text" rows="7"></textarea>
+    <p class="klein">Steht mit auf dem Ausdruck. <code>{praxis}</code> und <code>{telefon}</code>
+      werden ersetzt.</p>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- 7. RUECKSCHREIBEN                                                       -->
+<!-- ====================================================================== -->
+<section id="b-zurueck" role="tabpanel" aria-labelledby="r-zurueck" hidden>
+  <div class="karte">
+    <h2>Ergebnis zur&uuml;ck nach tomedo</h2>
+    <p>Damit beim n&auml;chsten Durchgang niemand zweimal angeschrieben wird, muss das
+      Erinnerungsdatum zur&uuml;ck in die Karteikarte. Diese Datei enth&auml;lt daf&uuml;r je eine
+      Zeile pro angeschriebenem Patienten &ndash; Patientennummer, Datum, Kanal &ndash; und sonst
+      nichts.</p>
+    <div class="feldzeile">
+      <label for="zurueck-datum">Als Erinnerungsdatum eintragen</label>
+      <input type="date" id="zurueck-datum">
+    </div>
+    <div class="werkzeugleiste">
+      <button class="knopf" id="zurueck-datei">Datei sichern (CSV)</button>
+      <button class="knopf leise" id="zurueck-kopieren">In die Zwischenablage</button>
+      <span class="wachsen"></span>
+      <span class="klein" id="zurueck-anzahl"></span>
+    </div>
+    <p class="klein">Semikolon als Trennzeichen, UTF-8 mit Byte-Order-Mark &ndash; so &ouml;ffnet
+      Excel die Datei mit richtigen Umlauten und in Spalten. Wenn der Ordner sich nicht beschreiben
+      l&auml;sst, nehmen Sie den Text unten.</p>
+    <textarea id="zurueck-text" rows="10" readonly></textarea>
+  </div>
+  <div class="karte">
+    <h2>Zweite Datei: Dokumentation</h2>
+    <p class="klein">Ausf&uuml;hrlichere Fassung mit Name, F&auml;lligkeitstag und angewandter
+      Regel &ndash; f&uuml;r die eigene Ablage, um sp&auml;ter nachvollziehen zu k&ouml;nnen, warum
+      wer angeschrieben wurde. Enth&auml;lt Patientendaten und geh&ouml;rt entsprechend behandelt.</p>
+    <button class="knopf leise" id="doku-datei">Dokumentation sichern (CSV)</button>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- ANLEITUNG                                                               -->
+<!-- ====================================================================== -->
+<section id="b-hilfe" role="tabpanel" aria-labelledby="r-hilfe" hidden>
+
+  <div class="karte">
+    <h2>Wozu das hier gut ist</h2>
+    <p>Ein Recall besteht aus drei Teilen: <em>Wer ist dran</em>, <em>wie wird erinnert</em> und
+      <em>darf man das</em>. Dieses Werkzeug &uuml;bernimmt den ersten Teil vollst&auml;ndig und
+      bereitet den zweiten vor. Es rechnet aus einem Listenexport aus, wer nach Ihrem Muster
+      f&auml;llig ist, und erzeugt daraus Briefe, E-Mail-Texte und eine Telefonliste. Versendet
+      wird von Ihnen &ndash; das Werkzeug schickt nichts los.</p>
+    <p>Die Zielgruppe ist bewusst eng: Patienten, die die erweiterte Vorsorge schon einmal
+      <strong>selbst bezahlt</strong> haben und denen damals <strong>kein Kontrolltermin</strong>
+      genannt wurde. Sie kennen die Leistung, sie haben sie f&uuml;r sich als sinnvoll bewertet &ndash;
+      und sie haben nichts, was sie von selbst zur&uuml;ckbringt. Wer in geregelter Kontrolle oder
+      Nachsorge steht, wird ausgenommen: diese Patienten werden ohnehin einbestellt.</p>
+  </div>
+
+  <div class="karte">
+    <h2>Der Export aus tomedo</h2>
+    <p>Gebraucht wird eine Liste von Patienten mit dem Datum ihrer letzten erweiterten Vorsorge.
+      In tomedo entsteht sie &uuml;ber eine Abfrage auf die abgerechneten Leistungen &ndash; also
+      &uuml;ber die GO&Auml;-Ziffern oder das Rechnungspaket der Vorsorge &ndash; mit anschlie&szlig;endem
+      Export als CSV. Die Men&uuml;bezeichnungen unterscheiden sich je nach Version; wenn die
+      Abfrage nicht auf Anhieb gelingt, hilft der tomedo-Support schneller als jedes Ausprobieren.
+      Legen Sie die Abfrage einmal als Vorlage an &ndash; dann ist der monatliche Durchgang eine
+      Sache von Minuten.</p>
+    <h3>Diese Spalten sollte der Export haben</h3>
+    <div class="tabelle-rahmen"><table>
+      <thead><tr><th>Spalte</th><th>Wozu</th><th></th></tr></thead>
+      <tbody>
+        <tr><td>Datum der letzten Vorsorge</td><td>Grundlage der ganzen Rechnung</td>
+            <td><span class="marke stop">Pflicht</span></td></tr>
+        <tr><td>Patientennummer</td><td>Damit das Ergebnis zur&uuml;ck in die Karteikarte findet</td>
+            <td><span class="marke warn">dringend</span></td></tr>
+        <tr><td>Anrede, Titel, Vorname, Nachname</td><td>Briefanrede und Anschriftenfeld</td>
+            <td><span class="marke warn">dringend</span></td></tr>
+        <tr><td>Stra&szlig;e, PLZ, Ort</td><td>Anschriftenfeld des Briefes</td>
+            <td><span class="marke warn">f&uuml;r Briefe</span></td></tr>
+        <tr><td>E-Mail, Telefon</td><td>Die beiden anderen Kan&auml;le</td>
+            <td><span class="marke neutral">je nach Kanal</span></td></tr>
+        <tr><td>Abrechnung oder Versichertenstatus</td>
+            <td>Trennt selbst bezahlte von reinen Kassenvorsorgen</td>
+            <td><span class="marke warn">dringend</span></td></tr>
+        <tr><td>Leistung oder Paket</td><td>Zweite Erkennung, und steuert das Intervall</td>
+            <td><span class="marke neutral">hilfreich</span></td></tr>
+        <tr><td>Geburtsdatum</td><td>Altersgrenze und altersabh&auml;ngige Regeln</td>
+            <td><span class="marke neutral">hilfreich</span></td></tr>
+        <tr><td>Wiedervorlage, Merkmal</td><td>Nimmt Patienten in geregelter Kontrolle heraus</td>
+            <td><span class="marke warn">dringend</span></td></tr>
+        <tr><td>Einwilligung</td><td>Ohne sie wird nicht angeschrieben</td>
+            <td><span class="marke warn">dringend</span></td></tr>
+        <tr><td>N&auml;chster Termin</td><td>Wer schon einen Termin hat, bekommt keine Post</td>
+            <td><span class="marke neutral">hilfreich</span></td></tr>
+        <tr><td>Zuletzt erinnert am</td><td>Verhindert doppelte Anschreiben</td>
+            <td><span class="marke warn">ab dem zweiten Durchgang</span></td></tr>
+        <tr><td>Werbesperre oder Widerruf</td><td>Wer widerrufen hat, f&auml;llt sofort heraus</td>
+            <td><span class="marke warn">dringend</span></td></tr>
+        <tr><td>Gew&uuml;nschter Kanal</td><td>Brief, E-Mail oder Telefon je Patient</td>
+            <td><span class="marke neutral">optional</span></td></tr>
+        <tr><td>Eigenes Intervall</td><td>&Uuml;bersteuert das Muster f&uuml;r einzelne Patienten</td>
+            <td><span class="marke neutral">optional</span></td></tr>
+      </tbody>
+    </table></div>
+    <p class="klein">Datumsangaben in den Formaten <code>TT.MM.JJJJ</code>, <code>JJJJ-MM-TT</code>
+      oder <code>TT/MM/JJJJ</code>. Bei Ja-Nein-Feldern gelten
+      <code>ja</code>, <code>j</code>, <code>x</code>, <code>1</code>, <code>wahr</code> und
+      <code>true</code> als Ja.</p>
+  </div>
+
+  <div class="karte">
+    <h2>Der monatliche Durchgang</h2>
+    <ol class="knapp">
+      <li>In tomedo die gespeicherte Abfrage laufen lassen und als CSV exportieren.</li>
+      <li>Diese Datei &ouml;ffnen, den Export unter <strong>1. Daten</strong> einlesen.</li>
+      <li>Unter <strong>3. Auswahl</strong> die Liste durchsehen &ndash; besonders die Spalte
+        &bdquo;Nicht angeschrieben&ldquo; mit den Gr&uuml;nden. Einzelne Patienten lassen sich
+        abw&auml;hlen oder auf einen anderen Kanal setzen.</li>
+      <li>Briefe drucken, E-Mail-Texte aus dem Praxispostfach versenden, Telefonliste an die
+        Anmeldung geben.</li>
+      <li>Unter <strong>7. R&uuml;ckschreiben</strong> die Datei sichern und in tomedo einlesen
+        oder die Datumsangaben von Hand nachtragen. <strong>Dieser Schritt ist der wichtigste</strong> &ndash;
+        ohne ihn wiederholt sich der n&auml;chste Durchgang.</li>
+      <li>Ausdrucke, Exportdatei und R&uuml;ckschreibedatei danach l&ouml;schen beziehungsweise
+        vernichten. Der Export hat auf keinem USB-Stick und in keinem Mailanhang etwas verloren.</li>
+    </ol>
+  </div>
+
+  <div class="karte">
+    <h2>Datenschutz und Recht</h2>
+    <h3>Was diese Datei technisch kann und was nicht</h3>
+    <p>Der Kopf der Datei enth&auml;lt eine Content-Security-Policy mit
+      <code>connect-src 'none'</code> und <code>form-action 'none'</code>. Der Browser verbietet dem
+      Skript damit jede Netzverbindung &ndash; es kann nichts nachladen und nichts senden, auch nicht
+      versehentlich und auch nicht, wenn jemand den Text der Datei ver&auml;ndert, ohne diese Zeile
+      zu entfernen. Die eingelesene Liste steht ausschlie&szlig;lich im Arbeitsspeicher und wird
+      beim Schlie&szlig;en des Fensters verworfen. Dauerhaft gespeichert werden nur Einstellungen:
+      Muster, Textvorlagen, Praxisangaben, Spaltenzuordnung.</p>
+    <h3>Einwilligung</h3>
+    <p>Die Erinnerung an eine kostenpflichtige Vorsorge ist rechtlich Werbung f&uuml;r eine
+      Gesundheitsdienstleistung. Zul&auml;ssig ist sie, wenn der Patient sie ausdr&uuml;cklich
+      w&uuml;nscht. Praktisch bedeutet das:</p>
+    <ul class="knapp">
+      <li>Eine schriftliche Einwilligung, die den Zweck nennt (Erinnerung an die n&auml;chste
+        Vorsorge), den Kanal (Brief, E-Mail, Telefon) und den Hinweis, dass sie jederzeit formlos
+        widerrufen werden kann.</li>
+      <li>Weil es um Gesundheitsdaten geht, muss die Einwilligung nach Artikel 9 Absatz 2
+        Buchstabe a DSGVO <em>ausdr&uuml;cklich</em> sein &ndash; ein stillschweigendes Einverst&auml;ndnis
+        gen&uuml;gt nicht.</li>
+      <li>F&uuml;r E-Mail und SMS kommt &sect; 7 UWG hinzu: vorherige ausdr&uuml;ckliche Einwilligung,
+        und in jeder Nachricht ein Widerrufshinweis.</li>
+      <li>Der Widerruf muss in tomedo vermerkt und im n&auml;chsten Export sichtbar werden &ndash;
+        sonst l&auml;uft er ins Leere.</li>
+      <li>Ton und Inhalt sachlich halten: eine Erinnerung, keine Anpreisung. Das ist nicht nur
+        berufsrechtlich geboten, es wirkt auch besser.</li>
+    </ul>
+    <p class="klein">Das ist eine sorgf&auml;ltige Zusammenstellung, aber keine Rechtsberatung.
+      Bitte den Ablauf und den Wortlaut der Einwilligung einmal von der Landes&auml;rztekammer oder
+      anwaltlich pr&uuml;fen lassen &ndash; einmal gepr&uuml;ft, tr&auml;gt es jahrelang.</p>
+  </div>
+
+  <div class="karte">
+    <h2>Wenn etwas nicht klappt</h2>
+    <ul class="knapp">
+      <li><strong>Umlaute sind zerst&uuml;ckelt:</strong> beim Export in tomedo UTF-8 w&auml;hlen.
+        Windows-1252 wird zwar erkannt, UTF-8 ist aber verl&auml;sslicher.</li>
+      <li><strong>Alle Spalten landen in einer:</strong> Das Trennzeichen wurde falsch geraten,
+        weil in den Daten selbst Semikolons stehen. Beim Export ein anderes Trennzeichen
+        w&auml;hlen, am besten Tabulator.</li>
+      <li><strong>Datumsangaben werden nicht erkannt:</strong> Excel wandelt Datumsspalten gern in
+        Zahlen um. Die Exportdatei nicht &uuml;ber Excel speichern, sondern direkt einlesen.</li>
+      <li><strong>Die Liste ist leer:</strong> unter <strong>2. Muster</strong> pr&uuml;fen, ob der
+        Haken bei &bdquo;Nur Datens&auml;tze mit passenden Stichw&ouml;rtern&ldquo; zu streng
+        greift, und in der Tabelle &bdquo;Nicht angeschrieben&ldquo; die Gr&uuml;nde lesen.</li>
+      <li><strong>Speichern schl&auml;gt fehl:</strong> Wird die Datei von einem Ort ge&ouml;ffnet,
+        an dem der Browser nichts ablegen darf, gibt es zu jeder Datei zus&auml;tzlich einen
+        Textbereich zum Kopieren.</li>
+    </ul>
+  </div>
+
+</section>
+
+</main>
+</div><!-- /.app -->
+
+<div id="druckbereich"></div>
+
+<script>
+/* ==========================================================================
+   Recall Vorsorge – Programmteil
+   Aufbau:
+     1. Kleine Helfer (DOM, Datum, Text)
+     2. CSV einlesen
+     3. Felder und Spaltenzuordnung
+     4. Einstellungen
+     5. Auswertung – das Muster
+     6. Darstellung: Liste, Briefe, E-Mails, Telefon, Rueckschreiben
+     7. Reiter, Ereignisse, Start
+   ========================================================================== */
+(function () {
+'use strict';
+
+/* --------------------------------------------------------------------------
+   1. Kleine Helfer
+   -------------------------------------------------------------------------- */
+const $  = (w, u) => (u || document).querySelector(w);
+const $$ = (w, u) => Array.prototype.slice.call((u || document).querySelectorAll(w));
+
+function norm(s) {
+  return (s == null ? '' : String(s)).toLowerCase()
+    .replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
+    .replace(/[^a-z0-9]/g, '');
+}
+function schutz(s) {
+  return (s == null ? '' : String(s))
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+function stichwoerter(s) {
+  return (s || '').split(',').map(t => t.trim()).filter(Boolean);
+}
+/* Liefert das erste Stichwort, das im Text vorkommt – oder null. */
+function trifft(text, liste) {
+  const t = norm(text);
+  if (!t) return null;
+  for (const w of liste) {
+    const n = norm(w);
+    if (n && t.indexOf(n) !== -1) return w;
+  }
+  return null;
+}
+function jaNein(s) {
+  const n = norm(s);
+  if (!n) return false;
+  if (/^(nein|n|0|falsch|false|widerrufen|widerruf|keine)/.test(n)) return false;
+  return /^(ja|j|x|1|wahr|true|erteilt|liegtvor|vorhanden)/.test(n) || n.indexOf('ja') === 0;
+}
+
+/* ---- Datum ---------------------------------------------------------------- */
+function heute() { const d = new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+function iso(d) {
+  if (!d) return '';
+  const m = String(d.getMonth() + 1).padStart(2, '0'), t = String(d.getDate()).padStart(2, '0');
+  return d.getFullYear() + '-' + m + '-' + t;
+}
+function vonIso(s) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec((s || '').trim());
+  return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null;
+}
+function de(d) {
+  if (!d) return '';
+  return String(d.getDate()).padStart(2, '0') + '.' + String(d.getMonth() + 1).padStart(2, '0')
+       + '.' + d.getFullYear();
+}
+function langesDatum(d) {
+  const monate = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September',
+                  'Oktober','November','Dezember'];
+  return d.getDate() + '. ' + monate[d.getMonth()] + ' ' + d.getFullYear();
+}
+function parseDatum(s) {
+  const t = (s == null ? '' : String(s)).trim();
+  if (!t) return null;
+  let m = /^(\d{1,2})[.\/](\d{1,2})[.\/](\d{2,4})/.exec(t);
+  if (m) {
+    let j = +m[3];
+    if (j < 100) j += (j <= 40 ? 2000 : 1900);
+    const d = new Date(j, +m[2] - 1, +m[1]);
+    return isNaN(d) ? null : d;
+  }
+  m = /^(\d{4})-(\d{1,2})-(\d{1,2})/.exec(t);
+  if (m) { const d = new Date(+m[1], +m[2] - 1, +m[3]); return isNaN(d) ? null : d; }
+  return null;
+}
+function plusMonate(d, n) {
+  const ziel = new Date(d.getFullYear(), d.getMonth() + n, 1);
+  const letzter = new Date(ziel.getFullYear(), ziel.getMonth() + 1, 0).getDate();
+  ziel.setDate(Math.min(d.getDate(), letzter));
+  return ziel;
+}
+function plusTage(d, n) { const z = new Date(d.getTime()); z.setDate(z.getDate() + n); return z; }
+function monateZwischen(a, b) {
+  let m = (b.getFullYear() - a.getFullYear()) * 12 + (b.getMonth() - a.getMonth());
+  if (b.getDate() < a.getDate()) m -= 1;
+  return m;
+}
+function alterAm(geb, tag) {
+  if (!geb) return null;
+  let a = tag.getFullYear() - geb.getFullYear();
+  const vor = tag.getMonth() < geb.getMonth()
+    || (tag.getMonth() === geb.getMonth() && tag.getDate() < geb.getDate());
+  return vor ? a - 1 : a;
+}
+function monatsende(d) { return new Date(d.getFullYear(), d.getMonth() + 1, 0); }
+
+/* ---- Zwischenablage und Dateien ------------------------------------------- */
+function kopieren(text, knopf) {
+  const fertig = () => {
+    if (!knopf) return;
+    const alt = knopf.textContent;
+    knopf.textContent = 'kopiert';
+    setTimeout(() => { knopf.textContent = alt; }, 1400);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(fertig, () => ersatzKopie(text, fertig));
+  } else {
+    ersatzKopie(text, fertig);
+  }
+}
+function ersatzKopie(text, fertig) {
+  const f = document.createElement('textarea');
+  f.value = text;
+  f.style.position = 'fixed'; f.style.opacity = '0';
+  document.body.appendChild(f); f.select();
+  try { document.execCommand('copy'); fertig(); } catch (e) { alert('Kopieren nicht möglich – bitte den Text von Hand markieren.'); }
+  document.body.removeChild(f);
+}
+function sichern(name, inhalt, typ) {
+  try {
+    const blob = new Blob(['\uFEFF' + inhalt], { type: (typ || 'text/csv') + ';charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    return true;
+  } catch (e) {
+    alert('Die Datei konnte nicht abgelegt werden. Bitte den Text unten kopieren und selbst speichern.');
+    return false;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. CSV einlesen
+   -------------------------------------------------------------------------- */
+function textAus(puffer) {
+  const bytes = new Uint8Array(puffer);
+  try {
+    return new TextDecoder('utf-8', { fatal: true }).decode(bytes).replace(/^\uFEFF/, '');
+  } catch (e) {
+    try { return new TextDecoder('windows-1252').decode(bytes); }
+    catch (e2) { return new TextDecoder('utf-8').decode(bytes).replace(/^\uFEFF/, ''); }
+  }
+}
+function trennzeichenRaten(text) {
+  const zeile = text.split(/\r?\n/)[0] || '';
+  let inAnf = false;
+  const zahl = { ';': 0, ',': 0, '\t': 0, '|': 0 };
+  for (const z of zeile) {
+    if (z === '"') { inAnf = !inAnf; continue; }
+    if (!inAnf && zahl.hasOwnProperty(z)) zahl[z]++;
+  }
+  let best = ';', hoch = -1;
+  for (const z in zahl) if (zahl[z] > hoch) { hoch = zahl[z]; best = z; }
+  return hoch > 0 ? best : ';';
+}
+function csvLesen(text, trenner) {
+  const zeilen = [];
+  let feld = '', zeile = [], inAnf = false;
+  for (let i = 0; i < text.length; i++) {
+    const z = text[i];
+    if (inAnf) {
+      if (z === '"') {
+        if (text[i + 1] === '"') { feld += '"'; i++; } else inAnf = false;
+      } else feld += z;
+      continue;
+    }
+    if (z === '"') { inAnf = true; continue; }
+    if (z === trenner) { zeile.push(feld); feld = ''; continue; }
+    if (z === '\r') continue;
+    if (z === '\n') { zeile.push(feld); zeilen.push(zeile); zeile = []; feld = ''; continue; }
+    feld += z;
+  }
+  if (feld !== '' || zeile.length) { zeile.push(feld); zeilen.push(zeile); }
+  const gefiltert = zeilen.filter(z => z.some(f => String(f).trim() !== ''));
+  if (!gefiltert.length) return { kopf: [], zeilen: [] };
+  return { kopf: gefiltert[0].map(s => s.trim()), zeilen: gefiltert.slice(1) };
+}
+
+/* --------------------------------------------------------------------------
+   3. Felder und Spaltenzuordnung
+   -------------------------------------------------------------------------- */
+const FELDER = [
+  { k: 'nr',           n: 'Patientennummer',            h: ['patientennummer','patnr','patientid','patientennr','patientid','kundennummer','nummer','id'] },
+  { k: 'anrede',       n: 'Anrede',                     h: ['anrede','geschlecht','anredeform'] },
+  { k: 'titel',        n: 'Titel',                      h: ['titel','akadtitel'] },
+  { k: 'vorname',      n: 'Vorname',                    h: ['vorname','rufname'] },
+  { k: 'nachname',     n: 'Nachname',                   h: ['nachname','name','familienname','zuname'] },
+  { k: 'geburt',       n: 'Geburtsdatum',               h: ['geburtsdatum','geburt','gebdatum','geb'] },
+  { k: 'strasse',      n: 'Straße und Hausnummer',      h: ['strasse','strassehausnummer','adresse','anschrift'] },
+  { k: 'plz',          n: 'Postleitzahl',               h: ['plz','postleitzahl'] },
+  { k: 'ort',          n: 'Ort',                        h: ['ort','wohnort','stadt'] },
+  { k: 'telefon',      n: 'Telefon',                    h: ['telefon','telefonnummer','mobil','handy','tel','rufnummer'] },
+  { k: 'email',        n: 'E-Mail',                     h: ['email','emailadresse','mail','mailadresse'] },
+  { k: 'letzte',       n: 'Datum der letzten Vorsorge', h: ['letztevorsorge','datumletztevorsorge','vorsorgedatum','letzteuntersuchung','leistungsdatum','behandlungsdatum','datum'], pflicht: true },
+  { k: 'paket',        n: 'Leistung oder Paket',        h: ['paket','leistung','leistungen','ziffern','goaeziffern','ziffer','tarif'] },
+  { k: 'abrechnung',   n: 'Abrechnung / Versichertenstatus', h: ['abrechnung','abrechnungsart','versichertenstatus','kassenart','kostentraeger','versicherung','status'] },
+  { k: 'wiedervorlage',n: 'Wiedervorlage (Datum)',      h: ['wiedervorlage','wiedervorlagedatum','kontrolltermin','wv'] },
+  { k: 'merkmal',      n: 'Merkmal / Notiz',            h: ['merkmal','merkmale','notiz','bemerkung','hinweis','kategorie','gruppe','diagnose'] },
+  { k: 'einwilligung', n: 'Einwilligung',               h: ['einwilligung','recall','recalleinwilligung','erinnerung','einverstaendnis','werbeeinwilligung'] },
+  { k: 'sperre',       n: 'Werbesperre / Widerruf',     h: ['werbesperre','sperre','widerruf','verstorben','inaktiv','gesperrt'] },
+  { k: 'kanal',        n: 'Gewünschter Kanal',          h: ['kanal','erinnerungsweg','kontaktweg','weg','versandart'] },
+  { k: 'termin',       n: 'Nächster Termin',            h: ['naechstertermin','termin','termindatum','naechstetermin'] },
+  { k: 'erinnert',     n: 'Zuletzt erinnert am',        h: ['zuletzterinnert','erinnertam','letzteerinnerung','recallam','angeschrieben'] },
+  { k: 'intervall',    n: 'Eigenes Intervall (Monate)', h: ['intervall','abstand','recallintervall','monate'] }
+];
+
+let daten = null;      /* { kopf, zeilen } */
+let zuordnung = {};    /* feldschluessel -> spaltenindex */
+let ergebnis = null;   /* { faellig: [], uebersprungen: [], stichtag, bis } */
+
+function zuordnungRaten(kopf) {
+  const belegt = {};
+  const z = {};
+  FELDER.forEach(f => {
+    for (const hinweis of f.h) {
+      let index = kopf.findIndex((s, i) => !belegt[i] && norm(s) === hinweis);
+      if (index < 0) index = kopf.findIndex((s, i) => !belegt[i] && norm(s).indexOf(hinweis) !== -1);
+      if (index >= 0) { z[f.k] = index; belegt[index] = true; return; }
+    }
+  });
+  return z;
+}
+function zuordnungZeigen() {
+  const ziel = $('#zuordnung');
+  ziel.innerHTML = '';
+  FELDER.forEach(f => {
+    const zeile = document.createElement('div');
+    zeile.className = 'feldzeile';
+    const bez = document.createElement('label');
+    bez.setAttribute('for', 'zu-' + f.k);
+    bez.innerHTML = schutz(f.n) + (f.pflicht ? ' <span class="marke stop">Pflicht</span>' : '');
+    const wahl = document.createElement('select');
+    wahl.id = 'zu-' + f.k;
+    wahl.innerHTML = '<option value="">— nicht vorhanden —</option>'
+      + daten.kopf.map((s, i) => '<option value="' + i + '">' + schutz(s || ('Spalte ' + (i + 1))) + '</option>').join('');
+    wahl.value = (zuordnung[f.k] === undefined ? '' : zuordnung[f.k]);
+    wahl.addEventListener('change', () => {
+      if (wahl.value === '') delete zuordnung[f.k]; else zuordnung[f.k] = +wahl.value;
+      einst.zuordnung = zuordnung;
+      einstellungenSpeichern();
+    });
+    zeile.appendChild(bez); zeile.appendChild(wahl);
+    ziel.appendChild(zeile);
+  });
+}
+function wert(zeile, schluessel) {
+  const i = zuordnung[schluessel];
+  if (i === undefined || i === null) return '';
+  const v = zeile[i];
+  return v == null ? '' : String(v).trim();
+}
+function vorschauZeigen() {
+  const t = $('#vorschau');
+  const kopf = '<thead><tr>' + daten.kopf.map(s => '<th>' + schutz(s) + '</th>').join('') + '</tr></thead>';
+  const leib = '<tbody>' + daten.zeilen.slice(0, 5).map(z =>
+    '<tr>' + daten.kopf.map((_, i) => '<td>' + schutz(z[i] || '') + '</td>').join('') + '</tr>').join('') + '</tbody>';
+  t.innerHTML = kopf + leib;
+  $('#karte-vorschau').classList.remove('versteckt');
+}
+
+/* --------------------------------------------------------------------------
+   4. Einstellungen
+   -------------------------------------------------------------------------- */
+const SCHLUESSEL = 'recall-vorsorge-einstellungen-v1';
+
+const BRIEF_STANDARD =
+'{briefanrede}\n' +
+'\n' +
+'Ihre letzte erweiterte Vorsorgeuntersuchung bei uns war am {letzte_vorsorge} – das ist inzwischen {monate_her} Monate her. Einen festen Kontrolltermin hatten wir Ihnen damals nicht genannt, weil kein Anlass dazu bestand. Damit die Untersuchung darüber nicht in Vergessenheit gerät, schreiben wir Sie heute an.\n' +
+'\n' +
+'Beim PSA-Wert sagt der Verlauf mehr aus als jeder einzelne Wert, und auch die Ultraschallbefunde von Prostata, Nieren und Blase lassen sich am besten im Vergleich zu den Vorjahren beurteilen. Genau deshalb lohnt es sich, die Reihe fortzusetzen.\n' +
+'\n' +
+'Einen Termin vereinbaren Sie telefonisch unter {telefon} oder jederzeit online unter {terminlink}. Sagen Sie bei der Anmeldung bitte, dass es um die Vorsorge geht – dann planen wir genug Zeit ein, und Sie erhalten Ihren Befund noch während des Termins.\n' +
+'\n' +
+'Wenn Sie solche Erinnerungen nicht mehr wünschen, genügt ein kurzer Anruf oder eine Nachricht. Wir nehmen Sie dann aus der Liste, ohne dass Ihnen daraus ein Nachteil entsteht.\n' +
+'\n' +
+'Mit freundlichen Grüßen\n' +
+'\n' +
+'\n' +
+'{unterschrift}';
+
+const MAIL_STANDARD =
+'{briefanrede}\n' +
+'\n' +
+'Ihre letzte erweiterte Vorsorgeuntersuchung bei uns war am {letzte_vorsorge}. Einen festen Kontrolltermin hatten wir Ihnen damals nicht genannt – deshalb diese Erinnerung.\n' +
+'\n' +
+'Gerade beim PSA-Wert zählt der Verlauf mehr als der einzelne Wert. Wenn Sie die Vorsorge fortsetzen möchten, vereinbaren Sie einen Termin telefonisch unter {telefon} oder online unter {terminlink}.\n' +
+'\n' +
+'Mit freundlichen Grüßen\n' +
+'{unterschrift}\n' +
+'\n' +
+'--\n' +
+'Sie erhalten diese E-Mail, weil Sie uns Ihr Einverständnis für Erinnerungen an Vorsorgetermine gegeben haben. Sie können es jederzeit formlos widerrufen – eine Antwort auf diese E-Mail oder ein Anruf unter {telefon} genügt.\n' +
+'{praxis}';
+
+const TELEFON_STANDARD =
+'Guten Tag, hier ist {praxis}. Ich rufe an, weil Ihre letzte Vorsorgeuntersuchung bei uns eine Weile zurückliegt und Sie uns erlaubt hatten, Sie daran zu erinnern. Möchten Sie einen Termin?\n' +
+'\n' +
+'Falls kein Interesse besteht: „Darf ich vermerken, dass wir Sie künftig nicht mehr erinnern?" – und den Widerruf anschließend in der Karteikarte eintragen.';
+
+const STANDARD = {
+  einAbrechnung: 'Privat, Beihilfe, PBeaKK, KVB, Selbstzahler, IGeL, Rechnung, GOÄ',
+  einLeistung:   'Vorsorge, IGeL, PSA, Krebsfrüherkennung, Basis, Ultraschall, komplett, Männergesundheit',
+  einStreng:     true,
+  ausKontrolle:  'Kontrolle, Wiedervorlage, Nachsorge, Rezidiv, Karzinom, Tumor, Biopsie, Active Surveillance, aktive Überwachung, Therapie',
+  ausWiedervorlage: true,
+  ausTermin:     true,
+  ausEinwilligung: true,
+  hoechstalter:  80,
+  regeln: [
+    { name: 'Beispiel: Männergesundheit', paket: 'Männergesundheit', von: '', bis: '', monate: 12 }
+  ],
+  standardIntervall: 12,
+  vorlauf: 4,
+  karenz: 10,
+  maxUeber: 36,
+  praxis: {
+    name: 'Urologische Gemeinschaftspraxis Rech',
+    strasse: 'Sophie-Scholl-Platz 4a',
+    ort: '63452 Hanau',
+    telefon: '06181 7033730',
+    mail: 'kontakt@hanau-urologie.de',
+    termin: 'www.hanau-urologie.de/kontakt.html',
+    unterschrift: 'Ihre Urologische Gemeinschaftspraxis Rech',
+    fuss: 'Urologische Gemeinschaftspraxis Rech · Sophie-Scholl-Platz 4a · 63452 Hanau\nTelefon 06181 7033730 · kontakt@hanau-urologie.de · www.hanau-urologie.de'
+  },
+  briefBetreff: 'Ihre nächste urologische Vorsorge',
+  briefText: BRIEF_STANDARD,
+  mailBetreff: 'Erinnerung an Ihre urologische Vorsorge',
+  mailText: MAIL_STANDARD,
+  telefonText: TELEFON_STANDARD,
+  zuordnung: {}
+};
+
+let einst = JSON.parse(JSON.stringify(STANDARD));
+
+function einstellungenLaden() {
+  let roh = null;
+  try { roh = window.localStorage.getItem(SCHLUESSEL); } catch (e) { roh = null; }
+  if (!roh) return;
+  try {
+    const g = JSON.parse(roh);
+    einst = Object.assign(JSON.parse(JSON.stringify(STANDARD)), g);
+    einst.praxis = Object.assign({}, STANDARD.praxis, g.praxis || {});
+    if (!Array.isArray(einst.regeln)) einst.regeln = STANDARD.regeln.slice();
+  } catch (e) { /* beschaedigt – Standard behalten */ }
+}
+function einstellungenSpeichern() {
+  try { window.localStorage.setItem(SCHLUESSEL, JSON.stringify(einst)); } catch (e) { /* ohne Ablage */ }
+}
+
+function insFormular() {
+  $('#e-abrechnung').value   = einst.einAbrechnung;
+  $('#e-leistung').value     = einst.einLeistung;
+  $('#e-streng').checked     = !!einst.einStreng;
+  $('#a-kontrolle').value    = einst.ausKontrolle;
+  $('#a-wiedervorlage').checked = !!einst.ausWiedervorlage;
+  $('#a-termin').checked     = !!einst.ausTermin;
+  $('#a-einwilligung').checked = !!einst.ausEinwilligung;
+  $('#a-hoechstalter').value = einst.hoechstalter;
+  $('#standard-intervall').value = einst.standardIntervall;
+  $('#vorlauf').value        = einst.vorlauf;
+  $('#karenz').value         = einst.karenz;
+  $('#maxueber').value       = einst.maxUeber;
+  $('#p-name').value         = einst.praxis.name;
+  $('#p-strasse').value      = einst.praxis.strasse;
+  $('#p-ort').value          = einst.praxis.ort;
+  $('#p-telefon').value      = einst.praxis.telefon;
+  $('#p-mail').value         = einst.praxis.mail;
+  $('#p-termin').value       = einst.praxis.termin;
+  $('#p-unterschrift').value = einst.praxis.unterschrift;
+  $('#p-fuss').value         = einst.praxis.fuss;
+  $('#brief-betreff').value  = einst.briefBetreff;
+  $('#brief-text').value     = einst.briefText;
+  $('#mail-betreff').value   = einst.mailBetreff;
+  $('#mail-text').value      = einst.mailText;
+  $('#telefon-text').value   = einst.telefonText;
+  regelnZeigen();
+}
+function ausFormular() {
+  einst.einAbrechnung = $('#e-abrechnung').value;
+  einst.einLeistung   = $('#e-leistung').value;
+  einst.einStreng     = $('#e-streng').checked;
+  einst.ausKontrolle  = $('#a-kontrolle').value;
+  einst.ausWiedervorlage = $('#a-wiedervorlage').checked;
+  einst.ausTermin     = $('#a-termin').checked;
+  einst.ausEinwilligung = $('#a-einwilligung').checked;
+  einst.hoechstalter  = +$('#a-hoechstalter').value || 0;
+  einst.standardIntervall = +$('#standard-intervall').value || 0;
+  einst.vorlauf       = +$('#vorlauf').value || 0;
+  einst.karenz        = +$('#karenz').value || 0;
+  einst.maxUeber      = +$('#maxueber').value || 0;
+  einst.praxis.name   = $('#p-name').value;
+  einst.praxis.strasse= $('#p-strasse').value;
+  einst.praxis.ort    = $('#p-ort').value;
+  einst.praxis.telefon= $('#p-telefon').value;
+  einst.praxis.mail   = $('#p-mail').value;
+  einst.praxis.termin = $('#p-termin').value;
+  einst.praxis.unterschrift = $('#p-unterschrift').value;
+  einst.praxis.fuss   = $('#p-fuss').value;
+  einst.briefBetreff  = $('#brief-betreff').value;
+  einst.briefText     = $('#brief-text').value;
+  einst.mailBetreff   = $('#mail-betreff').value;
+  einst.mailText      = $('#mail-text').value;
+  einst.telefonText   = $('#telefon-text').value;
+  einstellungenSpeichern();
+}
+
+function regelnZeigen() {
+  const ziel = $('#regeln');
+  ziel.innerHTML = '';
+  einst.regeln.forEach((r, i) => {
+    const zeile = document.createElement('div');
+    zeile.className = 'regelzeile';
+    zeile.innerHTML =
+      '<input type="text" value="' + schutz(r.name) + '" data-r="name" aria-label="Name der Regel">' +
+      '<input type="text" value="' + schutz(r.paket) + '" data-r="paket" aria-label="Paket enthält">' +
+      '<input type="number" min="0" max="120" value="' + schutz(r.von) + '" data-r="von" aria-label="Alter ab">' +
+      '<input type="number" min="0" max="120" value="' + schutz(r.bis) + '" data-r="bis" aria-label="Alter bis">' +
+      '<span style="white-space:nowrap"><input type="number" min="0" max="120" style="width:4.5rem" value="' + schutz(r.monate) + '" data-r="monate" aria-label="Abstand in Monaten"> Mon.</span>' +
+      '<button class="klein-knopf" data-weg="' + i + '" title="Regel entfernen" aria-label="Regel entfernen">✕</button>';
+    $$('input', zeile).forEach(f => f.addEventListener('change', () => {
+      const s = f.getAttribute('data-r');
+      einst.regeln[i][s] = (s === 'name' || s === 'paket') ? f.value
+                        : (f.value === '' ? '' : +f.value);
+      einstellungenSpeichern();
+    }));
+    $('button', zeile).addEventListener('click', () => {
+      einst.regeln.splice(i, 1); einstellungenSpeichern(); regelnZeigen();
+    });
+    ziel.appendChild(zeile);
+  });
+}
+
+/* --------------------------------------------------------------------------
+   5. Die Auswertung – das Muster
+   -------------------------------------------------------------------------- */
+function regelFinden(paket, alter) {
+  for (const r of einst.regeln) {
+    if (r.paket && !trifft(paket, [r.paket])) continue;
+    if (r.von !== '' && r.von != null) {
+      if (alter == null || alter < +r.von) continue;
+    }
+    if (r.bis !== '' && r.bis != null) {
+      if (alter == null || alter > +r.bis) continue;
+    }
+    return r;
+  }
+  return null;
+}
+
+function kanalBestimmen(p) {
+  const roh = norm(p.kanal);
+  let k = '';
+  if (/mail/.test(roh)) k = 'mail';
+  else if (/telefon|anruf|tel|mobil/.test(roh)) k = 'telefon';
+  else if (/brief|post|schreiben/.test(roh)) k = 'brief';
+  const hinweise = [];
+  if (!k) {
+    const w = norm(p.einwilligung);
+    if (/mail/.test(w) && p.email) k = 'mail';
+    else if (/telefon|anruf/.test(w) && p.telefon) k = 'telefon';
+    else k = 'brief';
+  }
+  if (k === 'mail' && !p.email) { k = 'brief'; hinweise.push('keine E-Mail-Adresse'); }
+  if (k === 'brief' && !(p.strasse && p.ort)) {
+    k = p.telefon ? 'telefon' : (p.email ? 'mail' : 'brief');
+    hinweise.push('keine vollständige Anschrift');
+  }
+  if (k === 'telefon' && !p.telefon) {
+    k = (p.strasse && p.ort) ? 'brief' : (p.email ? 'mail' : 'telefon');
+    hinweise.push('keine Telefonnummer');
+  }
+  return { kanal: k, hinweise: hinweise };
+}
+
+function auswerten() {
+  if (!daten) return;
+  ausFormular();
+
+  const stichtag = vonIso($('#stichtag').value) || heute();
+  const bis      = vonIso($('#bisdatum').value) || monatsende(stichtag);
+  const wAbrechnung = stichwoerter(einst.einAbrechnung);
+  const wLeistung   = stichwoerter(einst.einLeistung);
+  const wKontrolle  = stichwoerter(einst.ausKontrolle);
+
+  const faellig = [], uebersprungen = [];
+
+  daten.zeilen.forEach((zeile, nr) => {
+    const p = {};
+    FELDER.forEach(f => { p[f.k] = wert(zeile, f.k); });
+    p.kanal = wert(zeile, 'kanal');
+    p.zeilennummer = nr + 2;
+
+    const name = [p.titel, p.vorname, p.nachname].filter(Boolean).join(' ').trim()
+              || ('Zeile ' + p.zeilennummer);
+    const weg = (grund) => uebersprungen.push({ p: p, name: name, grund: grund });
+
+    /* -- Datum der letzten Vorsorge --------------------------------------- */
+    const letzte = parseDatum(p.letzte);
+    if (!letzte) { weg('kein verwertbares Datum der letzten Vorsorge'); return; }
+    if (letzte > stichtag) { weg('Datum der letzten Vorsorge liegt in der Zukunft'); return; }
+
+    /* -- Sperre und Einwilligung ------------------------------------------ */
+    if (p.sperre && jaNein(p.sperre)) { weg('Werbesperre oder Widerruf vermerkt'); return; }
+    if (einst.ausEinwilligung && !jaNein(p.einwilligung)) {
+      weg('keine Einwilligung vermerkt'); return;
+    }
+
+    /* -- Selbst bezahlte Vorsorge? ---------------------------------------- */
+    const trefferA = wAbrechnung.length ? trifft(p.abrechnung, wAbrechnung) : null;
+    const trefferL = wLeistung.length   ? trifft(p.paket + ' ' + p.abrechnung, wLeistung) : null;
+    if (einst.einStreng && !trefferA && !trefferL) {
+      weg('keine Selbstzahler- oder Privatleistung erkennbar'); return;
+    }
+
+    /* -- Steht der Patient in geregelter Kontrolle? ------------------------ */
+    const trefferK = trifft([p.merkmal, p.wiedervorlage, p.paket].join(' '), wKontrolle);
+    if (trefferK) { weg('in geregelter Kontrolle („' + trefferK + '“) – wird ohnehin einbestellt'); return; }
+    if (einst.ausWiedervorlage) {
+      const wv = parseDatum(p.wiedervorlage);
+      if (wv) { weg('Wiedervorlage am ' + de(wv) + ' eingetragen'); return; }
+    }
+    if (einst.ausTermin) {
+      const t = parseDatum(p.termin);
+      if (t && t >= stichtag) { weg('Termin am ' + de(t) + ' bereits vereinbart'); return; }
+    }
+
+    /* -- Alter ------------------------------------------------------------- */
+    const geb = parseDatum(p.geburt);
+    const alter = alterAm(geb, stichtag);
+    if (einst.hoechstalter > 0 && alter != null && alter > einst.hoechstalter) {
+      weg('Alter ' + alter + ' Jahre – über der eingestellten Grenze'); return;
+    }
+
+    /* -- Abstand ----------------------------------------------------------- */
+    let monate, regelname;
+    const eigen = parseInt(p.intervall, 10);
+    if (!isNaN(eigen) && eigen > 0) {
+      monate = eigen; regelname = 'eigenes Intervall aus dem Export';
+    } else {
+      const r = regelFinden(p.paket, alter);
+      if (r) { monate = +r.monate || 0; regelname = r.name || 'Regel'; }
+      else { monate = +einst.standardIntervall || 0; regelname = 'Standardabstand'; }
+    }
+    if (!monate) { weg('Regel „' + regelname + '“ sieht keine Erinnerung vor'); return; }
+
+    /* -- Fälligkeit -------------------------------------------------------- */
+    const faelligAm  = plusMonate(letzte, monate);
+    const erinnernAb = plusTage(faelligAm, -7 * (einst.vorlauf || 0));
+
+    if (erinnernAb > bis) {
+      weg('noch nicht an der Reihe – Erinnerung ab ' + de(erinnernAb)); return;
+    }
+    if (einst.maxUeber > 0 && faelligAm < plusMonate(stichtag, -einst.maxUeber)) {
+      weg('seit ' + de(faelligAm) + ' überfällig – außerhalb des Zeitfensters'); return;
+    }
+    const erinnert = parseDatum(p.erinnert);
+    if (erinnert && einst.karenz > 0 && plusMonate(erinnert, einst.karenz) > stichtag) {
+      weg('zuletzt erinnert am ' + de(erinnert) + ' – Karenzzeit läuft noch'); return;
+    }
+
+    /* -- Kanal ------------------------------------------------------------- */
+    const kb = kanalBestimmen(p);
+    if (kb.kanal === 'brief' && !(p.strasse && p.ort) && !p.telefon && !p.email) {
+      weg('weder Anschrift noch Telefon noch E-Mail vorhanden'); return;
+    }
+
+    faellig.push({
+      p: p, name: name, alter: alter, letzte: letzte, monate: monate, regel: regelname,
+      faelligAm: faelligAm, erinnernAb: erinnernAb,
+      monateHer: monateZwischen(letzte, stichtag),
+      status: faelligAm < stichtag ? 'ueberfaellig' : (erinnernAb <= stichtag ? 'faellig' : 'vorlauf'),
+      kanal: kb.kanal, hinweise: kb.hinweise, gewaehlt: true
+    });
+  });
+
+  faellig.sort((a, b) => a.faelligAm - b.faelligAm);
+  ergebnis = { faellig: faellig, uebersprungen: uebersprungen, stichtag: stichtag, bis: bis };
+  listeZeigen();
+  zaehlerAuffrischen();
+}
+
+/* --------------------------------------------------------------------------
+   6. Darstellung
+   -------------------------------------------------------------------------- */
+const KANALNAME = { brief: 'Brief', mail: 'E-Mail', telefon: 'Telefon' };
+
+function ausgewaehlte(kanal) {
+  if (!ergebnis) return [];
+  return ergebnis.faellig.filter(e => e.gewaehlt && (!kanal || e.kanal === kanal));
+}
+function zaehlerAuffrischen() {
+  $('#z-liste').textContent   = ausgewaehlte().length;
+  $('#z-briefe').textContent  = ausgewaehlte('brief').length;
+  $('#z-mails').textContent   = ausgewaehlte('mail').length;
+  $('#z-telefon').textContent = ausgewaehlte('telefon').length;
+  $('#briefe-anzahl').textContent  = ausgewaehlte('brief').length + ' Briefe';
+  $('#mails-anzahl').textContent   = ausgewaehlte('mail').length + ' E-Mails';
+  $('#telefon-anzahl').textContent = ausgewaehlte('telefon').length + ' Anrufe';
+  $('#zurueck-anzahl').textContent = ausgewaehlte().length + ' Einträge';
+}
+
+function statusMarke(e) {
+  if (e.status === 'ueberfaellig') return '<span class="marke warn">überfällig</span>';
+  if (e.status === 'faellig')      return '<span class="marke ok">fällig</span>';
+  return '<span class="marke neutral">Vorlauf</span>';
+}
+
+function listeZeigen() {
+  if (!ergebnis) return;
+  $('#liste-leer').classList.add('versteckt');
+  $('#liste-inhalt').classList.remove('versteckt');
+
+  const g = ergebnis.faellig.length, a = ausgewaehlte().length;
+  $('#spiegel').innerHTML =
+    '<div><b>' + daten.zeilen.length + '</b><span>Datensätze gelesen</span></div>' +
+    '<div><b>' + g + '</b><span>zum Anschreiben vorgeschlagen</span></div>' +
+    '<div><b>' + ergebnis.faellig.filter(e => e.status === 'ueberfaellig').length + '</b><span>davon überfällig</span></div>' +
+    '<div><b>' + a + '</b><span>ausgewählt</span></div>' +
+    '<div><b>' + ergebnis.uebersprungen.length + '</b><span>nicht angeschrieben</span></div>';
+
+  const t = $('#tab-faellig');
+  t.innerHTML =
+    '<thead><tr><th style="width:2.2rem"></th><th>Nr.</th><th>Name</th><th class="rechts">Alter</th>' +
+    '<th>letzte Vorsorge</th><th>Paket</th><th class="rechts">Abstand</th><th>fällig am</th>' +
+    '<th>Status</th><th>Kanal</th><th>Hinweis</th></tr></thead><tbody>' +
+    ergebnis.faellig.map((e, i) =>
+      '<tr>' +
+      '<td><input type="checkbox" data-i="' + i + '" ' + (e.gewaehlt ? 'checked' : '') +
+        ' aria-label="' + schutz(e.name) + ' anschreiben"></td>' +
+      '<td>' + schutz(e.p.nr) + '</td>' +
+      '<td>' + schutz(e.name) + '</td>' +
+      '<td class="rechts">' + (e.alter == null ? '–' : e.alter) + '</td>' +
+      '<td class="datum">' + de(e.letzte) + ' <span class="klein">(' + e.monateHer + ' Mon.)</span></td>' +
+      '<td>' + schutz(e.p.paket) + '</td>' +
+      '<td class="rechts" title="' + schutz(e.regel) + '">' + e.monate + ' Mon.</td>' +
+      '<td class="datum">' + de(e.faelligAm) + '</td>' +
+      '<td>' + statusMarke(e) + '</td>' +
+      '<td><select data-k="' + i + '" aria-label="Kanal">' +
+        ['brief','mail','telefon'].map(k =>
+          '<option value="' + k + '"' + (e.kanal === k ? ' selected' : '') + '>' + KANALNAME[k] + '</option>').join('') +
+      '</select></td>' +
+      '<td class="klein">' + schutz(e.hinweise.join(', ')) + '</td>' +
+      '</tr>').join('') + '</tbody>';
+
+  $$('input[type=checkbox]', t).forEach(f => f.addEventListener('change', () => {
+    ergebnis.faellig[+f.getAttribute('data-i')].gewaehlt = f.checked;
+    zaehlerAuffrischen();
+    $('#spiegel').children[3].firstElementChild.textContent = ausgewaehlte().length;
+  }));
+  $$('select', t).forEach(f => f.addEventListener('change', () => {
+    ergebnis.faellig[+f.getAttribute('data-k')].kanal = f.value;
+    zaehlerAuffrischen();
+  }));
+
+  const u = ergebnis.uebersprungen;
+  const zeigen = u.slice(0, 400);
+  $('#z-uebersprungen').textContent = '(' + u.length + ')';
+  $('#tab-uebersprungen').innerHTML =
+    '<thead><tr><th>Nr.</th><th>Name</th><th>letzte Vorsorge</th><th>Grund</th></tr></thead><tbody>' +
+    zeigen.map(e =>
+      '<tr><td>' + schutz(e.p.nr) + '</td><td>' + schutz(e.name) + '</td>' +
+      '<td>' + schutz(e.p.letzte) + '</td><td>' + schutz(e.grund) + '</td></tr>').join('') +
+    (u.length > zeigen.length
+      ? '<tr><td colspan="4" class="klein">… und ' + (u.length - zeigen.length) +
+        ' weitere, hier nicht aufgeführt.</td></tr>' : '') +
+    '</tbody>';
+}
+
+/* ---- Platzhalter ---------------------------------------------------------- */
+function briefanrede(p) {
+  const a = norm(p.anrede);
+  const teil = [p.titel, p.nachname].filter(Boolean).join(' ').trim();
+  if (/^(herr|hr|maennlich|m)$/.test(a) || a === 'herrn') return 'Sehr geehrter Herr ' + teil + ',';
+  if (/^(frau|fr|weiblich|w)$/.test(a)) return 'Sehr geehrte Frau ' + teil + ',';
+  const voll = [p.vorname, p.nachname].filter(Boolean).join(' ').trim();
+  return voll ? 'Guten Tag ' + voll + ',' : 'Sehr geehrte Patientin, sehr geehrter Patient,';
+}
+function anschriftFeld(p) {
+  const zeilen = [];
+  const z1 = [(norm(p.anrede) === 'herr' ? 'Herrn' : p.anrede), p.titel, p.vorname, p.nachname]
+    .filter(Boolean).join(' ').trim();
+  if (z1) zeilen.push(z1);
+  if (p.strasse) zeilen.push(p.strasse);
+  const z3 = [p.plz, p.ort].filter(Boolean).join(' ').trim();
+  if (z3) zeilen.push(z3);
+  return zeilen.join('\n');
+}
+function fuellen(vorlage, e) {
+  const p = e.p, x = einst.praxis;
+  const werte = {
+    briefanrede: briefanrede(p),
+    anrede: p.anrede, titel: p.titel, vorname: p.vorname, nachname: p.nachname,
+    patientennummer: p.nr,
+    letzte_vorsorge: de(e.letzte),
+    faellig_am: de(e.faelligAm),
+    monate_her: String(e.monateHer),
+    paket: p.paket,
+    praxis: x.name, telefon: x.telefon, terminlink: x.termin, unterschrift: x.unterschrift,
+    datum: de(ergebnis ? ergebnis.stichtag : heute())
+  };
+  return String(vorlage).replace(/\{([a-z_]+)\}/g, (treffer, name) =>
+    werte[name] !== undefined ? werte[name] : treffer);
+}
+
+/* ---- Briefe --------------------------------------------------------------- */
+function briefHtml(e) {
+  const x = einst.praxis;
+  const ortname = (x.ort || '').replace(/^\s*\d{4,5}\s*/, '').trim() || x.ort;
+  return '<div class="brief">' +
+    '<div class="absenderzeile">' + schutz([x.name, x.strasse, x.ort].filter(Boolean).join(' · ')) + '</div>' +
+    '<div class="anschrift">' + schutz(anschriftFeld(e.p)) + '</div>' +
+    '<div class="datumzeile">' + schutz(ortname) + ', ' +
+      langesDatum(ergebnis ? ergebnis.stichtag : heute()) + '</div>' +
+    '<div class="betreff">' + schutz(fuellen(einst.briefBetreff, e)) + '</div>' +
+    '<div class="text">' + schutz(fuellen(einst.briefText, e)) + '</div>' +
+    '<div class="fuss">' + schutz(x.fuss) + '</div>' +
+    '</div>';
+}
+function briefVorschau() {
+  ausFormular();
+  const liste = ausgewaehlte('brief');
+  $('#brief-vorschau').innerHTML = liste.length
+    ? briefHtml(liste[0])
+    : '<p class="klein">Kein Brief ausgewählt. Unter <strong>3. Auswahl</strong> nachsehen.</p>';
+  zaehlerAuffrischen();
+}
+function briefeDrucken() {
+  ausFormular();
+  const liste = ausgewaehlte('brief');
+  if (!liste.length) { alert('Es ist kein Patient für den Kanal Brief ausgewählt.'); return; }
+  $('#druckbereich').innerHTML = liste.map(briefHtml).join('');
+  drucken('briefe');
+}
+function drucken(art) {
+  document.body.setAttribute('data-druck', art);
+  const auf = () => {
+    document.body.removeAttribute('data-druck');
+    window.removeEventListener('afterprint', auf);
+  };
+  window.addEventListener('afterprint', auf);
+  window.print();
+  setTimeout(auf, 2000);
+}
+
+/* ---- E-Mails -------------------------------------------------------------- */
+function mailsZeigen() {
+  ausFormular();
+  const liste = ausgewaehlte('mail');
+  const ziel = $('#mailliste');
+  if (!liste.length) {
+    ziel.innerHTML = '<div class="merk"><p>Kein Patient für den Kanal E-Mail ausgewählt.</p></div>';
+    zaehlerAuffrischen(); return;
+  }
+  ziel.innerHTML = liste.map((e, i) => {
+    const betreff = fuellen(einst.mailBetreff, e);
+    const text = fuellen(einst.mailText, e);
+    return '<div class="mailkarte">' +
+      '<header><b>' + schutz(e.p.email) + '</b>' +
+      '<span class="klein">' + schutz(e.name) + ' · Nr. ' + schutz(e.p.nr) + '</span>' +
+      '<span class="wachsen"></span>' +
+      '<button class="klein-knopf" data-mail="' + i + '">Text kopieren</button>' +
+      '<button class="klein-knopf" data-adr="' + i + '">Adresse kopieren</button>' +
+      '</header>' +
+      '<pre><strong>Betreff:</strong> ' + schutz(betreff) + '\n\n' + schutz(text) + '</pre>' +
+      '</div>';
+  }).join('');
+  $$('button[data-mail]', ziel).forEach(b => b.addEventListener('click', () => {
+    const e = liste[+b.getAttribute('data-mail')];
+    kopieren(fuellen(einst.mailText, e), b);
+  }));
+  $$('button[data-adr]', ziel).forEach(b => b.addEventListener('click', () => {
+    kopieren(liste[+b.getAttribute('data-adr')].p.email, b);
+  }));
+  zaehlerAuffrischen();
+}
+function mailsAlleKopieren(knopf) {
+  const liste = ausgewaehlte('mail');
+  const text = liste.map(e =>
+    'An: ' + e.p.email + '\nBetreff: ' + fuellen(einst.mailBetreff, e) + '\n\n' +
+    fuellen(einst.mailText, e) + '\n\n' + '─'.repeat(60) + '\n').join('\n');
+  kopieren(text, knopf);
+}
+
+/* ---- Telefonliste --------------------------------------------------------- */
+function telefonZeigen() {
+  const liste = ausgewaehlte('telefon');
+  $('#tab-telefon').innerHTML =
+    '<thead><tr><th>Nr.</th><th>Name</th><th>Telefon</th><th>letzte Vorsorge</th>' +
+    '<th>fällig seit</th><th>Ergebnis des Anrufs</th></tr></thead><tbody>' +
+    (liste.length ? liste.map(e =>
+      '<tr><td>' + schutz(e.p.nr) + '</td><td>' + schutz(e.name) + '</td>' +
+      '<td>' + schutz(e.p.telefon) + '</td><td>' + de(e.letzte) + '</td>' +
+      '<td>' + de(e.faelligAm) + '</td>' +
+      '<td class="klein">Termin am ______  ·  später ______  ·  kein Interesse ☐</td></tr>').join('')
+      : '<tr><td colspan="6" class="klein">Kein Patient für den Kanal Telefon ausgewählt.</td></tr>') +
+    '</tbody>';
+  zaehlerAuffrischen();
+}
+function telefonDrucken() {
+  ausFormular();
+  const liste = ausgewaehlte('telefon');
+  if (!liste.length) { alert('Es ist kein Patient für den Kanal Telefon ausgewählt.'); return; }
+  const x = einst.praxis;
+  const leitfaden = einst.telefonText.replace(/\{praxis\}/g, x.name).replace(/\{telefon\}/g, x.telefon);
+  $('#druckbereich').innerHTML =
+    '<div class="telefonliste"><h2>Anrufliste Vorsorge – Stand ' +
+      de(ergebnis.stichtag) + '</h2>' +
+    '<p style="white-space:pre-line;font-size:10pt">' + schutz(leitfaden) + '</p>' +
+    '<table><thead><tr><th>Nr.</th><th>Name</th><th>Telefon</th><th>letzte Vorsorge</th>' +
+    '<th>fällig seit</th><th>erreicht</th><th>Ergebnis</th></tr></thead><tbody>' +
+    liste.map(e =>
+      '<tr><td>' + schutz(e.p.nr) + '</td><td>' + schutz(e.name) + '</td>' +
+      '<td>' + schutz(e.p.telefon) + '</td><td>' + de(e.letzte) + '</td>' +
+      '<td>' + de(e.faelligAm) + '</td><td><span class="haken"></span></td>' +
+      '<td style="min-width:45mm">&nbsp;</td></tr>').join('') +
+    '</tbody></table>' +
+    '<p style="font-size:8pt;margin-top:6mm">Enthält Patientendaten – nach dem Telefonieren ' +
+    'vernichten, nicht ablegen.</p></div>';
+  drucken('telefon');
+}
+
+/* ---- Rückschreiben -------------------------------------------------------- */
+function csvZeile(felder) {
+  return felder.map(f => {
+    const s = (f == null ? '' : String(f));
+    return /[";\r\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+  }).join(';');
+}
+function zurueckText() {
+  const tag = vonIso($('#zurueck-datum').value) || heute();
+  const zeilen = [csvZeile(['Patientennummer', 'Erinnert_am', 'Kanal'])];
+  ausgewaehlte().forEach(e => zeilen.push(csvZeile([e.p.nr, de(tag), KANALNAME[e.kanal]])));
+  return zeilen.join('\r\n');
+}
+function dokuText() {
+  const tag = vonIso($('#zurueck-datum').value) || heute();
+  const zeilen = [csvZeile(['Patientennummer', 'Name', 'Letzte_Vorsorge', 'Paket', 'Abstand_Monate',
+                            'Regel', 'Faellig_am', 'Kanal', 'Erinnert_am'])];
+  ausgewaehlte().forEach(e => zeilen.push(csvZeile([
+    e.p.nr, e.name, de(e.letzte), e.p.paket, e.monate, e.regel, de(e.faelligAm),
+    KANALNAME[e.kanal], de(tag)])));
+  return zeilen.join('\r\n');
+}
+function zurueckZeigen() {
+  $('#zurueck-text').value = zurueckText();
+  zaehlerAuffrischen();
+}
+
+/* --------------------------------------------------------------------------
+   7. Reiter, Ereignisse, Start
+   -------------------------------------------------------------------------- */
+function reiterWechseln(id) {
+  $$('[role=tab]').forEach(r => {
+    const an = r.id === id;
+    r.setAttribute('aria-selected', an ? 'true' : 'false');
+    $('#' + r.getAttribute('aria-controls')).hidden = !an;
+  });
+  if (id === 'r-briefe')  briefVorschau();
+  if (id === 'r-mails')   mailsZeigen();
+  if (id === 'r-telefon') telefonZeigen();
+  if (id === 'r-zurueck') zurueckZeigen();
+}
+
+function dateiVerarbeiten(datei) {
+  const leser = new FileReader();
+  leser.onload = () => {
+    const text = textAus(leser.result);
+    const trenner = trennzeichenRaten(text);
+    const gelesen = csvLesen(text, trenner);
+    if (!gelesen.kopf.length || !gelesen.zeilen.length) {
+      $('#dateimeldung').innerHTML = '<span class="marke stop">Fehler</span> Die Datei enthält keine ' +
+        'verwertbaren Zeilen.';
+      return;
+    }
+    datenUebernehmen(gelesen, datei.name, trenner);
+  };
+  leser.onerror = () => {
+    $('#dateimeldung').innerHTML = '<span class="marke stop">Fehler</span> Die Datei ließ sich nicht lesen.';
+  };
+  leser.readAsArrayBuffer(datei);
+}
+function datenUebernehmen(gelesen, quelle, trenner) {
+  daten = gelesen;
+  const gespeichert = einst.zuordnung || {};
+  const passt = Object.keys(gespeichert).length
+    && Object.keys(gespeichert).every(k => gespeichert[k] < daten.kopf.length);
+  zuordnung = passt ? Object.assign({}, gespeichert) : zuordnungRaten(daten.kopf);
+  einst.zuordnung = zuordnung;
+  einstellungenSpeichern();
+
+  const name = { ';': 'Semikolon', ',': 'Komma', '\t': 'Tabulator', '|': 'senkrechter Strich' }[trenner] || trenner;
+  $('#dateimeldung').innerHTML = '<span class="marke ok">gelesen</span> ' + schutz(quelle) + ' &ndash; '
+    + daten.zeilen.length + ' Zeilen, ' + daten.kopf.length + ' Spalten, Trennzeichen ' + name + '.'
+    + (zuordnung.letzte === undefined
+        ? ' <strong>Die Spalte mit dem Datum der letzten Vorsorge wurde nicht erkannt – bitte unten zuordnen.</strong>'
+        : '');
+  $('#karte-zuordnung').classList.remove('versteckt');
+  $('#verwerfen').disabled = false;
+  zuordnungZeigen();
+  vorschauZeigen();
+  if (zuordnung.letzte !== undefined) auswerten();
+}
+function datenVerwerfen() {
+  daten = null; ergebnis = null; zuordnung = {};
+  $('#karte-zuordnung').classList.add('versteckt');
+  $('#karte-vorschau').classList.add('versteckt');
+  $('#liste-inhalt').classList.add('versteckt');
+  $('#liste-leer').classList.remove('versteckt');
+  $('#mailliste').innerHTML = '';
+  $('#brief-vorschau').innerHTML = '';
+  $('#tab-telefon').innerHTML = '';
+  $('#zurueck-text').value = '';
+  $('#druckbereich').innerHTML = '';
+  $('#datei').value = '';
+  $('#verwerfen').disabled = true;
+  $('#dateimeldung').innerHTML = '<span class="marke neutral">verworfen</span> Es sind keine ' +
+    'Patientendaten mehr geladen.';
+  zaehlerAuffrischen();
+}
+
+/* ---- Beispieldaten – frei erfunden, dienen nur zum Ausprobieren ----------- */
+function beispieldaten() {
+  const h = heute();
+  const vor = n => de(plusMonate(h, -n));
+  const gebDat = alter => de(new Date(h.getFullYear() - alter, 4, 17));
+  const kopf = ['Patientennummer','Anrede','Titel','Vorname','Nachname','Geburtsdatum','Strasse',
+    'PLZ','Ort','Telefon','E-Mail','Letzte Vorsorge','Paket','Abrechnung','Wiedervorlage',
+    'Merkmal','Einwilligung','Naechster Termin','Zuletzt erinnert','Kanal','Intervall'];
+  const z = [
+    ['10241','Herr','','Bernd','Adam',gebDat(58),'Lindenstraße 12','63450','Hanau','06181 111111','b.adam@example.de',vor(13),'komplett','Selbstzahler','','','ja','','','',''],
+    ['10388','Herr','Dr.','Klaus','Bertram',gebDat(64),'Am Freiheitsplatz 3','63450','Hanau','06181 222222','',vor(14),'komplett mit Männergesundheit','Privat','','','ja','','','Brief',''],
+    ['10455','Herr','','Ahmet','Coskun',gebDat(52),'Nussallee 8','63456','Hanau','06181 333333','a.coskun@example.de',vor(12),'Basis','Selbstzahler','','','ja','','','E-Mail',''],
+    ['10512','Herr','','Peter','Dietz',gebDat(71),'Kurt-Blaum-Platz 1','63450','Hanau','06181 444444','',vor(26),'komplett','Beihilfe','','','ja','','','',''],
+    ['10604','Herr','','Jörg','Ehlers',gebDat(47),'Rodenbacher Weg 4','63454','Bad Vilbel','06181 555555','j.ehlers@example.de',vor(25),'Basis','Selbstzahler','','','ja','','','',''],
+    ['10677','Herr','Prof.','Wilhelm','Freytag',gebDat(83),'Schlossplatz 2','63450','Hanau','06181 666666','',vor(15),'komplett','Privat','','','ja','','','',''],
+    ['10701','Herr','','Marco','Gruber',gebDat(55),'Salzstraße 19','63450','Hanau','06181 777777','',vor(16),'Basis','Selbstzahler','','PSA-Kontrolle halbjährlich','ja','','','',''],
+    ['10744','Herr','','Uwe','Hartmann',gebDat(61),'Frankfurter Landstraße 7','63452','Hanau','06181 888888','u.hartmann@example.de',vor(13),'komplett','Privat',de(plusMonate(h,2)),'','ja','','','',''],
+    ['10802','Herr','','Ingo','Jakobs',gebDat(49),'Bruchköbeler Landstraße 22','63452','Hanau','06181 999999','',vor(14),'Basis','Selbstzahler','','','ja',de(plusMonate(h,1)),'','',''],
+    ['10855','Herr','','Sven','Köhler',gebDat(57),'Hospitalstraße 5','63450','Hanau','06181 121212','s.koehler@example.de',vor(13),'komplett','Selbstzahler','','','ja','',vor(3),'',''],
+    ['10913','Herr','','Rainer','Lorenz',gebDat(66),'Nürnberger Straße 30','63450','Hanau','06181 131313','',vor(18),'Tastuntersuchung','Kasse','','','ja','','','',''],
+    ['10967','Herr','','Detlef','Möller',gebDat(60),'Alfred-Delp-Straße 9','63450','Hanau','06181 141414','',vor(13),'komplett','Selbstzahler','','','nein','','','',''],
+    ['11020','Herr','','Andreas','Neumann',gebDat(53),'Steinheimer Straße 44','63456','Hanau','06181 151515','a.neumann@example.de',vor(12),'komplett','Privat','','','ja','','','',''],
+    ['11088','Herr','','Volker','Ostermann',gebDat(68),'','','','06181 161616','',vor(20),'komplett','Beihilfe','','','ja','','','','18'],
+    ['11134','Herr','','Frank','Petersen',gebDat(45),'Gärtnerstraße 11','63450','Hanau','06181 171717','',vor(7),'Basis','Selbstzahler','','','ja','','','','']
+  ];
+  return [kopf].concat(z).map(zeile => csvZeile(zeile)).join('\r\n');
+}
+
+/* ---- Ereignisse ----------------------------------------------------------- */
+$$('[role=tab]').forEach(r => r.addEventListener('click', () => reiterWechseln(r.id)));
+
+$('#datei').addEventListener('change', ev => {
+  if (ev.target.files && ev.target.files[0]) dateiVerarbeiten(ev.target.files[0]);
+});
+$('#beispiel').addEventListener('click', () => {
+  const text = beispieldaten();
+  datenUebernehmen(csvLesen(text, ';'), 'Beispieldaten (frei erfunden)', ';');
+  $('#dateimeldung').innerHTML += ' <span class="marke warn">Beispiel</span> Diese Daten sind ' +
+    'erfunden und dienen nur zum Ausprobieren.';
+});
+$('#verwerfen').addEventListener('click', datenVerwerfen);
+$('#berechnen').addEventListener('click', () => {
+  if (zuordnung.letzte === undefined) {
+    alert('Bitte zuerst die Spalte mit dem Datum der letzten Vorsorge zuordnen.'); return;
+  }
+  auswerten(); reiterWechseln('r-liste');
+});
+$('#zuordnung-zuruecksetzen').addEventListener('click', () => {
+  if (!daten) return;
+  zuordnung = zuordnungRaten(daten.kopf);
+  einst.zuordnung = zuordnung; einstellungenSpeichern(); zuordnungZeigen();
+});
+$('#neu-berechnen').addEventListener('click', () => { auswerten(); reiterWechseln('r-liste'); });
+$('#regel-neu').addEventListener('click', () => {
+  einst.regeln.push({ name: 'Neue Regel', paket: '', von: '', bis: '', monate: 12 });
+  einstellungenSpeichern(); regelnZeigen();
+});
+$('#alle-an').addEventListener('click', () => {
+  if (!ergebnis) return;
+  ergebnis.faellig.forEach(e => { e.gewaehlt = true; }); listeZeigen(); zaehlerAuffrischen();
+});
+$('#alle-aus').addEventListener('click', () => {
+  if (!ergebnis) return;
+  ergebnis.faellig.forEach(e => { e.gewaehlt = false; }); listeZeigen(); zaehlerAuffrischen();
+});
+$('#kanal-massen').addEventListener('change', ev => {
+  if (!ergebnis || !ev.target.value) return;
+  ergebnis.faellig.forEach(e => { if (e.gewaehlt) e.kanal = ev.target.value; });
+  ev.target.value = ''; listeZeigen(); zaehlerAuffrischen();
+});
+$('#briefe-drucken').addEventListener('click', briefeDrucken);
+$('#briefe-vorschau').addEventListener('click', briefVorschau);
+$('#brief-standard').addEventListener('click', () => {
+  $('#brief-betreff').value = STANDARD.briefBetreff;
+  $('#brief-text').value = STANDARD.briefText;
+  briefVorschau();
+});
+$('#mails-aufbauen').addEventListener('click', mailsZeigen);
+$('#mails-alle-kopieren').addEventListener('click', ev => mailsAlleKopieren(ev.target));
+$('#mail-standard').addEventListener('click', () => {
+  $('#mail-betreff').value = STANDARD.mailBetreff;
+  $('#mail-text').value = STANDARD.mailText;
+  mailsZeigen();
+});
+$('#telefon-drucken').addEventListener('click', telefonDrucken);
+$('#zurueck-datei').addEventListener('click', () => {
+  zurueckZeigen();
+  sichern('recall-erinnert-' + iso(vonIso($('#zurueck-datum').value) || heute()) + '.csv', zurueckText());
+});
+$('#zurueck-kopieren').addEventListener('click', ev => { zurueckZeigen(); kopieren(zurueckText(), ev.target); });
+$('#doku-datei').addEventListener('click', () => {
+  sichern('recall-dokumentation-' + iso(vonIso($('#zurueck-datum').value) || heute()) + '.csv', dokuText());
+});
+$('#einst-sichern').addEventListener('click', () => {
+  ausFormular();
+  sichern('recall-einstellungen.json', JSON.stringify(einst, null, 2), 'application/json');
+});
+$('#einst-laden').addEventListener('change', ev => {
+  const d = ev.target.files && ev.target.files[0];
+  if (!d) return;
+  const leser = new FileReader();
+  leser.onload = () => {
+    try {
+      const g = JSON.parse(leser.result);
+      einst = Object.assign(JSON.parse(JSON.stringify(STANDARD)), g);
+      einst.praxis = Object.assign({}, STANDARD.praxis, g.praxis || {});
+      if (!Array.isArray(einst.regeln)) einst.regeln = STANDARD.regeln.slice();
+      einstellungenSpeichern(); insFormular();
+      alert('Einstellungen übernommen.');
+    } catch (e) { alert('Die Datei ließ sich nicht lesen – ist es eine Einstellungsdatei?'); }
+  };
+  leser.readAsText(d);
+  ev.target.value = '';
+});
+$('#einst-standard').addEventListener('click', () => {
+  if (!confirm('Alle Einstellungen – Muster, Texte, Praxisangaben – auf den Auslieferungszustand zurücksetzen?')) return;
+  const merken = einst.zuordnung;
+  einst = JSON.parse(JSON.stringify(STANDARD));
+  einst.zuordnung = merken;
+  einstellungenSpeichern(); insFormular();
+});
+$$('#b-muster input, #b-muster select, #b-briefe input, #b-briefe textarea, #b-mails input, #b-mails textarea, #telefon-text')
+  .forEach(f => f.addEventListener('change', ausFormular));
+
+/* ---- Start ---------------------------------------------------------------- */
+einstellungenLaden();
+insFormular();
+zuordnung = einst.zuordnung || {};
+const jetzt = heute();
+$('#stichtag').value = iso(jetzt);
+$('#bisdatum').value = iso(monatsende(jetzt));
+$('#zurueck-datum').value = iso(jetzt);
+zaehlerAuffrischen();
+
+})();
+</script>
+</body>
+</html>

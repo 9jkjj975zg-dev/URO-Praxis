@@ -15,6 +15,11 @@ Options -Indexes
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  # ---- Praxisinterner Ordner ---------------------------------------------
+  # praxis-intern/ enthaelt Werkzeuge fuer die Praxis und gehoert nicht auf den
+  # Webserver. Diese Regel sperrt ihn, falls er versehentlich hochgeladen wurde.
+  RewriteRule ^praxis-intern/ - [F,L]
+
   # ---- Weiterleitung auf HTTPS -------------------------------------------
   RewriteCond %{HTTPS} !=on
   RewriteCond %{HTTP:X-Forwarded-Proto} !https
