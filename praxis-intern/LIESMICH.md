@@ -51,6 +51,16 @@ den Praxisrechner kopiert werden, wohin es passt; sie braucht keine Nachbardatei
 
 Getestet mit Chrome, Edge und Firefox in aktuellen Fassungen.
 
+### Zum Ausprobieren
+
+Unter „1. Daten“ gibt es die Schaltfläche **Beispieldaten laden**. Sie füllt das
+Werkzeug mit fünfzehn erfundenen Datensätzen – alle heißen mit Nachnamen „Beispiel“
+und wohnen in der Musterstraße –, an denen sich jede Regel einmal beobachten lässt:
+fällig, lange überfällig, noch nicht an der Reihe, in Kontrolle, ohne Einwilligung,
+ohne Anschrift. Solange diese Daten geladen sind, steht über der Liste ein
+Warnbalken. Damit lässt sich das Muster einstellen, ohne echte Patientendaten
+anzufassen.
+
 ### Der Export aus tomedo
 
 Gebraucht wird eine CSV-Liste von Patienten mit dem Datum ihrer letzten erweiterten
