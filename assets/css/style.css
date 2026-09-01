@@ -1270,18 +1270,63 @@ strong { color: var(--c-heading); }
 .schema__abbindung { fill: none; stroke: var(--c-focus); stroke-width: 3.5;
                      stroke-linecap: round; }
 
-/* Zwei Zustaende uebereinander: ohne JavaScript ist nur das Ergebnis zu sehen.
-   Erst wenn die Grafik ins Bild kommt, laeuft der Wechsel einmal ab.          */
-.schema__vorher { opacity: 0; }
-.schema--laeuft .schema__vorher  { animation: schema-vorher 2.4s ease-in-out both; }
-.schema--laeuft .schema__nachher { animation: schema-nachher 2.4s ease-in-out both; }
+/* Vier Schritte uebereinandergelegt. Ohne JavaScript ist nur der letzte zu
+   sehen; kommt die Grafik ins Bild, laeuft die Folge einmal ab.
+   Zeitachse bei 11 s: 1. Schritt bis 2,6 s, 2. bis 5,4 s, 3. bis 8,2 s,
+   danach bleibt der 4. stehen.                                              */
+.schema__stueck,
+.schema__knoten,
+.schema__s1, .schema__s2, .schema__s3 { opacity: 0; }
 
-@keyframes schema-vorher  { 0%, 48% { opacity: 1 } 66%, 100% { opacity: 0 } }
-@keyframes schema-nachher { 0%, 50% { opacity: 0 } 70%, 100% { opacity: 1 } }
+.schema--laeuft .schema__stueck { animation: schema-p1 11s linear both; }
+.schema--laeuft .schema__knoten { animation: schema-p3 11s linear both; }
+.schema--laeuft .schema__knick  { animation: schema-p4 11s linear both; }
+.schema--laeuft ~ .schema__schritt .schema__s1 { animation: schema-p1 11s linear both; }
+.schema--laeuft ~ .schema__schritt .schema__s2 { animation: schema-p2 11s linear both; }
+.schema--laeuft ~ .schema__schritt .schema__s3 { animation: schema-p3 11s linear both; }
+.schema--laeuft ~ .schema__schritt .schema__s4 { animation: schema-p4 11s linear both; }
+
+@keyframes schema-p1 { 0%, 23.6% { opacity: 1 } 27.3%, 100% { opacity: 0 } }
+@keyframes schema-p2 { 0%, 23.6% { opacity: 0 } 27.3%, 49.1% { opacity: 1 }
+                       52.7%, 100% { opacity: 0 } }
+@keyframes schema-p3 { 0%, 49.1% { opacity: 0 } 52.7%, 74.5% { opacity: 1 }
+                       78.2%, 100% { opacity: 0 } }
+@keyframes schema-p4 { 0%, 74.5% { opacity: 0 } 78.2%, 100% { opacity: 1 } }
+
+/* Alle Schrittzeilen liegen in derselben Rasterzelle: kein Springen des
+   Layouts, wenn ein laengerer Text den kuerzeren abloest.                   */
+.schema__schritt {
+  display: grid;
+  max-width: 48ch;
+  margin: 1.25rem auto 0;
+  font-size: .9375rem;
+  line-height: 1.55;
+  text-align: center;
+  text-wrap: pretty;
+  color: var(--c-heading);
+}
+.schema__schritt > span { grid-area: 1 / 1; }
+.schema__schritt b { color: var(--c-focus); }
+
+.schema__wieder {
+  display: block;
+  margin: .875rem auto 0;
+  padding: .4rem .9rem;
+  font: inherit;
+  font-size: .875rem;
+  color: var(--c-text-muted);
+  background: var(--c-bg);
+  border: 1px solid var(--c-border);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.schema__wieder:hover { color: var(--c-accent); border-color: var(--c-accent); }
 
 @media (prefers-reduced-motion: reduce) {
-  .schema--laeuft .schema__vorher,
-  .schema--laeuft .schema__nachher { animation: none; }
+  .schema--laeuft .schema__stueck,
+  .schema--laeuft .schema__knoten,
+  .schema--laeuft .schema__knick,
+  .schema--laeuft ~ .schema__schritt > span { animation: none; }
 }
 
 .schema text     { font-family: var(--font-base); }

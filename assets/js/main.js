@@ -372,26 +372,43 @@
   /* ----------------------------------------------------------------------
      8. Schemazeichnung zur Vasektomie
 
-     Die Grafik zeigt standardmaessig das Ergebnis des Eingriffs. Kommt sie
-     ins Bild, laeuft der Wechsel vom unversehrten zum durchtrennten
-     Samenleiter genau einmal ab. Ohne JavaScript oder ohne
+     Die Grafik zeigt standardmaessig den Endzustand. Kommt sie ins Bild,
+     laeuft die vierteilige Folge genau einmal ab. Danach laesst sie sich
+     ueber den Knopf erneut starten; der Knopf erscheint erst, wenn die
+     Folge ueberhaupt laufen kann. Ohne JavaScript oder ohne
      IntersectionObserver bleibt es beim Endzustand.
      ---------------------------------------------------------------------- */
-  if (window.IntersectionObserver) {
-    var schemaBeobachter = new IntersectionObserver(function (eintraege, beob) {
-      Array.prototype.forEach.call(eintraege, function (eintrag) {
-        if (eintrag.isIntersecting) {
-          eintrag.target.classList.add("schema--laeuft");
-          beob.unobserve(eintrag.target);
-        }
-      });
-    }, { threshold: 0.5 });
+  var starteFolge = function (grafik) {
+    grafik.classList.remove("schema--laeuft");
+    // Neuberechnung erzwingen, sonst startet die Animation nicht neu
+    void grafik.getBoundingClientRect().width;
+    grafik.classList.add("schema--laeuft");
+  };
 
-    Array.prototype.forEach.call(
-      document.querySelectorAll(".schema svg"),
-      function (grafik) { schemaBeobachter.observe(grafik); }
-    );
-  }
+  Array.prototype.forEach.call(
+    document.querySelectorAll(".schema"),
+    function (bild) {
+      var grafik = bild.querySelector("svg");
+      var knopf = bild.querySelector(".schema__wieder");
+      if (!grafik) { return; }
 
+      if (knopf) {
+        knopf.hidden = false;
+        knopf.addEventListener("click", function () { starteFolge(grafik); });
+      }
+
+      if (window.IntersectionObserver) {
+        var beobachter = new IntersectionObserver(function (eintraege, beob) {
+          Array.prototype.forEach.call(eintraege, function (eintrag) {
+            if (eintrag.isIntersecting) {
+              starteFolge(grafik);
+              beob.unobserve(eintrag.target);
+            }
+          });
+        }, { threshold: 0.5 });
+        beobachter.observe(grafik);
+      }
+    }
+  );
 
 /* @vorschau-ende */

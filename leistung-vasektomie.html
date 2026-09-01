@@ -55,7 +55,7 @@
     { "@type": "Question", "name": "Örtliche Betäubung oder Narkose?",
       "acceptedAnswer": { "@type": "Answer", "text": "In aller Regel örtliche Betäubung – Sie sind dabei wach und können jederzeit sagen, wenn etwas unangenehm ist. Auf Wunsch ist auch eine Narkose möglich; dafür kommt ein Anästhesist in unsere Praxis. Vorher ist ein eigenes Aufklärungsgespräch in dessen Praxis in Hanau nötig, und es entstehen zusätzliche Kosten für die Narkose." } },
     { "@type": "Question", "name": "Wie groß ist der Schnitt?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Wir arbeiten in der klassischen offenen Technik: zwei kleine Zugänge am Hodensack, einen für jeden Samenleiter, jeweils etwa einen Zentimeter lang. Genäht wird mit selbstauflösendem Material, ein Fädenziehen ist deshalb nicht nötig. Über diese Zugänge werden die Samenleiter durchtrennt, verschlossen, um 180 Grad zurückgeknickt und ein zweites Mal abgebunden." } },
+      "acceptedAnswer": { "@type": "Answer", "text": "Wir arbeiten in der klassischen offenen Technik: zwei kleine Zugänge am Hodensack, einen für jeden Samenleiter, jeweils etwa einen Zentimeter lang. Genäht wird mit selbstauflösendem Material, ein Fädenziehen ist deshalb nicht nötig. Über diese Zugänge wird aus jedem Samenleiter ein Stück von etwa fünf bis zehn Millimetern entnommen; die Enden werden abgebunden, umgeknickt und ein zweites Mal abgebunden." } },
     { "@type": "Question", "name": "Ist die Vasektomie schmerzhaft?",
       "acceptedAnswer": { "@type": "Answer", "text": "Durch die örtliche Betäubung ist der Eingriff in aller Regel nicht schmerzhaft. Ein Druck- oder Ziehgefühl kann auftreten. In den Tagen danach sind leichte Beschwerden und eine Schwellung normal; mit Kühlung und einem entzündungshemmenden Schmerzmittel lassen sie sich gut behandeln." } },
     { "@type": "Question", "name": "Bekomme ich eine Krankschreibung?",
@@ -213,11 +213,12 @@
 
       <figure class="schema">
         <svg viewBox="0 0 560 440" role="img" aria-labelledby="schema-titel schema-text">
-          <title id="schema-titel">Schematische Darstellung der Vasektomie</title>
+          <title id="schema-titel">Die vier Schritte der Vasektomie</title>
           <desc id="schema-text">Von jedem Hoden führt ein Samenleiter über den Nebenhoden nach
-            oben in Richtung Prostata. Bei der Vasektomie werden beide Samenleiter kurz oberhalb
-            des Nebenhodens durchtrennt. Alle vier Enden werden verschlossen, um 180 Grad
-            zurückgeknickt und ein zweites Mal abgebunden.</desc>
+            oben in Richtung Prostata. Bei der Vasektomie wird aus beiden Samenleitern ein
+            kurzes Stück entnommen und feingeweblich untersucht. Die vier verbleibenden Enden
+            werden abgebunden, anschließend um 180 Grad zurückgeknickt und ein zweites Mal
+            abgebunden.</desc>
 
           <!-- Richtung Prostata -->
           <path class="schema__leiter" d="M280 96V70"/>
@@ -232,44 +233,48 @@
           <path class="schema__neben" d="M166 278C134 296 128 344 146 378"/>
           <path class="schema__neben" d="M394 278C426 296 432 344 414 378"/>
 
-          <!-- Vor dem Eingriff: durchgehende Samenleiter -->
-          <g class="schema__vorher">
-            <path class="schema__leiter" d="M166 278C166 262 172 252 178 240 186 226 190 214 198 202 212 176 220 148 240 126 254 110 266 100 280 96"/>
-            <path class="schema__leiter" d="M394 278C394 262 388 252 382 240 374 226 370 214 362 202 348 176 340 148 320 126 306 110 294 100 280 96"/>
+          <!-- Samenleiter unterhalb und oberhalb der Entnahmestelle -->
+          <path class="schema__leiter" d="M166 278C166 262 172 252 178 240"/>
+          <path class="schema__leiter" d="M394 278C394 262 388 252 382 240"/>
+          <path class="schema__leiter" d="M198 202C212 176 220 148 240 126 254 110 266 100 280 96"/>
+          <path class="schema__leiter" d="M362 202C348 176 340 148 320 126 306 110 294 100 280 96"/>
+
+          <!-- Schritt 1: das Stück, das entnommen wird -->
+          <g class="schema__stueck">
+            <path class="schema__leiter" d="M178 240C186 226 190 214 198 202"/>
+            <path class="schema__leiter" d="M382 240C374 226 370 214 362 202"/>
           </g>
 
-          <!-- Nach dem Eingriff: durchtrennt, verschlossen, zurückgeknickt, abgebunden -->
-          <g class="schema__nachher">
-            <path class="schema__leiter" d="M166 278C166 262 172 252 178 240"/>
-            <path class="schema__leiter" d="M394 278C394 262 388 252 382 240"/>
-            <path class="schema__leiter" d="M198 202C212 176 220 148 240 126 254 110 266 100 280 96"/>
-            <path class="schema__leiter" d="M362 202C348 176 340 148 320 126 306 110 294 100 280 96"/>
-          <g class="schema__knick" transform="translate(178 240) rotate(27)">
-            <path class="schema__leiter" d="M0 0C0-10 15-10 15 0V20"/>
-            <path class="schema__abbindung" d="M-6 11H21"/>
-            <circle class="schema__ende" cx="15" cy="20" r="4.5"/>
-          </g>
-          <g class="schema__knick" transform="translate(382 240) scale(-1 1) rotate(27)">
-            <path class="schema__leiter" d="M0 0C0-10 15-10 15 0V20"/>
-            <path class="schema__abbindung" d="M-6 11H21"/>
-            <circle class="schema__ende" cx="15" cy="20" r="4.5"/>
-          </g>
-          <g class="schema__knick" transform="translate(198 202) rotate(208)">
-            <path class="schema__leiter" d="M0 0C0-10 15-10 15 0V20"/>
-            <path class="schema__abbindung" d="M-6 11H21"/>
-            <circle class="schema__ende" cx="15" cy="20" r="4.5"/>
-          </g>
-          <g class="schema__knick" transform="translate(362 202) scale(-1 1) rotate(208)">
-            <path class="schema__leiter" d="M0 0C0-10 15-10 15 0V20"/>
-            <path class="schema__abbindung" d="M-6 11H21"/>
-            <circle class="schema__ende" cx="15" cy="20" r="4.5"/>
+          <!-- Schritt 3: die Enden sind abgebunden -->
+          <g class="schema__knoten">
+            <circle class="schema__ende" cx="178" cy="240" r="5"/>
+            <circle class="schema__ende" cx="198" cy="202" r="5"/>
+            <circle class="schema__ende" cx="382" cy="240" r="5"/>
+            <circle class="schema__ende" cx="362" cy="202" r="5"/>
           </g>
 
-            <path class="schema__hilfslinie" d="M202 224h-12"/>
-            <path class="schema__hilfslinie" d="M358 224h12"/>
-            <text class="schema__marke" x="280" y="218" text-anchor="middle">durchtrennt,</text>
-            <text class="schema__marke" x="280" y="238" text-anchor="middle">umgeknickt,</text>
-            <text class="schema__marke" x="280" y="258" text-anchor="middle">abgebunden</text>
+          <!-- Schritt 4: umgeknickt und ein zweites Mal abgebunden -->
+          <g class="schema__knick">
+            <g transform="translate(178 240) rotate(27)">
+              <path class="schema__leiter" d="M0 0C0-10 15-10 15 0V20"/>
+              <path class="schema__abbindung" d="M-6 11H21"/>
+              <circle class="schema__ende" cx="15" cy="20" r="4.5"/>
+            </g>
+            <g transform="translate(382 240) scale(-1 1) rotate(27)">
+              <path class="schema__leiter" d="M0 0C0-10 15-10 15 0V20"/>
+              <path class="schema__abbindung" d="M-6 11H21"/>
+              <circle class="schema__ende" cx="15" cy="20" r="4.5"/>
+            </g>
+            <g transform="translate(198 202) rotate(208)">
+              <path class="schema__leiter" d="M0 0C0-10 15-10 15 0V20"/>
+              <path class="schema__abbindung" d="M-6 11H21"/>
+              <circle class="schema__ende" cx="15" cy="20" r="4.5"/>
+            </g>
+            <g transform="translate(362 202) scale(-1 1) rotate(208)">
+              <path class="schema__leiter" d="M0 0C0-10 15-10 15 0V20"/>
+              <path class="schema__abbindung" d="M-6 11H21"/>
+              <circle class="schema__ende" cx="15" cy="20" r="4.5"/>
+            </g>
           </g>
 
           <!-- Beschriftungen -->
@@ -280,10 +285,23 @@
           <path class="schema__hilfslinie" d="M146 175h64"/>
           <text class="schema__mini" x="140" y="180" text-anchor="end">Samenleiter</text>
         </svg>
+
+        <p class="schema__schritt">
+          <span class="schema__s1"><b>1.</b> Der Samenleiter ist durchgängig: Die Spermien
+            gelangen vom Hoden in den Samenerguss.</span>
+          <span class="schema__s2"><b>2.</b> Aus jedem Samenleiter wird ein kurzes Stück von
+            etwa fünf bis zehn Millimetern entnommen und feingeweblich untersucht.</span>
+          <span class="schema__s3"><b>3.</b> Alle vier Enden werden abgebunden.</span>
+          <span class="schema__s4"><b>4.</b> Jedes Ende wird um 180 Grad zurückgeknickt und ein
+            zweites Mal abgebunden &ndash; die doppelte Sicherung gegen ein späteres
+            Zusammenwachsen.</span>
+        </p>
+
+        <button type="button" class="schema__wieder" hidden>Ablauf noch einmal zeigen</button>
+
         <figcaption>
-          Beide Samenleiter werden durchtrennt und verschlossen. Anschließend wird jedes der vier
-          Enden um 180 Grad zurückgeknickt und ein zweites Mal abgebunden &ndash; eine doppelte
-          Sicherung gegen ein späteres Zusammenwachsen.
+          Die feingewebliche Untersuchung belegt, dass tatsächlich der Samenleiter durchtrennt
+          wurde. Hormonhaushalt, Erektion und Empfinden bleiben von dem Eingriff unberührt.
         </figcaption>
       </figure>
 
@@ -312,11 +330,11 @@
       <p>
         Wir operieren in der klassischen offenen Technik über <strong>zwei kleine Zugänge am
         Hodensack</strong> &ndash; einen für jeden Samenleiter, jeweils etwa einen Zentimeter
-        lang. Beide Samenleiter werden durchtrennt und die Enden verschlossen. Anschließend
-        knicken wir jedes der vier Enden um 180 Grad zurück und binden es ein zweites Mal ab.
-        Diese doppelte Sicherung macht es unwahrscheinlicher, dass die Enden später wieder
-        zusammenfinden. Genäht wird mit selbstauflösendem Material &ndash; ein Fädenziehen
-        entfällt dadurch. Der Eingriff dauert etwa 20 bis 30 Minuten. Bitte kommen Sie
+        lang. Aus jedem Samenleiter wird ein kurzes Stück von etwa fünf bis zehn Millimetern
+        entnommen. Alle vier Enden werden abgebunden, anschließend um 180 Grad zurückgeknickt
+        und ein zweites Mal abgebunden &ndash; eine doppelte Sicherung, die es unwahrscheinlicher
+        macht, dass die Enden später wieder zusammenfinden. Genäht wird mit selbstauflösendem
+        Material, ein Fädenziehen entfällt dadurch. Der Eingriff dauert etwa 20 bis 30 Minuten. Bitte kommen Sie
         <strong>15 Minuten vor Ihrem Termin</strong> in die Praxis.
       </p>
 
@@ -445,6 +463,16 @@
         </p>
       </div>
 
+      <h2>Warum die entnommenen Stücke untersucht werden</h2>
+      <p>
+        Die beiden entnommenen Samenleiterstücke schicken wir zur feingeweblichen Untersuchung
+        ein. Der Befund bestätigt, dass tatsächlich Samenleitergewebe entfernt wurde &ndash; und
+        nicht versehentlich eine benachbarte Struktur. Das ist ein zusätzlicher Beleg dafür, dass
+        der Eingriff so verlaufen ist, wie er verlaufen sollte. Den endgültigen Nachweis, dass
+        keine Spermien mehr im Ejakulat sind, liefert allerdings erst die Spermienkontrolle nach
+        drei Monaten.
+      </p>
+
       <h2>Sicherheit und mögliche Risiken</h2>
       <p>
         Die Vasektomie gilt als eine der sichersten Verhütungsmethoden überhaupt. Wie bei jedem
@@ -566,7 +594,7 @@
       </details>
       <details>
         <summary>Wie groß ist der Schnitt?</summary>
-        <p>Wir arbeiten in der klassischen offenen Technik: zwei kleine Zugänge am Hodensack, einen für jeden Samenleiter, jeweils etwa einen Zentimeter lang. Genäht wird mit selbstauflösendem Material, ein Fädenziehen ist deshalb nicht nötig. Über diese Zugänge werden die Samenleiter durchtrennt, verschlossen, um 180 Grad zurückgeknickt und ein zweites Mal abgebunden.</p>
+        <p>Wir arbeiten in der klassischen offenen Technik: zwei kleine Zugänge am Hodensack, einen für jeden Samenleiter, jeweils etwa einen Zentimeter lang. Genäht wird mit selbstauflösendem Material, ein Fädenziehen ist deshalb nicht nötig. Über diese Zugänge wird aus jedem Samenleiter ein Stück von etwa fünf bis zehn Millimetern entnommen; die Enden werden abgebunden, umgeknickt und ein zweites Mal abgebunden.</p>
       </details>
       <details>
         <summary>Ist die Vasektomie schmerzhaft?</summary>
