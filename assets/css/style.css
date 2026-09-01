@@ -498,16 +498,13 @@ strong { color: var(--c-heading); }
   position: absolute;
   top: 50%;
   right: -6%;
-  transform: translateY(-50%);
-  width: min(46vw, 640px);
+  transform: translateY(calc(-50% + var(--wz-parallax, 0px)));
+  width: min(60vw, 640px);
   height: auto;
   fill: #fff;
-  opacity: .05;
+  opacity: .08;
   pointer-events: none;
   z-index: 0;
-}
-@media (max-width: 900px) {
-  .hero__wasserzeichen { display: none; }
 }
 /* Zweizeilige Hauptueberschrift: der Ort steht gross, die Haltung darunter
    kleiner. Beides bleibt eine einzige h1 – fuer Suchmaschinen und fuer

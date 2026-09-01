@@ -436,4 +436,28 @@
     );
   }
 
+  /* ----------------------------------------------------------------------
+     10. Parallax fuer das Wasserzeichen im Hero
+
+     Rein dekorativ: das Logo-Symbol im Hintergrund bewegt sich beim
+     Scrollen etwas langsamer als der Rest der Seite. Ohne JavaScript
+     oder bei bevorzugter Bewegungsreduktion bleibt es einfach an Ort
+     und Stelle stehen.
+     ---------------------------------------------------------------------- */
+  var wasserzeichen = document.querySelector("[data-parallax-bg]");
+  if (wasserzeichen && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var wzTicking = false;
+    var wzAktualisieren = function () {
+      var y = window.scrollY || window.pageYOffset;
+      wasserzeichen.style.setProperty("--wz-parallax", Math.round(y * 0.12) + "px");
+      wzTicking = false;
+    };
+    window.addEventListener("scroll", function () {
+      if (!wzTicking) {
+        window.requestAnimationFrame(wzAktualisieren);
+        wzTicking = true;
+      }
+    }, { passive: true });
+  }
+
 /* @vorschau-ende */
