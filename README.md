@@ -397,6 +397,10 @@ Telefonliste. Angeschrieben werden nur Patienten, die die erweiterte Vorsorge sc
 einmal selbst bezahlt haben und denen damals kein Kontrolltermin genannt wurde;
 wer in geregelter Kontrolle steht, wird ausgenommen.
 
+Voreingestellt ist der Rhythmus der Praxis: zwölf Monate Abstand, angeschrieben wird
+zwei Monate später – also wenn der letzte Besuch vierzehn Monate her ist. Wer von
+selbst kommt, bekommt vorher keine Post.
+
 Es ist eine einzige Datei ohne Zubehör: Doppelklick genügt, keine Installation, kein
 Server. Sie kann keine Netzverbindung aufbauen – die Content-Security-Policy im Kopf
 der Datei verbietet es –, sodass Patientendaten den Rechner nicht verlassen. Versendet

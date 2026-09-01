@@ -28,6 +28,21 @@ wäre dort unpassend. Ebenso ausgenommen: reine Kassenvorsorgen ohne Selbstzahle
 Patienten mit bereits vereinbartem Termin, Patienten ohne dokumentierte Einwilligung
 und Patienten oberhalb der eingestellten Altersgrenze.
 
+### Das Muster
+
+Der Abstand zwischen zwei Vorsorgen beträgt zwölf Monate. Angeschrieben wird aber
+nicht am Fälligkeitstag, sondern zwei Monate danach – wenn der letzte Besuch also
+**vierzehn Monate** her ist. Diese Frist ist Absicht: Wer von selbst kommt, soll
+vorher nicht angeschrieben werden. Der Wert steht unter „2. Muster“ im Feld
+**Nachlauf**; drei Monate Nachlauf ergeben entsprechend fünfzehn Monate. Ein
+negativer Wert würde vor dem Fälligkeitstag erinnern.
+
+Zwei weitere Fristen begrenzen den Durchgang: die **Karenzzeit** (voreingestellt
+zehn Monate) verhindert, dass jemand kurz nacheinander zweimal angeschrieben wird,
+und die Grenze **höchstens überfällig seit** (voreingestellt 36 Monate) nimmt
+Patienten heraus, deren Vorsorge so lange zurückliegt, dass sie vermutlich längst
+woanders in Behandlung sind.
+
 ### Öffnen
 
 Doppelklick auf `recall-vorsorge.html`. Die Datei öffnet sich im Standardbrowser und

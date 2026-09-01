@@ -349,6 +349,9 @@ ul.knapp li { margin-bottom: .25rem; }
       Beispielregel zeigt nur, wie sich davon abweichen l&auml;sst. Welche Abst&auml;nde
       tats&auml;chlich sinnvoll sind, ist eine &auml;rztliche Entscheidung &ndash; das Werkzeug
       trifft sie nicht.</p>
+    <p class="klein">Der Abstand ist nicht der Tag des Anschreibens. Wann tats&auml;chlich
+      geschrieben wird, bestimmt zus&auml;tzlich der <strong>Nachlauf</strong> weiter unten unter
+      &bdquo;Zeitfenster&ldquo;.</p>
     <div class="regelrahmen">
       <div class="regelzeile regelkopf">
         <span>Regel</span><span>Paket enth&auml;lt</span><span>Alter ab</span><span>Alter bis</span>
@@ -367,6 +370,9 @@ ul.knapp li { margin-bottom: .25rem; }
 
   <div class="karte">
     <h2>Zeitfenster</h2>
+    <p class="klein">Erinnert wird bewusst nicht am F&auml;lligkeitstag, sondern ein St&uuml;ck
+      danach: Wer von selbst kommt, soll nicht vorher angeschrieben werden. Der Nachlauf legt
+      fest, wie viel &Uuml;berf&auml;lligkeit Sie zugestehen, bevor Sie sich melden.</p>
     <div class="zwei">
       <div>
         <div class="feldzeile">
@@ -382,9 +388,10 @@ ul.knapp li { margin-bottom: .25rem; }
       </div>
       <div>
         <div class="feldzeile">
-          <label for="vorlauf">Vorlauf vor dem F&auml;lligkeitstag</label>
-          <input type="number" id="vorlauf" min="0" max="52" step="1" style="width:5rem"> Wochen
+          <label for="nachlauf">Nachlauf nach dem F&auml;lligkeitstag</label>
+          <input type="number" id="nachlauf" min="-12" max="24" step="1" style="width:5rem"> Monate
         </div>
+        <p class="klein hinweis-feld" id="nachlauf-hinweis"></p>
         <div class="feldzeile">
           <label for="karenz">Nicht erneut erinnern innerhalb von</label>
           <input type="number" id="karenz" min="0" max="60" step="1" style="width:5rem"> Monaten
@@ -1070,7 +1077,7 @@ const STANDARD = {
     { name: 'Beispiel: Männergesundheit', paket: 'Männergesundheit', von: '', bis: '', monate: 12 }
   ],
   standardIntervall: 12,
-  vorlauf: 4,
+  nachlauf: 2,
   karenz: 10,
   maxUeber: 36,
   praxis: {
@@ -1118,7 +1125,7 @@ function insFormular() {
   $('#a-einwilligung').checked = !!einst.ausEinwilligung;
   $('#a-hoechstalter').value = einst.hoechstalter;
   $('#standard-intervall').value = einst.standardIntervall;
-  $('#vorlauf').value        = einst.vorlauf;
+  $('#nachlauf').value       = einst.nachlauf;
   $('#karenz').value         = einst.karenz;
   $('#maxueber').value       = einst.maxUeber;
   $('#p-name').value         = einst.praxis.name;
@@ -1134,6 +1141,7 @@ function insFormular() {
   $('#mail-betreff').value   = einst.mailBetreff;
   $('#mail-text').value      = einst.mailText;
   $('#telefon-text').value   = einst.telefonText;
+  nachlaufHinweis();
   regelnZeigen();
 }
 function ausFormular() {
@@ -1146,7 +1154,7 @@ function ausFormular() {
   einst.ausEinwilligung = $('#a-einwilligung').checked;
   einst.hoechstalter  = +$('#a-hoechstalter').value || 0;
   einst.standardIntervall = +$('#standard-intervall').value || 0;
-  einst.vorlauf       = +$('#vorlauf').value || 0;
+  einst.nachlauf      = parseInt($('#nachlauf').value, 10) || 0;
   einst.karenz        = +$('#karenz').value || 0;
   einst.maxUeber      = +$('#maxueber').value || 0;
   einst.praxis.name   = $('#p-name').value;
@@ -1162,7 +1170,31 @@ function ausFormular() {
   einst.mailBetreff   = $('#mail-betreff').value;
   einst.mailText      = $('#mail-text').value;
   einst.telefonText   = $('#telefon-text').value;
+  nachlaufHinweis();
   einstellungenSpeichern();
+}
+
+/* Rechnet Abstand und Nachlauf zu der Zahl zusammen, in der die Praxis denkt:
+   „wie lange ist der letzte Besuch her, wenn wir anschreiben?“ */
+function nachlaufHinweis() {
+  const abstand = +$('#standard-intervall').value || 0;
+  const nach    = parseInt($('#nachlauf').value, 10) || 0;
+  const ziel    = $('#nachlauf-hinweis');
+  if (!ziel) return;
+  if (!abstand) { ziel.textContent = ''; return; }
+  const summe = abstand + nach;
+  const mon = n => n + (Math.abs(n) === 1 ? ' Monat' : ' Monate');
+  if (nach > 0) {
+    ziel.innerHTML = 'Angeschrieben wird erst, wenn der letzte Besuch <strong>' + mon(summe) +
+      '</strong> her ist – ' + mon(abstand) + ' Abstand plus ' + mon(nach) +
+      ' Nachlauf. So bleibt Patienten, die von selbst kommen, die Frist zunächst überlassen.';
+  } else if (nach === 0) {
+    ziel.innerHTML = 'Angeschrieben wird genau am Fälligkeitstag, also <strong>' + mon(abstand) +
+      '</strong> nach dem letzten Besuch – ohne Nachlauf.';
+  } else {
+    ziel.innerHTML = 'Negativer Wert: Es wird ' + mon(-nach) + ' <em>vor</em> dem Fälligkeitstag ' +
+      'erinnert, der letzte Besuch ist dann <strong>' + mon(summe) + '</strong> her.';
+  }
 }
 
 function regelnZeigen() {
@@ -1306,7 +1338,7 @@ function auswerten() {
 
     /* -- Fälligkeit -------------------------------------------------------- */
     const faelligAm  = plusMonate(letzte, monate);
-    const erinnernAb = plusTage(faelligAm, -7 * (einst.vorlauf || 0));
+    const erinnernAb = plusMonate(faelligAm, einst.nachlauf || 0);
 
     if (erinnernAb > bis) {
       weg('noch nicht an der Reihe – Erinnerung ab ' + de(erinnernAb)); return;
@@ -1329,7 +1361,8 @@ function auswerten() {
       p: p, name: name, alter: alter, letzte: letzte, monate: monate, regel: regelname,
       faelligAm: faelligAm, erinnernAb: erinnernAb,
       monateHer: monateZwischen(letzte, stichtag),
-      status: faelligAm < stichtag ? 'ueberfaellig' : (erinnernAb <= stichtag ? 'faellig' : 'vorlauf'),
+      status: erinnernAb > stichtag ? 'spaeter'
+            : (monateZwischen(erinnernAb, stichtag) > 6 ? 'lange' : 'jetzt'),
       kanal: kb.kanal, hinweise: kb.hinweise, gewaehlt: true
     });
   });
@@ -1361,9 +1394,9 @@ function zaehlerAuffrischen() {
 }
 
 function statusMarke(e) {
-  if (e.status === 'ueberfaellig') return '<span class="marke warn">überfällig</span>';
-  if (e.status === 'faellig')      return '<span class="marke ok">fällig</span>';
-  return '<span class="marke neutral">Vorlauf</span>';
+  if (e.status === 'lange')   return '<span class="marke warn">lange überfällig</span>';
+  if (e.status === 'jetzt')   return '<span class="marke ok">anschreiben</span>';
+  return '<span class="marke neutral">später im Monat</span>';
 }
 
 function listeZeigen() {
@@ -1375,7 +1408,7 @@ function listeZeigen() {
   $('#spiegel').innerHTML =
     '<div><b>' + daten.zeilen.length + '</b><span>Datensätze gelesen</span></div>' +
     '<div><b>' + g + '</b><span>zum Anschreiben vorgeschlagen</span></div>' +
-    '<div><b>' + ergebnis.faellig.filter(e => e.status === 'ueberfaellig').length + '</b><span>davon überfällig</span></div>' +
+    '<div><b>' + ergebnis.faellig.filter(e => e.status === 'lange').length + '</b><span>davon lange überfällig</span></div>' +
     '<div><b>' + a + '</b><span>ausgewählt</span></div>' +
     '<div><b>' + ergebnis.uebersprungen.length + '</b><span>nicht angeschrieben</span></div>';
 
@@ -1690,14 +1723,14 @@ function beispieldaten() {
   const z = [
     ['10241','Herr','','Bernd','Adam',gebDat(58),'Lindenstraße 12','63450','Hanau','06181 111111','b.adam@example.de',vor(13),'komplett','Selbstzahler','','','ja','','','',''],
     ['10388','Herr','Dr.','Klaus','Bertram',gebDat(64),'Am Freiheitsplatz 3','63450','Hanau','06181 222222','',vor(14),'komplett mit Männergesundheit','Privat','','','ja','','','Brief',''],
-    ['10455','Herr','','Ahmet','Coskun',gebDat(52),'Nussallee 8','63456','Hanau','06181 333333','a.coskun@example.de',vor(12),'Basis','Selbstzahler','','','ja','','','E-Mail',''],
+    ['10455','Herr','','Ahmet','Coskun',gebDat(52),'Nussallee 8','63456','Hanau','06181 333333','a.coskun@example.de',vor(14),'Basis','Selbstzahler','','','ja','','','E-Mail',''],
     ['10512','Herr','','Peter','Dietz',gebDat(71),'Kurt-Blaum-Platz 1','63450','Hanau','06181 444444','',vor(26),'komplett','Beihilfe','','','ja','','','',''],
     ['10604','Herr','','Jörg','Ehlers',gebDat(47),'Rodenbacher Weg 4','63454','Bad Vilbel','06181 555555','j.ehlers@example.de',vor(25),'Basis','Selbstzahler','','','ja','','','',''],
     ['10677','Herr','Prof.','Wilhelm','Freytag',gebDat(83),'Schlossplatz 2','63450','Hanau','06181 666666','',vor(15),'komplett','Privat','','','ja','','','',''],
     ['10701','Herr','','Marco','Gruber',gebDat(55),'Salzstraße 19','63450','Hanau','06181 777777','',vor(16),'Basis','Selbstzahler','','PSA-Kontrolle halbjährlich','ja','','','',''],
     ['10744','Herr','','Uwe','Hartmann',gebDat(61),'Frankfurter Landstraße 7','63452','Hanau','06181 888888','u.hartmann@example.de',vor(13),'komplett','Privat',de(plusMonate(h,2)),'','ja','','','',''],
     ['10802','Herr','','Ingo','Jakobs',gebDat(49),'Bruchköbeler Landstraße 22','63452','Hanau','06181 999999','',vor(14),'Basis','Selbstzahler','','','ja',de(plusMonate(h,1)),'','',''],
-    ['10855','Herr','','Sven','Köhler',gebDat(57),'Hospitalstraße 5','63450','Hanau','06181 121212','s.koehler@example.de',vor(13),'komplett','Selbstzahler','','','ja','',vor(3),'',''],
+    ['10855','Herr','','Sven','Köhler',gebDat(57),'Hospitalstraße 5','63450','Hanau','06181 121212','s.koehler@example.de',vor(15),'komplett','Selbstzahler','','','ja','',vor(3),'',''],
     ['10913','Herr','','Rainer','Lorenz',gebDat(66),'Nürnberger Straße 30','63450','Hanau','06181 131313','',vor(18),'Tastuntersuchung','Kasse','','','ja','','','',''],
     ['10967','Herr','','Detlef','Möller',gebDat(60),'Alfred-Delp-Straße 9','63450','Hanau','06181 141414','',vor(13),'komplett','Selbstzahler','','','nein','','','',''],
     ['11020','Herr','','Andreas','Neumann',gebDat(53),'Steinheimer Straße 44','63456','Hanau','06181 151515','a.neumann@example.de',vor(12),'komplett','Privat','','','ja','','','',''],
@@ -1800,6 +1833,7 @@ $('#einst-standard').addEventListener('click', () => {
   einst.zuordnung = merken;
   einstellungenSpeichern(); insFormular();
 });
+$$('#nachlauf, #standard-intervall').forEach(f => f.addEventListener('input', nachlaufHinweis));
 $$('#b-muster input, #b-muster select, #b-briefe input, #b-briefe textarea, #b-mails input, #b-mails textarea, #telefon-text')
   .forEach(f => f.addEventListener('change', ausFormular));
 
