@@ -411,4 +411,29 @@
     }
   );
 
+  /* ----------------------------------------------------------------------
+     9. Sanftes Einblenden einzelner Ueberschriften beim Scrollen
+
+     Bewusst dezent und nur an ausgewaehlten Stellen eingesetzt. Die Klassen
+     setzt ausschliesslich dieses Skript - ohne JavaScript oder ohne
+     IntersectionObserver bleibt die Ueberschrift einfach normal sichtbar.
+     ---------------------------------------------------------------------- */
+  if (window.IntersectionObserver) {
+    Array.prototype.forEach.call(
+      document.querySelectorAll("[data-reveal]"),
+      function (element) {
+        element.classList.add("reveal", "reveal--ready");
+        var revealBeobachter = new IntersectionObserver(function (eintraege, beob) {
+          Array.prototype.forEach.call(eintraege, function (eintrag) {
+            if (eintrag.isIntersecting) {
+              eintrag.target.classList.add("reveal--visible");
+              beob.unobserve(eintrag.target);
+            }
+          });
+        }, { threshold: 0.3 });
+        revealBeobachter.observe(element);
+      }
+    );
+  }
+
 /* @vorschau-ende */

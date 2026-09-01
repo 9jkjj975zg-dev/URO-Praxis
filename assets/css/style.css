@@ -179,6 +179,16 @@ strong { color: var(--c-heading); }
 
 .lead { font-size: 1.15rem; color: var(--c-text-muted); }
 
+/* Sanftes Einblenden beim Erreichen des Sichtbereichs. Die Klassen "reveal--ready"
+   und "reveal--visible" setzt ausschliesslich main.js per IntersectionObserver;
+   ohne JavaScript bleibt das Element in seinem normalen, sichtbaren Zustand. */
+.reveal.reveal--ready { opacity: 0; transform: translateY(14px); }
+.reveal.reveal--visible {
+  opacity: 1;
+  transform: none;
+  transition: opacity .7s ease, transform .7s ease;
+}
+
 .skip-link {
   position: absolute;
   left: -9999px;
