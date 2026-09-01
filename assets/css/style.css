@@ -498,7 +498,7 @@ strong { color: var(--c-heading); }
   position: absolute;
   top: 50%;
   right: -6%;
-  transform: translateY(calc(-50% + var(--wz-parallax, 0px)));
+  transform: translateY(-50%);
   width: min(60vw, 640px);
   height: auto;
   fill: #fff;
