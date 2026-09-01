@@ -775,6 +775,16 @@ strong { color: var(--c-heading); }
 
 /* Platzhalter, solange das Foto noch nicht hinterlegt ist.
    Nach dem Einsetzen des Bildes ersatzlos entfernen. */
+.bildergalerie {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.bildergalerie .foto { margin: 0; }
+.bildergalerie .foto--platzhalter { padding: 2.5rem 1.25rem; }
+
 .foto--platzhalter {
   display: grid;
   place-items: center;

@@ -84,6 +84,24 @@ kommentiert und auf den Rechtsseiten sichtbar als **[bitte ergänzen]** markiert
   wohin die Seite hochgeladen wird) sowie der Link auf die Datenschutzerklärung
   von arzt-direkt im Abschnitt „Online-Terminbuchung“
 
+### Bilder aus der Praxis
+
+Auf `praxis.html` stehen im Abschnitt „So sieht es bei uns aus“ vier
+Platzhalter. Sobald die Fotos vorliegen, gehören sie unter diese Namen nach
+`assets/img/`:
+
+    praxis-empfang.jpg
+    praxis-wartebereich.jpg
+    praxis-sprechzimmer.jpg
+    praxis-ultraschall.jpg
+
+Format: **JPEG** im Querformat, mindestens 2000 Pixel breit. Kein HEIC – das
+liefern iPhones standardmäßig, Browser zeigen es nicht an. Die Bilder werden
+anschließend wie das Teamfoto in zwei Größen verkleinert.
+
+Auf keinem Bild dürfen Patientinnen und Patienten zu sehen sein, ebenso wenig
+Bildschirme mit Patientendaten oder beschriftete Unterlagen.
+
 ### Schriftart
 
 Überschriften und die Wortmarke stehen in **Jost**, der Fließtext in der
