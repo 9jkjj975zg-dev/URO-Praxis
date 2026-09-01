@@ -84,6 +84,28 @@ kommentiert und auf den Rechtsseiten sichtbar als **[bitte ergänzen]** markiert
   wohin die Seite hochgeladen wird) sowie der Link auf die Datenschutzerklärung
   von arzt-direkt im Abschnitt „Online-Terminbuchung“
 
+### Vertretung während der Schließzeit
+
+Der Hinweis auf die Vertretungspraxis steht auf `kontakt.html` und in der
+Urlaubsmeldung, ist aber **standardmäßig unsichtbar**. Er erscheint nur an den
+Tagen zwischen zwei Datumsangaben – und verschwindet danach von selbst.
+
+Zu ändern ist nur der Zeitraum. In `layout.py` bzw. in den Seitenbausteinen
+steht dafür jeweils:
+
+    vertretung("2026-12-21", "2027-01-01")
+
+Das erste Datum ist der erste Schließtag, das zweite der letzte – beide
+einschließlich, im Format JJJJ-MM-TT. Den Namen der Vertretungspraxis ändert
+man in `layout.py` bei `VERTRETUNG_NAME`.
+
+Ist im Browser JavaScript abgeschaltet, bleibt der Kasten verborgen. Das ist
+Absicht: Eine Vertretung außerhalb der Schließzeit anzuzeigen wäre schlimmer,
+als sie gar nicht anzuzeigen.
+
+Anschrift und Telefonnummer der Vertretungspraxis fehlen noch und sind im
+Kasten sichtbar markiert.
+
 ### Bilder aus der Praxis
 
 Auf `praxis.html` stehen im Abschnitt „So sieht es bei uns aus“ vier

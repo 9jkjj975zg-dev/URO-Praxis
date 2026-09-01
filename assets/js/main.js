@@ -338,4 +338,35 @@
     });
   }
 
+
+  /* ----------------------------------------------------------------------
+     7. Vertretung nur waehrend der Schliesszeit einblenden
+
+     Der Kasten steht mit "hidden" im Quelltext und wird nur an den Tagen
+     zwischen data-von und data-bis sichtbar (jeweils einschliesslich).
+     Ohne JavaScript bleibt er verborgen - lieber keine Angabe als eine
+     falsche.
+     ---------------------------------------------------------------------- */
+  var heuteAlsText = function () {
+    var d = new Date();
+    var m = String(d.getMonth() + 1);
+    var t = String(d.getDate());
+    return d.getFullYear() + "-" + (m.length < 2 ? "0" + m : m)
+                           + "-" + (t.length < 2 ? "0" + t : t);
+  };
+
+  var heute = heuteAlsText();
+
+  Array.prototype.forEach.call(
+    document.querySelectorAll(".vertretung[data-von][data-bis]"),
+    function (kasten) {
+      var von = kasten.getAttribute("data-von");
+      var bis = kasten.getAttribute("data-bis");
+      // Datumsangaben im Format JJJJ-MM-TT lassen sich direkt vergleichen
+      if (von <= heute && heute <= bis) {
+        kasten.hidden = false;
+      }
+    }
+  );
+
 /* @vorschau-ende */
