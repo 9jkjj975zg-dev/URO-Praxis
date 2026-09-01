@@ -487,12 +487,14 @@ strong { color: var(--c-heading); }
   padding: clamp(3.25rem, 7vw, 6rem) 0;
 }
 .hero .eyebrow { color: #93aade; }   /* auf dunklem Grund aufhellen */
-.hero h1 { color: #fff; max-width: 20ch; }
-.hero__text { max-width: 60ch; }
+.hero h1 { color: #fff; }
 /* Zweizeilige Hauptueberschrift: der Ort steht gross, die Haltung darunter
    kleiner. Beides bleibt eine einzige h1 – fuer Suchmaschinen und fuer
    Screenreader ist das eine zusammenhaengende Ueberschrift. */
-.hero__titel { margin-bottom: 1rem; }
+.hero__titel {
+  font-size: clamp(1.7rem, 1.15rem + 2.2vw, 2.6rem);
+  margin-bottom: 1rem;
+}
 
 .hero__titel-zusatz {
   display: block;
@@ -508,7 +510,7 @@ strong { color: var(--c-heading); }
   .hero__titel-zusatz { font-size: .58em; }
 }
 
-.hero__lead { font-size: 1.2rem; color: #c8d2e4; margin-bottom: 2rem; }
+.hero__lead { font-size: 1.2rem; color: #c8d2e4; margin-bottom: 2rem; max-width: 60ch; }
 .hero .btn-row { margin-bottom: 2.25rem; }
 
 .hero__facts {
