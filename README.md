@@ -406,6 +406,11 @@ Server. Sie kann keine Netzverbindung aufbauen – die Content-Security-Policy i
 der Datei verbietet es –, sodass Patientendaten den Rechner nicht verlassen. Versendet
 wird nichts automatisch; Briefe, E-Mails und Anrufe gehen wie bisher von der Praxis aus.
 
+Daneben liegt **`arbeitsanweisung-recall.html`** – eine fünfseitige Arbeitsanweisung
+zum Ausdrucken für die Anmeldung: wann und wie die Einwilligung eingeholt wird, der
+monatliche Durchgang Schritt für Schritt, ein Telefonleitfaden und vorbereitete
+Antworten auf die Fragen, die am Tresen kommen.
+
 Einzelheiten, die nötigen Exportspalten, der monatliche Ablauf und ein
 Formulierungsvorschlag für die Einwilligung stehen in `praxis-intern/LIESMICH.md`
 sowie im Werkzeug selbst unter dem Reiter „Anleitung“.

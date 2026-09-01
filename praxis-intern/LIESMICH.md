@@ -6,6 +6,18 @@ FTP bitte den Ordner `praxis-intern/` auslassen. Zur Sicherheit sperren ihn
 zusätzlich `robots.txt` und `.htaccess` – aber die verlässlichste Sperre ist,
 ihn gar nicht erst hochzuladen.
 
+Der Ordner enthält zwei Dateien:
+
+| Datei | Für wen |
+|---|---|
+| `recall-vorsorge.html` | das Werkzeug selbst – wer den monatlichen Durchgang macht |
+| `arbeitsanweisung-recall.html` | zum Ausdrucken für die Anmeldung: Einwilligung, Ablauf, Telefonleitfaden, Antworten auf Patientenfragen |
+
+Die Arbeitsanweisung wird im Browser geöffnet und mit Strg + P gedruckt (Kopf- und
+Fußzeilen abschalten). Sie umfasst fünf Seiten in drei Teilen: Teil 1 zur
+Einwilligung betrifft **alle** an der Anmeldung, Teil 2 nur die Zuständige für den
+monatlichen Durchgang, Teil 3 bis 6 sind Nachschlageteile fürs Telefon und den Tresen.
+
 ---
 
 ## recall-vorsorge.html – Erinnerung an die Vorsorge

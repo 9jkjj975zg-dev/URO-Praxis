@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Arbeitsanweisung: Erinnerung an die Vorsorge</title>
+<style>
+/* Arbeitsanweisung fuer die Anmeldung – zum Ausdrucken auf A4.
+   Am Bildschirm lesbar, auf Papier vierseitig. */
+:root {
+  --c-primary: #22376c;
+  --c-accent:  #2f5fa8;
+  --c-text:    #1f2733;
+  --c-muted:   #55607040;
+  --c-line:    #c3cbd8;
+  --c-soft:    #eef1f6;
+  --c-warn-bg: #fbf1de;
+  --c-warn:    #8a5a12;
+  --c-ok-bg:   #e4f2ea;
+  --c-ok:      #1c6b45;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0 auto; padding: 2rem 1.5rem 4rem; max-width: 46rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 15px; line-height: 1.55; color: var(--c-text); background: #fff;
+}
+h1 { font-size: 1.55rem; color: var(--c-primary); margin: 0 0 .2em; line-height: 1.2; }
+h2 { font-size: 1.15rem; color: var(--c-primary); margin: 2.2em 0 .5em;
+     border-bottom: 2px solid var(--c-primary); padding-bottom: .2em; }
+h3 { font-size: 1rem; color: var(--c-primary); margin: 1.5em 0 .3em; }
+p, li { margin: 0 0 .6em; }
+.stand { color: #5a6577; font-size: .85rem; margin-bottom: 2em; }
+ol.schritte { counter-reset: s; list-style: none; padding: 0; margin: 0; }
+ol.schritte > li {
+  counter-increment: s; position: relative; padding: 0 0 .9em 2.6rem; margin: 0 0 .9em;
+  border-bottom: 1px solid var(--c-line);
+}
+ol.schritte > li:last-child { border-bottom: 0; }
+ol.schritte > li::before {
+  content: counter(s); position: absolute; left: 0; top: .05em;
+  width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--c-primary);
+  color: #fff; font-weight: 700; font-size: .95rem; display: flex;
+  align-items: center; justify-content: center;
+}
+ol.schritte b { color: var(--c-primary); }
+.kasten { border-left: 4px solid var(--c-accent); background: var(--c-soft);
+          padding: .7rem .9rem; margin: 1em 0; }
+.kasten.warn { border-left-color: #c99a3a; background: var(--c-warn-bg); }
+.kasten.ok   { border-left-color: #4a9c72; background: var(--c-ok-bg); }
+.kasten p:last-child, .kasten ul:last-child { margin-bottom: 0; }
+.kasten b { color: inherit; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: .95rem; }
+th, td { text-align: left; vertical-align: top; padding: .4rem .6rem; border-bottom: 1px solid var(--c-line); }
+th { background: var(--c-soft); color: var(--c-primary); }
+td.frage { width: 40%; font-weight: 600; }
+.wortlaut { border: 1px dashed var(--c-line); padding: .7rem .9rem; margin: .6em 0;
+            background: #fcfcfd; font-style: italic; }
+.wortlaut b { font-style: normal; color: var(--c-primary); }
+ul.knapp { padding-left: 1.2rem; margin: .3em 0 .8em; }
+.rolle { display: inline-block; font-size: .78rem; font-weight: 700; padding: .05rem .5rem;
+         border-radius: 10px; background: var(--c-soft); color: var(--c-primary);
+         border: 1px solid var(--c-line); vertical-align: 2px; margin-left: .4em; }
+.nichtdrucken { font-size: .85rem; color: #5a6577; border-top: 1px solid var(--c-line);
+                margin-top: 3rem; padding-top: .8rem; }
+
+@page { size: A4; margin: 18mm 18mm 16mm 20mm; }
+@media print {
+  body { max-width: none; padding: 0; font-size: 10pt; line-height: 1.45; }
+  h1 { font-size: 16pt; }
+  h2 { font-size: 12pt; margin: 1.3em 0 .4em; page-break-after: avoid; break-after: avoid; }
+  h3 { margin: 1em 0 .2em; }
+  p, li { margin-bottom: .4em; }
+  ol.schritte > li { padding-bottom: .55em; margin-bottom: .55em; }
+  .kasten, .wortlaut { margin: .6em 0; padding: .5rem .7rem; }
+  table { margin: .6em 0; }
+  th, td { padding: .28rem .5rem; }
+  .kasten, .wortlaut, table, ol.schritte > li { page-break-inside: avoid; break-inside: avoid; }
+  .seitenwechsel { page-break-before: always; break-before: page; }
+  .nichtdrucken { display: none; }
+  a { color: inherit; text-decoration: none; }
+}
+</style>
+</head>
+<body>
+
+<h1>Erinnerung an die Vorsorge</h1>
+<p class="stand">Arbeitsanweisung f&uuml;r die Anmeldung &middot; Urologische Gemeinschaftspraxis Rech
+&middot; Stand: <span id="stand">bitte eintragen</span></p>
+
+<div class="kasten">
+  <p><b>Worum es geht.</b> Viele Patienten waren einmal zur erweiterten Vorsorge bei uns, waren
+  zufrieden &ndash; und kommen trotzdem nicht wieder. Nicht aus Desinteresse, sondern weil sie
+  keinen Anlass hatten, daran zu denken. Genau diese Patienten erinnern wir einmal, freundlich und
+  ohne Druck. Wer nicht will, sagt es, und wir vermerken es.</p>
+  <p><b>Wen wir <em>nicht</em> anschreiben:</b> Patienten in Kontrolle oder Nachsorge &ndash; die
+  bestellen wir ohnehin ein. Patienten mit vereinbartem Termin. Und alle, die uns keine
+  Einwilligung gegeben haben.</p>
+</div>
+
+<h2>Wer macht was</h2>
+<table>
+  <tr><th style="width:12rem">Aufgabe</th><th>Wer</th></tr>
+  <tr><td>Einwilligung einholen und eintragen</td><td><b>alle</b> an der Anmeldung, bei jedem
+      Vorsorgetermin</td></tr>
+  <tr><td>Monatlicher Durchgang am Rechner</td><td>eine feste Zust&auml;ndige, eine Vertretung</td></tr>
+  <tr><td>Briefe drucken und kuvertieren, Anrufe</td><td>Anmeldung</td></tr>
+  <tr><td>Abst&auml;nde und Regeln festlegen</td><td><b>&auml;rztlich</b> &ndash; nicht an der
+      Anmeldung &auml;ndern</td></tr>
+</table>
+
+<h2>Teil 1: Die Einwilligung <span class="rolle">t&auml;glich, alle</span></h2>
+
+<p>Ohne Einwilligung wird niemand angeschrieben &ndash; das Werkzeug l&auml;sst es gar nicht zu.
+Deshalb ist dieser Teil der wichtigste: Was heute nicht eingetragen wird, fehlt in einem Jahr.</p>
+
+<h3>Wann fragen</h3>
+<p>Beim <b>Abschluss jedes Vorsorgetermins</b>, wenn der Patient ohnehin am Tresen steht.
+Nicht beim ersten Kontakt, nicht am Telefon, nicht zwischen T&uuml;r und Angel.</p>
+
+<h3>Wie fragen</h3>
+<div class="wortlaut">
+  <b>&bdquo;</b>Wenn Sie m&ouml;chten, erinnern wir Sie, wenn die n&auml;chste Vorsorge ansteht &ndash;
+  in etwa einem Jahr. Soll ich Sie auf die Liste setzen? Sie k&ouml;nnen das jederzeit wieder
+  abbestellen.<b>&ldquo;</b>
+</div>
+<p>Bei Ja: Zettel geben, ankreuzen lassen, unterschreiben lassen. <b>Immer nach dem Weg fragen:</b>
+Brief, E-Mail oder Anruf. Bei E-Mail die Adresse laut vorlesen und best&auml;tigen lassen &ndash;
+eine falsch notierte Adresse schickt Gesundheitspost an einen Fremden.</p>
+
+<div class="kasten warn">
+  <p><b>Nicht dr&auml;ngen.</b> Ein Nein ist ein vollst&auml;ndig g&uuml;ltiges Ergebnis und wird
+  genauso eingetragen wie ein Ja. Wir werben hier nicht, wir bieten an. Wer zweimal z&ouml;gert,
+  bekommt keinen dritten Anlauf.</p>
+</div>
+
+<h3>Was in tomedo eingetragen wird</h3>
+<ul class="knapp">
+  <li><b>Einwilligung:</b> ja / nein</li>
+  <li><b>Kanal:</b> Brief, E-Mail oder Telefon &ndash; genau das, was angekreuzt wurde</li>
+  <li>Bei E-Mail: Adresse pr&uuml;fen und eintragen. Bei Telefon: erreichbare Nummer</li>
+</ul>
+<p>Das unterschriebene Blatt kommt in die Akte.</p>
+
+<h3>Widerruf</h3>
+<p>Sagt jemand &ndash; am Tresen, am Telefon, per Mail, in einem Nebensatz &ndash;, dass er keine
+Erinnerungen mehr will: <b>sofort eintragen</b>, Einwilligung auf nein setzen. Nicht auf sp&auml;ter
+verschieben, nicht auf einen Zettel schreiben. Ein Widerruf, der nicht in tomedo steht, existiert
+nicht, und der Patient bekommt n&auml;chstes Jahr wieder Post. Das ist der Fehler, der uns am
+meisten &Auml;rger einbringen w&uuml;rde.</p>
+
+<h2 class="seitenwechsel">Teil 2: Der monatliche Durchgang <span class="rolle">einmal im Monat</span></h2>
+
+<p>Fester Termin, immer am selben Tag &ndash; etwa am ersten Dienstag im Monat. Dauer nach etwas
+&Uuml;bung: eine knappe halbe Stunde plus Kuvertieren.</p>
+
+<ol class="schritte">
+  <li><b>Liste aus tomedo holen.</b> Die gespeicherte Abfrage &bdquo;Vorsorge Recall&ldquo; laufen
+    lassen und als CSV exportieren. Die Datei in den daf&uuml;r angelegten Ordner speichern &ndash;
+    <b>nicht</b> auf den Desktop, nicht auf einen USB-Stick.</li>
+
+  <li><b>Werkzeug &ouml;ffnen.</b> Doppelklick auf <b>recall-vorsorge.html</b>. Es &ouml;ffnet sich
+    im Browser. Nichts installiert sich, nichts geht ins Internet.</li>
+
+  <li><b>Datei einlesen.</b> Reiter <b>1. Daten</b> &rarr; &bdquo;Datei ausw&auml;hlen&ldquo; &rarr;
+    den Export anklicken. Es erscheint eine gr&uuml;ne Meldung mit der Zeilenzahl. Steht dort eine
+    Warnung zur Spalte mit dem Vorsorgedatum, die Zuordnung darunter richtigstellen.</li>
+
+  <li><b>Liste durchsehen.</b> Reiter <b>3. Auswahl</b>. Oben stehen die Vorgeschlagenen, darunter
+    unter &bdquo;Nicht angeschrieben&ldquo; alle &Uuml;brigen <b>mit Grund</b>.
+    <div class="kasten ok" style="margin:.5em 0 0">
+      <p><b>Diese zweite Liste ist die eigentliche Kontrolle.</b> Lesen Sie sie, nicht nur die
+      erste. Wenn dort jemand aus einem Grund steht, der nicht stimmt &ndash; etwa &bdquo;keine
+      Einwilligung&ldquo; bei jemandem, der unterschrieben hat &ndash;, dann fehlt der Eintrag in
+      tomedo. Das geh&ouml;rt dort korrigiert, <em>nicht</em> hier von Hand nachgeholfen.</p>
+    </div>
+    Einzelne k&ouml;nnen Sie abw&auml;hlen (H&auml;kchen) oder auf einen anderen Weg setzen
+    (Spalte Kanal).</li>
+
+  <li><b>Briefe drucken.</b> Reiter <b>4. Briefe</b> &rarr; &bdquo;Briefe drucken&ldquo;. Im
+    Druckdialog Kopf- und Fu&szlig;zeilen abschalten. Wer lieber erst pr&uuml;ft: dort &bdquo;Als
+    PDF sichern&ldquo; w&auml;hlen und den Stapel ansehen.</li>
+
+  <li><b>E-Mails versenden.</b> Reiter <b>5. E-Mails</b>. Pro Patient eine Karte mit Betreff und
+    Text zum Kopieren. Versendet wird aus dem Praxispostfach, <b>einzeln</b> &ndash; nie mehrere
+    Empf&auml;nger in eine Mail, auch nicht in Blindkopie.</li>
+
+  <li><b>Telefonliste ausdrucken.</b> Reiter <b>6. Telefon</b>. Die Liste in ruhigen Minuten
+    abtelefonieren, Ergebnis auf dem Blatt notieren.</li>
+
+  <li><b>Zur&uuml;ckschreiben &ndash; nicht vergessen.</b> Reiter <b>7. R&uuml;ckschreiben</b> &rarr;
+    Datei sichern und in tomedo einlesen, oder die Daten von Hand nachtragen.
+    <div class="kasten warn" style="margin:.5em 0 0">
+      <p><b>Ohne diesen Schritt bekommen dieselben Patienten n&auml;chsten Monat noch einmal
+      Post.</b> Das ist der einzige Schritt, den man wirklich nicht auslassen darf.</p>
+    </div></li>
+
+  <li><b>Aufr&auml;umen.</b> Exportdatei und R&uuml;ckschreibedatei l&ouml;schen, nachdem sie in
+    tomedo sind. Telefonliste nach dem Abtelefonieren in die Aktenvernichtung &ndash; nicht in die
+    Ablage, nicht in den Papierkorb.</li>
+</ol>
+
+<h2 class="seitenwechsel">Teil 3: Am Telefon</h2>
+
+<div class="wortlaut">
+  <b>&bdquo;</b>Guten Tag, hier ist die Urologische Gemeinschaftspraxis Rech, mein Name ist &hellip;
+  Ich rufe an, weil Ihre letzte Vorsorgeuntersuchung bei uns eine Weile zur&uuml;ckliegt und Sie
+  uns erlaubt hatten, Sie daran zu erinnern. M&ouml;chten Sie einen Termin?<b>&ldquo;</b>
+</div>
+
+<ul class="knapp">
+  <li><b>Ja</b> &rarr; Termin geben, ausreichend Zeit einplanen, im Werkzeug bleibt nichts zu tun.</li>
+  <li><b>Sp&auml;ter</b> &rarr; &bdquo;Soll ich Sie in einem halben Jahr noch einmal erinnern?&ldquo;
+    Wiedervorlage in tomedo setzen.</li>
+  <li><b>Nein</b> &rarr; &bdquo;Darf ich vermerken, dass wir Sie k&uuml;nftig nicht mehr
+    erinnern?&ldquo; Antwort eintragen. Freundlich verabschieden.</li>
+  <li><b>Nicht erreicht</b> &rarr; einmal an einem anderen Tageszeitpunkt probieren, dann Brief.
+    Keine Nachricht mit medizinischem Inhalt auf den Anrufbeantworter, keine Auskunft an Dritte.
+    Nur: &bdquo;Bitte melden Sie sich in der Praxis.&ldquo;</li>
+</ul>
+
+<h2>Teil 4: Was Patienten fragen</h2>
+
+<table>
+  <tr><th>Frage</th><th>Antwort</th></tr>
+  <tr><td class="frage">&bdquo;Woher haben Sie meine Daten?&ldquo;</td>
+      <td>Sie sind bei uns in Behandlung, und Sie hatten uns erlaubt, Sie an die Vorsorge zu
+      erinnern. Ihre Daten waren nie au&szlig;erhalb der Praxis.</td></tr>
+  <tr><td class="frage">&bdquo;Muss ich das machen?&ldquo;</td>
+      <td>Nein. Es ist ein Angebot, keine Aufforderung.</td></tr>
+  <tr><td class="frage">&bdquo;Was kostet das?&ldquo;</td>
+      <td>Die Tastuntersuchung zahlt ab 45 die Kasse. Das erweiterte Paket kostet je nach Umfang
+      85 bis 179 Euro. Die Preisliste liegt hier aus.</td></tr>
+  <tr><td class="frage">&bdquo;Ist bei mir etwas gefunden worden?&ldquo;</td>
+      <td>Nein. Es ist eine Terminerinnerung nach Zeitablauf, kein Befund. Wenn etwas w&auml;re,
+      h&auml;tten wir Sie einbestellt.</td></tr>
+  <tr><td class="frage">&bdquo;Ich war bei einem anderen Urologen.&ldquo;</td>
+      <td>Danke f&uuml;r die R&uuml;ckmeldung &ndash; sollen wir Sie aus der Liste nehmen?
+      Eintragen.</td></tr>
+  <tr><td class="frage">&bdquo;Schicken Sie mir sowas bitte nicht mehr.&ldquo;</td>
+      <td>Selbstverst&auml;ndlich. Sofort eintragen, nicht vertr&ouml;sten.</td></tr>
+</table>
+
+<h2>Teil 5: Datenschutz in vier S&auml;tzen</h2>
+<ul class="knapp">
+  <li>Das Werkzeug l&auml;uft nur auf diesem Rechner und kann nichts ins Internet senden.</li>
+  <li>Die eingelesene Liste ist weg, sobald das Fenster geschlossen wird.</li>
+  <li>Exportdateien und Ausdrucke geh&ouml;ren nach dem Durchgang gel&ouml;scht beziehungsweise
+    vernichtet &ndash; nie auf USB-Stick, nie als Mailanhang, nie mit nach Hause.</li>
+  <li>Der Bildschirm mit der Liste zeigt zum Tresen hin nichts an, was Wartende lesen k&ouml;nnen.</li>
+</ul>
+
+<h2>Teil 6: Wenn etwas klemmt</h2>
+<table>
+  <tr><th>Was Sie sehen</th><th>Was zu tun ist</th></tr>
+  <tr><td class="frage">Umlaute sind zerst&uuml;ckelt</td>
+      <td>Beim Export in tomedo UTF-8 w&auml;hlen.</td></tr>
+  <tr><td class="frage">Alles steht in einer Spalte</td>
+      <td>Beim Export ein anderes Trennzeichen w&auml;hlen, am besten Tabulator.</td></tr>
+  <tr><td class="frage">Die Liste ist leer</td>
+      <td>Erst die Gr&uuml;nde unter &bdquo;Nicht angeschrieben&ldquo; lesen. Meist fehlen
+      Einwilligungen.</td></tr>
+  <tr><td class="frage">Ein Datum wird nicht erkannt</td>
+      <td>Die Exportdatei nicht &uuml;ber Excel &ouml;ffnen und speichern &ndash; das zerst&ouml;rt
+      Datumsspalten. Direkt einlesen.</td></tr>
+  <tr><td class="frage">Etwas sieht falsch aus</td>
+      <td>Nichts von Hand &bdquo;geradebiegen&ldquo;, sondern melden. Eine falsche Regel trifft
+      sonst n&auml;chsten Monat wieder zu.</td></tr>
+</table>
+
+<div class="kasten" style="margin-top:2rem">
+  <p><b>Im Zweifel gilt:</b> lieber einen Patienten weniger anschreiben als einen zu viel. Ein
+  nicht verschickter Brief kostet uns einen Termin. Ein falsch verschickter kostet Vertrauen.</p>
+</div>
+
+<p class="nichtdrucken">Diese Seite ist praxisintern und geh&ouml;rt nicht auf den Webserver.
+Sie liegt im Ordner <code>praxis-intern/</code> neben dem Werkzeug. Zum Ausdrucken:
+Strg&nbsp;+&nbsp;P (Mac: Cmd&nbsp;+&nbsp;P), Kopf- und Fu&szlig;zeilen abschalten.</p>
+
+<script>
+/* Traegt beim Ausdrucken das heutige Datum als Stand ein, damit auf dem Blatt
+   an der Wand steht, wie alt es ist. */
+(function () {
+  var d = new Date();
+  document.getElementById('stand').textContent =
+    String(d.getDate()).padStart(2, '0') + '.' +
+    String(d.getMonth() + 1).padStart(2, '0') + '.' + d.getFullYear();
+})();
+</script>
+</body>
+</html>
