@@ -499,11 +499,11 @@ strong { color: var(--c-heading); }
 .hero__titel-zusatz {
   display: block;
   margin-top: .65rem;
-  font-size: .46em;
+  font-size: .54em;
   font-weight: 400;
   line-height: 1.35;
   letter-spacing: .01em;
-  color: #fff;
+  color: #93aade;
 }
 
 @media (max-width: 640px) {
