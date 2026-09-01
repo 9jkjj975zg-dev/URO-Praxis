@@ -449,7 +449,7 @@
     var wzTicking = false;
     var wzAktualisieren = function () {
       var y = window.scrollY || window.pageYOffset;
-      wasserzeichen.style.setProperty("--wz-parallax", Math.round(y * 0.12) + "px");
+      wasserzeichen.style.setProperty("--wz-parallax", Math.round(y * 0.28) + "px");
       wzTicking = false;
     };
     window.addEventListener("scroll", function () {
