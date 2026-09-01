@@ -126,6 +126,10 @@ h1, h2, h3, h4 {
   line-height: 1.2;
   margin: 0 0 .6em;
   letter-spacing: -.005em;
+  /* Verteilt die Zeilen gleichmaessig, statt am rechten Rand umzubrechen.
+     Damit steht nie ein einzelnes Wort allein in der letzten Zeile. Aeltere
+     Browser ignorieren die Angabe und brechen wie bisher um. */
+  text-wrap: balance;
 }
 h1 { font-size: clamp(2rem, 1.35rem + 2.6vw, 3.05rem); }
 h2 { font-size: clamp(1.55rem, 1.18rem + 1.6vw, 2.15rem); }
