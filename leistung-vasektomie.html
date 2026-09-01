@@ -49,13 +49,13 @@
     { "@type": "Question", "name": "Was kostet das Beratungsgespräch?",
       "acceptedAnswer": { "@type": "Answer", "text": "Nichts. Das erste Gespräch mit Untersuchung und Aufklärung ist bei uns kostenfrei. Es dauert etwa 20 bis 30 Minuten, und Sie gehen ohne jede Verpflichtung wieder nach Hause." } },
     { "@type": "Question", "name": "Wie schnell bekomme ich einen Operationstermin?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Der Eingriff ist frühestens etwa vier bis acht Wochen nach dem Beratungsgespräch möglich. Dieser Abstand ist Absicht: Sie sollen die Entscheidung nicht im Sprechzimmer treffen, sondern in Ruhe zu Hause." } },
+      "acceptedAnswer": { "@type": "Answer", "text": "Die Wartezeit auf einen Operationstermin beträgt bis zu acht Wochen. In den Sommermonaten geht es erfahrungsgemäß schneller, im Herbst und Winter dauert es meist etwas länger. Den konkreten Termin vereinbaren wir im Anschluss an das Beratungsgespräch." } },
     { "@type": "Question", "name": "Wie lange dauert der Eingriff?",
       "acceptedAnswer": { "@type": "Answer", "text": "Etwa 20 bis 30 Minuten. Rechnen Sie mit dem Aufenthalt in der Praxis insgesamt ungefähr eine Stunde. Bitte kommen Sie 15 Minuten vor dem vereinbarten Termin." } },
     { "@type": "Question", "name": "Örtliche Betäubung oder Narkose?",
       "acceptedAnswer": { "@type": "Answer", "text": "In aller Regel örtliche Betäubung – Sie sind dabei wach und können jederzeit sagen, wenn etwas unangenehm ist. Auf Wunsch ist auch eine Narkose möglich; dafür kommt ein Anästhesist in unsere Praxis. Vorher ist ein eigenes Aufklärungsgespräch in dessen Praxis in Hanau nötig, und es entstehen zusätzliche Kosten für die Narkose." } },
     { "@type": "Question", "name": "Wie groß ist der Schnitt?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Wir arbeiten in der klassischen offenen Technik: zwei kleine Zugänge am Hodensack, einen für jeden Samenleiter, jeweils etwa einen Zentimeter lang. Genäht wird mit selbstauflösendem Material, ein Fädenziehen ist deshalb nicht nötig. Worauf Sie in den Tagen danach achten sollten, besprechen wir im Aufklärungsgespräch." } },
+      "acceptedAnswer": { "@type": "Answer", "text": "Wir arbeiten in der klassischen offenen Technik: zwei kleine Zugänge am Hodensack, einen für jeden Samenleiter, jeweils etwa einen Zentimeter lang. Genäht wird mit selbstauflösendem Material, ein Fädenziehen ist deshalb nicht nötig. Über diese Zugänge werden die Samenleiter durchtrennt, verschlossen, um 180 Grad zurückgeknickt und ein zweites Mal abgebunden." } },
     { "@type": "Question", "name": "Ist die Vasektomie schmerzhaft?",
       "acceptedAnswer": { "@type": "Answer", "text": "Durch die örtliche Betäubung ist der Eingriff in aller Regel nicht schmerzhaft. Ein Druck- oder Ziehgefühl kann auftreten. In den Tagen danach sind leichte Beschwerden und eine Schwellung normal; mit Kühlung und einem entzündungshemmenden Schmerzmittel lassen sie sich gut behandeln." } },
     { "@type": "Question", "name": "Bekomme ich eine Krankschreibung?",
@@ -216,16 +216,13 @@
           <title id="schema-titel">Schematische Darstellung der Vasektomie</title>
           <desc id="schema-text">Von jedem Hoden führt ein Samenleiter über den Nebenhoden nach
             oben in Richtung Prostata. Bei der Vasektomie werden beide Samenleiter kurz oberhalb
-            des Nebenhodens durchtrennt und an den Enden verschlossen.</desc>
+            des Nebenhodens durchtrennt. Alle vier Enden werden verschlossen, um 180 Grad
+            zurückgeknickt und ein zweites Mal abgebunden.</desc>
 
           <!-- Richtung Prostata -->
           <path class="schema__leiter" d="M280 96V70"/>
           <path class="schema__pfeil" d="m272 78 8-9 8 9"/>
           <text class="schema__mini" x="280" y="50" text-anchor="middle">Richtung Prostata</text>
-
-          <!-- Samenleiter oberhalb der Trennstelle -->
-          <path class="schema__leiter" d="M196 214C210 184 218 152 240 126 254 110 266 100 280 96"/>
-          <path class="schema__leiter" d="M364 214C350 184 342 152 320 126 306 110 294 100 280 96"/>
 
           <!-- Hoden -->
           <ellipse class="schema__hoden" cx="190" cy="330" rx="48" ry="58"/>
@@ -235,34 +232,58 @@
           <path class="schema__neben" d="M166 278C134 296 128 344 146 378"/>
           <path class="schema__neben" d="M394 278C426 296 432 344 414 378"/>
 
-          <!-- Samenleiter unterhalb der Trennstelle -->
-          <path class="schema__leiter" d="M166 278C166 266 170 260 176 252"/>
-          <path class="schema__leiter" d="M394 278C394 266 390 260 384 252"/>
+          <!-- Vor dem Eingriff: durchgehende Samenleiter -->
+          <g class="schema__vorher">
+            <path class="schema__leiter" d="M166 278C166 262 172 252 178 240 186 226 190 214 198 202 212 176 220 148 240 126 254 110 266 100 280 96"/>
+            <path class="schema__leiter" d="M394 278C394 262 388 252 382 240 374 226 370 214 362 202 348 176 340 148 320 126 306 110 294 100 280 96"/>
+          </g>
 
-          <!-- verschlossene Enden -->
-          <circle class="schema__ende" cx="176" cy="252" r="5.5"/>
-          <circle class="schema__ende" cx="196" cy="214" r="5.5"/>
-          <circle class="schema__ende" cx="384" cy="252" r="5.5"/>
-          <circle class="schema__ende" cx="364" cy="214" r="5.5"/>
+          <!-- Nach dem Eingriff: durchtrennt, verschlossen, zurückgeknickt, abgebunden -->
+          <g class="schema__nachher">
+            <path class="schema__leiter" d="M166 278C166 262 172 252 178 240"/>
+            <path class="schema__leiter" d="M394 278C394 262 388 252 382 240"/>
+            <path class="schema__leiter" d="M198 202C212 176 220 148 240 126 254 110 266 100 280 96"/>
+            <path class="schema__leiter" d="M362 202C348 176 340 148 320 126 306 110 294 100 280 96"/>
+          <g class="schema__knick" transform="translate(178 240) rotate(27)">
+            <path class="schema__leiter" d="M0 0C0-10 15-10 15 0V20"/>
+            <path class="schema__abbindung" d="M-6 11H21"/>
+            <circle class="schema__ende" cx="15" cy="20" r="4.5"/>
+          </g>
+          <g class="schema__knick" transform="translate(382 240) scale(-1 1) rotate(27)">
+            <path class="schema__leiter" d="M0 0C0-10 15-10 15 0V20"/>
+            <path class="schema__abbindung" d="M-6 11H21"/>
+            <circle class="schema__ende" cx="15" cy="20" r="4.5"/>
+          </g>
+          <g class="schema__knick" transform="translate(198 202) rotate(208)">
+            <path class="schema__leiter" d="M0 0C0-10 15-10 15 0V20"/>
+            <path class="schema__abbindung" d="M-6 11H21"/>
+            <circle class="schema__ende" cx="15" cy="20" r="4.5"/>
+          </g>
+          <g class="schema__knick" transform="translate(362 202) scale(-1 1) rotate(208)">
+            <path class="schema__leiter" d="M0 0C0-10 15-10 15 0V20"/>
+            <path class="schema__abbindung" d="M-6 11H21"/>
+            <circle class="schema__ende" cx="15" cy="20" r="4.5"/>
+          </g>
 
-          <!-- Trennstelle -->
-          <path class="schema__hilfslinie" d="M202 233H188"/>
-          <path class="schema__hilfslinie" d="M358 233h14"/>
-          <text class="schema__marke" x="280" y="227" text-anchor="middle">durchtrennt und</text>
-          <text class="schema__marke" x="280" y="247" text-anchor="middle">verschlossen</text>
+            <path class="schema__hilfslinie" d="M202 224h-12"/>
+            <path class="schema__hilfslinie" d="M358 224h12"/>
+            <text class="schema__marke" x="280" y="218" text-anchor="middle">durchtrennt,</text>
+            <text class="schema__marke" x="280" y="238" text-anchor="middle">umgeknickt,</text>
+            <text class="schema__marke" x="280" y="258" text-anchor="middle">abgebunden</text>
+          </g>
 
           <!-- Beschriftungen -->
           <path class="schema__hilfslinie" d="M190 402v-12"/>
           <text class="schema__mini" x="190" y="420" text-anchor="middle">Hoden</text>
           <path class="schema__hilfslinie" d="M440 347h-14"/>
           <text class="schema__mini" x="446" y="352" text-anchor="start">Nebenhoden</text>
-          <path class="schema__hilfslinie" d="M146 175h60"/>
+          <path class="schema__hilfslinie" d="M146 175h64"/>
           <text class="schema__mini" x="140" y="180" text-anchor="end">Samenleiter</text>
         </svg>
         <figcaption>
-          Über zwei kleine Zugänge am Hodensack werden beide Samenleiter durchtrennt und
-          verschlossen. Der Samenerguss enthält danach keine Spermien mehr &ndash; Hormone,
-          Erektion und Empfinden bleiben unverändert.
+          Beide Samenleiter werden durchtrennt und verschlossen. Anschließend wird jedes der vier
+          Enden um 180 Grad zurückgeknickt und ein zweites Mal abgebunden &ndash; eine doppelte
+          Sicherung gegen ein späteres Zusammenwachsen.
         </figcaption>
       </figure>
 
@@ -280,19 +301,23 @@
         nichts. Wenn Sie sich danach dagegen entscheiden, ist das ein völlig normaler Ausgang.
       </p>
 
-      <h3>2. Der Eingriff &ndash; frühestens vier bis acht Wochen später</h3>
+      <h3>2. Der Eingriff &ndash; nach einer Wartezeit von bis zu acht Wochen</h3>
       <p>
-        Zwischen Beratung und Eingriff liegen bei uns mindestens vier bis acht Wochen. Dieser
-        Abstand ist kein organisatorisches Problem, sondern Absicht: Eine Entscheidung, die
-        dauerhaft ist, sollte nicht im Sprechzimmer fallen, sondern zu Hause und in Ruhe.
+        Auf einen Operationstermin warten Sie bis zu acht Wochen. Wie lange es tatsächlich
+        dauert, hängt von der Jahreszeit ab: Im Sommer geht es erfahrungsgemäß schneller, im
+        Herbst und Winter dauert es meist etwas länger. Nutzen Sie die Zeit &ndash; eine
+        Entscheidung, die dauerhaft ist, sollte nicht im Sprechzimmer fallen, sondern zu Hause
+        und in Ruhe.
       </p>
       <p>
         Wir operieren in der klassischen offenen Technik über <strong>zwei kleine Zugänge am
         Hodensack</strong> &ndash; einen für jeden Samenleiter, jeweils etwa einen Zentimeter
-        lang. Die Samenleiter werden durchtrennt und verschlossen. Genäht wird mit
-        selbstauflösendem Material &ndash; ein Fädenziehen entfällt dadurch. Der Eingriff dauert
-        etwa 20 bis 30 Minuten. Bitte kommen Sie <strong>15 Minuten vor Ihrem Termin</strong>
-        in die Praxis.
+        lang. Beide Samenleiter werden durchtrennt und die Enden verschlossen. Anschließend
+        knicken wir jedes der vier Enden um 180 Grad zurück und binden es ein zweites Mal ab.
+        Diese doppelte Sicherung macht es unwahrscheinlicher, dass die Enden später wieder
+        zusammenfinden. Genäht wird mit selbstauflösendem Material &ndash; ein Fädenziehen
+        entfällt dadurch. Der Eingriff dauert etwa 20 bis 30 Minuten. Bitte kommen Sie
+        <strong>15 Minuten vor Ihrem Termin</strong> in die Praxis.
       </p>
 
       <h3>3. Die Kontrolle &ndash; kurz, am Montagmorgen</h3>
@@ -340,10 +365,10 @@
         häufiger infrage gestellt wird als eine in Ruhe getroffene.
       </p>
       <div class="note">
-        <p><strong>Der Abstand ist Absicht.</strong> Zwischen Beratung und Eingriff liegen bei
-           uns mindestens vier bis acht Wochen. In dieser Zeit können Sie den Termin jederzeit
-           und ohne Begründung wieder absagen. Da das Beratungsgespräch kostenfrei ist,
-           entstehen Ihnen dadurch keinerlei Kosten.</p>
+        <p><strong>Sie entscheiden nicht im Sprechzimmer.</strong> Zwischen dem Beratungsgespräch
+           und dem Operationstermin vergehen bis zu acht Wochen. In dieser Zeit können Sie den
+           Termin jederzeit und ohne Begründung wieder absagen. Da das Beratungsgespräch
+           kostenfrei ist, entstehen Ihnen dadurch keinerlei Kosten.</p>
       </div>
 
       <h2>Wann ist ein guter Zeitpunkt?</h2>
@@ -356,8 +381,8 @@
       <p>
         Praktischer Nebeneffekt: <strong>In den Sommermonaten sind unsere Operationstermine
         erfahrungsgemäß am besten verfügbar.</strong> Wer den Eingriff für den Sommer plant,
-        sollte das Beratungsgespräch entsprechend früher vereinbaren &ndash; zwischen Beratung
-        und Eingriff liegen mindestens vier bis acht Wochen.
+        sollte das Beratungsgespräch entsprechend früher vereinbaren &ndash; auf den
+        Operationstermin warten Sie bis zu acht Wochen.
       </p>
 
       <h2>Örtliche Betäubung oder Narkose?</h2>
@@ -425,8 +450,10 @@
         Die Vasektomie gilt als eine der sichersten Verhütungsmethoden überhaupt. Wie bei jedem
         operativen Eingriff kann es dennoch zu Komplikationen kommen – etwa zu Nachblutungen,
         Blutergüssen, Infektionen oder, selten, zu länger anhaltenden Beschwerden im Hodenbereich.
-        In sehr seltenen Fällen können sich die Samenleiterenden wieder verbinden. Über alle
-        Risiken klären wir Sie im persönlichen Gespräch ausführlich auf.
+        In sehr seltenen Fällen können sich die Samenleiterenden wieder verbinden. Genau dagegen
+        richtet sich die doppelte Sicherung, mit der wir arbeiten: Jedes Ende wird verschlossen,
+        um 180 Grad zurückgeknickt und ein zweites Mal abgebunden. Über alle Risiken klären wir
+        Sie im persönlichen Gespräch ausführlich auf.
       </p>
 
       <h2>Vasektomie oder Sterilisation der Frau?</h2>
@@ -501,8 +528,8 @@
               örtlich &ndash; auf Wunsch Narkose</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g transform="rotate(-40 12 12)"><rect x="2.6" y="10.4" width="10.4" height="3.2" rx="1.4"/><path d="M13 9.6h5.6c2 0 3.3 1.1 3.3 1.7L13 14.4z"/></g></svg><span><span class="contact-list__label">Zugang</span>
               zwei Schnitte von je ca. 1 cm, selbstauflösende Naht</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span><span class="contact-list__label">Vorlauf</span>
-              4&ndash;8 Wochen nach der Beratung</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span><span class="contact-list__label">Wartezeit auf den OP-Termin</span>
+              bis zu 8 Wochen, im Sommer meist kürzer</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span><span class="contact-list__label">Schonung</span>
               2 Tage, eine Woche ohne Sport</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="20,6 9,17 4,12"/></svg><span><span class="contact-list__label">Erfolgskontrolle</span>
@@ -527,7 +554,7 @@
       </details>
       <details>
         <summary>Wie schnell bekomme ich einen Operationstermin?</summary>
-        <p>Der Eingriff ist frühestens etwa vier bis acht Wochen nach dem Beratungsgespräch möglich. Dieser Abstand ist Absicht: Sie sollen die Entscheidung nicht im Sprechzimmer treffen, sondern in Ruhe zu Hause.</p>
+        <p>Die Wartezeit auf einen Operationstermin beträgt bis zu acht Wochen. In den Sommermonaten geht es erfahrungsgemäß schneller, im Herbst und Winter dauert es meist etwas länger. Den konkreten Termin vereinbaren wir im Anschluss an das Beratungsgespräch.</p>
       </details>
       <details>
         <summary>Wie lange dauert der Eingriff?</summary>
@@ -539,7 +566,7 @@
       </details>
       <details>
         <summary>Wie groß ist der Schnitt?</summary>
-        <p>Wir arbeiten in der klassischen offenen Technik: zwei kleine Zugänge am Hodensack, einen für jeden Samenleiter, jeweils etwa einen Zentimeter lang. Genäht wird mit selbstauflösendem Material, ein Fädenziehen ist deshalb nicht nötig. Worauf Sie in den Tagen danach achten sollten, besprechen wir im Aufklärungsgespräch.</p>
+        <p>Wir arbeiten in der klassischen offenen Technik: zwei kleine Zugänge am Hodensack, einen für jeden Samenleiter, jeweils etwa einen Zentimeter lang. Genäht wird mit selbstauflösendem Material, ein Fädenziehen ist deshalb nicht nötig. Über diese Zugänge werden die Samenleiter durchtrennt, verschlossen, um 180 Grad zurückgeknickt und ein zweites Mal abgebunden.</p>
       </details>
       <details>
         <summary>Ist die Vasektomie schmerzhaft?</summary>

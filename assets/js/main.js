@@ -369,4 +369,29 @@
     }
   );
 
+  /* ----------------------------------------------------------------------
+     8. Schemazeichnung zur Vasektomie
+
+     Die Grafik zeigt standardmaessig das Ergebnis des Eingriffs. Kommt sie
+     ins Bild, laeuft der Wechsel vom unversehrten zum durchtrennten
+     Samenleiter genau einmal ab. Ohne JavaScript oder ohne
+     IntersectionObserver bleibt es beim Endzustand.
+     ---------------------------------------------------------------------- */
+  if (window.IntersectionObserver) {
+    var schemaBeobachter = new IntersectionObserver(function (eintraege, beob) {
+      Array.prototype.forEach.call(eintraege, function (eintrag) {
+        if (eintrag.isIntersecting) {
+          eintrag.target.classList.add("schema--laeuft");
+          beob.unobserve(eintrag.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    Array.prototype.forEach.call(
+      document.querySelectorAll(".schema svg"),
+      function (grafik) { schemaBeobachter.observe(grafik); }
+    );
+  }
+
+
 /* @vorschau-ende */

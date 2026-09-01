@@ -1267,6 +1267,23 @@ strong { color: var(--c-heading); }
 .schema__hilfslinie { fill: none; stroke: var(--c-text-muted); stroke-width: 1.5;
                       stroke-dasharray: 4 4; opacity: .75; }
 
+.schema__abbindung { fill: none; stroke: var(--c-focus); stroke-width: 3.5;
+                     stroke-linecap: round; }
+
+/* Zwei Zustaende uebereinander: ohne JavaScript ist nur das Ergebnis zu sehen.
+   Erst wenn die Grafik ins Bild kommt, laeuft der Wechsel einmal ab.          */
+.schema__vorher { opacity: 0; }
+.schema--laeuft .schema__vorher  { animation: schema-vorher 2.4s ease-in-out both; }
+.schema--laeuft .schema__nachher { animation: schema-nachher 2.4s ease-in-out both; }
+
+@keyframes schema-vorher  { 0%, 48% { opacity: 1 } 66%, 100% { opacity: 0 } }
+@keyframes schema-nachher { 0%, 50% { opacity: 0 } 70%, 100% { opacity: 1 } }
+
+@media (prefers-reduced-motion: reduce) {
+  .schema--laeuft .schema__vorher,
+  .schema--laeuft .schema__nachher { animation: none; }
+}
+
 .schema text     { font-family: var(--font-base); }
 .schema__marke   { font-size: 17px; font-weight: 600; fill: var(--c-focus); }
 .schema__mini    { font-size: 16px; fill: var(--c-text-muted); }
