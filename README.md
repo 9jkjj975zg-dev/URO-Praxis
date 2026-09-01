@@ -86,17 +86,17 @@ kommentiert und auf den Rechtsseiten sichtbar als **[bitte ergänzen]** markiert
 
 ### Schriftart
 
-Überschriften und die Wortmarke stehen in **Didact Gothic**, der Fließtext in
-der Systemschrift des jeweiligen Geräts. Die beiden Schriftdateien liegen unter
+Überschriften und die Wortmarke stehen in **Jost**, der Fließtext in der
+Systemschrift des jeweiligen Geräts – geometrische Schriften sind auf langen
+Strecken anstrengender zu lesen. Die beiden Schriftdateien liegen unter
 `assets/fonts/` und werden vom eigenen Server ausgeliefert, nicht von Google
-nachgeladen – sonst ginge bei jedem Seitenaufruf die IP-Adresse der Besucher an
+nachgeladen: sonst ginge bei jedem Seitenaufruf die IP-Adresse der Besucher an
 einen Dritten, und die Seite bräuchte eine Einwilligung. Einzelheiten und die
 Lizenz stehen in `assets/fonts/LIESMICH.txt`.
 
-Die Schrift gibt es nur in einem Schnitt. Alle Überschriften stehen deshalb auf
-`font-weight: 400`, und `font-synthesis: none` verhindert, dass der Browser eine
-Fettschrift errechnet. Wer eine Überschrift stärker hervorheben will, arbeitet
-mit Größe und Farbe, nicht mit Fettung.
+Jost ist eine variable Schrift – eine Datei deckt alle Strichstärken von 400 bis
+600 ab. Soll eine andere Stärke verwendet werden, genügt es, `font-weight` zu
+ändern; eine zusätzliche Datei ist dafür nicht nötig.
 
 ### Orientierungshilfe zur Vorsorge
 
