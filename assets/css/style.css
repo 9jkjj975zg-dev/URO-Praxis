@@ -723,6 +723,13 @@ strong { color: var(--c-heading); }
   margin-bottom: 1.1rem;
   letter-spacing: .02em;
 }
+.person__weg {
+  font-size: .93rem;
+  color: var(--c-text-muted);
+  padding-top: .9rem;
+  border-top: 1px solid var(--c-border);
+}
+
 .person__role { color: var(--c-accent-dark); font-weight: 600; font-size: .95rem; margin-bottom: .75rem; }
 .person h3 { margin-bottom: .2rem; }
 

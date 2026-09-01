@@ -116,9 +116,8 @@ genau einer Stelle – in `layout.py` unter `TERMIN_URL`. Ändert sich der Link,
 genügt es, ihn dort zu ersetzen; alle Seiten übernehmen ihn beim nächsten
 Erzeugen. Ist das Feld leer, erscheint überall ein sichtbar markierter
 Platzhalter statt eines toten Links.
-- `kontakt.html`: Parkmöglichkeiten, nächstgelegene Haltestelle und Buslinien
-  (die Barrierefreiheit ist von der Praxis bestätigt und eingetragen)
-- `praxis.html`: Werdegang und Zusatzbezeichnungen der Ärztin und des Arztes
+- `kontakt.html`: nächstgelegene Haltestelle und Buslinien (Parken und
+  Barrierefreiheit sind eingetragen)
 
 > **Hinweis:** Impressum und Datenschutzerklärung sind sorgfältig erstellte
 > Vorlagen, aber keine Rechtsberatung. Bitte vor der Veröffentlichung
