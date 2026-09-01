@@ -37,6 +37,11 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://www.hanau-urologie.de/kassenleistung.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.hanau-urologie.de/selbstzahler-preise.html</loc>
     <lastmod>2026-08-31</lastmod>
     <changefreq>monthly</changefreq>

@@ -432,6 +432,25 @@ strong { color: var(--c-heading); }
 .hero .eyebrow { color: #93aade; }   /* auf dunklem Grund aufhellen */
 .hero h1 { color: #fff; max-width: 20ch; }
 .hero__text { max-width: 60ch; }
+/* Zweizeilige Hauptueberschrift: der Ort steht gross, die Haltung darunter
+   kleiner. Beides bleibt eine einzige h1 – fuer Suchmaschinen und fuer
+   Screenreader ist das eine zusammenhaengende Ueberschrift. */
+.hero__titel { margin-bottom: 1rem; }
+
+.hero__titel-zusatz {
+  display: block;
+  margin-top: .55rem;
+  font-size: .46em;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: .005em;
+  color: rgba(255, 255, 255, .82);
+}
+
+@media (max-width: 640px) {
+  .hero__titel-zusatz { font-size: .52em; }
+}
+
 .hero__lead { font-size: 1.2rem; color: #c8d2e4; margin-bottom: 2rem; }
 .hero .btn-row { margin-bottom: 2.25rem; }
 
