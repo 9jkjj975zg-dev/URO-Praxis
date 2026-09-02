@@ -508,7 +508,9 @@
     if (bloecke.length) {
       var lagen = [];
       var kopfhoehe = 76;
-      var STRECKE = 280;   // Hoehe des Uebergangs in Pixeln
+      // Der Uebergang beginnt spaet und dicht an der Kopfleiste: Was noch
+      // im Lesebereich steht, bleibt unveraendert scharf.
+      var STRECKE = 150;   // Hoehe des Uebergangs in Pixeln
       var WEG = 30;        // wie weit der Block dabei nach oben zieht
 
       var vermessen = function () {
