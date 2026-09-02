@@ -604,4 +604,74 @@
     }
   }
 
+  /* ----------------------------------------------------------------------
+     12. Selbsttest zu Beschwerden beim Wasserlassen
+
+     Zaehlt die Punkte der sieben Fragen zusammen und ordnet sie ein. Die
+     Antworten bleiben im Browser: Es gibt kein Formularziel, nichts wird
+     gesendet oder gespeichert. Ohne JavaScript bleiben die Fragen lesbar
+     und der Hinweistext im Ergebnisfeld stehen.
+     ---------------------------------------------------------------------- */
+  var ipss = document.getElementById("ipss");
+  var ipssFeld = document.getElementById("ipss-ergebnis");
+
+  if (ipss && ipssFeld) {
+    var STUFEN = [
+      { bis: 7,  name: "leichte Beschwerden",
+        text: "In diesem Bereich ist abwartendes Beobachten der übliche Weg. Wenn Sie damit " +
+              "gut zurechtkommen, muss nichts geschehen – ein Termin lohnt sich trotzdem, " +
+              "um einmal zu prüfen, ob sich die Blase vollständig entleert." },
+      { bis: 19, name: "mittelgradige Beschwerden",
+        text: "In diesem Bereich lohnt sich eine Abklärung. Ob eine Behandlung sinnvoll ist, " +
+              "hängt davon ab, wie sehr Sie die Beschwerden belasten und was der Ultraschall " +
+              "zeigt – vor allem die Prostatagröße und der Restharn." },
+      { bis: 35, name: "ausgeprägte Beschwerden",
+        text: "In diesem Bereich sollten Sie einen Termin nicht aufschieben. Anhaltende " +
+              "Beschwerden dieser Stärke gehen häufiger mit Restharn einher, und der lässt " +
+              "sich nur mit Ultraschall feststellen." }
+    ];
+
+    var LEBENSTEXT = ["ausgezeichnet", "zufrieden", "überwiegend zufrieden", "teils, teils",
+                      "überwiegend unzufrieden", "unglücklich", "sehr schlecht"];
+
+    var auswerten = function () {
+      var summe = 0, beantwortet = 0, i;
+      for (i = 1; i <= 7; i++) {
+        var gewaehlt = ipss.querySelector('input[name="f' + i + '"]:checked');
+        if (gewaehlt) { summe += Number(gewaehlt.value); beantwortet++; }
+      }
+
+      if (beantwortet < 7) {
+        ipssFeld.innerHTML = '<p class="check__vorspann">Noch ' + (7 - beantwortet) +
+          (beantwortet === 6 ? " Frage" : " Fragen") +
+          ' offen &ndash; die Auswertung erscheint hier von selbst.</p>';
+        return;
+      }
+
+      var stufe = STUFEN[0];
+      for (i = 0; i < STUFEN.length; i++) {
+        if (summe <= STUFEN[i].bis) { stufe = STUFEN[i]; break; }
+      }
+
+      var leben = ipss.querySelector('input[name="lebensqualitaet"]:checked');
+      var zusatz = "";
+      if (leben) {
+        zusatz = '<p>Zur Lebensqualität haben Sie &bdquo;' +
+                 LEBENSTEXT[Number(leben.value)] +
+                 '&ldquo; angegeben. Diese Angabe zählt nicht in die Punktzahl hinein, ist im ' +
+                 'Gespräch aber oft die wichtigere: Sie entscheidet mit darüber, ob eine ' +
+                 'Behandlung sich für Sie lohnt.</p>';
+      }
+
+      ipssFeld.innerHTML =
+        '<p class="ipss-punkte">' + summe + ' <small>von 35 Punkten</small></p>' +
+        '<p class="ipss-stufe">' + stufe.name + '</p>' +
+        '<p>' + stufe.text + '</p>' + zusatz +
+        '<p><a class="btn btn--accent" href="kontakt.html#termin">Termin anfragen</a></p>';
+    };
+
+    ipss.addEventListener("change", auswerten);
+    ipss.addEventListener("submit", function (e) { e.preventDefault(); });
+  }
+
 /* @vorschau-ende */
