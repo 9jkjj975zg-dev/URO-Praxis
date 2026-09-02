@@ -189,7 +189,6 @@ strong { color: var(--c-heading); }
 .section--dunkel .card__icon { background: rgba(255, 255, 255, .12); color: #dbe3f2; }
 .section--dunkel .card__more { color: #93aade; }
 .section--dunkel .card--link::before { background: #93aade; }
-.section--dunkel .card--link:hover::before { background: #e2a15f; }
 .section--dunkel .card .card__nr { color: #e2a15f; }
 
 /* Zahlenband: die Angaben, die vor dem Anruf zaehlen, gross statt in einer
@@ -779,7 +778,9 @@ strong { color: var(--c-heading); }
   border-radius: 2px 0 0 2px;
   transition: background-color .16s ease, width .16s ease;
 }
-.card--link:hover::before { background: var(--c-focus); width: 7px; }
+/* Beim Ueberfahren wird der Streifen nur breiter. Ein Farbwechsel liesse
+   Karten mit eigener Streifenfarbe anders reagieren als die uebrigen.  */
+.card--link:hover::before { width: 7px; }
 
 /* Kleine Nummer mit vorangestelltem Strich */
 .card .card__nr {
@@ -802,7 +803,7 @@ strong { color: var(--c-heading); }
   height: 2px;
   background: currentColor;
 }
-.card--link:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--c-accent); color: inherit; }
+.card--link:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); color: inherit; }
 .card__more { margin-top: auto; padding-top: 1rem; font-weight: 600; color: var(--c-accent-dark); }
 .card__more::after { content: " →"; }
 
@@ -1224,11 +1225,14 @@ strong { color: var(--c-heading); }
   letter-spacing: .06em;
   text-transform: uppercase;
 }
+/* Wichtige Meldung: kein eigener linker Rahmen mehr - sonst stuende er neben
+   dem Streifen der Karte und man saehe zwei Balken. Stattdessen faerbt sie
+   den vorhandenen Streifen ein.                                             */
 .meldung--wichtig {
-  border-left: 4px solid var(--c-hinweis-marke);
   background: var(--c-hinweis-bg);
   border-color: var(--c-hinweis-rand);
 }
+.meldung--wichtig.card--link::before { background: var(--c-hinweis-marke); }
 .meldung--wichtig .meldung__art {
   background: var(--c-hinweis-marke);
   color: #fff;
