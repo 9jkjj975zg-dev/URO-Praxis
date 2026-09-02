@@ -464,7 +464,7 @@ strong { color: var(--c-heading); }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(241, 244, 249, .94);
+  background: rgba(243, 237, 226, .94);
   backdrop-filter: saturate(160%) blur(8px);
   border-bottom: 1px solid var(--c-border);
 }
@@ -515,7 +515,8 @@ strong { color: var(--c-heading); }
 }
 .brand__text { display: flex; flex-direction: column; line-height: 1.18; }
 .brand__name { font-family: var(--font-display); font-weight: 550; font-synthesis: none;
-               color: var(--c-heading); font-size: 1.1rem; letter-spacing: .005em; }
+               color: var(--c-heading); font-size: 1.1rem; letter-spacing: .005em;
+               white-space: nowrap; }
 .brand__sub { font-size: .78rem; color: var(--c-text-muted); letter-spacing: .04em; text-transform: uppercase; }
 
 .nav-toggle {
@@ -730,13 +731,13 @@ strong { color: var(--c-heading); }
   /* Die Sprechzeiten sind die laengste Angabe und bekommen mehr Platz */
   .hero__facts { grid-template-columns: 1.6fr 1fr 1fr; }
 }
-.hero__fact svg { flex: none; width: 22px; height: 22px; color: #7e9ad4; margin-top: .25rem; }
+.hero__fact svg { flex: none; width: 22px; height: 22px; color: #c9bba2; margin-top: .25rem; }
 .hero__fact-label {
   display: block;
   font-size: .78rem;
   text-transform: uppercase;
   letter-spacing: .09em;
-  color: #94a2be;
+  color: #c0b39d;
   margin-bottom: .15rem;
 }
 .hero__fact-value { color: #fff; font-weight: 600; }
@@ -761,7 +762,7 @@ strong { color: var(--c-heading); }
 .page-head h1 { color: #fff; margin-bottom: .4rem; }
 .page-head p { color: #d6cfc2; max-width: 65ch; margin-bottom: 0; font-size: 1.1rem; }
 
-.breadcrumb { font-size: .875rem; margin-bottom: 1rem; color: #94a2be; }
+.breadcrumb { font-size: .875rem; margin-bottom: 1rem; color: #c0b39d; }
 .breadcrumb ol { list-style: none; display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; }
 .breadcrumb li::after { content: "›"; margin-left: .4rem; color: rgba(255,255,255,.45); }
 .breadcrumb li:last-child::after { content: ""; }
@@ -890,7 +891,7 @@ strong { color: var(--c-heading); }
 .hours td { color: var(--c-text-muted); }
 .hours tr:last-child th, .hours tr:last-child td { border-bottom: 0; }
 .hours tr.is-today th, .hours tr.is-today td { background: var(--c-accent-soft); color: var(--c-primary-dark); font-weight: 600; }
-.hours .closed { color: #858e9e; }
+.hours .closed { color: #7a7263; }
 
 /* Vergleichstabelle (Leistungsumfang) */
 .vergleich {
@@ -1145,12 +1146,12 @@ strong { color: var(--c-heading); }
    -------------------------------------------------------------------------- */
 .site-footer {
   background: var(--c-primary-dark);
-  color: #b2bcd0;
+  color: #cfc6b6;
   padding: 3.25rem 0 1.75rem;
   font-size: .95rem;
 }
 .site-footer h2, .site-footer h3 { color: #fff; font-size: 1rem; margin-bottom: .9rem; letter-spacing: .02em; }
-.site-footer a { color: #d6ddea; text-decoration: none; }
+.site-footer a { color: #e0dacd; text-decoration: none; }
 .site-footer a:hover { color: #fff; text-decoration: underline; }
 .site-footer ul { list-style: none; padding: 0; margin: 0; }
 .site-footer li { margin-bottom: .5rem; }
@@ -1167,7 +1168,7 @@ strong { color: var(--c-heading); }
   gap: 1rem;
   justify-content: space-between;
   font-size: .875rem;
-  color: #99a5bc;
+  color: #b9ac97;
 }
 .footer__legal { display: flex; flex-wrap: wrap; gap: 1.25rem; }
 
