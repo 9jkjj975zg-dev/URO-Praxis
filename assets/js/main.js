@@ -674,4 +674,79 @@
     ipss.addEventListener("submit", function (e) { e.preventDefault(); });
   }
 
+  /* ----------------------------------------------------------------------
+     13. Laufband im Hinweisbalken
+
+     Die Meldung wandert gleichmaessig nach links. Damit der Uebergang ohne
+     Sprung gelingt, wird sie so oft vervielfaeltigt, dass sie die Breite
+     einmal fuellt; anschliessend wird der ganze Satz noch einmal gedoppelt.
+     Verschoben wird dann genau um die Haelfte - in dem Moment steht wieder
+     dasselbe Bild wie am Anfang.
+
+     Die Dauer richtet sich nach der Laenge, damit kurze und lange Meldungen
+     gleich schnell laufen und nicht gleich lange.
+
+     Ohne JavaScript oder bei bevorzugter Bewegungsreduktion passiert nichts:
+     Die Meldung steht dann still, wie sie im Quelltext steht.
+     ---------------------------------------------------------------------- */
+  var balken = document.querySelector(".hinweisbalken");
+
+  if (balken && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var fenster = balken.querySelector(".hinweisbalken__lauf");
+    var spur = balken.querySelector(".hinweisbalken__spur");
+    var halt = balken.querySelector(".hinweisbalken__halt");
+    var TEMPO = 55;   // Bildpunkte je Sekunde
+
+    var aufbauen = function () {
+      balken.classList.remove("hinweisbalken--laeuft");
+      // auf eine einzige Meldung zuruecksetzen
+      while (spur.children.length > 1) { spur.removeChild(spur.lastElementChild); }
+
+      var meldung = spur.firstElementChild;
+      if (!meldung || !fenster.clientWidth) { return; }
+
+      // so oft wiederholen, bis die Breite einmal gefuellt ist
+      var schutz = 0;
+      while (spur.scrollWidth < fenster.clientWidth && schutz < 40) {
+        var kopie = meldung.cloneNode(true);
+        kopie.setAttribute("aria-hidden", "true");
+        spur.appendChild(kopie);
+        schutz++;
+      }
+
+      // den gesamten Satz einmal doppeln - das ist die zweite Haelfte
+      var satz = [].slice.call(spur.children);
+      var breite = spur.scrollWidth;
+      satz.forEach(function (teil) {
+        var kopie = teil.cloneNode(true);
+        kopie.setAttribute("aria-hidden", "true");
+        spur.appendChild(kopie);
+      });
+
+      // Abstand zwischen den Meldungen zaehlt zur Strecke dazu
+      var luecke = parseFloat(getComputedStyle(spur).columnGap) || 0;
+      var strecke = breite + luecke;
+      spur.style.setProperty("--lauf-dauer", (strecke / TEMPO).toFixed(1) + "s");
+      balken.classList.add("hinweisbalken--laeuft");
+    };
+
+    if (halt) {
+      halt.hidden = false;
+      halt.addEventListener("click", function () {
+        var gehalten = balken.classList.toggle("hinweisbalken--gehalten");
+        halt.setAttribute("aria-pressed", String(gehalten));
+        halt.querySelector(".hinweisbalken__halt-text").textContent =
+          gehalten ? "Weiter" : "Anhalten";
+      });
+    }
+
+    aufbauen();
+
+    var neuAufbauen;
+    window.addEventListener("resize", function () {
+      window.clearTimeout(neuAufbauen);
+      neuAufbauen = window.setTimeout(aufbauen, 200);
+    }, { passive: true });
+  }
+
 /* @vorschau-ende */

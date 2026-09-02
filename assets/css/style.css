@@ -284,6 +284,54 @@ strong { color: var(--c-heading); }
   text-transform: uppercase;
 }
 .hinweisbalken p { margin: 0; }
+
+/* Laufband. Die Meldung wandert nach links, tritt also rechts ins Bild und
+   verlaesst es links - nur so steht der Satzanfang immer links vom Satzende
+   und bleibt lesbar. Ohne JavaScript und bei bevorzugter Bewegungsreduktion
+   wird nichts vervielfaeltigt und nichts bewegt: Dann steht die Meldung
+   einfach da.                                                               */
+/* Grundbreite null: Sonst verlangt das Laufband die Breite seines ganzen
+   Inhalts, und der Balken bricht in mehrere Zeilen um.               */
+.hinweisbalken__lauf { flex: 1 1 0; min-width: 0; overflow: hidden; }
+.hinweisbalken__spur { display: flex; width: max-content; gap: 3.5rem; }
+
+.hinweisbalken--laeuft .hinweisbalken__inner { justify-content: flex-start; text-align: left; }
+.hinweisbalken--laeuft .hinweisbalken__spur {
+  animation: hinweis-lauf var(--lauf-dauer, 30s) linear infinite;
+}
+@keyframes hinweis-lauf {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Anhalten beim Ueberfahren, bei Tastaturfokus und ueber den Knopf */
+.hinweisbalken--laeuft:hover .hinweisbalken__spur,
+.hinweisbalken--laeuft:focus-within .hinweisbalken__spur,
+.hinweisbalken--gehalten .hinweisbalken__spur { animation-play-state: paused; }
+
+.hinweisbalken__halt {
+  flex: none;
+  font: inherit;
+  font-size: .78rem;
+  color: var(--c-hinweis-text);
+  background: transparent;
+  border: 1px solid var(--c-hinweis-rand);
+  border-radius: 999px;
+  padding: .12rem .6rem;
+  cursor: pointer;
+}
+.hinweisbalken__halt:hover { border-color: var(--c-hinweis-marke); color: var(--c-hinweis-marke); }
+
+/* Auf schmalen Schirmen bliebe neben Marke, Link und Knopf nur ein
+   Guckloch von wenigen Zentimetern uebrig. Dort bekommt das Laufband
+   deshalb eine eigene Zeile ueber die volle Breite.                        */
+@media (max-width: 700px) {
+  .hinweisbalken--laeuft .hinweisbalken__lauf { flex-basis: 100%; order: 3; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hinweisbalken--laeuft .hinweisbalken__spur { animation: none; }
+}
 .hinweisbalken a { color: var(--c-hinweis-text); font-weight: 600; white-space: nowrap; }
 .hinweisbalken a:hover { color: var(--c-hinweis-marke); }
 
