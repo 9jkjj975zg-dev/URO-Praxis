@@ -85,6 +85,14 @@
      #eef2f8 / #d8e0ee / #2a3b5e / #35508c                                   */
   /* Die Laufleiste soll sich bewusst absetzen. Salbei statt Braun: eine
      eigene Farbfamilie, aber in derselben gedaempften Art wie der Rest.   */
+  /* Die Laufleiste ganz oben traegt keine eigene Farbe. Sie ist nur eine
+     Stufe tiefer als der Seitengrund; die Aufmerksamkeit tragen allein die
+     beiden navyfarbenen Pillen links und rechts.                           */
+  --c-leiste-bg:      #e3dfd7;
+  --c-leiste-rand:    #d1ccc2;
+  --c-leiste-text:    #3a362f;
+  --c-leiste-marke:   #1b2a4e;
+
   --c-hinweis-bg:     #c7cfb4;
   --c-hinweis-rand:   #b0bb95;
   --c-hinweis-text:   #3b4927;
@@ -367,9 +375,9 @@ strong { color: var(--c-heading); }
    5a. Hinweisbalken (Aktuelles)
    -------------------------------------------------------------------------- */
 .hinweisbalken {
-  background: var(--c-hinweis-bg);
-  border-bottom: 1px solid var(--c-hinweis-rand);
-  color: var(--c-hinweis-text);
+  background: var(--c-leiste-bg);
+  border-bottom: 1px solid var(--c-leiste-rand);
+  color: var(--c-leiste-text);
   font-size: .92rem;
 }
 .hinweisbalken__inner {
@@ -383,7 +391,7 @@ strong { color: var(--c-heading); }
 }
 .hinweisbalken__marke {
   flex: none;
-  background: var(--c-hinweis-marke);
+  background: var(--c-leiste-marke);
   color: #fff;
   border-radius: 999px;
   padding: .15rem .65rem;
@@ -426,7 +434,7 @@ strong { color: var(--c-heading); }
   font-family: inherit;
   line-height: inherit;
   color: #fff;
-  background: var(--c-hinweis-marke);
+  background: var(--c-leiste-marke);
   border: 0;
   border-radius: 999px;
   padding: .15rem .65rem;
@@ -436,7 +444,7 @@ strong { color: var(--c-heading); }
   text-transform: uppercase;
   cursor: pointer;
 }
-.hinweisbalken__halt:hover { background: #45512f; color: #fff; }
+.hinweisbalken__halt:hover { background: var(--c-primary-dark); color: #fff; }
 
 /* Auf schmalen Schirmen bliebe neben Marke, Link und Knopf nur ein
    Guckloch von wenigen Zentimetern uebrig. Dort bekommt das Laufband
@@ -448,8 +456,8 @@ strong { color: var(--c-heading); }
 @media (prefers-reduced-motion: reduce) {
   .hinweisbalken--laeuft .hinweisbalken__spur { animation: none; }
 }
-.hinweisbalken a { color: var(--c-hinweis-text); font-weight: 600; white-space: nowrap; }
-.hinweisbalken a:hover { color: var(--c-hinweis-marke); }
+.hinweisbalken a { color: var(--c-leiste-text); font-weight: 600; white-space: nowrap; }
+.hinweisbalken a:hover { color: var(--c-leiste-marke); }
 
 .topbar {
   background: var(--c-primary-dark);
