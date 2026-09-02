@@ -207,12 +207,28 @@ strong { color: var(--c-heading); }
 .section--dunkel li          { color: #cfc6b6; }
 .section--dunkel strong      { color: #fff; }
 .section--dunkel a           { color: #fff; }
+/* Karten auf dunklem Grund bekommen eine eigene, etwas hellere Flaeche
+   statt eines Weissschleiers - darauf steht der Text auf einem definierten
+   Feld statt auf einem Verlauf.                                            */
 .section--dunkel .card {
-  background: rgba(255, 255, 255, .06);
-  border-color: rgba(255, 255, 255, .17);
+  background: #243352;
+  border-color: rgba(255, 255, 255, .22);
   box-shadow: none;
 }
-.section--dunkel .card--link:hover { background: rgba(255, 255, 255, .11); }
+.section--dunkel .card--link:hover { background: #2b3c60; }
+
+/* Wichtig: Regeln wie ".card p" stehen weiter unten in dieser Datei und
+   haben dieselbe Gewichtung wie ".section--dunkel p" - die spaetere gewinnt.
+   Deshalb muessen Texte innerhalb von Karten hier ausdruecklich gesetzt
+   werden, sonst stuende dunkelbrauner Text auf dunkelblauem Grund.         */
+.section--dunkel .card p,
+.section--dunkel .card li,
+.section--dunkel .faq__antwort p,
+.section--dunkel .stimme p,
+.section--dunkel .note p { color: #d6cfc2; }
+.section--dunkel .card strong,
+.section--dunkel .card h3,
+.section--dunkel .card h4 { color: #fff; }
 .section--dunkel .card__icon { background: rgba(255, 255, 255, .12); color: #e6ded0; }
 .section--dunkel .card__more { color: #c9bba2; }
 .section--dunkel .card--link::before { background: #c9bba2; }
