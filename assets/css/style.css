@@ -62,18 +62,18 @@
   --c-gold:           #dabb82;
   --c-gold-dunkel:    #c9a66a;
   --c-gold-rand:      #8a6630;
-  --c-gold-schrift:   #2a2115;
+  --c-gold-schrift:   #25201a;
 
-  --c-text:           #2a2115;
-  --c-text-muted:     #585043;
+  --c-text:           #25201a;
+  --c-text-muted:     #534f48;
   --c-heading:        #1f2c4a;
 
   /* Sand statt Blaugrau. Die drei Stufen liegen bewusst dicht beieinander:
      Sie sollen Abschnitte trennen, nicht Flecken bilden.                    */
-  --c-bg:             #f7f3ec;
-  --c-surface:        #efe8da;
-  --c-surface-2:      #e4dccd;
-  --c-border:         #e0d7c6;
+  --c-bg:             #f5f2ee;
+  --c-surface:        #eae6df;
+  --c-surface-2:      #dfdad2;
+  --c-border:         #dad5cc;
 
   /* Der Fokusrahmen war warm, solange die Seite kuehl war. Auf sandfarbenem
      Grund mit Bronze faellt umgekehrt ein kuehler Ton auf.                 */
@@ -196,15 +196,15 @@ strong { color: var(--c-heading); }
    unveraendert aus der Palette.                                            */
 .section--dunkel {
   background: linear-gradient(158deg, var(--c-primary) 0%, var(--c-primary-dark) 100%);
-  color: #d6cfc2;
+  color: #d2cec7;
 }
 .section--dunkel h2,
 .section--dunkel h3,
 .section--dunkel h4          { color: #fff; }
-.section--dunkel .eyebrow    { color: #c9bba2; }
+.section--dunkel .eyebrow    { color: #c0b9ab; }
 .section--dunkel p,
 .section--dunkel .lead,
-.section--dunkel li          { color: #cfc6b6; }
+.section--dunkel li          { color: #c9c4bc; }
 .section--dunkel strong      { color: #fff; }
 .section--dunkel a           { color: #fff; }
 /* Karten auf dunklem Grund bekommen eine eigene, etwas hellere Flaeche
@@ -225,13 +225,13 @@ strong { color: var(--c-heading); }
 .section--dunkel .card li,
 .section--dunkel .faq__antwort p,
 .section--dunkel .stimme p,
-.section--dunkel .note p { color: #d6cfc2; }
+.section--dunkel .note p { color: #d2cec7; }
 .section--dunkel .card strong,
 .section--dunkel .card h3,
 .section--dunkel .card h4 { color: #fff; }
-.section--dunkel .card__icon { background: rgba(255, 255, 255, .12); color: #e6ded0; }
-.section--dunkel .card__more { color: #c9bba2; }
-.section--dunkel .card--link::before { background: #c9bba2; }
+.section--dunkel .card__icon { background: rgba(255, 255, 255, .12); color: #e1ddd5; }
+.section--dunkel .card__more { color: #c0b9ab; }
+.section--dunkel .card--link::before { background: #c0b9ab; }
 .section--dunkel .card .card__nr { color: #d7b183; }
 
 /* Zahlenband: die Angaben, die vor dem Anruf zaehlen, gross statt in einer
@@ -255,7 +255,7 @@ strong { color: var(--c-heading); }
 .zahl__wert small {
   font-size: .3em;
   letter-spacing: 0;
-  color: #c9bba2;
+  color: #c0b9ab;
   margin-left: .35rem;
   white-space: nowrap;
 }
@@ -451,7 +451,7 @@ strong { color: var(--c-heading); }
 
 .topbar {
   background: var(--c-primary-dark);
-  color: #d6cfc2;
+  color: #d2cec7;
   font-size: .875rem;
 }
 .topbar__inner {
@@ -471,7 +471,7 @@ strong { color: var(--c-heading); }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(243, 237, 226, .94);
+  background: rgba(239, 236, 230, .94);
   backdrop-filter: saturate(160%) blur(8px);
   border-bottom: 1px solid var(--c-border);
 }
@@ -679,7 +679,7 @@ strong { color: var(--c-heading); }
   color: #fff;
   padding: clamp(3.25rem, 7vw, 6rem) 0;
 }
-.hero .eyebrow { color: #c9bba2; }   /* auf dunklem Grund aufhellen */
+.hero .eyebrow { color: #c0b9ab; }   /* auf dunklem Grund aufhellen */
 .hero h1 { color: #fff; }
 .hero > .wrap { position: relative; z-index: 1; }
 
@@ -714,14 +714,14 @@ strong { color: var(--c-heading); }
   font-weight: 400;
   line-height: 1.35;
   letter-spacing: .01em;
-  color: #c9bba2;
+  color: #c0b9ab;
 }
 
 @media (max-width: 640px) {
   .hero__titel-zusatz { font-size: .52em; }
 }
 
-.hero__lead { font-size: 1.2rem; color: #d6cfc2; margin-bottom: 2rem; max-width: 60ch; }
+.hero__lead { font-size: 1.2rem; color: #d2cec7; margin-bottom: 2rem; max-width: 60ch; }
 .hero .btn-row { margin-bottom: 2.25rem; }
 
 .hero__facts {
@@ -738,13 +738,13 @@ strong { color: var(--c-heading); }
   /* Die Sprechzeiten sind die laengste Angabe und bekommen mehr Platz */
   .hero__facts { grid-template-columns: 1.6fr 1fr 1fr; }
 }
-.hero__fact svg { flex: none; width: 22px; height: 22px; color: #c9bba2; margin-top: .25rem; }
+.hero__fact svg { flex: none; width: 22px; height: 22px; color: #c0b9ab; margin-top: .25rem; }
 .hero__fact-label {
   display: block;
   font-size: .78rem;
   text-transform: uppercase;
   letter-spacing: .09em;
-  color: #c0b39d;
+  color: #b8b1a5;
   margin-bottom: .15rem;
 }
 .hero__fact-value { color: #fff; font-weight: 600; }
@@ -767,13 +767,13 @@ strong { color: var(--c-heading); }
   padding: clamp(2.5rem, 5vw, 4rem) 0;
 }
 .page-head h1 { color: #fff; margin-bottom: .4rem; }
-.page-head p { color: #d6cfc2; max-width: 65ch; margin-bottom: 0; font-size: 1.1rem; }
+.page-head p { color: #d2cec7; max-width: 65ch; margin-bottom: 0; font-size: 1.1rem; }
 
-.breadcrumb { font-size: .875rem; margin-bottom: 1rem; color: #c0b39d; }
+.breadcrumb { font-size: .875rem; margin-bottom: 1rem; color: #b8b1a5; }
 .breadcrumb ol { list-style: none; display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; }
 .breadcrumb li::after { content: "›"; margin-left: .4rem; color: rgba(255,255,255,.45); }
 .breadcrumb li:last-child::after { content: ""; }
-.breadcrumb a { color: #d6cfc2; }
+.breadcrumb a { color: #d2cec7; }
 .breadcrumb a:hover { color: #fff; }
 
 /* --------------------------------------------------------------------------
@@ -898,7 +898,7 @@ strong { color: var(--c-heading); }
 .hours td { color: var(--c-text-muted); }
 .hours tr:last-child th, .hours tr:last-child td { border-bottom: 0; }
 .hours tr.is-today th, .hours tr.is-today td { background: var(--c-accent-soft); color: var(--c-primary-dark); font-weight: 600; }
-.hours .closed { color: #7a7263; }
+.hours .closed { color: #757068; }
 
 /* Vergleichstabelle (Leistungsumfang) */
 .vergleich {
@@ -1142,9 +1142,9 @@ strong { color: var(--c-heading); }
   color: #fff;
   padding: clamp(2.5rem, 5vw, 3.75rem) 0;
 }
-.cta-band .eyebrow { color: #c9bba2; }
+.cta-band .eyebrow { color: #c0b9ab; }
 .cta-band h2 { color: #fff; }
-.cta-band p { color: #d6cfc2; max-width: 58ch; }
+.cta-band p { color: #d2cec7; max-width: 58ch; }
 .cta-band__inner { display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; justify-content: space-between; }
 .cta-band__text > :last-child { margin-bottom: 0; }
 
@@ -1153,12 +1153,12 @@ strong { color: var(--c-heading); }
    -------------------------------------------------------------------------- */
 .site-footer {
   background: var(--c-primary-dark);
-  color: #cfc6b6;
+  color: #c9c4bc;
   padding: 3.25rem 0 1.75rem;
   font-size: .95rem;
 }
 .site-footer h2, .site-footer h3 { color: #fff; font-size: 1rem; margin-bottom: .9rem; letter-spacing: .02em; }
-.site-footer a { color: #e0dacd; text-decoration: none; }
+.site-footer a { color: #dcd8d1; text-decoration: none; }
 .site-footer a:hover { color: #fff; text-decoration: underline; }
 .site-footer ul { list-style: none; padding: 0; margin: 0; }
 .site-footer li { margin-bottom: .5rem; }
@@ -1175,7 +1175,7 @@ strong { color: var(--c-heading); }
   gap: 1rem;
   justify-content: space-between;
   font-size: .875rem;
-  color: #b9ac97;
+  color: #b1aa9f;
 }
 .footer__legal { display: flex; flex-wrap: wrap; gap: 1.25rem; }
 
@@ -1291,7 +1291,8 @@ strong { color: var(--c-heading); }
 .meldung--wichtig {
   border-color: var(--c-hinweis-rand);
 }
-.meldung--wichtig.card--link::before { background: var(--c-hinweis-marke); }
+/* Der Streifen ist ueberall derselbe. Die wichtige Meldung erkennt man an
+   der Marke im Kopf und am waermeren Rahmen, nicht an einer eigenen Linie. */
 .meldung--wichtig .meldung__art {
   background: var(--c-hinweis-marke);
   color: #fff;
@@ -1654,7 +1655,7 @@ strong { color: var(--c-heading); }
 }
 
 .schema__hoden   { fill: var(--c-accent-soft); stroke: var(--c-primary); stroke-width: 2.5; }
-.schema__neben   { fill: none; stroke: #b9ac97; stroke-width: 9;
+.schema__neben   { fill: none; stroke: #b1aa9f; stroke-width: 9;
                    stroke-linecap: round; }
 .schema__leiter  { fill: none; stroke: var(--c-primary); stroke-width: 5;
                    stroke-linecap: round; }
