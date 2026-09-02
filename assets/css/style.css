@@ -44,32 +44,41 @@
    -------------------------------------------------------------------------- */
 :root {
   /* Farben – Navy-Blau mit hellem Grau */
-  --c-primary:        #22376c;
-  --c-primary-dark:   #16264c;
-  --c-primary-light:  #35508c;
-  --c-accent:         #2f5fa8;
-  --c-accent-dark:    #234a82;
-  --c-accent-soft:    #e8ecf4;
+  /* Tiefes Navy fuer alles Dunkle: Kopfbereich, dunkle Baender, Streifen.
+     Der Ton stammt vom Logo, ist aber eine Stufe tiefer als dort.          */
+  --c-primary:        #1b2a4e;
+  --c-primary-dark:   #121d38;
+  --c-primary-light:  #3c5583;
 
-  --c-text:           #1f2733;
-  --c-text-muted:     #5a6577;
-  --c-heading:        #1b2a4e;
+  /* Bronze traegt Links, Knoepfe und Hervorhebungen - der zweite Ton neben
+     dem Navy, warm statt kuehl.                                            */
+  --c-accent:         #7a5c2f;
+  --c-accent-dark:    #634b26;
+  --c-accent-soft:    #ece0c8;
 
-  --c-bg:             #f8f9fb;
-  --c-surface:        #edf0f4;
-  --c-surface-2:      #e3e8ef;
-  --c-border:         #d5dbe5;
+  --c-text:           #2a2115;
+  --c-text-muted:     #6b6154;
+  --c-heading:        #1f2c4a;
 
-  /* bewusst warmer Fokusrahmen: hebt sich klar von Blau und Grau ab */
-  --c-focus:          #b8560f;
+  /* Sand statt Blaugrau. Die drei Stufen liegen bewusst dicht beieinander:
+     Sie sollen Abschnitte trennen, nicht Flecken bilden.                    */
+  --c-bg:             #f7f3ec;
+  --c-surface:        #efe8da;
+  --c-surface-2:      #e4dccd;
+  --c-border:         #e0d7c6;
+
+  /* Der Fokusrahmen war warm, solange die Seite kuehl war. Auf sandfarbenem
+     Grund mit Bronze faellt umgekehrt ein kuehler Ton auf.                 */
+  --c-focus:          #1c4fa1;
+  --c-focus-dunkel:   #ffd27a;   /* auf navyfarbenem Grund, siehe unten */
 
   /* Hinweisbalken: warmer Sandton, deutlich abgesetzt, aber nicht grell.
      Für eine blaugraue Variante stattdessen verwenden:
      #eef2f8 / #d8e0ee / #2a3b5e / #35508c                                   */
-  --c-hinweis-bg:     #fbf4e9;
-  --c-hinweis-rand:   #ecdcc2;
-  --c-hinweis-text:   #6b5228;
-  --c-hinweis-marke:  #b07c2c;
+  --c-hinweis-bg:     #efe2c8;
+  --c-hinweis-rand:   #dbc9a2;
+  --c-hinweis-text:   #574521;
+  --c-hinweis-marke:  #8a6a3b;
 
   /* Typografie */
   /* Ueberschriften geometrisch, Fliesstext in der Systemschrift: die
@@ -164,20 +173,42 @@ strong { color: var(--c-heading); }
 .section--surface { background: var(--c-surface); }
 .section--tight { padding: clamp(2rem, 4vw, 3rem) 0; }
 
+/* Der kuehle Fokusrahmen faellt auf Sand auf, verschwindet aber auf Navy.
+   Innerhalb dunkler Bereiche gilt deshalb der helle Wert. Ueberschrieben
+   wird nur die Variable, keine einzige Regel.                             */
+.hero,
+.topbar,
+.cta-band,
+.section--dunkel { --c-focus: var(--c-focus-dunkel); }
+
+/* Dasselbe gilt fuer den Handlungsknopf: Das dunkle Bronze der hellen
+   Seiten hebt sich vor Navy kaum ab (Verhaeltnis 2,3 zu 1). Auf dunklem
+   Grund gilt deshalb ein helleres Bronze mit dunkler Schrift - beides
+   deutlich ueber der Anforderung.                                          */
+.hero,
+.section--dunkel {
+  --c-accent: #b98c4a;
+  --c-accent-dark: #a67c3e;
+}
+.hero .btn--accent,
+.hero .btn--accent:hover,
+.section--dunkel .btn--accent,
+.section--dunkel .btn--accent:hover { color: #2a2115; }
+
 /* Dunkles Band. Setzt den Takt der Seite: zwischen den hellen Abschnitten
    steht einer ueber die volle Breite in Navy. Alle Farben stammen
    unveraendert aus der Palette.                                            */
 .section--dunkel {
   background: linear-gradient(158deg, var(--c-primary) 0%, var(--c-primary-dark) 100%);
-  color: #cfd8ea;
+  color: #d6cfc2;
 }
 .section--dunkel h2,
 .section--dunkel h3,
 .section--dunkel h4          { color: #fff; }
-.section--dunkel .eyebrow    { color: #93aade; }
+.section--dunkel .eyebrow    { color: #c9bba2; }
 .section--dunkel p,
 .section--dunkel .lead,
-.section--dunkel li          { color: #b8c4dc; }
+.section--dunkel li          { color: #cfc6b6; }
 .section--dunkel strong      { color: #fff; }
 .section--dunkel a           { color: #fff; }
 .section--dunkel .card {
@@ -186,10 +217,10 @@ strong { color: var(--c-heading); }
   box-shadow: none;
 }
 .section--dunkel .card--link:hover { background: rgba(255, 255, 255, .11); }
-.section--dunkel .card__icon { background: rgba(255, 255, 255, .12); color: #dbe3f2; }
-.section--dunkel .card__more { color: #93aade; }
-.section--dunkel .card--link::before { background: #93aade; }
-.section--dunkel .card .card__nr { color: #e2a15f; }
+.section--dunkel .card__icon { background: rgba(255, 255, 255, .12); color: #e6ded0; }
+.section--dunkel .card__more { color: #c9bba2; }
+.section--dunkel .card--link::before { background: #c9bba2; }
+.section--dunkel .card .card__nr { color: #d7b183; }
 
 /* Zahlenband: die Angaben, die vor dem Anruf zaehlen, gross statt in einer
    Randspalte.                                                              */
@@ -212,7 +243,7 @@ strong { color: var(--c-heading); }
 .zahl__wert small {
   font-size: .3em;
   letter-spacing: 0;
-  color: #93aade;
+  color: #c9bba2;
   margin-left: .35rem;
   white-space: nowrap;
 }
@@ -395,7 +426,7 @@ strong { color: var(--c-heading); }
 
 .topbar {
   background: var(--c-primary-dark);
-  color: #c8d2e4;
+  color: #d6cfc2;
   font-size: .875rem;
 }
 .topbar__inner {
@@ -622,7 +653,7 @@ strong { color: var(--c-heading); }
   color: #fff;
   padding: clamp(3.25rem, 7vw, 6rem) 0;
 }
-.hero .eyebrow { color: #93aade; }   /* auf dunklem Grund aufhellen */
+.hero .eyebrow { color: #c9bba2; }   /* auf dunklem Grund aufhellen */
 .hero h1 { color: #fff; }
 .hero > .wrap { position: relative; z-index: 1; }
 
@@ -657,14 +688,14 @@ strong { color: var(--c-heading); }
   font-weight: 400;
   line-height: 1.35;
   letter-spacing: .01em;
-  color: #93aade;
+  color: #c9bba2;
 }
 
 @media (max-width: 640px) {
   .hero__titel-zusatz { font-size: .52em; }
 }
 
-.hero__lead { font-size: 1.2rem; color: #c8d2e4; margin-bottom: 2rem; max-width: 60ch; }
+.hero__lead { font-size: 1.2rem; color: #d6cfc2; margin-bottom: 2rem; max-width: 60ch; }
 .hero .btn-row { margin-bottom: 2.25rem; }
 
 .hero__facts {
@@ -710,13 +741,13 @@ strong { color: var(--c-heading); }
   padding: clamp(2.5rem, 5vw, 4rem) 0;
 }
 .page-head h1 { color: #fff; margin-bottom: .4rem; }
-.page-head p { color: #c8d2e4; max-width: 65ch; margin-bottom: 0; font-size: 1.1rem; }
+.page-head p { color: #d6cfc2; max-width: 65ch; margin-bottom: 0; font-size: 1.1rem; }
 
 .breadcrumb { font-size: .875rem; margin-bottom: 1rem; color: #94a2be; }
 .breadcrumb ol { list-style: none; display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; }
 .breadcrumb li::after { content: "›"; margin-left: .4rem; color: rgba(255,255,255,.45); }
 .breadcrumb li:last-child::after { content: ""; }
-.breadcrumb a { color: #c8d2e4; }
+.breadcrumb a { color: #d6cfc2; }
 .breadcrumb a:hover { color: #fff; }
 
 /* --------------------------------------------------------------------------
@@ -792,7 +823,7 @@ strong { color: var(--c-heading); }
   font-synthesis: none;
   font-size: .74rem;
   letter-spacing: .14em;
-  color: var(--c-focus);
+  color: var(--c-accent);
   font-variant-numeric: tabular-nums;
   margin: 0 0 .85rem;
 }
@@ -928,7 +959,7 @@ strong { color: var(--c-heading); }
   margin: 1.5rem 0;
 }
 .note > :last-child { margin-bottom: 0; }
-.note--warn { border-left-color: #c9772a; background: #fdf3e8; }
+.note--warn { border-left-color: #b8560f; background: #f8e9d2; }
 .note__title { font-weight: 700; color: var(--c-heading); display: block; margin-bottom: .3rem; }
 
 /* --------------------------------------------------------------------------
@@ -1081,13 +1112,13 @@ strong { color: var(--c-heading); }
    14. CTA-Band
    -------------------------------------------------------------------------- */
 .cta-band {
-  background: linear-gradient(160deg, var(--c-accent-dark) 0%, var(--c-primary) 100%);
+  background: linear-gradient(160deg, var(--c-primary-light) 0%, var(--c-primary-dark) 100%);
   color: #fff;
   padding: clamp(2.5rem, 5vw, 3.75rem) 0;
 }
-.cta-band .eyebrow { color: #b9c9e8; }
+.cta-band .eyebrow { color: #c9bba2; }
 .cta-band h2 { color: #fff; }
-.cta-band p { color: #cbd6e9; max-width: 58ch; }
+.cta-band p { color: #d6cfc2; max-width: 58ch; }
 .cta-band__inner { display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; justify-content: space-between; }
 .cta-band__text > :last-child { margin-bottom: 0; }
 
@@ -1595,7 +1626,7 @@ strong { color: var(--c-heading); }
 }
 
 .schema__hoden   { fill: var(--c-accent-soft); stroke: var(--c-primary); stroke-width: 2.5; }
-.schema__neben   { fill: none; stroke: #8fa2c4; stroke-width: 9;
+.schema__neben   { fill: none; stroke: #b9ac97; stroke-width: 9;
                    stroke-linecap: round; }
 .schema__leiter  { fill: none; stroke: var(--c-primary); stroke-width: 5;
                    stroke-linecap: round; }
