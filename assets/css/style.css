@@ -59,8 +59,8 @@
   /* Ein Goldton fuer alles Handelnde: Terminknopf und Hinweisbalken. Das
      dunkle Bronze oben bleibt der Textton fuer Links und Nummern - beides
      derselbe Farbton, nur zwei Helligkeiten.                               */
-  --c-gold:           #cba566;
-  --c-gold-dunkel:    #b8924e;
+  --c-gold:           #d3b074;
+  --c-gold-dunkel:    #c29e60;
   --c-gold-rand:      #8a6630;
   --c-gold-schrift:   #2a2115;
 
