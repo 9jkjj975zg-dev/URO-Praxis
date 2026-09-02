@@ -416,17 +416,22 @@ strong { color: var(--c-heading); }
 .hinweisbalken--laeuft:focus-within .hinweisbalken__spur,
 .hinweisbalken--gehalten .hinweisbalken__spur { animation-play-state: paused; }
 
-/* Dieselbe Pille wie die Marke links im Balken: gleicher Ton, gleiche Form. */
+/* Der Halteknopf ist dieselbe Pille wie die Marke links im Balken - gleiche
+   Schriftgroesse, gleiche Laufweite, gleiche Polsterung. Nur die Breite
+   unterscheidet sich, weil die Woerter verschieden lang sind.              */
 .hinweisbalken__halt {
   flex: none;
-  font: inherit;
-  font-size: .78rem;
-  font-weight: 600;
+  font-family: inherit;
+  line-height: inherit;
   color: #fff;
   background: var(--c-hinweis-marke);
-  border: 1px solid transparent;
+  border: 0;
   border-radius: 999px;
-  padding: .18rem .7rem;
+  padding: .15rem .65rem;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
   cursor: pointer;
 }
 .hinweisbalken__halt:hover { background: #6f5529; color: #fff; }
