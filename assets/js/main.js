@@ -518,8 +518,14 @@
         lagen = bloecke.map(function (block) {
           // ohne eigene Verschiebung messen, sonst wandert der Bezugspunkt
           block.style.transform = "";
-          return block.getBoundingClientRect().bottom + oben;
+          var mass = block.getBoundingClientRect();
+          // Nicht dargestellte Bloecke haben keine Ausdehnung. Ihre Lage waere
+          // nur eine Null, aus der spaeter faelschlich "laengst oben hinaus"
+          // wuerde - deshalb bleiben sie vorerst unbeschrieben.
+          if (mass.width === 0 && mass.height === 0) { return null; }
+          return mass.bottom + oben;
         });
+        letzte = [];
       };
 
       var letzte = [];
@@ -534,6 +540,14 @@
           // gehoert er diesem und wird hier nicht angefasst.
           if (bloecke[i].classList.contains("reveal--ready") &&
               !bloecke[i].classList.contains("reveal--visible")) { continue; }
+          if (lagen[i] === null) {          // war beim Messen nicht dargestellt
+            if (letzte[i] !== 1) {
+              bloecke[i].style.opacity = "";
+              bloecke[i].style.transform = "";
+              letzte[i] = 1;
+            }
+            continue;
+          }
           var unterkante = lagen[i] - oben;
           var wert = (unterkante - ende) / (start - ende);
           if (wert > 1) { wert = 1; } else if (wert < 0) { wert = 0; }
@@ -573,6 +587,18 @@
       document.addEventListener("toggle", function () {
         vermessen(); anstossen();
       }, true);
+
+      // Aendert sich der Inhalt selbst - etwa weil in der Einzeldatei-Vorschau
+      // eine andere Seite eingeblendet wird -, stimmen die gemerkten Lagen
+      // nicht mehr. Dann wird neu gemessen.
+      if (window.ResizeObserver) {
+        var inhaltsbereich = document.getElementById("inhalt");
+        if (inhaltsbereich) {
+          new ResizeObserver(function () {
+            vermessen(); anstossen();
+          }).observe(inhaltsbereich);
+        }
+      }
     }
   }
 
