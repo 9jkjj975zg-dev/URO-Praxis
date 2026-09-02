@@ -460,4 +460,82 @@
     }, { passive: true });
   }
 
+  /* ----------------------------------------------------------------------
+     11. Textbloecke am oberen Bildrand ausblenden
+
+     Waehrend ein Block unter der Kopfleiste verschwindet, nimmt seine
+     Deckkraft ab. Gemessen wird die Unterkante: Solange sie deutlich unter
+     der Kopfleiste liegt, bleibt der Block voll sichtbar - Text, den man
+     gerade liest, wird also nie blass. Erst die letzte Zeile verblasst.
+
+     Die Lage im Dokument aendert sich beim Scrollen nicht, deshalb wird sie
+     einmal gemessen und nur bei Groessenaenderungen neu bestimmt. Pro Bild
+     bleibt dann reine Rechenarbeit.
+
+     Ohne JavaScript oder bei bevorzugter Bewegungsreduktion bleibt jeder
+     Block unveraendert sichtbar.
+     ---------------------------------------------------------------------- */
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var bloecke = [].slice.call(document.querySelectorAll(
+      "#inhalt .section-head, #inhalt .prose > *, .hero__text"
+    ));
+
+    if (bloecke.length) {
+      var lagen = [];
+      var kopfhoehe = 76;
+      var STRECKE = 90;   // Hoehe des Uebergangs in Pixeln
+
+      var vermessen = function () {
+        var kopf = document.querySelector(".site-header");
+        kopfhoehe = kopf ? kopf.getBoundingClientRect().height : 76;
+        var oben = window.scrollY || window.pageYOffset;
+        lagen = bloecke.map(function (block) {
+          return block.getBoundingClientRect().bottom + oben;
+        });
+      };
+
+      var letzte = [];
+      var zeichnen = function () {
+        var oben = window.scrollY || window.pageYOffset;
+        var ende = kopfhoehe - 8;          // ab hier vollstaendig verblasst
+        var start = ende + STRECKE;        // bis hierhin voll sichtbar
+        for (var i = 0; i < bloecke.length; i++) {
+          var unterkante = lagen[i] - oben;
+          var wert = (unterkante - ende) / (start - ende);
+          if (wert > 1) { wert = 1; } else if (wert < 0) { wert = 0; }
+          // nur schreiben, wenn sich sichtbar etwas aendert
+          if (letzte[i] === undefined || Math.abs(letzte[i] - wert) > 0.015) {
+            bloecke[i].style.opacity = wert === 1 ? "" : String(wert);
+            letzte[i] = wert;
+          }
+        }
+        rahmenLaeuft = false;
+      };
+
+      var rahmenLaeuft = false;
+      var anstossen = function () {
+        if (!rahmenLaeuft) {
+          window.requestAnimationFrame(zeichnen);
+          rahmenLaeuft = true;
+        }
+      };
+
+      bloecke.forEach(function (block) { block.classList.add("ausblenden"); });
+      vermessen();
+      zeichnen();
+      window.addEventListener("scroll", anstossen, { passive: true });
+
+      var neuVermessen;
+      window.addEventListener("resize", function () {
+        window.clearTimeout(neuVermessen);
+        neuVermessen = window.setTimeout(function () { vermessen(); anstossen(); }, 150);
+      }, { passive: true });
+
+      // Aufklappbare Antworten aendern die Hoehe der Seite
+      document.addEventListener("toggle", function () {
+        vermessen(); anstossen();
+      }, true);
+    }
+  }
+
 /* @vorschau-ende */

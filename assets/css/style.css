@@ -403,27 +403,40 @@ strong { color: var(--c-heading); }
    kraeftigeren Rahmen.                                                      */
 .nav__link {
   display: block;
-  padding: .5rem .75rem;
+  padding: .5rem .85rem;
   border: 1px solid var(--c-border);
-  border-radius: var(--radius);
+  border-radius: 999px;
   background: var(--c-bg);
   text-decoration: none;
   color: var(--c-text);
   font-weight: 600;
   font-size: .97rem;
   white-space: nowrap;
-  transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+  transition: background-color .16s ease, border-color .16s ease,
+              color .16s ease, box-shadow .16s ease, transform .16s ease;
 }
-.nav__link:hover {
-  background: var(--c-surface-2);
-  border-color: var(--c-primary-light);
+/* Beim Ueberfahren hebt sich der Reiter sichtbar ab: heller Grund, blauer
+   Rand, ein leichter Schatten und ein Millimeter nach oben. Zusammen liest
+   sich das eindeutig als anklickbar.                                        */
+.nav__link:hover,
+.nav__link:focus-visible {
+  background: #fff;
+  border-color: var(--c-accent);
   color: var(--c-primary-dark);
+  box-shadow: 0 2px 7px rgba(20, 32, 58, .13);
+  transform: translateY(-1px);
 }
+.nav__link:active { transform: translateY(0); box-shadow: none; }
 .nav__link[aria-current="page"] {
   color: var(--c-primary);
   background: var(--c-accent-soft);
   border-color: var(--c-accent);
 }
+
+/* Sanftes Ausblenden am oberen Bildrand: main.js setzt die Deckkraft, waehrend
+   ein Textblock unter der Kopfleiste verschwindet. Ohne JavaScript und bei
+   bevorzugter Bewegungsreduktion bleibt alles voll sichtbar.                 */
+.ausblenden { will-change: opacity; }
 .nav__cta { margin-left: .6rem; }
 
 /* Untermenue */
