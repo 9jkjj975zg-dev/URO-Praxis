@@ -59,8 +59,8 @@
   /* Ein Goldton fuer alles Handelnde: Terminknopf und Hinweisbalken. Das
      dunkle Bronze oben bleibt der Textton fuer Links und Nummern - beides
      derselbe Farbton, nur zwei Helligkeiten.                               */
-  --c-gold:           #d3b074;
-  --c-gold-dunkel:    #c29e60;
+  --c-gold:           #dabb82;
+  --c-gold-dunkel:    #c9a66a;
   --c-gold-rand:      #8a6630;
   --c-gold-schrift:   #2a2115;
 
@@ -86,7 +86,7 @@
   --c-hinweis-bg:     #e4cd9a;
   --c-hinweis-rand:   #d3b477;
   --c-hinweis-text:   #4e3d18;
-  --c-hinweis-marke:  #7a5c2f;
+  --c-hinweis-marke:  #856734;
 
   /* Typografie */
   /* Ueberschriften geometrisch, Fliesstext in der Systemschrift: die
@@ -416,18 +416,20 @@ strong { color: var(--c-heading); }
 .hinweisbalken--laeuft:focus-within .hinweisbalken__spur,
 .hinweisbalken--gehalten .hinweisbalken__spur { animation-play-state: paused; }
 
+/* Dieselbe Pille wie die Marke links im Balken: gleicher Ton, gleiche Form. */
 .hinweisbalken__halt {
   flex: none;
   font: inherit;
   font-size: .78rem;
-  color: var(--c-hinweis-text);
-  background: transparent;
-  border: 1px solid var(--c-hinweis-rand);
+  font-weight: 600;
+  color: #fff;
+  background: var(--c-hinweis-marke);
+  border: 1px solid transparent;
   border-radius: 999px;
-  padding: .12rem .6rem;
+  padding: .18rem .7rem;
   cursor: pointer;
 }
-.hinweisbalken__halt:hover { border-color: var(--c-hinweis-marke); color: var(--c-hinweis-marke); }
+.hinweisbalken__halt:hover { background: #6f5529; color: #fff; }
 
 /* Auf schmalen Schirmen bliebe neben Marke, Link und Knopf nur ein
    Guckloch von wenigen Zentimetern uebrig. Dort bekommt das Laufband
