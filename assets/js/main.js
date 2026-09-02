@@ -477,13 +477,14 @@
      ---------------------------------------------------------------------- */
   if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     var bloecke = [].slice.call(document.querySelectorAll(
-      "#inhalt .section-head, #inhalt .prose > *, .hero__text"
+      "#inhalt .section-head > *, #inhalt .prose > *, #inhalt .prose li," +
+      " .hero__text > *, #inhalt .card, #inhalt .faq__eintrag"
     ));
 
     if (bloecke.length) {
       var lagen = [];
       var kopfhoehe = 76;
-      var STRECKE = 90;   // Hoehe des Uebergangs in Pixeln
+      var STRECKE = 260;  // Hoehe des Uebergangs in Pixeln
 
       var vermessen = function () {
         var kopf = document.querySelector(".site-header");
@@ -497,12 +498,14 @@
       var letzte = [];
       var zeichnen = function () {
         var oben = window.scrollY || window.pageYOffset;
-        var ende = kopfhoehe - 8;          // ab hier vollstaendig verblasst
+        var ende = kopfhoehe + 6;          // ab hier vollstaendig verblasst
         var start = ende + STRECKE;        // bis hierhin voll sichtbar
         for (var i = 0; i < bloecke.length; i++) {
           var unterkante = lagen[i] - oben;
           var wert = (unterkante - ende) / (start - ende);
           if (wert > 1) { wert = 1; } else if (wert < 0) { wert = 0; }
+          // Der Verlauf greift frueh und wird zum Rand hin schneller
+          wert = wert * wert * (3 - 2 * wert);
           // nur schreiben, wenn sich sichtbar etwas aendert
           if (letzte[i] === undefined || Math.abs(letzte[i] - wert) > 0.015) {
             bloecke[i].style.opacity = wert === 1 ? "" : String(wert);
