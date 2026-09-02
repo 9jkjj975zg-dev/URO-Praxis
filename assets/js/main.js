@@ -461,61 +461,97 @@
   }
 
   /* ----------------------------------------------------------------------
-     11. Textbloecke am oberen Bildrand ausblenden
+     11. Inhalte am oberen Bildrand ausblenden
 
      Waehrend ein Block unter der Kopfleiste verschwindet, nimmt seine
-     Deckkraft ab. Gemessen wird die Unterkante: Solange sie deutlich unter
-     der Kopfleiste liegt, bleibt der Block voll sichtbar - Text, den man
-     gerade liest, wird also nie blass. Erst die letzte Zeile verblasst.
+     Deckkraft ab und er zieht ein Stueck nach oben davon.
+
+     Der Effekt gilt fuer den gesamten Inhaltsbereich jeder Seite, damit er
+     sich ueberall gleich verhaelt: Ueberschriften, Absaetze, einzelne
+     Listenpunkte, Karten, Hinweiskaesten, Abbildungen, Tabellen und
+     aufklappbare Antworten. Ausgenommen bleibt, was ausserhalb von <main>
+     steht - Kopfleiste, Meldungsband und Fussbereich.
+
+     Wichtig ist, dass sich die Bloecke nicht verschachteln: Waeren ein
+     Kasten und der Absatz darin gleichzeitig gewaehlt, wuerden sich beide
+     Deckkraefte multiplizieren und der Absatz doppelt so schnell
+     verschwinden. Deshalb faellt jeder Kandidat heraus, der bereits in
+     einem gewaehlten Block liegt - der aeussere gewinnt.
+
+     Gemessen wird die Unterkante: Solange sie unter dem Uebergangsbereich
+     liegt, bleibt der Block unveraendert. Text, den man gerade liest, wird
+     also nie blass.
 
      Die Lage im Dokument aendert sich beim Scrollen nicht, deshalb wird sie
      einmal gemessen und nur bei Groessenaenderungen neu bestimmt. Pro Bild
      bleibt dann reine Rechenarbeit.
 
-     Ohne JavaScript oder bei bevorzugter Bewegungsreduktion bleibt jeder
-     Block unveraendert sichtbar.
+     Ohne JavaScript oder bei bevorzugter Bewegungsreduktion bleibt alles
+     unveraendert sichtbar.
      ---------------------------------------------------------------------- */
   if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    var bloecke = [].slice.call(document.querySelectorAll(
-      "#inhalt .section-head > *, #inhalt .prose > *, #inhalt .prose li," +
-      " .hero__text > *, #inhalt .card, #inhalt .faq__eintrag"
-    ));
+    var AUSWAHL = [
+      ".section-head", ".card", ".note", ".vertretung", ".meldung",
+      "figure", "details", ".tabelle-rahmen", ".btn-row", ".person",
+      "h1", "h2", "h3", "h4", "p", "li", "blockquote"
+    ].map(function (w) { return "#inhalt " + w; }).join(", ");
+
+    var bloecke = [];
+    Array.prototype.forEach.call(document.querySelectorAll(AUSWAHL), function (el) {
+      // Kandidaten in Dokumentreihenfolge: ein bereits gewaehlter Vorfahr
+      // traegt die Klasse schon, dann bleibt dieser Block aussen vor.
+      if (el.parentElement && el.parentElement.closest(".ausblenden")) { return; }
+      el.classList.add("ausblenden");
+      bloecke.push(el);
+    });
 
     if (bloecke.length) {
       var lagen = [];
       var kopfhoehe = 76;
-      var STRECKE = 260;  // Hoehe des Uebergangs in Pixeln
+      var STRECKE = 280;   // Hoehe des Uebergangs in Pixeln
+      var WEG = 30;        // wie weit der Block dabei nach oben zieht
 
       var vermessen = function () {
         var kopf = document.querySelector(".site-header");
         kopfhoehe = kopf ? kopf.getBoundingClientRect().height : 76;
         var oben = window.scrollY || window.pageYOffset;
         lagen = bloecke.map(function (block) {
+          // ohne eigene Verschiebung messen, sonst wandert der Bezugspunkt
+          block.style.transform = "";
           return block.getBoundingClientRect().bottom + oben;
         });
       };
 
       var letzte = [];
+      var rahmenLaeuft = false;
+
       var zeichnen = function () {
         var oben = window.scrollY || window.pageYOffset;
-        var ende = kopfhoehe + 6;          // ab hier vollstaendig verblasst
-        var start = ende + STRECKE;        // bis hierhin voll sichtbar
+        var ende = kopfhoehe + 6;          // ab hier vollstaendig verschwunden
+        var start = ende + STRECKE;        // bis hierhin unveraendert
         for (var i = 0; i < bloecke.length; i++) {
+          // Solange ein Block noch auf sein Einblenden wartet (Abschnitt 9),
+          // gehoert er diesem und wird hier nicht angefasst.
+          if (bloecke[i].classList.contains("reveal--ready") &&
+              !bloecke[i].classList.contains("reveal--visible")) { continue; }
           var unterkante = lagen[i] - oben;
           var wert = (unterkante - ende) / (start - ende);
           if (wert > 1) { wert = 1; } else if (wert < 0) { wert = 0; }
-          // Der Verlauf greift frueh und wird zum Rand hin schneller
-          wert = wert * wert * (3 - 2 * wert);
-          // nur schreiben, wenn sich sichtbar etwas aendert
-          if (letzte[i] === undefined || Math.abs(letzte[i] - wert) > 0.015) {
-            bloecke[i].style.opacity = wert === 1 ? "" : String(wert);
-            letzte[i] = wert;
+          wert = wert * wert * (3 - 2 * wert);   // weicher Verlauf
+          if (letzte[i] !== undefined && Math.abs(letzte[i] - wert) < 0.01) { continue; }
+          letzte[i] = wert;
+          if (wert === 1) {
+            bloecke[i].style.opacity = "";
+            bloecke[i].style.transform = "";
+          } else {
+            bloecke[i].style.opacity = String(wert);
+            bloecke[i].style.transform =
+              "translateY(" + ((1 - wert) * -WEG).toFixed(1) + "px)";
           }
         }
         rahmenLaeuft = false;
       };
 
-      var rahmenLaeuft = false;
       var anstossen = function () {
         if (!rahmenLaeuft) {
           window.requestAnimationFrame(zeichnen);
@@ -523,7 +559,6 @@
         }
       };
 
-      bloecke.forEach(function (block) { block.classList.add("ausblenden"); });
       vermessen();
       zeichnen();
       window.addEventListener("scroll", anstossen, { passive: true });

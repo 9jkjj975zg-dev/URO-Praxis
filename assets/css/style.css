@@ -436,7 +436,7 @@ strong { color: var(--c-heading); }
 /* Sanftes Ausblenden am oberen Bildrand: main.js setzt die Deckkraft, waehrend
    ein Textblock unter der Kopfleiste verschwindet. Ohne JavaScript und bei
    bevorzugter Bewegungsreduktion bleibt alles voll sichtbar.                 */
-.ausblenden { will-change: opacity; }
+.ausblenden { transform-origin: 50% 100%; }
 .nav__cta { margin-left: .6rem; }
 
 /* Untermenue */
