@@ -1285,8 +1285,10 @@ strong { color: var(--c-heading); }
 /* Wichtige Meldung: kein eigener linker Rahmen mehr - sonst stuende er neben
    dem Streifen der Karte und man saehe zwei Balken. Stattdessen faerbt sie
    den vorhandenen Streifen ein.                                             */
+/* Die wichtige Meldung steht auf Weiss wie jede andere Karte. Als Kennung
+   genuegen der farbige Streifen links und die Marke im Kopf - eine ganz
+   eingefaerbte Karte wirkt neben dem Laufband oben wie eine Wiederholung. */
 .meldung--wichtig {
-  background: var(--c-hinweis-bg);
   border-color: var(--c-hinweis-rand);
 }
 .meldung--wichtig.card--link::before { background: var(--c-hinweis-marke); }
