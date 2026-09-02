@@ -695,7 +695,7 @@
     var fenster = balken.querySelector(".hinweisbalken__lauf");
     var spur = balken.querySelector(".hinweisbalken__spur");
     var halt = balken.querySelector(".hinweisbalken__halt");
-    var TEMPO = 55;   // Bildpunkte je Sekunde
+    var TEMPO = 41;   // Bildpunkte je Sekunde
 
     var aufbauen = function () {
       balken.classList.remove("hinweisbalken--laeuft");
