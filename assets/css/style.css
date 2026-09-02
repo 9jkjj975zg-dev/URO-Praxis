@@ -88,8 +88,8 @@
   /* Die Laufleiste ganz oben traegt keine eigene Farbe. Sie ist nur eine
      Stufe tiefer als der Seitengrund; die Aufmerksamkeit tragen allein die
      beiden navyfarbenen Pillen links und rechts.                           */
-  --c-leiste-bg:      #e3dfd7;
-  --c-leiste-rand:    #d1ccc2;
+  --c-leiste-bg:      #d8d3c8;
+  --c-leiste-rand:    #cec7b9;
   --c-leiste-text:    #3a362f;
   --c-leiste-marke:   #1b2a4e;
 
