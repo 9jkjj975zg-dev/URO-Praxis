@@ -1188,57 +1188,84 @@ strong { color: var(--c-heading); }
 .cta-band__text > :last-child { margin-bottom: 0; }
 
 /* --------------------------------------------------------------------------
-   14b. Leistungsspektrum als Aufzaehlung
+   14b. Leistungsspektrum als kompakte Kacheln
    -------------------------------------------------------------------------- */
-/* Bewusst keine Kacheln. Oben auf der Startseite stehen schon drei; zwei
-   gleich aussehende Kachelbloecke lassen den Besucher raten, warum etwas
-   oben und etwas unten steht. Eine Aufzaehlung ist erkennbar etwas anderes
-   - und weil sie das Fachgebiet vollstaendig nennt, ist auch nichts mehr
-   ausgewaehlt, was jemand begruenden muesste.                              */
+/* Das uebrige Fachgebiet als kompakte Kacheln. Zwischenform aus den beiden
+   Versionen davor: Die vier grossen Karten sahen gut aus, waren aber vom
+   selben Bauteil wie die drei oben - der Besucher musste raten, warum
+   etwas oben und etwas unten steht. Die reine Aufzaehlung loeste das, sah
+   aber nach Registratur aus.
+
+   Diese Kacheln behalten Sinnbild, Rahmen und das Anheben beim Ueberfahren,
+   lassen aber den Absatztext und das "Mehr erfahren" weg. Damit sind sie
+   gut halb so hoch wie die drei oben und erkennbar die leichtere Sorte -
+   und weil alle sechs dastehen, ist nichts ausgewaehlt, was jemand
+   begruenden muesste.                                                      */
 .spektrum {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 0 2.75rem;
-  /* 26rem als Mindestbreite ergibt auf dem Rechner zwei Spalten. Bei drei
-     wuerden die laengeren Namen umbrechen und die kurzen nicht - die Zeilen
-     stuenden dann unterschiedlich hoch.                                    */
-  grid-template-columns: repeat(auto-fit, minmax(min(26rem, 100%), 1fr));
+  gap: 1.1rem;
+  /* 17rem ergibt am Rechner drei Spalten, am Tablet zwei, am Handy eine. */
+  grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
 }
-/* Die Linie sitzt am Listenpunkt, nicht am Link: Rasterfelder einer Reihe
-   sind gleich hoch, der Link allein waere es nicht - die Linien laegen
-   dann in den beiden Spalten auf verschiedener Hoehe.                     */
-.spektrum > li {
-  min-width: 0;
-  display: flex;
-  border-bottom: 1px solid rgba(255,255,255,.16);
-}
+.spektrum > li { min-width: 0; display: flex; }
 .spektrum a {
   flex: 1;
   display: flex;
-  align-items: center;
-  gap: .8rem;
-  padding: .95rem .6rem;
-  border-radius: var(--radius) var(--radius) 0 0;
+  flex-direction: column;
+  gap: .85rem;
+  padding: 1.45rem 1.35rem 1.2rem;
+  /* Ein Hauch heller als der Grund, nicht deckend: Eine volle Fuellung
+     wirkt auf dem dunklen Band wie ein zweites Band.                      */
+  background: rgba(255, 255, 255, .055);
+  border: 1px solid rgba(255, 255, 255, .15);
+  border-radius: var(--radius-lg);
   text-decoration: none;
-  transition: background-color .18s ease;
+  transition: background-color .18s ease, border-color .18s ease, transform .18s ease;
 }
-.spektrum a:hover { background: rgba(255,255,255,.07); }
-/* Zusatz immer in der zweiten Zeile. Nebeneinander passten die kurzen
-   Namen in eine Zeile und die langen nicht - die Zeilen waeren dann
-   unterschiedlich hoch. Der Pfeil liegt ausserhalb dieses Blocks, damit er
-   nie allein umbricht.                                                    */
-.spektrum__text {
-  flex: 1 1 auto;
-  min-width: 0;
+.spektrum a:hover {
+  background: rgba(255, 255, 255, .1);
+  border-color: rgba(255, 255, 255, .32);
+  transform: translateY(-2px);
 }
-.spektrum__name   { display: block; font-weight: 600; color: #fff; }
-.spektrum__zusatz { display: block; font-size: .92rem; margin-top: .15rem; }
+.spektrum__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .1);
+  color: #e6dfd2;
+}
+.spektrum__icon svg { width: 21px; height: 21px; }
+.spektrum__text { min-width: 0; }
+.spektrum__name {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 550;
+  font-size: 1.06rem;
+  line-height: 1.25;
+  color: #fff;
+}
+.spektrum__zusatz {
+  display: block;
+  margin-top: .35rem;
+  font-size: .88rem;
+  line-height: 1.5;
+  color: #c9c4bc;
+}
+/* Der Pfeil sitzt unten rechts. margin-top: auto schiebt ihn an den Fuss
+   der Kachel, damit er in allen Kacheln einer Reihe auf gleicher Hoehe
+   steht, auch wenn der Zusatz unterschiedlich lang ist.                   */
 .spektrum a::after {
   content: "\2192";
-  flex: none;
-  color: #c9c4bc;
+  margin-top: auto;
+  align-self: flex-end;
+  color: #cfc8bb;
   transition: transform .18s ease;
 }
 .spektrum a:hover::after { transform: translateX(3px); }
