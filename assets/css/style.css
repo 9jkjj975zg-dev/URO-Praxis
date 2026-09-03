@@ -93,10 +93,19 @@
   --c-leiste-text:    #3a362f;
   --c-leiste-marke:   #1b2a4e;
 
-  --c-hinweis-bg:     #c7cfb4;
-  --c-hinweis-rand:   #b0bb95;
-  --c-hinweis-text:   #3b4927;
-  --c-hinweis-marke:  #526039;
+  /* Hervorhebung innerhalb der Seite - etwa die Marke einer wichtigen
+     Meldung. Kein eigener Farbton, sondern die dunkle Stufe des Greige.  */
+  --c-hinweis-bg:     #e4ddd0;
+  --c-hinweis-rand:   #c9bda8;
+  --c-hinweis-text:   #4d463c;
+  --c-hinweis-marke:  #5f574a;
+
+  /* Platzhalter fuer noch fehlende Angaben. Diese Farbe faellt bewusst aus
+     dem Rahmen: Was hier steht, darf nicht unbemerkt online gehen. Sie
+     verschwindet mit dem letzten Platzhalter von selbst.                 */
+  --c-platzhalter-bg:   #c7cfb4;
+  --c-platzhalter-rand: #b0bb95;
+  --c-platzhalter-text: #3b4927;
 
   /* Typografie */
   /* Ueberschriften geometrisch, Fliesstext in der Systemschrift: die
@@ -970,9 +979,9 @@ strong { color: var(--c-heading); }
 
 .preis-offen {
   display: inline-block;
-  background: var(--c-hinweis-bg);
-  border: 1px dashed var(--c-hinweis-rand);
-  color: var(--c-hinweis-text);
+  background: var(--c-platzhalter-bg);
+  border: 1px dashed var(--c-platzhalter-rand);
+  color: var(--c-platzhalter-text);
   border-radius: 6px;
   padding: .15rem .5rem;
   font-size: .82rem;
@@ -1400,10 +1409,10 @@ strong { color: var(--c-heading); }
   color: var(--c-text-muted);
   font-size: .9rem;
 }
-.stimme--platzhalter { border-style: dashed; border-color: var(--c-hinweis-rand); background: var(--c-hinweis-bg); }
-.stimme--platzhalter blockquote p { color: var(--c-hinweis-text); font-style: italic; }
-.stimme--platzhalter .stimme__marke { color: var(--c-hinweis-rand); }
-.stimme--platzhalter figcaption { border-top-color: var(--c-hinweis-rand); color: var(--c-hinweis-text); }
+.stimme--platzhalter { border-style: dashed; border-color: var(--c-platzhalter-rand); background: var(--c-platzhalter-bg); }
+.stimme--platzhalter blockquote p { color: var(--c-platzhalter-text); font-style: italic; }
+.stimme--platzhalter .stimme__marke { color: var(--c-platzhalter-rand); }
+.stimme--platzhalter figcaption { border-top-color: var(--c-platzhalter-rand); color: var(--c-platzhalter-text); }
 
 /* --------------------------------------------------------------------------
    17. Druck & Bewegungsreduktion
