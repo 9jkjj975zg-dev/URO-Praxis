@@ -1024,7 +1024,11 @@ strong { color: var(--c-heading); }
   margin: 1.5rem 0;
 }
 .note > :last-child { margin-bottom: 0; }
-.note--warn { border-left-color: #b8560f; background: #f8e9d2; }
+/* Der Warnkasten braucht einen eigenen Ton - sonst sieht die Anweisung
+   "rufen Sie sofort an" aus wie jeder andere Hinweis. Statt des Orange
+   jetzt ein gedaempfter Ziegelton: waermer als das Greige, aber in
+   derselben Saettigung, damit er nicht aus der Seite springt.            */
+.note--warn { border-left-color: #8c4a3a; background: #f1e6e1; }
 .note__title { font-weight: 700; color: var(--c-heading); display: block; margin-bottom: .3rem; }
 
 /* --------------------------------------------------------------------------
