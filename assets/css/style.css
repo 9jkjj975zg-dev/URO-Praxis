@@ -93,12 +93,12 @@
   --c-leiste-text:    #3a362f;
   --c-leiste-marke:   #1b2a4e;
 
-  /* Hervorhebung innerhalb der Seite - etwa die Marke einer wichtigen
-     Meldung. Kein eigener Farbton, sondern die dunkle Stufe des Greige.  */
+  /* Leichte Hervorhebung innerhalb der Seite - etwa der etwas waermere
+     Rahmen einer wichtigen Meldung. Kein eigener Farbton, sondern eine
+     Abstufung des Greige.                                                */
   --c-hinweis-bg:     #e4ddd0;
   --c-hinweis-rand:   #c9bda8;
   --c-hinweis-text:   #4d463c;
-  --c-hinweis-marke:  #5f574a;
 
   /* Platzhalter fuer noch fehlende Angaben. Diese Farbe faellt bewusst aus
      dem Rahmen: Was hier steht, darf nicht unbemerkt online gehen. Sie
@@ -1317,20 +1317,13 @@ strong { color: var(--c-heading); }
   letter-spacing: .06em;
   text-transform: uppercase;
 }
-/* Wichtige Meldung: kein eigener linker Rahmen mehr - sonst stuende er neben
-   dem Streifen der Karte und man saehe zwei Balken. Stattdessen faerbt sie
-   den vorhandenen Streifen ein.                                             */
-/* Die wichtige Meldung steht auf Weiss wie jede andere Karte. Als Kennung
-   genuegen der farbige Streifen links und die Marke im Kopf - eine ganz
-   eingefaerbte Karte wirkt neben dem Laufband oben wie eine Wiederholung. */
+/* Die wichtige Meldung sieht aus wie jede andere. Sie hat keinen eigenen
+   linken Balken - der stuende neben dem Streifen der Karte und man saehe
+   zwei - und auch keine eigene Marke: eine zweite Farbe im Kopf faellt aus
+   dem Farbthema, ohne dass sie etwas erklaert. Kenntlich ist sie durch den
+   etwas waermeren Rahmen und dadurch, dass sie oben steht.                 */
 .meldung--wichtig {
   border-color: var(--c-hinweis-rand);
-}
-/* Der Streifen ist ueberall derselbe. Die wichtige Meldung erkennt man an
-   der Marke im Kopf und am waermeren Rahmen, nicht an einer eigenen Linie. */
-.meldung--wichtig .meldung__art {
-  background: var(--c-hinweis-marke);
-  color: #fff;
 }
 
 /* --------------------------------------------------------------------------
