@@ -365,9 +365,6 @@ strong { color: var(--c-heading); }
 .btn--ghost { background: transparent; color: var(--c-primary); border-color: var(--c-border); }
 .btn--ghost:hover { background: var(--c-surface); border-color: var(--c-primary); color: var(--c-primary-dark); }
 
-.btn--light { background: #fff; color: var(--c-primary); }
-.btn--light:hover { background: var(--c-accent-soft); color: var(--c-primary-dark); }
-
 /* Platzhalter, solange in layout.py keine TERMIN_URL eingetragen ist –
    sichtbar unfertig, damit nichts Halbfertiges unbemerkt online geht */
 .btn--offen { opacity: .75; cursor: not-allowed; }
