@@ -345,6 +345,10 @@ strong { color: var(--c-heading); }
 .btn {
   display: inline-flex;
   align-items: center;
+  /* Ohne diese Zeile klebt die Aufschrift am linken Rand, sobald ein Knopf
+     breiter wird als sein Inhalt - etwa wenn er in einer Spalte die volle
+     Breite einnimmt.                                                       */
+  justify-content: center;
   gap: .55rem;
   padding: .8rem 1.5rem;
   border-radius: 999px;
@@ -358,6 +362,12 @@ strong { color: var(--c-heading); }
 }
 .btn:hover { transform: translateY(-1px); }
 .btn svg { width: 18px; height: 18px; flex: none; }
+/* Optischer Ausgleich: Das Sinnbild links ist eine duenne Umrisszeichnung
+   und wiegt weniger als die halbfette Schrift daneben. Rechnerisch mittig
+   sieht die Aufschrift deshalb nach rechts gerueckt aus. Der negative Rand
+   zieht das Paar um zwei Bildpunkte nach links - so weit, dass es mittig
+   aussieht, und so wenig, dass die Polsterung gleich bleibt.              */
+.btn > svg:first-child { margin-left: -.25rem; }
 
 .btn--primary { background: var(--c-primary); color: #fff; }
 .btn--primary:hover { background: var(--c-primary-dark); color: #fff; }
