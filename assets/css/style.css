@@ -1188,6 +1188,62 @@ strong { color: var(--c-heading); }
 .cta-band__text > :last-child { margin-bottom: 0; }
 
 /* --------------------------------------------------------------------------
+   14b. Leistungsspektrum als Aufzaehlung
+   -------------------------------------------------------------------------- */
+/* Bewusst keine Kacheln. Oben auf der Startseite stehen schon drei; zwei
+   gleich aussehende Kachelbloecke lassen den Besucher raten, warum etwas
+   oben und etwas unten steht. Eine Aufzaehlung ist erkennbar etwas anderes
+   - und weil sie das Fachgebiet vollstaendig nennt, ist auch nichts mehr
+   ausgewaehlt, was jemand begruenden muesste.                              */
+.spektrum {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0 2.75rem;
+  /* 26rem als Mindestbreite ergibt auf dem Rechner zwei Spalten. Bei drei
+     wuerden die laengeren Namen umbrechen und die kurzen nicht - die Zeilen
+     stuenden dann unterschiedlich hoch.                                    */
+  grid-template-columns: repeat(auto-fit, minmax(min(26rem, 100%), 1fr));
+}
+/* Die Linie sitzt am Listenpunkt, nicht am Link: Rasterfelder einer Reihe
+   sind gleich hoch, der Link allein waere es nicht - die Linien laegen
+   dann in den beiden Spalten auf verschiedener Hoehe.                     */
+.spektrum > li {
+  min-width: 0;
+  display: flex;
+  border-bottom: 1px solid rgba(255,255,255,.16);
+}
+.spektrum a {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  padding: .95rem .6rem;
+  border-radius: var(--radius) var(--radius) 0 0;
+  text-decoration: none;
+  transition: background-color .18s ease;
+}
+.spektrum a:hover { background: rgba(255,255,255,.07); }
+/* Zusatz immer in der zweiten Zeile. Nebeneinander passten die kurzen
+   Namen in eine Zeile und die langen nicht - die Zeilen waeren dann
+   unterschiedlich hoch. Der Pfeil liegt ausserhalb dieses Blocks, damit er
+   nie allein umbricht.                                                    */
+.spektrum__text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.spektrum__name   { display: block; font-weight: 600; color: #fff; }
+.spektrum__zusatz { display: block; font-size: .92rem; margin-top: .15rem; }
+.spektrum a::after {
+  content: "\2192";
+  flex: none;
+  color: #c9c4bc;
+  transition: transform .18s ease;
+}
+.spektrum a:hover::after { transform: translateX(3px); }
+
+/* --------------------------------------------------------------------------
    15. Fussbereich
    -------------------------------------------------------------------------- */
 .site-footer {
