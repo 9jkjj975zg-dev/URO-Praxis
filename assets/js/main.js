@@ -42,6 +42,10 @@
      ---------------------------------------------------------------------- */
   var heute = new Date().getDay(); // 0 = Sonntag
   document.querySelectorAll("[data-day]").forEach(function (row) {
+    // An Samstagen und Sonntagen wird nichts hervorgehoben: Eine farbig
+    // unterlegte Zeile "geschlossen" lenkt den Blick auf einen Tag, an dem
+    // ohnehin niemand kommen kann.
+    if (row.querySelector(".closed")) return;
     if (Number(row.getAttribute("data-day")) === heute) {
       row.classList.add("is-today");
     }
