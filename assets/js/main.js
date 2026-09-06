@@ -119,6 +119,46 @@
 /* @vorschau-anfang – die folgenden Bloecke uebernimmt auch die Vorschau */
 
 /* ==========================================================================
+   Nachtrag: aufklappbare Untermenues auf schmalen Schirmen
+   Ohne dieses Skript bleibt der Knopf verborgen und die Untermenues offen -
+   dann ist jede Seite ueber das Menue erreichbar, nur eben als lange Liste.
+   Erst hier wird daraus eine Liste, die man selbst aufklappt.
+   ========================================================================== */
+(function () {
+  "use strict";
+  var nav = document.getElementById("hauptnavigation");
+  if (!nav) return;
+
+  var knoepfe = Array.prototype.slice.call(nav.querySelectorAll(".nav__auf"));
+  if (!knoepfe.length) return;
+
+  nav.classList.add("nav--klappbar");
+  knoepfe.forEach(function (knopf) {
+    knopf.hidden = false;
+    knopf.addEventListener("click", function () {
+      var punkt = knopf.closest(".nav__item");
+      var offen = knopf.getAttribute("aria-expanded") === "true";
+      knopf.setAttribute("aria-expanded", String(!offen));
+      punkt.classList.toggle("nav__item--offen", !offen);
+    });
+  });
+
+  /* Schliesst das Menue der Kopfleiste, klappen wir auch die Untermenues
+     wieder ein - sonst steht es beim naechsten Oeffnen halb aufgeklappt da. */
+  var toggle = document.querySelector(".nav-toggle");
+  if (toggle) {
+    toggle.addEventListener("click", function () {
+      if (nav.classList.contains("is-open")) return;
+      knoepfe.forEach(function (knopf) {
+        knopf.setAttribute("aria-expanded", "false");
+        var punkt = knopf.closest(".nav__item");
+        if (punkt) punkt.classList.remove("nav__item--offen");
+      });
+    });
+  }
+})();
+
+/* ==========================================================================
    Nachtrag: seitlich scrollbare Patientenstimmen
    Das Scrollen selbst macht der Browser. Dieses Skript blendet nur die
    Pfeile ein und schaltet sie an den Enden ab.

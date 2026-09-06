@@ -475,8 +475,15 @@ strong { color: var(--c-heading); }
 /* Auf schmalen Schirmen bliebe neben Marke, Link und Knopf nur ein
    Guckloch von wenigen Zentimetern uebrig. Dort bekommt das Laufband
    deshalb eine eigene Zeile ueber die volle Breite.                        */
+/* Auf schmalen Schirmen bekommt das Laufband eine eigene Zeile und steht
+   oben: Die Meldung ist der Inhalt, die Pillen und der Link sind nur die
+   Bedienung. Standen sie darueber, wirkte der Balken gedraengt.          */
 @media (max-width: 700px) {
-  .hinweisbalken--laeuft .hinweisbalken__lauf { flex-basis: 100%; order: 3; }
+  .hinweisbalken__inner { padding: .8rem 0; gap: .6rem .9rem; }
+  /* Ohne die Klasse --laeuft, also ohne JavaScript, stuende die Meldung
+     neben den Pillen und waere nach wenigen Woertern abgeschnitten.
+     Deshalb gilt die eigene Zeile unabhaengig davon, ob etwas laeuft.   */
+  .hinweisbalken__lauf { flex-basis: 100%; order: -1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -666,6 +673,10 @@ strong { color: var(--c-heading); }
 }
 .nav__sub a:hover { background: var(--c-surface); color: var(--c-primary-dark); }
 
+/* Der Knopf zum Aufklappen gilt nur fuer schmale Schirme. Am Rechner
+   oeffnet das Untermenue beim Ueberfahren, dort waere er ueberfluessig. */
+.nav__auf { display: none; }
+
 @media (max-width: 1040px) {
   .nav-toggle { display: inline-flex; }
   .nav {
@@ -701,6 +712,40 @@ strong { color: var(--c-heading); }
     min-width: 0;
   }
   .nav__cta { margin: .6rem 0 0; justify-content: center; }
+
+  /* Aufklappbare Untermenues. Die Klasse setzt das Skript; ohne
+     JavaScript greift keine dieser Regeln und alle Untermenues bleiben
+     offen - damit ist jede Seite auch dann erreichbar.                  */
+  .nav--klappbar .nav__item--has-sub {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .nav--klappbar .nav__item--has-sub > .nav__link { flex: 1 1 auto; }
+  .nav--klappbar .nav__auf {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    /* 44 Punkte im Quadrat: die Groesse, die ein Daumen sicher trifft. */
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 10px;
+    color: var(--c-primary);
+    cursor: pointer;
+  }
+  .nav--klappbar .nav__auf svg {
+    width: 18px;
+    height: 18px;
+    transition: transform .18s ease;
+  }
+  .nav--klappbar .nav__auf:hover { background: var(--c-surface); }
+  .nav--klappbar .nav__auf[aria-expanded="true"] svg { transform: rotate(180deg); }
+  .nav--klappbar .nav__sub { display: none; flex-basis: 100%; }
+  .nav--klappbar .nav__item--offen > .nav__sub { display: block; }
 }
 
 /* --------------------------------------------------------------------------
