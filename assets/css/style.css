@@ -484,6 +484,11 @@ strong { color: var(--c-heading); }
      neben den Pillen und waere nach wenigen Woertern abgeschnitten.
      Deshalb gilt die eigene Zeile unabhaengig davon, ob etwas laeuft.   */
   .hinweisbalken__lauf { flex-basis: 100%; order: -1; }
+  /* Auf breiten Schirmen sitzt die Marke am linken und der Halteknopf am
+     rechten Rand, weil das Laufband dazwischen liegt. Hat es eine eigene
+     Zeile, faellt dieser Grund weg: Dann steht die Bedienung mittig,
+     sonst klebt sie links und rechts bleibt Luft.                       */
+  .hinweisbalken--laeuft .hinweisbalken__inner { justify-content: center; }
 }
 
 @media (prefers-reduced-motion: reduce) {
