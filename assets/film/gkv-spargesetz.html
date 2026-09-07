@@ -95,10 +95,12 @@ body {
    sich das Kniegelenk innerhalb des Oberschenkels mitbewegt.
    ======================================================================= */
 .gelenk, .figur, .auge, .braue, .mund, .pupille { transform-box: view-box; transform-origin: 0px 0px; }
+.figur, .figur * { vector-effect: non-scaling-stroke; }
+.figur *:not([stroke-width]) { stroke-width: 1.35; }
 .rumpf { transform-box: view-box; transform-origin: 0px -70px; }   /* Huefte */
 .fluegel { transform-box: fill-box; transform-origin: 50% 50%; }
 .mund { transform: scale(1, .18); }
-.schatten { fill: #1b2a4e; opacity: .1; }
+.schatten { fill: #1b2a4e; opacity: .16; }
 
 /* Augenbrauen nehmen die Haarfarbe der Figur auf */
 .patient { --braue: #a29a90; }
@@ -129,8 +131,12 @@ body {
 @keyframes schwung-b { 0%,100% { transform: rotate(-18deg); } 50% { transform: rotate(20deg); } }
 @keyframes beuge-a   { 0%,100% { transform: rotate(10deg); } 50% { transform: rotate(32deg); } }
 @keyframes beuge-b   { 0%,100% { transform: rotate(32deg); } 50% { transform: rotate(10deg); } }
-@keyframes wippen    { 0%,50%,100% { transform: translateY(0); }
-                       25%,75% { transform: translateY(-2.5px); } }
+@keyframes rumpf-gang { 0%,100% { transform: translateY(0) rotate(1.5deg); }
+                        25% { transform: translateY(-2.6px) rotate(0deg); }
+                        50% { transform: translateY(0) rotate(-1.5deg); }
+                        75% { transform: translateY(-2.6px) rotate(0deg); } }
+@keyframes kopf-gang  { 0%,100% { transform: rotate(calc(var(--dreh, 0deg) - 1.3deg)); }
+                        50% { transform: rotate(calc(var(--dreh, 0deg) + 1.3deg)); } }
 
 @keyframes gehen     { from { transform: translateX(-220px); } to { transform: translateX(640px); } }
 @keyframes eintreten { 0% { transform: translateX(640px) scale(1); opacity: 1; }
@@ -152,7 +158,8 @@ body {
 .sichtbar .gang .schulter--hint { animation: schwung-b .88s ease-in-out infinite; }
 .sichtbar .gang .ellbogen--vorn { animation: beuge-a .88s ease-in-out infinite; }
 .sichtbar .gang .ellbogen--hint { animation: beuge-b .88s ease-in-out infinite; }
-.sichtbar .gang .rumpf           { animation: wippen .88s ease-in-out infinite; }
+.sichtbar .gang .rumpf           { animation: rumpf-gang .88s ease-in-out infinite; }
+.sichtbar .gang .kopf            { animation: kopf-gang .88s ease-in-out -.22s infinite; }
 
 /* --- Stehen: Atmen, Kopfwiegen, Blinzeln ------------------------------- */
 @keyframes atmen       { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-1.8px); } }
@@ -532,13 +539,21 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
       </g>
 
       <!-- Wiese, Gehweg, Strasse -->
-      <rect y="470" width="1280" height="62" fill="#c7cfb4"/>
-      <rect y="532" width="1280" height="96" fill="#ded8cd"/>
-      <rect y="628" width="1280" height="92" fill="#b3afa6"/>
+      <rect y="470" width="1280" height="70" fill="#c7cfb4"/>
+      <rect y="540" width="1280" height="92" fill="#ded8cd"/>
+      <g stroke="#cbc4b7" stroke-width="2.5" opacity=".85">
+        <line x1="160" y1="540" x2="150" y2="632"/><line x1="320" y1="540" x2="308" y2="632"/>
+        <line x1="480" y1="540" x2="466" y2="632"/><line x1="640" y1="540" x2="624" y2="632"/>
+        <line x1="800" y1="540" x2="782" y2="632"/><line x1="960" y1="540" x2="940" y2="632"/>
+        <line x1="1120" y1="540" x2="1098" y2="632"/>
+        <line x1="0" y1="588" x2="1280" y2="588"/>
+      </g>
+      <rect y="632" width="1280" height="10" fill="#c6bfb2"/>
+      <rect y="642" width="1280" height="78" fill="#b3afa6"/>
       <g stroke="#efece6" stroke-width="6" stroke-linecap="round" opacity=".8">
-        <line x1="60" y1="676" x2="150" y2="676"/><line x1="250" y1="676" x2="340" y2="676"/>
-        <line x1="440" y1="676" x2="530" y2="676"/><line x1="630" y1="676" x2="720" y2="676"/>
-        <line x1="820" y1="676" x2="910" y2="676"/><line x1="1010" y1="676" x2="1100" y2="676"/>
+        <line x1="60" y1="686" x2="150" y2="686"/><line x1="250" y1="686" x2="340" y2="686"/>
+        <line x1="440" y1="686" x2="530" y2="686"/><line x1="630" y1="686" x2="720" y2="686"/>
+        <line x1="820" y1="686" x2="910" y2="686"/><line x1="1010" y1="686" x2="1100" y2="686"/>
       </g>
 
       <!-- Voegel -->
@@ -565,7 +580,7 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
       <g>
         <rect x="700" y="196" width="580" height="440" fill="#eae6df" stroke="#d5cfc4" stroke-width="3"/>
         <rect x="682" y="150" width="616" height="52" rx="6" fill="#1b2a4e"/>
-        <rect x="700" y="600" width="580" height="36" fill="#d5cfc4"/>
+        <rect x="700" y="596" width="580" height="38" fill="#d5cfc4"/>
         <!-- Praxisschild -->
         <g>
           <rect x="742" y="240" width="480" height="86" rx="10" fill="#fff" stroke="#bab2a2" stroke-width="3"/>
@@ -583,130 +598,178 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
         <rect x="924" y="396" width="160" height="240" rx="4" fill="#2f3a4f"/>
         <rect class="tuerfluegel" x="924" y="396" width="160" height="240" rx="4" fill="#cfe0ea" stroke="#a8bfd0" stroke-width="3"/>
         <circle cx="1064" cy="520" r="7" fill="#8d857a"/>
-        <rect x="900" y="628" width="208" height="14" rx="4" fill="#c8c1b5"/>
+        <rect x="896" y="626" width="216" height="16" rx="4" fill="#c8c1b5"/>
       </g>
 
       <!-- Eine andere Patientin geht nach dem Termin nach rechts davon -->
-      <g transform="translate(700 590) scale(1.15)">
+      <g transform="translate(700 596) scale(1.15)">
         <g class="geherin">
           <g class="figur gang">
-            <ellipse class="schatten" cx="3" cy="2" rx="26" ry="6"/>
-            <g transform="translate(-3 -80)"><g class="gelenk huefte huefte--hint">
-              <rect x="-7" y="0" width="14" height="43" rx="7" fill="#3f3f4c"/>
-              <g transform="translate(0 42)"><g class="gelenk knie knie--hint">
-                <rect x="-6.5" y="0" width="13" height="40" rx="6.5" fill="#3f3f4c"/>
-                <g transform="translate(0 38)"><g class="gelenk fuss fuss--hint">
-                  <ellipse cx="3" cy="1" rx="12" ry="6" fill="#2c2c36"/>
-                </g></g>
+          <ellipse class="schatten" cx="4" cy="2" rx="24" ry="6.5"/>
+          <g transform="translate(-3 -80)"><g class="gelenk huefte huefte--hint">
+            <path d="M-8.4,0 C-8.8,14 -8,30 -7,43 L7,43 C8,30 8.8,14 8.4,0 Z" fill="#3a3a48" stroke="#3a3a48"/>
+            <g transform="translate(0 42)"><g class="gelenk knie knie--hint">
+              <path d="M-7,0 C-7.4,12 -6.4,28 -5.6,38 L5.6,38 C6.4,28 7.4,12 7,0 Z" fill="#3a3a48" stroke="#3a3a48"/>
+              <g transform="translate(0 37)"><g class="gelenk fuss fuss--hint">
+                <path d="M-6,-2.5 C-7.6,3 -7,9.5 -3.4,9.5 L12,9.5 C15.6,9.5 16.4,5.6 13.4,3.6 C10,1.6 7,-0.6 5.2,-2.5 Z" fill="#25252e" stroke="#25252e"/>
+                <path d="M-6.6,7.2 L14.4,7.2" stroke="#25252e" opacity=".75"/>
               </g></g>
             </g></g>
-            <g transform="translate(3 -80)"><g class="gelenk huefte huefte--vorn">
-              <rect x="-7" y="0" width="14" height="43" rx="7" fill="#4d4d5c"/>
-              <g transform="translate(0 42)"><g class="gelenk knie knie--vorn">
-                <rect x="-6.5" y="0" width="13" height="40" rx="6.5" fill="#4d4d5c"/>
-                <g transform="translate(0 38)"><g class="gelenk fuss fuss--vorn">
-                  <ellipse cx="3" cy="1" rx="12" ry="6" fill="#35353f"/>
-                </g></g>
+          </g></g>
+          <g transform="translate(3 -80)"><g class="gelenk huefte huefte--vorn">
+            <path d="M-8.4,0 C-8.8,14 -8,30 -7,43 L7,43 C8,30 8.8,14 8.4,0 Z" fill="#4c4c5c" stroke="#3a3a48"/>
+            <g transform="translate(0 42)"><g class="gelenk knie knie--vorn">
+              <path d="M-7,0 C-7.4,12 -6.4,28 -5.6,38 L5.6,38 C6.4,28 7.4,12 7,0 Z" fill="#4c4c5c" stroke="#3a3a48"/>
+              <g transform="translate(0 37)"><g class="gelenk fuss fuss--vorn">
+                <path d="M-6,-2.5 C-7.6,3 -7,9.5 -3.4,9.5 L12,9.5 C15.6,9.5 16.4,5.6 13.4,3.6 C10,1.6 7,-0.6 5.2,-2.5 Z" fill="#31313c" stroke="#25252e"/>
+                <path d="M-6.6,7.2 L14.4,7.2" stroke="#25252e" opacity=".75"/>
               </g></g>
             </g></g>
-            <g transform="translate(-4 -118)"><g class="gelenk schulter schulter--hint">
-              <rect x="-5.5" y="0" width="11" height="28" rx="5.5" fill="#916f57"/>
-              <g transform="translate(0 26)"><g class="gelenk ellbogen ellbogen--hint">
-                <rect x="-5" y="0" width="10" height="24" rx="5" fill="#916f57"/>
-                <circle cx="0" cy="26" r="7.5" fill="#e0ab84"/>
+          </g></g>
+          <g transform="translate(-4 -118)"><g class="gelenk schulter schulter--hint">
+            <path d="M-6.8,0 C-7.2,10 -6.2,20 -5.6,27 L5.6,27 C6.2,20 7.2,10 6.8,0 Z" fill="#8a6851" stroke="#8a6851"/>
+            <g transform="translate(0 26)"><g class="gelenk ellbogen ellbogen--hint">
+              <path d="M-5.6,0 C-5.8,8 -5.2,16 -4.8,22 L4.8,22 C5.2,16 5.8,8 5.6,0 Z" fill="#8a6851" stroke="#8a6851"/>
+              <path d="M-5.1,18 L5.1,18" stroke="#8a6851" opacity=".7"/>
+              <g transform="translate(0 21)">
+                <path d="M0,0 C4.9,0 7.5,2.7 7.5,6.3 C7.5,10 4.9,12.2 0,12.2 C-4.9,12.2 -7.5,10 -7.5,6.3 C-7.5,2.7 -4.9,0 0,0 Z" fill="#f0c6a4" stroke="#c8926c"/>
+                <path d="M5.2,2.6 C8.3,3.2 8.7,6.2 6.4,7.2" fill="none" stroke="#c8926c" stroke-linecap="round"/>
+              </g>
+            </g></g>
+          </g></g>
+          <g class="rumpf">
+            <path d="M-20,-126 C-14,-131 14,-131 20,-126 C23,-110 23,-84 21,-66 C9,-61 -9,-61 -21,-66 C-23,-84 -23,-110 -20,-126 Z" fill="#a8836a" stroke="#8a6851"/>
+            <path d="M-9.5,-127.5 L1,-111 L11.5,-127.5" fill="#f2ece4" stroke="#8a6851"/>
+            <path d="M3,-111 C4,-97 4.2,-80 3.6,-64" stroke="#8a6851" fill="none" opacity=".9"/>
+            <circle cx="3.4" cy="-99" r="1.9" fill="#efe6da" stroke="#8a6851"/>
+            <circle cx="3.6" cy="-83" r="1.9" fill="#efe6da" stroke="#8a6851"/>
+            <path d="M-19,-93 C-16,-90.5 -12,-90.5 -9,-93" stroke="#8a6851" fill="none" opacity=".75"/>
+            <path d="M-21,-71 C-8,-67 10,-67 21,-71" stroke="#8a6851" fill="none" opacity=".55"/>
+            <rect x="-5" y="-138" width="10" height="14" fill="#e0ab84"/>
+            <g transform="translate(0 -137)"><g class="gelenk kopf">
+              <circle cx="1" cy="-16" r="17" fill="#f0c6a4" stroke="#c8926c"/>
+              <ellipse cx="9" cy="-7.5" rx="5" ry="3.4" fill="#dd8f7c" opacity=".28"/>
+              <ellipse cx="-1" cy="-29.5" rx="18" ry="9.4" fill="#6b4b32"/>
+              <path d="M-17,-24 q-5,15 -1,23" stroke="#6b4b32" stroke-width="7" fill="none" stroke-linecap="round"/>
+              <path d="M-12,-33 C-4,-38 8,-37 15,-31" fill="none" stroke="#8a6242" stroke-width="1.8" stroke-linecap="round" opacity=".85"/>
+              <circle cx="-8" cy="-14" r="3.6" fill="#e0ab84"/>
+              <path d="M-8.8,-15.4 a2,2 0 0 0 0.6,3" fill="none" stroke="#c8926c"/>
+              <g transform="translate(9.5 -17)"><g class="auge">
+                <ellipse rx="3.4" ry="3.1" fill="#fdfbf7" stroke="#c8926c"/>
+                <g class="pupille">
+                  <circle cx="1" r="1.9" fill="#33302c"/>
+                  <circle cx="1.7" cy="-.8" r=".72" fill="#fff" opacity=".9"/>
+                </g>
+                <path d="M-3.6,-1.5 A3.8,3.4 0 0 1 3.6,-1.9" fill="none" stroke="#c48e66" stroke-width="1.1" stroke-linecap="round" opacity=".75"/>
               </g></g>
-            </g></g>
-            <g class="rumpf">
-              <rect x="-21" y="-126" width="42" height="64" rx="13" fill="#a8836a"/>
-              <path d="M-8,-126 L0,-115 L8,-126" fill="#f2ece4"/>
-              <rect x="-5" y="-137" width="10" height="13" fill="#e0ab84"/>
-              <g transform="translate(0 -137)"><g class="gelenk kopf">
-                <circle cx="1" cy="-16" r="17" fill="#f0c6a4"/>
-                <ellipse cx="-1" cy="-29.5" rx="18" ry="9" fill="#6b4b32"/>
-                <path d="M-17,-24 q-5,14 -1,22" stroke="#6b4b32" stroke-width="7" fill="none" stroke-linecap="round"/>
-                <g transform="translate(9.5 -17)"><g class="auge">
-              <ellipse rx="3.5" ry="3.2" fill="#fdfbf7"/>
-              <circle class="pupille" cx="1" r="1.85" fill="#3a332c"/>
-            </g></g>
-            <g transform="translate(10 -22.6)"><g class="braue">
-              <rect x="-4.6" y="-1.2" width="9.2" height="2.4" rx="1.2" style="fill:var(--braue,#7a7269)"/>
-            </g></g>
-                <path d="M16,-15 q5,3 0,6" stroke="#dda87f" stroke-width="3.4" fill="none" stroke-linecap="round"/>
-                <g transform="translate(10 -5)"><g class="mund"><ellipse rx="4.4" ry="3" fill="#8f5a4a"/></g></g>
+              <g transform="translate(10 -22.6)"><g class="braue">
+                <rect x="-4.6" y="-1.2" width="9.2" height="2.4" rx="1.2" style="fill:var(--braue,#7a7269)"/>
               </g></g>
-            </g>
-            <g transform="translate(4 -118)"><g class="gelenk schulter schulter--vorn">
-              <rect x="-5.5" y="0" width="11" height="28" rx="5.5" fill="#b8916f"/>
-              <g transform="translate(0 26)"><g class="gelenk ellbogen ellbogen--vorn">
-                <rect x="-5" y="0" width="10" height="24" rx="5" fill="#b8916f"/>
-                <circle cx="0" cy="26" r="7.5" fill="#f0c6a4"/>
+              <path d="M16,-15 q5,3 0,6" stroke="#dda87f" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+              <g transform="translate(10 -5)"><g class="mund">
+                <ellipse rx="4.8" ry="3.4" fill="#8f5a4a"/>
+                <path d="M-4.6,-.4 C-1.5,1.4 1.5,1.4 4.6,-.4" fill="none" stroke="#7a4a3c" stroke-width=".9" opacity=".7"/>
               </g></g>
             </g></g>
           </g>
+          <g transform="translate(4 -118)"><g class="gelenk schulter schulter--vorn">
+            <path d="M-6.8,0 C-7.2,10 -6.2,20 -5.6,27 L5.6,27 C6.2,20 7.2,10 6.8,0 Z" fill="#a8836a" stroke="#8a6851"/>
+            <g transform="translate(0 26)"><g class="gelenk ellbogen ellbogen--vorn">
+              <path d="M-5.6,0 C-5.8,8 -5.2,16 -4.8,22 L4.8,22 C5.2,16 5.8,8 5.6,0 Z" fill="#a8836a" stroke="#8a6851"/>
+              <path d="M-5.1,18 L5.1,18" stroke="#8a6851" opacity=".7"/>
+              <g transform="translate(0 21)">
+                <path d="M0,0 C4.9,0 7.5,2.7 7.5,6.3 C7.5,10 4.9,12.2 0,12.2 C-4.9,12.2 -7.5,10 -7.5,6.3 C-7.5,2.7 -4.9,0 0,0 Z" fill="#f0c6a4" stroke="#c8926c"/>
+                <path d="M5.2,2.6 C8.3,3.2 8.7,6.2 6.4,7.2" fill="none" stroke="#c8926c" stroke-linecap="round"/>
+              </g>
+            </g></g>
+          </g></g>
+        </g>
         </g>
       </g>
 
       <!-- Der Patient auf dem Weg -->
-      <g transform="translate(0 600) scale(1.3)">
+      <g transform="translate(0 624) scale(1.3)">
         <g class="geher">
           <g class="figur patient gang">
-        <ellipse class="schatten" cx="3" cy="2" rx="26" ry="6"/>
-        <g transform="translate(-3 -80)"><g class="gelenk huefte huefte--hint">
-          <rect x="-7" y="0" width="14" height="43" rx="7" fill="#333844"/>
-          <g transform="translate(0 42)"><g class="gelenk knie knie--hint">
-            <rect x="-6.5" y="0" width="13" height="40" rx="6.5" fill="#333844"/>
-            <g transform="translate(0 38)"><g class="gelenk fuss fuss--hint">
-              <ellipse cx="3" cy="1" rx="12" ry="6" fill="#2a2e37"/>
+          <ellipse class="schatten" cx="4" cy="2" rx="26" ry="6.5"/>
+          <g transform="translate(-3 -80)"><g class="gelenk huefte huefte--hint">
+            <path d="M-8.4,0 C-8.8,14 -8,30 -7,43 L7,43 C8,30 8.8,14 8.4,0 Z" fill="#343a49" stroke="#343a49"/>
+            <g transform="translate(0 42)"><g class="gelenk knie knie--hint">
+              <path d="M-7,0 C-7.4,12 -6.4,28 -5.6,38 L5.6,38 C6.4,28 7.4,12 7,0 Z" fill="#343a49" stroke="#343a49"/>
+              <g transform="translate(0 37)"><g class="gelenk fuss fuss--hint">
+                <path d="M-6,-2.5 C-7.6,3 -7,9.5 -3.4,9.5 L12,9.5 C15.6,9.5 16.4,5.6 13.4,3.6 C10,1.6 7,-0.6 5.2,-2.5 Z" fill="#23262e" stroke="#23262e"/>
+                <path d="M-6.6,7.2 L14.4,7.2" stroke="#23262e" opacity=".75"/>
+              </g></g>
             </g></g>
           </g></g>
-        </g></g>
-        <g transform="translate(3 -80)"><g class="gelenk huefte huefte--vorn">
-          <rect x="-7" y="0" width="14" height="43" rx="7" fill="#464c5c"/>
-          <g transform="translate(0 42)"><g class="gelenk knie knie--vorn">
-            <rect x="-6.5" y="0" width="13" height="40" rx="6.5" fill="#464c5c"/>
-            <g transform="translate(0 38)"><g class="gelenk fuss fuss--vorn">
-              <ellipse cx="3" cy="1" rx="12" ry="6" fill="#33373f"/>
+          <g transform="translate(3 -80)"><g class="gelenk huefte huefte--vorn">
+            <path d="M-8.4,0 C-8.8,14 -8,30 -7,43 L7,43 C8,30 8.8,14 8.4,0 Z" fill="#454b5c" stroke="#343a49"/>
+            <g transform="translate(0 42)"><g class="gelenk knie knie--vorn">
+              <path d="M-7,0 C-7.4,12 -6.4,28 -5.6,38 L5.6,38 C6.4,28 7.4,12 7,0 Z" fill="#454b5c" stroke="#343a49"/>
+              <g transform="translate(0 37)"><g class="gelenk fuss fuss--vorn">
+                <path d="M-6,-2.5 C-7.6,3 -7,9.5 -3.4,9.5 L12,9.5 C15.6,9.5 16.4,5.6 13.4,3.6 C10,1.6 7,-0.6 5.2,-2.5 Z" fill="#2f333d" stroke="#23262e"/>
+                <path d="M-6.6,7.2 L14.4,7.2" stroke="#23262e" opacity=".75"/>
+              </g></g>
             </g></g>
           </g></g>
-        </g></g>
-        <g transform="translate(-4 -118)"><g class="gelenk schulter schulter--hint">
-          <rect x="-5.5" y="0" width="11" height="28" rx="5.5" fill="#2f4165"/>
-          <g transform="translate(0 26)"><g class="gelenk ellbogen ellbogen--hint">
-            <rect x="-5" y="0" width="10" height="24" rx="5" fill="#2f4165"/>
-            <circle cx="0" cy="26" r="7.5" fill="#dda87f"/>
+          <g transform="translate(-4 -118)"><g class="gelenk schulter schulter--hint">
+            <path d="M-6.8,0 C-7.2,10 -6.2,20 -5.6,27 L5.6,27 C6.2,20 7.2,10 6.8,0 Z" fill="#2c4068" stroke="#2c4068"/>
+            <g transform="translate(0 26)"><g class="gelenk ellbogen ellbogen--hint">
+              <path d="M-5.6,0 C-5.8,8 -5.2,16 -4.8,22 L4.8,22 C5.2,16 5.8,8 5.6,0 Z" fill="#2c4068" stroke="#2c4068"/>
+              <path d="M-5.1,18 L5.1,18" stroke="#2c4068" opacity=".7"/>
+              <g transform="translate(0 21)">
+                <path d="M0,0 C4.9,0 7.5,2.7 7.5,6.3 C7.5,10 4.9,12.2 0,12.2 C-4.9,12.2 -7.5,10 -7.5,6.3 C-7.5,2.7 -4.9,0 0,0 Z" fill="#e8bd9a" stroke="#c68f6a"/>
+                <path d="M5.2,2.6 C8.3,3.2 8.7,6.2 6.4,7.2" fill="none" stroke="#c68f6a" stroke-linecap="round"/>
+              </g>
+            </g></g>
           </g></g>
-        </g></g>
-        <g class="rumpf">
-          <rect x="-21" y="-126" width="42" height="60" rx="13" fill="#3c5583"/>
-          <path d="M3,-114 v44" stroke="#31456b" stroke-width="2.2" stroke-linecap="round"/>
-          <circle cx="3" cy="-100" r="1.8" fill="#dfe3ea" opacity=".75"/>
-          <circle cx="3" cy="-84" r="1.8" fill="#dfe3ea" opacity=".75"/>
-          <path d="M-8,-126 L0,-115 L8,-126" fill="#f0efec"/>
-          <rect x="-5" y="-137" width="10" height="13" fill="#dda87f"/>
-          <g transform="translate(0 -137)"><g class="gelenk kopf">
-            <circle cx="1" cy="-16" r="17" fill="#e8bd9a"/>
-            <ellipse cx="-1" cy="-29.5" rx="17.5" ry="8" fill="#b9b3ab"/>
-            <path d="M-15,-22 q-3,9 1,14" stroke="#b9b3ab" stroke-width="5" fill="none" stroke-linecap="round"/>
-            <circle cx="-8" cy="-14" r="3.4" fill="#dda87f"/>
-            <g transform="translate(9.5 -17)"><g class="auge">
-              <ellipse rx="3.5" ry="3.2" fill="#fdfbf7"/>
-              <circle class="pupille" cx="1" r="1.85" fill="#3a332c"/>
+          <g class="rumpf">
+            <path d="M-20,-126 C-14,-131 14,-131 20,-126 C23,-110 23,-84 21,-66 C9,-61 -9,-61 -21,-66 C-23,-84 -23,-110 -20,-126 Z" fill="#3c5583" stroke="#2c4068"/>
+            <path d="M-9.5,-127.5 L1,-111 L11.5,-127.5" fill="#f0efec" stroke="#2c4068"/>
+            <path d="M3,-111 C4,-97 4.2,-80 3.6,-64" stroke="#2c4068" fill="none" opacity=".9"/>
+            <circle cx="3.4" cy="-99" r="1.9" fill="#dfe3ea" stroke="#2c4068"/>
+            <circle cx="3.6" cy="-83" r="1.9" fill="#dfe3ea" stroke="#2c4068"/>
+            <path d="M-19,-93 C-16,-90.5 -12,-90.5 -9,-93" stroke="#2c4068" fill="none" opacity=".75"/>
+            <path d="M-21,-71 C-8,-67 10,-67 21,-71" stroke="#2c4068" fill="none" opacity=".55"/>
+            <rect x="-5" y="-138" width="10" height="14" fill="#dda87f"/>
+            <g transform="translate(0 -137)"><g class="gelenk kopf">
+              <circle cx="1" cy="-16" r="17" fill="#e8bd9a" stroke="#c68f6a"/>
+              <ellipse cx="9" cy="-7.5" rx="5" ry="3.4" fill="#dd8f7c" opacity=".28"/>
+              <ellipse cx="-1" cy="-29.5" rx="17.6" ry="8.4" fill="#b9b3ab"/>
+              <path d="M-15,-22 q-3,9 1,14" stroke="#b9b3ab" stroke-width="5" fill="none" stroke-linecap="round"/>
+              <path d="M-11,-33 C-3,-37 8,-36 14.5,-31" fill="none" stroke="#cfcac3" stroke-width="1.8" stroke-linecap="round" opacity=".85"/>
+              <circle cx="-8" cy="-14" r="3.6" fill="#dda87f"/>
+              <path d="M-8.8,-15.4 a2,2 0 0 0 0.6,3" fill="none" stroke="#c68f6a"/>
+              <g transform="translate(9.5 -17)"><g class="auge">
+                <ellipse rx="3.4" ry="3.1" fill="#fdfbf7" stroke="#c68f6a"/>
+                <g class="pupille">
+                  <circle cx="1" r="1.9" fill="#33302c"/>
+                  <circle cx="1.7" cy="-.8" r=".72" fill="#fff" opacity=".9"/>
+                </g>
+                <path d="M-3.6,-1.5 A3.8,3.4 0 0 1 3.6,-1.9" fill="none" stroke="#c08a63" stroke-width="1.1" stroke-linecap="round" opacity=".75"/>
+              </g></g>
+              <g transform="translate(10 -22.6)"><g class="braue">
+                <rect x="-4.6" y="-1.2" width="9.2" height="2.4" rx="1.2" style="fill:var(--braue,#7a7269)"/>
+              </g></g>
+              <path d="M16,-15 q5,3 0,6" stroke="#d69f74" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+              <g transform="translate(10 -5)"><g class="mund">
+                <ellipse rx="4.8" ry="3.4" fill="#8f5a4a"/>
+                <path d="M-4.6,-.4 C-1.5,1.4 1.5,1.4 4.6,-.4" fill="none" stroke="#7a4a3c" stroke-width=".9" opacity=".7"/>
+              </g></g>
             </g></g>
-            <g transform="translate(10 -22.6)"><g class="braue">
-              <rect x="-4.6" y="-1.2" width="9.2" height="2.4" rx="1.2" style="fill:var(--braue,#7a7269)"/>
+          </g>
+          <g transform="translate(4 -118)"><g class="gelenk schulter schulter--vorn">
+            <path d="M-6.8,0 C-7.2,10 -6.2,20 -5.6,27 L5.6,27 C6.2,20 7.2,10 6.8,0 Z" fill="#3c5583" stroke="#2c4068"/>
+            <g transform="translate(0 26)"><g class="gelenk ellbogen ellbogen--vorn">
+              <path d="M-5.6,0 C-5.8,8 -5.2,16 -4.8,22 L4.8,22 C5.2,16 5.8,8 5.6,0 Z" fill="#3c5583" stroke="#2c4068"/>
+              <path d="M-5.1,18 L5.1,18" stroke="#2c4068" opacity=".7"/>
+              <g transform="translate(0 21)">
+                <path d="M0,0 C4.9,0 7.5,2.7 7.5,6.3 C7.5,10 4.9,12.2 0,12.2 C-4.9,12.2 -7.5,10 -7.5,6.3 C-7.5,2.7 -4.9,0 0,0 Z" fill="#e8bd9a" stroke="#c68f6a"/>
+                <path d="M5.2,2.6 C8.3,3.2 8.7,6.2 6.4,7.2" fill="none" stroke="#c68f6a" stroke-linecap="round"/>
+              </g>
             </g></g>
-            <path d="M16,-15 q5,3 0,6" stroke="#d69f74" stroke-width="3.4" fill="none" stroke-linecap="round"/>
-            <g transform="translate(10 -5)"><g class="mund"><ellipse rx="4.8" ry="3.4" fill="#8f5a4a"/></g></g>
           </g></g>
         </g>
-        <g transform="translate(4 -118)"><g class="gelenk schulter schulter--vorn">
-          <rect x="-5.5" y="0" width="11" height="28" rx="5.5" fill="#5c7ab4"/>
-          <g transform="translate(0 26)"><g class="gelenk ellbogen ellbogen--vorn">
-            <rect x="-5" y="0" width="10" height="24" rx="5" fill="#5c7ab4"/>
-            <circle cx="0" cy="26" r="7.5" fill="#e8bd9a"/>
-          </g></g>
-        </g></g>
-      </g>
         </g>
       </g>
     </g>
@@ -749,57 +812,69 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
         <rect x="124" y="540" width="84" height="20" rx="5" fill="#bb9377"/>
       </g>
 
-      <!-- Praxislogo neben dem Schild -->
+      <!-- Praxislogo und Anmeldung in einem Schild -->
       <g>
-        <rect x="930" y="92" width="88" height="88" rx="12" fill="#fff" stroke="#bab2a2" stroke-width="3"/>
-        <use href="#logomarke" transform="translate(951 113) scale(0.84)"/>
-      </g>
-
-      <!-- Schild ueber der Anmeldung -->
-      <g>
-        <rect x="1044" y="98" width="224" height="76" rx="8" fill="#1b2a4e"/>
-        <text x="1156" y="146" text-anchor="middle" font-family="Jost, sans-serif" font-size="26" font-weight="600" fill="#fff" letter-spacing="2">ANMELDUNG</text>
+        <rect x="928" y="90" width="342" height="94" rx="14" fill="#fff" stroke="#bab2a2" stroke-width="3"/>
+        <use href="#logomarke" transform="translate(950 112) scale(0.9)"/>
+        <line x1="1016" y1="106" x2="1016" y2="168" stroke="#e0dbd1" stroke-width="2"/>
+        <text x="1038" y="148" font-family="Jost, sans-serif" font-size="27" font-weight="600" fill="#1b2a4e" letter-spacing="2">ANMELDUNG</text>
       </g>
 
       <!-- Die MFA hinter dem Tresen -->
       <g transform="translate(1046 640) scale(1.8)">
         <g class="figur mfa steher">
-        <g transform="translate(20 -96)"><g class="gelenk schulter schulter--hint">
-          <rect x="-6.5" y="0" width="13" height="28" rx="6.5" fill="#457066"/>
-          <g transform="translate(0 26)"><g class="gelenk ellbogen ellbogen--hint">
-            <rect x="-6" y="0" width="12" height="24" rx="6" fill="#457066"/>
+          <g transform="translate(20 -96)"><g class="gelenk schulter schulter--hint">
+            <path d="M-6.8,0 C-7.2,10 -6.2,20 -5.6,27 L5.6,27 C6.2,20 7.2,10 6.8,0 Z" fill="#457066" stroke="#35564f"/>
+            <g transform="translate(0 26)"><g class="gelenk ellbogen ellbogen--hint">
+              <path d="M-5.6,0 C-5.8,8 -5.2,16 -4.8,22 L4.8,22 C5.2,16 5.8,8 5.6,0 Z" fill="#457066" stroke="#35564f"/>
+            </g></g>
           </g></g>
-        </g></g>
-        <g class="rumpf">
-          <rect x="-25" y="-98" width="50" height="72" rx="14" fill="#4f7d70"/>
-          <path d="M-9,-98 L-1,-86 L7,-98" fill="#eef3f1"/>
-          <rect x="-16" y="-72" width="18" height="7" rx="2" fill="#eef3f1"/>
-          <rect x="-6" y="-110" width="12" height="14" fill="#e6b28d"/>
-          <g transform="translate(0 -110)"><g class="gelenk kopf">
-            <circle cx="14" cy="-24" r="10" fill="#5d422c"/>
-            <circle cx="-2" cy="-18" r="18" fill="#f0c6a4"/>
-            <ellipse cx="-2" cy="-32" rx="18.5" ry="9" fill="#6b4b32"/>
-            <path d="M-19,-24 q-4,12 0,18" stroke="#6b4b32" stroke-width="5" fill="none" stroke-linecap="round"/>
-            <g transform="translate(-11 -18)"><g class="auge">
-              <ellipse rx="3.5" ry="3.2" fill="#fdfbf7"/>
-              <circle class="pupille" cx="-1" r="1.85" fill="#3a332c"/>
+          <g class="rumpf">
+            <path d="M-24,-99 C-17,-104 17,-104 24,-99 C26,-86 26,-40 25,-24 C10,-19 -10,-19 -25,-24 C-26,-40 -26,-86 -24,-99 Z" fill="#4f7d70" stroke="#3d6259"/>
+            <path d="M-9.5,-100 L-1,-84 L8.5,-100" fill="#eef3f1" stroke="#3d6259"/>
+            <path d="M-24,-78 C-12,-73 12,-73 24,-78" stroke="#3d6259" fill="none" opacity=".6"/>
+            <rect x="-17" y="-72" width="19" height="7.4" rx="2" fill="#eef3f1" stroke="#3d6259"/>
+            <path d="M-19,-56 h14 v12 h-14 z" fill="none" stroke="#3d6259" opacity=".7"/>
+            <rect x="-6" y="-112" width="12" height="16" fill="#e6b28d"/>
+            <g transform="translate(0 -112)"><g class="gelenk kopf">
+              <circle cx="-1" cy="-16" r="17" fill="#f0c6a4" stroke="#cb9370"/>
+              <ellipse cx="-9" cy="-7.5" rx="5" ry="3.4" fill="#dd8f7c" opacity=".28"/>
+              <circle cx="14" cy="-24" r="10.5" fill="#5d422c"/>
+              <ellipse cx="-2" cy="-32" rx="18.5" ry="9.4" fill="#6b4b32"/>
+              <path d="M-19,-24 q-4,13 0,19" stroke="#6b4b32" stroke-width="5" fill="none" stroke-linecap="round"/>
+              <path d="M-13,-35 C-5,-40 6,-39 13,-33" fill="none" stroke="#8a6242" stroke-width="1.8" stroke-linecap="round" opacity=".85"/>
+              <circle cx="8" cy="-14" r="3.6" fill="#e6b28d"/>
+              <path d="M8.8,-15.4 a2,2 0 0 0 -0.6,3" fill="none" stroke="#cb9370"/>
+              <g transform="translate(-9.5 -17)"><g class="auge">
+                <ellipse rx="3.4" ry="3.1" fill="#fdfbf7" stroke="#cb9370"/>
+                <g class="pupille">
+                  <circle cx="-1" r="1.9" fill="#33302c"/>
+                  <circle cx="-1.7" cy="-.8" r=".72" fill="#fff" opacity=".9"/>
+                </g>
+                <path d="M-3.6,-1.5 A3.8,3.4 0 0 1 3.6,-1.9" fill="none" stroke="#c48e66" stroke-width="1.1" stroke-linecap="round" opacity=".75"/>
+              </g></g>
+              <g transform="translate(-10 -22.6)"><g class="braue">
+                <rect x="-4.6" y="-1.2" width="9.2" height="2.4" rx="1.2" style="fill:var(--braue,#7a7269)"/>
+              </g></g>
+              <path d="M-16,-15 q-5,3 0,6" stroke="#dda87f" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+              <g transform="translate(-10 -5)"><g class="mund">
+                <ellipse rx="4.8" ry="3.4" fill="#8f5a4a"/>
+                <path d="M-4.6,-.4 C-1.5,1.4 1.5,1.4 4.6,-.4" fill="none" stroke="#7a4a3c" stroke-width=".9" opacity=".7"/>
+              </g></g>
             </g></g>
-            <g transform="translate(-11.5 -23.6)"><g class="braue">
-              <rect x="-4.6" y="-1.2" width="9.2" height="2.4" rx="1.2" style="fill:var(--braue,#7a7269)"/>
+          </g>
+          <g transform="translate(-20 -96)"><g class="gelenk schulter schulter--tipp">
+            <path d="M-6.8,0 C-7.2,10 -6.2,20 -5.6,27 L5.6,27 C6.2,20 7.2,10 6.8,0 Z" fill="#4f7d70" stroke="#3d6259"/>
+            <g transform="translate(0 26)"><g class="gelenk ellbogen ellbogen--tipp">
+              <path d="M-5.6,0 C-5.8,8 -5.2,16 -4.8,22 L4.8,22 C5.2,16 5.8,8 5.6,0 Z" fill="#4f7d70" stroke="#3d6259"/>
+              <path d="M-5.1,18 L5.1,18" stroke="#3d6259" opacity=".7"/>
+              <g transform="translate(0 21)">
+                <path d="M0,0 C4.9,0 7.5,2.7 7.5,6.3 C7.5,10 4.9,12.2 0,12.2 C-4.9,12.2 -7.5,10 -7.5,6.3 C-7.5,2.7 -4.9,0 0,0 Z" fill="#f0c6a4" stroke="#cb9370"/>
+                <path d="M5.2,2.6 C8.3,3.2 8.7,6.2 6.4,7.2" fill="none" stroke="#cb9370" stroke-linecap="round"/>
+              </g>
             </g></g>
-            <path d="M-18,-16 q-5,3 0,6" stroke="#dda87f" stroke-width="3.4" fill="none" stroke-linecap="round"/>
-            <g transform="translate(-13 -7)"><g class="mund"><ellipse rx="4.6" ry="3.2" fill="#8f5a4a"/></g></g>
-            <circle cx="12" cy="-16" r="3.4" fill="#e6b28d"/>
           </g></g>
         </g>
-        <g transform="translate(-20 -96)"><g class="gelenk schulter schulter--tipp">
-          <rect x="-6.5" y="0" width="13" height="28" rx="6.5" fill="#4f7d70"/>
-          <g transform="translate(0 26)"><g class="gelenk ellbogen ellbogen--tipp">
-            <rect x="-6" y="0" width="12" height="24" rx="6" fill="#4f7d70"/>
-            <circle cx="0" cy="26" r="7.5" fill="#f0c6a4"/>
-          </g></g>
-        </g></g>
-      </g>
       </g>
 
       <!-- Tresen -->
@@ -828,63 +903,85 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
       <!-- Der Patient vor dem Tresen -->
       <g transform="translate(340 700) scale(1.95)">
         <g class="figur patient patient-innen steher">
-        <ellipse class="schatten" cx="4" cy="3" rx="28" ry="6.5"/>
-        <g transform="translate(-3 -80)"><g class="gelenk huefte huefte--hint">
-          <rect x="-7" y="0" width="14" height="43" rx="7" fill="#333844"/>
-          <g transform="translate(0 42)"><g class="gelenk knie knie--hint">
-            <rect x="-6.5" y="0" width="13" height="40" rx="6.5" fill="#333844"/>
-            <g transform="translate(0 38)"><g class="gelenk fuss fuss--hint">
-              <ellipse cx="3" cy="1" rx="12" ry="6" fill="#2a2e37"/>
+          <ellipse class="schatten" cx="4" cy="2" rx="28" ry="6.5"/>
+          <g transform="translate(-3 -80)"><g class="gelenk huefte huefte--hint">
+            <path d="M-8.4,0 C-8.8,14 -8,30 -7,43 L7,43 C8,30 8.8,14 8.4,0 Z" fill="#343a49" stroke="#343a49"/>
+            <g transform="translate(0 42)"><g class="gelenk knie knie--hint">
+              <path d="M-7,0 C-7.4,12 -6.4,28 -5.6,38 L5.6,38 C6.4,28 7.4,12 7,0 Z" fill="#343a49" stroke="#343a49"/>
+              <g transform="translate(0 37)"><g class="gelenk fuss fuss--hint">
+                <path d="M-6,-2.5 C-7.6,3 -7,9.5 -3.4,9.5 L12,9.5 C15.6,9.5 16.4,5.6 13.4,3.6 C10,1.6 7,-0.6 5.2,-2.5 Z" fill="#23262e" stroke="#23262e"/>
+                <path d="M-6.6,7.2 L14.4,7.2" stroke="#23262e" opacity=".75"/>
+              </g></g>
             </g></g>
           </g></g>
-        </g></g>
-        <g transform="translate(3 -80)"><g class="gelenk huefte huefte--vorn">
-          <rect x="-7" y="0" width="14" height="43" rx="7" fill="#464c5c"/>
-          <g transform="translate(0 42)"><g class="gelenk knie knie--vorn">
-            <rect x="-6.5" y="0" width="13" height="40" rx="6.5" fill="#464c5c"/>
-            <g transform="translate(0 38)"><g class="gelenk fuss fuss--vorn">
-              <ellipse cx="3" cy="1" rx="12" ry="6" fill="#33373f"/>
+          <g transform="translate(3 -80)"><g class="gelenk huefte huefte--vorn">
+            <path d="M-8.4,0 C-8.8,14 -8,30 -7,43 L7,43 C8,30 8.8,14 8.4,0 Z" fill="#454b5c" stroke="#343a49"/>
+            <g transform="translate(0 42)"><g class="gelenk knie knie--vorn">
+              <path d="M-7,0 C-7.4,12 -6.4,28 -5.6,38 L5.6,38 C6.4,28 7.4,12 7,0 Z" fill="#454b5c" stroke="#343a49"/>
+              <g transform="translate(0 37)"><g class="gelenk fuss fuss--vorn">
+                <path d="M-6,-2.5 C-7.6,3 -7,9.5 -3.4,9.5 L12,9.5 C15.6,9.5 16.4,5.6 13.4,3.6 C10,1.6 7,-0.6 5.2,-2.5 Z" fill="#2f333d" stroke="#23262e"/>
+                <path d="M-6.6,7.2 L14.4,7.2" stroke="#23262e" opacity=".75"/>
+              </g></g>
             </g></g>
           </g></g>
-        </g></g>
-        <g transform="translate(-4 -118)"><g class="gelenk schulter schulter--hint">
-          <rect x="-5.5" y="0" width="11" height="28" rx="5.5" fill="#2f4165"/>
-          <g transform="translate(0 26)"><g class="gelenk ellbogen ellbogen--hint">
-            <rect x="-5" y="0" width="10" height="24" rx="5" fill="#2f4165"/>
-            <circle cx="0" cy="26" r="7.5" fill="#dda87f"/>
+          <g transform="translate(-4 -118)"><g class="gelenk schulter schulter--hint">
+            <path d="M-6.8,0 C-7.2,10 -6.2,20 -5.6,27 L5.6,27 C6.2,20 7.2,10 6.8,0 Z" fill="#2c4068" stroke="#2c4068"/>
+            <g transform="translate(0 26)"><g class="gelenk ellbogen ellbogen--hint">
+              <path d="M-5.6,0 C-5.8,8 -5.2,16 -4.8,22 L4.8,22 C5.2,16 5.8,8 5.6,0 Z" fill="#2c4068" stroke="#2c4068"/>
+              <path d="M-5.1,18 L5.1,18" stroke="#2c4068" opacity=".7"/>
+              <g transform="translate(0 21)">
+                <path d="M0,0 C4.9,0 7.5,2.7 7.5,6.3 C7.5,10 4.9,12.2 0,12.2 C-4.9,12.2 -7.5,10 -7.5,6.3 C-7.5,2.7 -4.9,0 0,0 Z" fill="#e8bd9a" stroke="#c68f6a"/>
+                <path d="M5.2,2.6 C8.3,3.2 8.7,6.2 6.4,7.2" fill="none" stroke="#c68f6a" stroke-linecap="round"/>
+              </g>
+            </g></g>
           </g></g>
-        </g></g>
-        <g class="rumpf">
-          <rect x="-21" y="-126" width="42" height="60" rx="13" fill="#3c5583"/>
-          <path d="M3,-114 v44" stroke="#31456b" stroke-width="2.2" stroke-linecap="round"/>
-          <circle cx="3" cy="-100" r="1.8" fill="#dfe3ea" opacity=".75"/>
-          <circle cx="3" cy="-84" r="1.8" fill="#dfe3ea" opacity=".75"/>
-          <path d="M-8,-126 L0,-115 L8,-126" fill="#f0efec"/>
-          <rect x="-5" y="-137" width="10" height="13" fill="#dda87f"/>
-          <g transform="translate(0 -137)"><g class="gelenk kopf">
-            <circle cx="1" cy="-16" r="17" fill="#e8bd9a"/>
-            <ellipse cx="-1" cy="-29.5" rx="17.5" ry="8" fill="#b9b3ab"/>
-            <path d="M-15,-22 q-3,9 1,14" stroke="#b9b3ab" stroke-width="5" fill="none" stroke-linecap="round"/>
-            <circle cx="-8" cy="-14" r="3.4" fill="#dda87f"/>
-            <g transform="translate(9.5 -17)"><g class="auge">
-              <ellipse rx="3.5" ry="3.2" fill="#fdfbf7"/>
-              <circle class="pupille" cx="1" r="1.85" fill="#3a332c"/>
+          <g class="rumpf">
+            <path d="M-20,-126 C-14,-131 14,-131 20,-126 C23,-110 23,-84 21,-66 C9,-61 -9,-61 -21,-66 C-23,-84 -23,-110 -20,-126 Z" fill="#3c5583" stroke="#2c4068"/>
+            <path d="M-9.5,-127.5 L1,-111 L11.5,-127.5" fill="#f0efec" stroke="#2c4068"/>
+            <path d="M3,-111 C4,-97 4.2,-80 3.6,-64" stroke="#2c4068" fill="none" opacity=".9"/>
+            <circle cx="3.4" cy="-99" r="1.9" fill="#dfe3ea" stroke="#2c4068"/>
+            <circle cx="3.6" cy="-83" r="1.9" fill="#dfe3ea" stroke="#2c4068"/>
+            <path d="M-19,-93 C-16,-90.5 -12,-90.5 -9,-93" stroke="#2c4068" fill="none" opacity=".75"/>
+            <path d="M-21,-71 C-8,-67 10,-67 21,-71" stroke="#2c4068" fill="none" opacity=".55"/>
+            <rect x="-5" y="-138" width="10" height="14" fill="#dda87f"/>
+            <g transform="translate(0 -137)"><g class="gelenk kopf">
+              <circle cx="1" cy="-16" r="17" fill="#e8bd9a" stroke="#c68f6a"/>
+              <ellipse cx="9" cy="-7.5" rx="5" ry="3.4" fill="#dd8f7c" opacity=".28"/>
+              <ellipse cx="-1" cy="-29.5" rx="17.6" ry="8.4" fill="#b9b3ab"/>
+              <path d="M-15,-22 q-3,9 1,14" stroke="#b9b3ab" stroke-width="5" fill="none" stroke-linecap="round"/>
+              <path d="M-11,-33 C-3,-37 8,-36 14.5,-31" fill="none" stroke="#cfcac3" stroke-width="1.8" stroke-linecap="round" opacity=".85"/>
+              <circle cx="-8" cy="-14" r="3.6" fill="#dda87f"/>
+              <path d="M-8.8,-15.4 a2,2 0 0 0 0.6,3" fill="none" stroke="#c68f6a"/>
+              <g transform="translate(9.5 -17)"><g class="auge">
+                <ellipse rx="3.4" ry="3.1" fill="#fdfbf7" stroke="#c68f6a"/>
+                <g class="pupille">
+                  <circle cx="1" r="1.9" fill="#33302c"/>
+                  <circle cx="1.7" cy="-.8" r=".72" fill="#fff" opacity=".9"/>
+                </g>
+                <path d="M-3.6,-1.5 A3.8,3.4 0 0 1 3.6,-1.9" fill="none" stroke="#c08a63" stroke-width="1.1" stroke-linecap="round" opacity=".75"/>
+              </g></g>
+              <g transform="translate(10 -22.6)"><g class="braue">
+                <rect x="-4.6" y="-1.2" width="9.2" height="2.4" rx="1.2" style="fill:var(--braue,#7a7269)"/>
+              </g></g>
+              <path d="M16,-15 q5,3 0,6" stroke="#d69f74" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+              <g transform="translate(10 -5)"><g class="mund">
+                <ellipse rx="4.8" ry="3.4" fill="#8f5a4a"/>
+                <path d="M-4.6,-.4 C-1.5,1.4 1.5,1.4 4.6,-.4" fill="none" stroke="#7a4a3c" stroke-width=".9" opacity=".7"/>
+              </g></g>
             </g></g>
-            <g transform="translate(10 -22.6)"><g class="braue">
-              <rect x="-4.6" y="-1.2" width="9.2" height="2.4" rx="1.2" style="fill:var(--braue,#7a7269)"/>
+          </g>
+          <g transform="translate(4 -118)"><g class="gelenk schulter schulter--vorn">
+            <path d="M-6.8,0 C-7.2,10 -6.2,20 -5.6,27 L5.6,27 C6.2,20 7.2,10 6.8,0 Z" fill="#3c5583" stroke="#2c4068"/>
+            <g transform="translate(0 26)"><g class="gelenk ellbogen ellbogen--vorn">
+              <path d="M-5.6,0 C-5.8,8 -5.2,16 -4.8,22 L4.8,22 C5.2,16 5.8,8 5.6,0 Z" fill="#3c5583" stroke="#2c4068"/>
+              <path d="M-5.1,18 L5.1,18" stroke="#2c4068" opacity=".7"/>
+              <g transform="translate(0 21)">
+                <path d="M0,0 C4.9,0 7.5,2.7 7.5,6.3 C7.5,10 4.9,12.2 0,12.2 C-4.9,12.2 -7.5,10 -7.5,6.3 C-7.5,2.7 -4.9,0 0,0 Z" fill="#e8bd9a" stroke="#c68f6a"/>
+                <path d="M5.2,2.6 C8.3,3.2 8.7,6.2 6.4,7.2" fill="none" stroke="#c68f6a" stroke-linecap="round"/>
+              </g>
             </g></g>
-            <path d="M16,-15 q5,3 0,6" stroke="#d69f74" stroke-width="3.4" fill="none" stroke-linecap="round"/>
-            <g transform="translate(10 -5)"><g class="mund"><ellipse rx="4.8" ry="3.4" fill="#8f5a4a"/></g></g>
           </g></g>
         </g>
-        <g transform="translate(4 -118)"><g class="gelenk schulter schulter--vorn">
-          <rect x="-5.5" y="0" width="11" height="28" rx="5.5" fill="#5c7ab4"/>
-          <g transform="translate(0 26)"><g class="gelenk ellbogen ellbogen--vorn">
-            <rect x="-5" y="0" width="10" height="24" rx="5" fill="#5c7ab4"/>
-            <circle cx="0" cy="26" r="7.5" fill="#e8bd9a"/>
-          </g></g>
-        </g></g>
-      </g>
       </g>
     </g>
 
@@ -898,19 +995,18 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
         <path d="M440,90 a12,12 0 0 1 12,-12 h536 a12,12 0 0 1 12,12 v42 h-560 z" fill="#1b2a4e"/>
         <text x="468" y="114" font-family="Jost, sans-serif" font-size="25" font-weight="600" fill="#fff">Terminvergabe &#183; Krebsvorsorge</text>
 
-        <g text-anchor="middle" font-family="Jost, sans-serif" font-size="52" font-weight="600" fill="#1b2a4e">
-          <text class="monat" style="--d:1.10s" x="720" y="210">September</text>
-          <text class="monat" style="--d:1.44s" x="720" y="210">Oktober</text>
-          <text class="monat" style="--d:1.78s" x="720" y="210">November</text>
-          <text class="monat" style="--d:2.12s" x="720" y="210">Dezember</text>
-          <text class="monat" style="--d:2.46s" x="720" y="210">Januar</text>
-          <text class="monat" style="--d:2.80s" x="720" y="210">Februar</text>
-          <text class="monat" style="--d:3.14s" x="720" y="210">M&#228;rz</text>
-          <text class="monat" style="--d:3.48s" x="720" y="210">April</text>
-          <text class="monat" style="--d:3.82s" x="720" y="210">Mai</text>
-          <text class="monat monat--ziel" style="--d:4.16s" x="720" y="210" fill="#a33b32">Juni</text>
+        <g text-anchor="middle" font-family="Jost, sans-serif" font-size="50" font-weight="600" fill="#1b2a4e">
+          <text class="monat" style="--d:1.10s" x="720" y="208">+ 1 Monat</text>
+          <text class="monat" style="--d:1.44s" x="720" y="208">+ 2 Monate</text>
+          <text class="monat" style="--d:1.78s" x="720" y="208">+ 3 Monate</text>
+          <text class="monat" style="--d:2.12s" x="720" y="208">+ 4 Monate</text>
+          <text class="monat" style="--d:2.46s" x="720" y="208">+ 5 Monate</text>
+          <text class="monat" style="--d:2.80s" x="720" y="208">+ 6 Monate</text>
+          <text class="monat" style="--d:3.14s" x="720" y="208">+ 7 Monate</text>
+          <text class="monat" style="--d:3.48s" x="720" y="208">+ 8 Monate</text>
+          <text class="monat monat--ziel" style="--d:3.82s" x="720" y="208" fill="#a33b32">+ 9 Monate</text>
         </g>
-        <text x="720" y="243" text-anchor="middle" font-family="Jost, sans-serif" font-size="21" fill="#6b6459">n&#228;chster freier Vorsorgetermin</text>
+        <text x="720" y="242" text-anchor="middle" font-family="Jost, sans-serif" font-size="21" fill="#6b6459">bis zum n&#228;chsten freien Vorsorgetermin</text>
 
         <g fill="#ece9e3">
           <rect x="500" y="268" width="44" height="30" rx="5"/><rect x="562" y="268" width="44" height="30" rx="5"/>
@@ -1076,56 +1172,82 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
       <!-- Der Patient liegt auf der Liege -->
       <g transform="matrix(0 -1.75 1.75 0 800 508)">
         <g class="figur patient liegend">
+          <ellipse class="schatten" cx="4" cy="2" rx="0.1" ry="6.5"/>
           <g transform="translate(-3 -80)"><g class="gelenk huefte huefte--hint">
-            <rect x="-7" y="0" width="14" height="43" rx="7" fill="#333844"/>
+            <path d="M-8.4,0 C-8.8,14 -8,30 -7,43 L7,43 C8,30 8.8,14 8.4,0 Z" fill="#343a49" stroke="#343a49"/>
             <g transform="translate(0 42)"><g class="gelenk knie knie--hint">
-              <rect x="-6.5" y="0" width="13" height="40" rx="6.5" fill="#333844"/>
-              <g transform="translate(0 38)"><g class="gelenk fuss fuss--hint">
-                <ellipse cx="3" cy="1" rx="12" ry="6" fill="#2a2e37"/>
+              <path d="M-7,0 C-7.4,12 -6.4,28 -5.6,38 L5.6,38 C6.4,28 7.4,12 7,0 Z" fill="#343a49" stroke="#343a49"/>
+              <g transform="translate(0 37)"><g class="gelenk fuss fuss--hint">
+                <path d="M-6,-2.5 C-7.6,3 -7,9.5 -3.4,9.5 L12,9.5 C15.6,9.5 16.4,5.6 13.4,3.6 C10,1.6 7,-0.6 5.2,-2.5 Z" fill="#cfd3da" stroke="#b4b9c2"/>
+                <path d="M-6.6,7.2 L14.4,7.2" stroke="#bfc4cc" opacity=".75"/>
               </g></g>
             </g></g>
           </g></g>
           <g transform="translate(3 -80)"><g class="gelenk huefte huefte--vorn">
-            <rect x="-7" y="0" width="14" height="43" rx="7" fill="#464c5c"/>
+            <path d="M-8.4,0 C-8.8,14 -8,30 -7,43 L7,43 C8,30 8.8,14 8.4,0 Z" fill="#454b5c" stroke="#343a49"/>
             <g transform="translate(0 42)"><g class="gelenk knie knie--vorn">
-              <rect x="-6.5" y="0" width="13" height="40" rx="6.5" fill="#464c5c"/>
-              <g transform="translate(0 38)"><g class="gelenk fuss fuss--vorn">
-                <ellipse cx="3" cy="1" rx="12" ry="6" fill="#33373f"/>
+              <path d="M-7,0 C-7.4,12 -6.4,28 -5.6,38 L5.6,38 C6.4,28 7.4,12 7,0 Z" fill="#454b5c" stroke="#343a49"/>
+              <g transform="translate(0 37)"><g class="gelenk fuss fuss--vorn">
+                <path d="M-6,-2.5 C-7.6,3 -7,9.5 -3.4,9.5 L12,9.5 C15.6,9.5 16.4,5.6 13.4,3.6 C10,1.6 7,-0.6 5.2,-2.5 Z" fill="#dfe1e6" stroke="#bfc4cc"/>
+                <path d="M-6.6,7.2 L14.4,7.2" stroke="#bfc4cc" opacity=".75"/>
               </g></g>
             </g></g>
           </g></g>
           <g transform="translate(-4 -118)"><g class="gelenk schulter schulter--hint">
-            <rect x="-5.5" y="0" width="11" height="28" rx="5.5" fill="#8fa3c1"/>
+            <path d="M-6.8,0 C-7.2,10 -6.2,20 -5.6,27 L5.6,27 C6.2,20 7.2,10 6.8,0 Z" fill="#8ba1c0" stroke="#8ba1c0"/>
             <g transform="translate(0 26)"><g class="gelenk ellbogen ellbogen--hint">
-              <rect x="-5" y="0" width="10" height="24" rx="5" fill="#8fa3c1"/>
-              <circle cx="0" cy="26" r="7.5" fill="#dda87f"/>
+              <path d="M-5.6,0 C-5.8,8 -5.2,16 -4.8,22 L4.8,22 C5.2,16 5.8,8 5.6,0 Z" fill="#8ba1c0" stroke="#8ba1c0"/>
+              <path d="M-5.1,18 L5.1,18" stroke="#8ba1c0" opacity=".7"/>
+              <g transform="translate(0 21)">
+                <path d="M0,0 C4.9,0 7.5,2.7 7.5,6.3 C7.5,10 4.9,12.2 0,12.2 C-4.9,12.2 -7.5,10 -7.5,6.3 C-7.5,2.7 -4.9,0 0,0 Z" fill="#e8bd9a" stroke="#c68f6a"/>
+                <path d="M5.2,2.6 C8.3,3.2 8.7,6.2 6.4,7.2" fill="none" stroke="#c68f6a" stroke-linecap="round"/>
+              </g>
             </g></g>
           </g></g>
           <g class="rumpf">
-            <rect x="-21" y="-126" width="42" height="60" rx="13" fill="#a9bcd6"/>
-            <path d="M-8,-126 L0,-115 L8,-126" fill="#f0efec"/>
-            <rect x="-5" y="-137" width="10" height="13" fill="#dda87f"/>
+            <path d="M-20,-126 C-14,-131 14,-131 20,-126 C23,-110 23,-84 21,-66 C9,-61 -9,-61 -21,-66 C-23,-84 -23,-110 -20,-126 Z" fill="#a9bcd6" stroke="#8ba1c0"/>
+            <path d="M-9.5,-127.5 L1,-111 L11.5,-127.5" fill="#f0efec" stroke="#8ba1c0"/>
+            <path d="M3,-111 C4,-97 4.2,-80 3.6,-64" stroke="#8ba1c0" fill="none" opacity=".9"/>
+            <circle cx="3.4" cy="-99" r="1.9" fill="#dfe3ea" stroke="#8ba1c0"/>
+            <circle cx="3.6" cy="-83" r="1.9" fill="#dfe3ea" stroke="#8ba1c0"/>
+            <path d="M-19,-93 C-16,-90.5 -12,-90.5 -9,-93" stroke="#8ba1c0" fill="none" opacity=".75"/>
+            <path d="M-21,-71 C-8,-67 10,-67 21,-71" stroke="#8ba1c0" fill="none" opacity=".55"/>
+            <rect x="-5" y="-138" width="10" height="14" fill="#dda87f"/>
             <g transform="translate(0 -137)"><g class="gelenk kopf">
-              <circle cx="1" cy="-16" r="17" fill="#e8bd9a"/>
-              <ellipse cx="-1" cy="-29.5" rx="17.5" ry="8" fill="#b9b3ab"/>
+              <circle cx="1" cy="-16" r="17" fill="#e8bd9a" stroke="#c68f6a"/>
+              <ellipse cx="9" cy="-7.5" rx="5" ry="3.4" fill="#dd8f7c" opacity=".28"/>
+              <ellipse cx="-1" cy="-29.5" rx="17.6" ry="8.4" fill="#b9b3ab"/>
               <path d="M-15,-22 q-3,9 1,14" stroke="#b9b3ab" stroke-width="5" fill="none" stroke-linecap="round"/>
-              <circle cx="-8" cy="-14" r="3.4" fill="#dda87f"/>
+              <path d="M-11,-33 C-3,-37 8,-36 14.5,-31" fill="none" stroke="#cfcac3" stroke-width="1.8" stroke-linecap="round" opacity=".85"/>
+              <circle cx="-8" cy="-14" r="3.6" fill="#dda87f"/>
+              <path d="M-8.8,-15.4 a2,2 0 0 0 0.6,3" fill="none" stroke="#c68f6a"/>
               <g transform="translate(9.5 -17)"><g class="auge">
-              <ellipse rx="3.5" ry="3.2" fill="#fdfbf7"/>
-              <circle class="pupille" cx="1" r="1.85" fill="#3a332c"/>
-            </g></g>
-            <g transform="translate(10 -22.6)"><g class="braue">
-              <rect x="-4.6" y="-1.2" width="9.2" height="2.4" rx="1.2" style="fill:var(--braue,#7a7269)"/>
-            </g></g>
+                <ellipse rx="3.4" ry="3.1" fill="#fdfbf7" stroke="#c68f6a"/>
+                <g class="pupille">
+                  <circle cx="1" r="1.9" fill="#33302c"/>
+                  <circle cx="1.7" cy="-.8" r=".72" fill="#fff" opacity=".9"/>
+                </g>
+                <path d="M-3.6,-1.5 A3.8,3.4 0 0 1 3.6,-1.9" fill="none" stroke="#c08a63" stroke-width="1.1" stroke-linecap="round" opacity=".75"/>
+              </g></g>
+              <g transform="translate(10 -22.6)"><g class="braue">
+                <rect x="-4.6" y="-1.2" width="9.2" height="2.4" rx="1.2" style="fill:var(--braue,#7a7269)"/>
+              </g></g>
               <path d="M16,-15 q5,3 0,6" stroke="#d69f74" stroke-width="3.4" fill="none" stroke-linecap="round"/>
-              <g transform="translate(10 -5)"><g class="mund"><ellipse rx="4.8" ry="3.4" fill="#8f5a4a"/></g></g>
+              <g transform="translate(10 -5)"><g class="mund">
+                <ellipse rx="4.8" ry="3.4" fill="#8f5a4a"/>
+                <path d="M-4.6,-.4 C-1.5,1.4 1.5,1.4 4.6,-.4" fill="none" stroke="#7a4a3c" stroke-width=".9" opacity=".7"/>
+              </g></g>
             </g></g>
           </g>
           <g transform="translate(4 -118)"><g class="gelenk schulter schulter--vorn">
-            <rect x="-5.5" y="0" width="11" height="28" rx="5.5" fill="#b7c7dd"/>
+            <path d="M-6.8,0 C-7.2,10 -6.2,20 -5.6,27 L5.6,27 C6.2,20 7.2,10 6.8,0 Z" fill="#a9bcd6" stroke="#8ba1c0"/>
             <g transform="translate(0 26)"><g class="gelenk ellbogen ellbogen--vorn">
-              <rect x="-5" y="0" width="10" height="24" rx="5" fill="#b7c7dd"/>
-              <circle cx="0" cy="26" r="7.5" fill="#e8bd9a"/>
+              <path d="M-5.6,0 C-5.8,8 -5.2,16 -4.8,22 L4.8,22 C5.2,16 5.8,8 5.6,0 Z" fill="#a9bcd6" stroke="#8ba1c0"/>
+              <path d="M-5.1,18 L5.1,18" stroke="#8ba1c0" opacity=".7"/>
+              <g transform="translate(0 21)">
+                <path d="M0,0 C4.9,0 7.5,2.7 7.5,6.3 C7.5,10 4.9,12.2 0,12.2 C-4.9,12.2 -7.5,10 -7.5,6.3 C-7.5,2.7 -4.9,0 0,0 Z" fill="#e8bd9a" stroke="#c68f6a"/>
+                <path d="M5.2,2.6 C8.3,3.2 8.7,6.2 6.4,7.2" fill="none" stroke="#c68f6a" stroke-linecap="round"/>
+              </g>
             </g></g>
           </g></g>
         </g>
@@ -1134,63 +1256,87 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
       <!-- Die Aerztin oder der Arzt mit dem Schallkopf -->
       <g transform="translate(700 700) scale(-1.75 1.75)">
         <g class="figur arzt steher">
-          <ellipse class="schatten" cx="4" cy="3" rx="28" ry="6.5"/>
+          <ellipse class="schatten" cx="4" cy="2" rx="27" ry="6.5"/>
           <g transform="translate(-3 -80)"><g class="gelenk huefte huefte--hint">
-            <rect x="-7" y="0" width="14" height="43" rx="7" fill="#3b4460"/>
+            <path d="M-8.4,0 C-8.8,14 -8,30 -7,43 L7,43 C8,30 8.8,14 8.4,0 Z" fill="#333c53" stroke="#333c53"/>
             <g transform="translate(0 42)"><g class="gelenk knie knie--hint">
-              <rect x="-6.5" y="0" width="13" height="40" rx="6.5" fill="#3b4460"/>
-              <g transform="translate(0 38)"><g class="gelenk fuss fuss--hint">
-                <ellipse cx="3" cy="1" rx="12" ry="6" fill="#2b3040"/>
+              <path d="M-7,0 C-7.4,12 -6.4,28 -5.6,38 L5.6,38 C6.4,28 7.4,12 7,0 Z" fill="#333c53" stroke="#333c53"/>
+              <g transform="translate(0 37)"><g class="gelenk fuss fuss--hint">
+                <path d="M-6,-2.5 C-7.6,3 -7,9.5 -3.4,9.5 L12,9.5 C15.6,9.5 16.4,5.6 13.4,3.6 C10,1.6 7,-0.6 5.2,-2.5 Z" fill="#232833" stroke="#232833"/>
+                <path d="M-6.6,7.2 L14.4,7.2" stroke="#232833" opacity=".75"/>
               </g></g>
             </g></g>
           </g></g>
           <g transform="translate(3 -80)"><g class="gelenk huefte huefte--vorn">
-            <rect x="-7" y="0" width="14" height="43" rx="7" fill="#45506b"/>
+            <path d="M-8.4,0 C-8.8,14 -8,30 -7,43 L7,43 C8,30 8.8,14 8.4,0 Z" fill="#45506b" stroke="#333c53"/>
             <g transform="translate(0 42)"><g class="gelenk knie knie--vorn">
-              <rect x="-6.5" y="0" width="13" height="40" rx="6.5" fill="#45506b"/>
-              <g transform="translate(0 38)"><g class="gelenk fuss fuss--vorn">
-                <ellipse cx="3" cy="1" rx="12" ry="6" fill="#333a4c"/>
+              <path d="M-7,0 C-7.4,12 -6.4,28 -5.6,38 L5.6,38 C6.4,28 7.4,12 7,0 Z" fill="#45506b" stroke="#333c53"/>
+              <g transform="translate(0 37)"><g class="gelenk fuss fuss--vorn">
+                <path d="M-6,-2.5 C-7.6,3 -7,9.5 -3.4,9.5 L12,9.5 C15.6,9.5 16.4,5.6 13.4,3.6 C10,1.6 7,-0.6 5.2,-2.5 Z" fill="#2f3440" stroke="#232833"/>
+                <path d="M-6.6,7.2 L14.4,7.2" stroke="#232833" opacity=".75"/>
               </g></g>
             </g></g>
           </g></g>
           <g transform="translate(-4 -118)"><g class="gelenk schulter schulter--hint">
-            <rect x="-5.5" y="0" width="11" height="28" rx="5.5" fill="#eaeae6"/>
+            <path d="M-6.8,0 C-7.2,10 -6.2,20 -5.6,27 L5.6,27 C6.2,20 7.2,10 6.8,0 Z" fill="#eaeae6" stroke="#d2d2ca"/>
             <g transform="translate(0 26)"><g class="gelenk ellbogen ellbogen--hint">
-              <rect x="-5" y="0" width="10" height="24" rx="5" fill="#eaeae6"/>
-              <circle cx="0" cy="26" r="7.5" fill="#e7b990"/>
+              <path d="M-5.6,0 C-5.8,8 -5.2,16 -4.8,22 L4.8,22 C5.2,16 5.8,8 5.6,0 Z" fill="#eaeae6" stroke="#d2d2ca"/>
+              <path d="M-5.1,18 L5.1,18" stroke="#d2d2ca" opacity=".7"/>
+              <g transform="translate(0 21)">
+                <path d="M0,0 C4.9,0 7.5,2.7 7.5,6.3 C7.5,10 4.9,12.2 0,12.2 C-4.9,12.2 -7.5,10 -7.5,6.3 C-7.5,2.7 -4.9,0 0,0 Z" fill="#eec3a2" stroke="#cb9a75"/>
+                <path d="M5.2,2.6 C8.3,3.2 8.7,6.2 6.4,7.2" fill="none" stroke="#cb9a75" stroke-linecap="round"/>
+              </g>
             </g></g>
           </g></g>
           <g class="rumpf">
-            <rect x="-23" y="-128" width="46" height="86" rx="13" fill="#f7f7f5" stroke="#dedeD6" stroke-width="2"/>
-            <path d="M-9,-128 L0,-112 L9,-128" fill="#c9d3e0"/>
-            <path d="M-11,-126 q-2,24 -9,32 M11,-126 q2,24 9,32" stroke="#3a4351" stroke-width="3.4" fill="none" stroke-linecap="round"/>
-            <circle cx="21" cy="-92" r="4.5" fill="#3a4351"/>
-            <rect x="-19" y="-92" width="15" height="6" rx="2" fill="#dfe6ef"/>
-            <path d="M-20,-74 h15 v13 h-15 z" fill="none" stroke="#dcdcd4" stroke-width="2"/>
-            <rect x="-5" y="-139" width="10" height="13" fill="#e7b990"/>
-            <g transform="translate(0 -139)"><g class="gelenk kopf">
-              <circle cx="1" cy="-16" r="17" fill="#eec3a2"/>
-              <path d="M-16,-20 q1,-16 17,-16 q16,0 17,16 q-6,-8 -17,-7 q-11,1 -17,7 z" fill="#4a3728"/>
-              <circle cx="-8" cy="-14" r="3.4" fill="#e7b990"/>
+            <path d="M-21,-128 C-15,-133 15,-133 21,-128 C24,-112 24,-78 22,-46 C9,-41 -9,-41 -22,-46 C-24,-78 -24,-112 -21,-128 Z" fill="#f7f7f5" stroke="#d2d2ca"/>
+            <path d="M-9.5,-129 L1,-112 L11.5,-129" fill="#c9d3e0" stroke="#d2d2ca"/>
+            <path d="M-11,-126 C-13,-104 -18,-94 -21,-89 M11,-126 C13,-104 18,-94 21,-89" stroke="#3a4351" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+            <circle cx="21" cy="-87" r="4.6" fill="#3a4351"/>
+            <path d="M2.6,-112 C3.4,-92 3.6,-70 3,-45" stroke="#d2d2ca" fill="none" opacity=".9"/>
+            <circle cx="3" cy="-96" r="1.9" fill="#e6e6e0" stroke="#d2d2ca"/>
+            <circle cx="3.2" cy="-78" r="1.9" fill="#e6e6e0" stroke="#d2d2ca"/>
+            <path d="M-20,-72 h14 v13 h-14 z" fill="none" stroke="#d2d2ca"/>
+            <rect x="-18" y="-92" width="14" height="5.6" rx="2" fill="#dfe6ef" stroke="#d2d2ca"/>
+            <rect x="-5" y="-140" width="10" height="14" fill="#e7b990"/>
+            <g transform="translate(0 -137)"><g class="gelenk kopf">
+              <circle cx="1" cy="-16" r="17" fill="#eec3a2" stroke="#cb9a75"/>
+              <ellipse cx="9" cy="-7.5" rx="5" ry="3.4" fill="#dd8f7c" opacity=".28"/>
+              <path d="M-16.5,-20 C-16,-36 -8,-41 1,-41 C10,-41 17.5,-36 18,-20 C12,-28 4,-27.5 -2,-26 C-8,-24.5 -13,-23 -16.5,-20 Z" fill="#4a3728"/>
+              <path d="M-9,-36 C-3,-39 7,-38.5 13,-34" fill="none" stroke="#5e4634" stroke-width="1.8" stroke-linecap="round" opacity=".9"/>
+              <circle cx="-8" cy="-14" r="3.6" fill="#e7b990"/>
+              <path d="M-8.8,-15.4 a2,2 0 0 0 0.6,3" fill="none" stroke="#cb9a75"/>
               <g transform="translate(9.5 -17)"><g class="auge">
-              <ellipse rx="3.5" ry="3.2" fill="#fdfbf7"/>
-              <circle class="pupille" cx="1" r="1.85" fill="#3a332c"/>
-            </g></g>
-            <g transform="translate(10 -22.6)"><g class="braue">
-              <rect x="-4.6" y="-1.2" width="9.2" height="2.4" rx="1.2" style="fill:var(--braue,#7a7269)"/>
-            </g></g>
+                <ellipse rx="3.4" ry="3.1" fill="#fdfbf7" stroke="#cb9a75"/>
+                <g class="pupille">
+                  <circle cx="1" r="1.9" fill="#33302c"/>
+                  <circle cx="1.7" cy="-.8" r=".72" fill="#fff" opacity=".9"/>
+                </g>
+                <path d="M-3.6,-1.5 A3.8,3.4 0 0 1 3.6,-1.9" fill="none" stroke="#c08f68" stroke-width="1.1" stroke-linecap="round" opacity=".75"/>
+              </g></g>
+              <g transform="translate(10 -22.6)"><g class="braue">
+                <rect x="-4.6" y="-1.2" width="9.2" height="2.4" rx="1.2" style="fill:var(--braue,#7a7269)"/>
+              </g></g>
               <path d="M16,-15 q5,3 0,6" stroke="#d9a87d" stroke-width="3.4" fill="none" stroke-linecap="round"/>
-              <g transform="translate(10 -5)"><g class="mund"><ellipse rx="4.6" ry="3.2" fill="#8f5a4a"/></g></g>
+              <g transform="translate(10 -5)"><g class="mund">
+                <ellipse rx="4.8" ry="3.4" fill="#8f5a4a"/>
+                <path d="M-4.6,-.4 C-1.5,1.4 1.5,1.4 4.6,-.4" fill="none" stroke="#7a4a3c" stroke-width=".9" opacity=".7"/>
+              </g></g>
             </g></g>
           </g>
           <g transform="translate(4 -118)"><g class="gelenk schulter schulter--vorn">
-            <rect x="-5.5" y="0" width="11" height="28" rx="5.5" fill="#f4f4f1"/>
+            <path d="M-6.8,0 C-7.2,10 -6.2,20 -5.6,27 L5.6,27 C6.2,20 7.2,10 6.8,0 Z" fill="#f4f4f1" stroke="#d2d2ca"/>
             <g transform="translate(0 26)"><g class="gelenk ellbogen ellbogen--vorn">
-              <rect x="-5" y="0" width="10" height="24" rx="5" fill="#f4f4f1"/>
-              <circle cx="0" cy="26" r="7.5" fill="#eec3a2"/>
-              <g transform="translate(0 26) rotate(146)">
-                <rect x="-6" y="2" width="12" height="18" rx="4" fill="#e4e8e6" stroke="#b9beba" stroke-width="2"/>
-                <path d="M0,2 q-14,-8 -22,-2" stroke="#b9beba" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <path d="M-5.6,0 C-5.8,8 -5.2,16 -4.8,22 L4.8,22 C5.2,16 5.8,8 5.6,0 Z" fill="#f4f4f1" stroke="#d2d2ca"/>
+              <path d="M-5.1,18 L5.1,18" stroke="#d2d2ca" opacity=".7"/>
+              <g transform="translate(0 21)">
+                <path d="M0,0 C4.9,0 7.5,2.7 7.5,6.3 C7.5,10 4.9,12.2 0,12.2 C-4.9,12.2 -7.5,10 -7.5,6.3 C-7.5,2.7 -4.9,0 0,0 Z" fill="#eec3a2" stroke="#cb9a75"/>
+                <path d="M5.2,2.6 C8.3,3.2 8.7,6.2 6.4,7.2" fill="none" stroke="#cb9a75" stroke-linecap="round"/>
+                <g transform="translate(0 6) rotate(146)">
+                  <rect x="-6.5" y="2" width="13" height="19" rx="5" fill="#e4e8e6" stroke="#b0b5b1"/>
+                  <rect x="-4" y="18" width="8" height="4" rx="1.5" fill="#8f9691"/>
+                  <path d="M0,2 C-9,-3 -18,-2 -24,3" fill="none" stroke="#b0b5b1" stroke-width="2.6" stroke-linecap="round"/>
+                </g>
               </g>
             </g></g>
           </g></g>
@@ -1223,7 +1369,8 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
         </div>
         <div class="zeile" style="--d:2.85s">
           <dt>Die Folge</dt>
-          <dd>Wir m&uuml;ssen die Vorsorgetermine &uuml;ber das ganze Jahr verteilen. Daher die lange Wartezeit &#8211; nicht aus Unlust.</dd>
+          <dd>Wir m&uuml;ssen die Vorsorgetermine &uuml;ber das ganze Jahr verteilen. Auf einen Termin zur
+            <strong>GKV&#8209;Vorsorge warten Sie derzeit rund neun Monate</strong> &#8211; nicht aus Unlust.</dd>
         </div>
         <div class="zeile zeile--gut" style="--d:4.1s">
           <dt>Unver&auml;ndert</dt>

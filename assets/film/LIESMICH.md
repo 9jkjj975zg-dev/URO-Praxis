@@ -19,7 +19,7 @@ Der Film dauert 1:59 Minuten.
 | 0:00 | Titel |
 | 0:05 | Herr M. geht zur Praxis, eine andere Patientin verlaesst sie gerade |
 | 0:13 | Anmeldung: er bittet um einen Vorsorgetermin |
-| 0:28 | Der Kalender blaettert neun Monate weiter |
+| 0:28 | Der Kalender zaehlt neun Monate hoch (bewusst ohne Monatsnamen, damit der Film das ganze Jahr ueber stimmt) |
 | 0:44 | Die MFA erklaert das Spargesetz, dazu ein Schaubild |
 | 1:07 | Sprechzimmer: an der Untersuchung selbst aendert sich nichts |
 | 1:19 | Texttafel: was sich geaendert hat |
@@ -38,12 +38,12 @@ alle Figuren, atmen und verlagern langsam ihr Gewicht.
 ## Musik
 
 Die Musik ist nicht eingekauft, sondern in `musik-erzeugen.js` ausgerechnet:
-108 Schlaege je Minute, eine laufende Achtelfigur auf einem weichen
-Zupfklang, ruhiger Bass, dazu Schuettelei und ein leiser Schlag auf 1 und 3.
-Damit gibt es weder Lizenzgebuehren noch eine GEMA-Anmeldung. Der Verlauf
-folgt den Szenen – freundlich am Anfang, ernster beim Kalender, beim
-Spargesetz und beim rechtlichen Hinweis ohne Percussion und in Vierteln,
-waermer im Sprechzimmer, ruhig zum Schluss.
+124 Schlaege je Minute, Bassdrum auf 1 und 3, Klatschen auf 2 und 4,
+Hi-Hat auf den Achteln, ein laufender Bass und Akkordtupfer auf den
+Nachschlaegen. Damit gibt es weder Lizenzgebuehren noch eine GEMA-Anmeldung.
+Der Verlauf folgt den Szenen: freundlich am Anfang, ernster beim Kalender,
+beim Spargesetz und beim rechtlichen Hinweis ohne Schlagzeug, waermer im
+Sprechzimmer, ruhig zum Schluss.
 
 Das Tempo steht als `BPM` ganz oben in der Datei; wer es flotter oder
 ruhiger mag, aendert nur diese Zahl.
