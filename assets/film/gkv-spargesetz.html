@@ -132,10 +132,10 @@ body {
 @keyframes wippen    { 0%,50%,100% { transform: translateY(0); }
                        25%,75% { transform: translateY(-2.5px); } }
 
-@keyframes gehen     { from { transform: translateX(-180px); } to { transform: translateX(680px); } }
-@keyframes eintreten { 0% { transform: translateX(680px) scale(1); opacity: 1; }
-                       55% { transform: translateX(790px) scale(.94); opacity: 1; }
-                       100% { transform: translateX(866px) scale(.84); opacity: 0; } }
+@keyframes gehen     { from { transform: translateX(-220px); } to { transform: translateX(640px); } }
+@keyframes eintreten { 0% { transform: translateX(640px) scale(1); opacity: 1; }
+                       55% { transform: translateX(716px) scale(.94); opacity: 1; }
+                       100% { transform: translateX(772px) scale(.84); opacity: 0; } }
 
 /* Der Gang. eintreten darf NICHT rueckwaerts fuellen, sonst stuende die
    Figur von Anfang an vor der Tuer und bewegte nur die Beine.           */
@@ -218,17 +218,17 @@ body {
 [data-spricht="arzt"]    .sichtbar .arzt .kopf { animation: nicken 3.5s ease-in-out infinite; }
 
 /* --- Die MFA am Tresen: tippen, dann auf das Schaubild zeigen ---------- */
-.mfa .schulter--tipp { transform: rotate(55deg); }
-.mfa .ellbogen--tipp { transform: rotate(30deg); }
-@keyframes tippen     { 0%,100% { transform: rotate(24deg); } 50% { transform: rotate(38deg); } }
-@keyframes zeigen     { from { transform: rotate(55deg); } to { transform: rotate(96deg); } }
-@keyframes zeigen-arm { from { transform: rotate(30deg); } to { transform: rotate(4deg); } }
+.mfa .schulter--tipp { transform: rotate(68deg); }
+.mfa .ellbogen--tipp { transform: rotate(32deg); }
+@keyframes tippen     { 0%,100% { transform: rotate(26deg); } 50% { transform: rotate(39deg); } }
+@keyframes zeigen     { from { transform: rotate(68deg); } to { transform: rotate(104deg); } }
+@keyframes zeigen-arm { from { transform: rotate(32deg); } to { transform: rotate(8deg); } }
 [data-szene="anmeldung"] .mfa .ellbogen--tipp,
 [data-szene="termin"]    .mfa .ellbogen--tipp { animation: tippen .5s ease-in-out infinite; }
-@keyframes mfa-geste     { 0%,100% { transform: rotate(56deg); } 30% { transform: rotate(67deg); }
-                           58% { transform: rotate(59deg); } 80% { transform: rotate(65deg); } }
-@keyframes mfa-geste-arm { 0%,100% { transform: rotate(28deg); } 30% { transform: rotate(41deg); }
-                           58% { transform: rotate(31deg); } 80% { transform: rotate(38deg); } }
+@keyframes mfa-geste     { 0%,100% { transform: rotate(68deg); } 30% { transform: rotate(79deg); }
+                           58% { transform: rotate(71deg); } 80% { transform: rotate(77deg); } }
+@keyframes mfa-geste-arm { 0%,100% { transform: rotate(30deg); } 30% { transform: rotate(43deg); }
+                           58% { transform: rotate(33deg); } 80% { transform: rotate(40deg); } }
 [data-spricht="mfa"] .mfa .schulter--tipp { animation: mfa-geste 3.4s ease-in-out infinite; }
 [data-spricht="mfa"] .mfa .ellbogen--tipp { animation: mfa-geste-arm 3.4s ease-in-out infinite; }
 
@@ -260,8 +260,8 @@ body {
 .liegend .ellbogen--vorn { transform: rotate(12deg); }
 
 /* --- Sprechzimmer: die Hand mit dem Schallkopf wandert ----------------- */
-@keyframes schallen     { 0%,100% { transform: rotate(-88deg); } 50% { transform: rotate(-94deg); } }
-@keyframes schallen-arm { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(-2deg); } }
+@keyframes schallen     { 0%,100% { transform: rotate(-67deg); } 50% { transform: rotate(-73deg); } }
+@keyframes schallen-arm { 0%,100% { transform: rotate(-73deg); } 50% { transform: rotate(-79deg); } }
 [data-szene="sprechzimmer"] .arzt .schulter--vorn { animation: schallen 3.4s ease-in-out infinite; }
 [data-szene="sprechzimmer"] .arzt .ellbogen--vorn { animation: schallen-arm 3.4s ease-in-out infinite; }
 @keyframes arzt-geste     { 0%,100% { transform: rotate(6deg); } 28% { transform: rotate(31deg); }
@@ -270,15 +270,8 @@ body {
                             55% { transform: rotate(16deg); } 78% { transform: rotate(30deg); } }
 [data-spricht="arzt"] .arzt .schulter--hint { animation: arzt-geste 3.2s ease-in-out infinite; }
 [data-spricht="arzt"] .arzt .ellbogen--hint { animation: arzt-geste-arm 3.2s ease-in-out infinite; }
-.arzt .schulter--vorn { transform: rotate(-91deg); }
-.arzt .ellbogen--vorn { transform: rotate(-5deg); }
-
-/* --- Kamera: kaum merklich naeher heran, im Sprechzimmer wieder zurueck */
-@keyframes kamera-rein { from { transform: scale(1); } to { transform: scale(1.04); } }
-@keyframes kamera-raus { from { transform: scale(1.045); } to { transform: scale(1); } }
-.kulisse-aussen.sichtbar       { transform-origin: 700px 400px; animation: kamera-rein 8.2s linear both; }
-.kulisse-sprechzimmer.sichtbar { transform-origin: 640px 480px; animation: kamera-raus 12.2s linear both; }
-.kulisse-aussen, .kulisse-sprechzimmer { transform-box: view-box; }
+.arzt .schulter--vorn { transform: rotate(-70deg); }
+.arzt .ellbogen--vorn { transform: rotate(-76deg); }
 
 /* --- Leben im Hintergrund --------------------------------------------- */
 @keyframes tuer-auf   { 0% { transform: scaleX(1); } 100% { transform: scaleX(.12); } }
@@ -339,14 +332,14 @@ body {
    ======================================================================= */
 .blase {
   position: absolute;
-  max-width: 19em;
-  padding: .75em 1em;
-  border-radius: 1em;
+  max-width: 17em;
+  padding: .85em 1.15em;
+  border-radius: 1.5em;
   background: #fff;
   color: var(--text);
   font-size: 1.18em;
-  border: .11em solid var(--rand);
-  box-shadow: 0 .5em 1.6em rgba(15,20,35,.22);
+  border: .14em solid var(--rand);
+  box-shadow: 0 .6em 1.8em rgba(15,20,35,.26);
   opacity: 0;
   transform: translateY(.7em) scale(.94);
   transition: opacity .3s ease, transform .3s cubic-bezier(.34,1.4,.64,1);
@@ -355,18 +348,19 @@ body {
 .blase::after {
   content: "";
   position: absolute;
-  bottom: -.72em;
+  bottom: -1.02em;
   width: 0; height: 0;
-  border: .75em solid transparent;
+  border: 1.1em solid transparent;
+  border-bottom: 0;
   border-top-color: #fff;
-  filter: drop-shadow(0 .12em 0 var(--rand));
+  filter: drop-shadow(0 .14em 0 var(--rand));
 }
-.blase--patient { left: 5%;  top: 12%; max-width: 16.5em; }
-.blase--patient::after { right: 2.4em; }
-.blase--arzt    { left: 48%; top: 5%; background: #f6f5f1; border-color: #d9d4c6; }
-.blase--arzt::after { right: auto; left: 3.4em; border-top-color: #f6f5f1; filter: drop-shadow(0 .12em 0 #d9d4c6); }
-.blase--mfa     { right: 4%; top: 5%; background: #f3f7f5; border-color: #c8d9d1; }
-.blase--mfa::after { right: 6em; border-top-color: #f3f7f5; filter: drop-shadow(0 .12em 0 #c8d9d1); }
+.blase--patient { left: 7%;  top: 30%; max-width: 15.5em; }
+.blase--patient::after { right: 1.4em; }
+.blase--arzt    { left: 46%; top: 30%; background: #f6f5f1; border-color: #d9d4c6; }
+.blase--arzt::after { right: auto; left: 5.5em; border-top-color: #f6f5f1; filter: drop-shadow(0 .14em 0 #d9d4c6); }
+.blase--mfa     { right: 8%; top: 30%; max-width: 15em; background: #f3f7f5; border-color: #c8d9d1; }
+.blase--mfa::after { right: 4em; border-top-color: #f3f7f5; filter: drop-shadow(0 .14em 0 #c8d9d1); }
 .blase b { color: var(--navy); font-weight: 600; }
 
 .untertitel {
@@ -488,11 +482,15 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
       <linearGradient id="wand2" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0" stop-color="#eaeee9"/><stop offset="1" stop-color="#d9dfd9"/>
       </linearGradient>
-      <clipPath id="schirm"><rect x="112" y="316" width="158" height="118" rx="3"/></clipPath>
+      <clipPath id="schirm"><rect x="100" y="278" width="178" height="134" rx="3"/></clipPath>
       <pattern id="schraffur" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
         <rect width="10" height="10" fill="#f3ece9"/>
         <line x1="0" y1="0" x2="0" y2="10" stroke="#a33b32" stroke-width="3.4" stroke-opacity=".45"/>
       </pattern>
+      <marker id="pfeilspitze" viewBox="0 0 12 12" refX="10.5" refY="6"
+              markerWidth="5" markerHeight="5" orient="auto">
+        <path d="M0,0 L12,6 L0,12 L3.5,6 Z" fill="#a33b32"/>
+      </marker>
       <filter id="schatten" x="-20%" y="-20%" width="140%" height="150%">
         <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#0e1526" flood-opacity=".35"/>
       </filter>
@@ -589,7 +587,7 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
       </g>
 
       <!-- Eine andere Patientin geht nach dem Termin nach rechts davon -->
-      <g transform="translate(760 596) scale(1.05)">
+      <g transform="translate(700 590) scale(1.15)">
         <g class="geherin">
           <g class="figur gang">
             <ellipse class="schatten" cx="3" cy="2" rx="26" ry="6"/>
@@ -649,7 +647,7 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
       </g>
 
       <!-- Der Patient auf dem Weg -->
-      <g transform="translate(0 604) scale(1.15)">
+      <g transform="translate(0 600) scale(1.3)">
         <g class="geher">
           <g class="figur patient gang">
         <ellipse class="schatten" cx="3" cy="2" rx="26" ry="6"/>
@@ -718,27 +716,27 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
          (bleibt fuer die Szenen Anmeldung, Termin und Erklaerung stehen)
          =================================================================== -->
     <g data-sicht="anmeldung termin gesetz">
-      <rect width="1280" height="600" fill="url(#wand)"/>
-      <rect y="586" width="1280" height="16" fill="#d5cfc4"/>
-      <rect y="600" width="1280" height="120" fill="#c9c2b6"/>
+      <rect width="1280" height="560" fill="url(#wand)"/>
+      <rect y="546" width="1280" height="14" fill="#d5cfc4"/>
+      <rect y="560" width="1280" height="160" fill="#c9c2b6"/>
       <g stroke="#bdb5a8" stroke-width="3" opacity=".7">
-        <line x1="0" y1="640" x2="1280" y2="640"/>
-        <line x1="120" y1="600" x2="40" y2="720"/><line x1="420" y1="600" x2="380" y2="720"/>
-        <line x1="720" y1="600" x2="720" y2="720"/><line x1="1020" y1="600" x2="1060" y2="720"/>
+        <line x1="0" y1="608" x2="1280" y2="608"/>
+        <line x1="110" y1="560" x2="20" y2="720"/><line x1="410" y1="560" x2="366" y2="720"/>
+        <line x1="700" y1="560" x2="700" y2="720"/>
       </g>
 
       <!-- Bild an der Wand -->
-      <rect x="86" y="196" width="168" height="132" rx="4" fill="#fff" stroke="#bab2a2" stroke-width="5"/>
-      <rect x="102" y="212" width="136" height="100" fill="#dbe4ea"/>
-      <path d="M102,312 L150,260 L186,296 L214,270 L238,312 Z" fill="#9ab08a"/>
-      <circle cx="130" cy="238" r="14" fill="#f0e2bc"/>
+      <rect x="424" y="132" width="176" height="140" rx="4" fill="#fff" stroke="#bab2a2" stroke-width="5"/>
+      <rect x="441" y="149" width="142" height="106" fill="#dbe4ea"/>
+      <path d="M441,255 L492,200 L530,238 L560,210 L583,255 Z" fill="#9ab08a"/>
+      <circle cx="470" cy="176" r="15" fill="#f0e2bc"/>
       <g>
-        <circle cx="700" cy="196" r="46" fill="#fff" stroke="#bab2a2" stroke-width="6"/>
-        <circle cx="700" cy="196" r="3.5" fill="#1b2a4e"/>
-        <line x1="700" y1="196" x2="700" y2="166" stroke="#1b2a4e" stroke-width="5" stroke-linecap="round"/>
-        <line x1="700" y1="196" x2="724" y2="206" stroke="#1b2a4e" stroke-width="4" stroke-linecap="round"/>
-        <g transform="translate(700 196)"><g class="zeiger">
-          <line x1="0" y1="0" x2="0" y2="-34" stroke="#a33b32" stroke-width="2.4" stroke-linecap="round"/>
+        <circle cx="732" cy="176" r="48" fill="#fff" stroke="#bab2a2" stroke-width="6"/>
+        <circle cx="732" cy="176" r="3.5" fill="#1b2a4e"/>
+        <line x1="732" y1="176" x2="732" y2="144" stroke="#1b2a4e" stroke-width="5" stroke-linecap="round"/>
+        <line x1="732" y1="176" x2="757" y2="187" stroke="#1b2a4e" stroke-width="4" stroke-linecap="round"/>
+        <g transform="translate(732 176)"><g class="zeiger">
+          <line x1="0" y1="0" x2="0" y2="-36" stroke="#a33b32" stroke-width="2.4" stroke-linecap="round"/>
         </g></g>
       </g>
 
@@ -753,18 +751,18 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
 
       <!-- Praxislogo neben dem Schild -->
       <g>
-        <rect x="930" y="170" width="84" height="84" rx="12" fill="#fff" stroke="#bab2a2" stroke-width="3"/>
-        <use href="#logomarke" transform="translate(949 189) scale(0.84)"/>
+        <rect x="930" y="92" width="88" height="88" rx="12" fill="#fff" stroke="#bab2a2" stroke-width="3"/>
+        <use href="#logomarke" transform="translate(951 113) scale(0.84)"/>
       </g>
 
       <!-- Schild ueber der Anmeldung -->
       <g>
-        <rect x="1040" y="176" width="224" height="70" rx="8" fill="#1b2a4e"/>
-        <text x="1152" y="221" text-anchor="middle" font-family="Jost, sans-serif" font-size="26" font-weight="600" fill="#fff" letter-spacing="2">ANMELDUNG</text>
+        <rect x="1044" y="98" width="224" height="76" rx="8" fill="#1b2a4e"/>
+        <text x="1156" y="146" text-anchor="middle" font-family="Jost, sans-serif" font-size="26" font-weight="600" fill="#fff" letter-spacing="2">ANMELDUNG</text>
       </g>
 
       <!-- Die MFA hinter dem Tresen -->
-      <g transform="translate(1046 632) scale(1.5)">
+      <g transform="translate(1046 640) scale(1.8)">
         <g class="figur mfa steher">
         <g transform="translate(20 -96)"><g class="gelenk schulter schulter--hint">
           <rect x="-6.5" y="0" width="13" height="28" rx="6.5" fill="#457066"/>
@@ -806,29 +804,29 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
 
       <!-- Tresen -->
       <g>
-        <rect x="648" y="544" width="608" height="164" fill="#d8d3c8"/>
-        <rect x="674" y="566" width="556" height="116" rx="4" fill="#cfc9bc"/>
-        <rect x="648" y="684" width="608" height="24" fill="#1b2a4e" opacity=".25"/>
-        <rect x="632" y="520" width="648" height="26" rx="7" fill="#e8e3da"/>
-        <rect x="632" y="542" width="648" height="6" fill="#bab2a2" opacity=".5"/>
+        <rect x="614" y="512" width="666" height="208" fill="#d8d3c8"/>
+        <rect x="642" y="540" width="620" height="150" rx="4" fill="#cfc9bc"/>
+        <rect x="614" y="694" width="666" height="26" fill="#1b2a4e" opacity=".25"/>
+        <rect x="598" y="486" width="682" height="28" rx="8" fill="#e8e3da"/>
+        <rect x="598" y="510" width="682" height="6" fill="#bab2a2" opacity=".5"/>
       </g>
       <!-- Bildschirm und Tastatur -->
       <g>
-        <rect x="1120" y="418" width="144" height="92" rx="6" fill="#3a4351"/>
-        <rect x="1128" y="426" width="128" height="76" rx="3" fill="#8fb6cf"/>
+        <rect x="1112" y="368" width="156" height="102" rx="6" fill="#3a4351"/>
+        <rect x="1121" y="377" width="138" height="84" rx="3" fill="#8fb6cf"/>
         <g fill="#5b7f96">
-          <rect x="1138" y="436" width="72" height="6" rx="3"/>
-          <rect x="1138" y="450" width="98" height="6" rx="3"/>
-          <rect x="1138" y="464" width="58" height="6" rx="3"/>
-          <rect class="cursor" x="1200" y="462" width="8" height="10" rx="2"/>
+          <rect x="1132" y="388" width="78" height="7" rx="3.5"/>
+          <rect x="1132" y="404" width="106" height="7" rx="3.5"/>
+          <rect x="1132" y="420" width="64" height="7" rx="3.5"/>
+          <rect class="cursor" x="1204" y="418" width="9" height="11" rx="2"/>
         </g>
-        <rect x="1176" y="506" width="32" height="14" fill="#2e3644"/>
-        <rect x="1158" y="516" width="68" height="9" rx="4" fill="#3a4351"/>
-        <rect x="938" y="504" width="126" height="17" rx="4" fill="#e3ded4" stroke="#c3bcae" stroke-width="2"/>
+        <rect x="1174" y="466" width="34" height="16" fill="#2e3644"/>
+        <rect x="1154" y="478" width="74" height="10" rx="5" fill="#3a4351"/>
+        <rect x="852" y="470" width="148" height="18" rx="4" fill="#e3ded4" stroke="#c3bcae" stroke-width="2"/>
       </g>
 
       <!-- Der Patient vor dem Tresen -->
-      <g transform="translate(366 700) scale(1.6)">
+      <g transform="translate(340 700) scale(1.95)">
         <g class="figur patient patient-innen steher">
         <ellipse class="schatten" cx="4" cy="3" rx="28" ry="6.5"/>
         <g transform="translate(-3 -80)"><g class="gelenk huefte huefte--hint">
@@ -894,7 +892,7 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
          Einblendung: der Kalender mit dem Termin in neun Monaten
          =================================================================== -->
     <g data-sicht="termin">
-     <g transform="translate(-74 -10)">
+     <g transform="translate(-74 -30)">
       <g class="kalenderkarte" filter="url(#schatten)">
         <rect x="440" y="78" width="560" height="336" rx="14" fill="#fff" stroke="#dad5cc" stroke-width="2"/>
         <path d="M440,90 a12,12 0 0 1 12,-12 h536 a12,12 0 0 1 12,12 v42 h-560 z" fill="#1b2a4e"/>
@@ -940,7 +938,7 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
         </g>
       </g>
      </g>
-      <g transform="translate(278 392)">
+      <g transform="translate(248 336)">
         <g class="ausrufezeichen">
           <circle cx="0" cy="0" r="30" fill="#f3e3c4" stroke="#d8bf8e" stroke-width="3"/>
           <text x="0" y="18" text-anchor="middle" font-family="Jost, sans-serif" font-size="54" font-weight="600" fill="#a33b32">!</text>
@@ -952,7 +950,7 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
          Einblendung: Schaubild zum Spargesetz
          =================================================================== -->
     <g data-sicht="gesetz">
-     <g transform="translate(-74 -10)">
+     <g transform="translate(-74 -30)">
       <g class="schaubild" filter="url(#schatten)">
         <rect x="440" y="78" width="560" height="336" rx="14" fill="#fff" stroke="#dad5cc" stroke-width="2"/>
         <path d="M440,90 a12,12 0 0 1 12,-12 h536 a12,12 0 0 1 12,12 v42 h-560 z" fill="#1b2a4e"/>
@@ -983,8 +981,8 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
         </g>
         <g class="ueberhang-schrift">
           <text x="470" y="170" font-family="Jost, sans-serif" font-size="20" font-weight="600" fill="#a33b32">Arbeit, die nicht mehr bezahlt wird</text>
-          <path d="M760,176 q70,6 96,34" stroke="#a33b32" stroke-width="3" fill="none" stroke-linecap="round"/>
-          <path d="M856,210 l-14,-6 l4,15 z" fill="#a33b32"/>
+          <path d="M752,178 C812,186 838,196 856,214" stroke="#a33b32" stroke-width="3"
+                fill="none" stroke-linecap="round" marker-end="url(#pfeilspitze)"/>
         </g>
         <text x="560" y="402" font-family="Jost, sans-serif" font-size="18" fill="#6b6459">Vorsorge&#8209;Untersuchungen im Lauf des Quartals</text>
       </g>
@@ -995,62 +993,62 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
          Szene: Sprechzimmer – die Untersuchung selbst bleibt, wie sie war
          =================================================================== -->
     <g class="kulisse-sprechzimmer" data-sicht="sprechzimmer">
-      <rect width="1280" height="610" fill="url(#wand2)"/>
-      <rect y="596" width="1280" height="14" fill="#d3d8d2"/>
-      <rect y="610" width="1280" height="110" fill="#c6c9c0"/>
+      <rect width="1280" height="580" fill="url(#wand2)"/>
+      <rect y="566" width="1280" height="14" fill="#d3d8d2"/>
+      <rect y="580" width="1280" height="140" fill="#c6c9c0"/>
       <g stroke="#b6bab1" stroke-width="3" opacity=".7">
-        <line x1="0" y1="648" x2="1280" y2="648"/>
-        <line x1="180" y1="610" x2="120" y2="720"/><line x1="900" y1="610" x2="940" y2="720"/>
+        <line x1="0" y1="626" x2="1280" y2="626"/>
+        <line x1="170" y1="580" x2="100" y2="720"/><line x1="1010" y1="580" x2="1060" y2="720"/>
       </g>
 
       <!-- Urkunde an der Wand -->
       <g>
-        <rect x="958" y="176" width="170" height="124" rx="4" fill="#fff" stroke="#bab2a2" stroke-width="5"/>
+        <rect x="988" y="140" width="182" height="132" rx="4" fill="#fff" stroke="#bab2a2" stroke-width="5"/>
         <g fill="#cfc9bc">
-          <rect x="984" y="206" width="118" height="7" rx="3.5"/>
-          <rect x="984" y="224" width="90" height="7" rx="3.5"/>
-          <rect x="984" y="242" width="106" height="7" rx="3.5"/>
+          <rect x="1016" y="172" width="126" height="7" rx="3.5"/>
+          <rect x="1016" y="192" width="96" height="7" rx="3.5"/>
+          <rect x="1016" y="212" width="114" height="7" rx="3.5"/>
         </g>
-        <circle cx="1090" cy="272" r="12" fill="#bab2a2"/>
+        <circle cx="1130" cy="244" r="13" fill="#bab2a2"/>
       </g>
 
       <!-- Sideboard mit Pflanze -->
       <g>
-        <rect x="906" y="500" width="330" height="150" rx="4" fill="#d8d3c8"/>
-        <rect x="898" y="488" width="346" height="14" rx="5" fill="#e8e3da"/>
-        <line x1="1071" y1="502" x2="1071" y2="650" stroke="#c3bcae" stroke-width="3"/>
+        <rect x="936" y="470" width="330" height="196" rx="4" fill="#d8d3c8"/>
+        <rect x="928" y="456" width="346" height="16" rx="5" fill="#e8e3da"/>
+        <line x1="1101" y1="472" x2="1101" y2="666" stroke="#c3bcae" stroke-width="3"/>
         <g>
-          <path d="M1180,486 q-34,-30 -40,-72 q31,12 40,72" fill="#7e996f"/>
-          <path d="M1183,488 q30,-34 71,-39 q-18,33 -71,39" fill="#8ea77f"/>
-          <path d="M1181,488 q-6,-43 18,-71 q16,37 -18,71" fill="#9ab08a"/>
-          <path d="M1156,488 h54 l-8,54 h-38 z" fill="#a8836a"/>
+          <path d="M1210,454 q-36,-32 -42,-76 q33,13 42,76" fill="#7e996f"/>
+          <path d="M1213,456 q32,-36 75,-41 q-19,35 -75,41" fill="#8ea77f"/>
+          <path d="M1211,456 q-6,-45 19,-75 q17,39 -19,75" fill="#9ab08a"/>
+          <path d="M1185,456 h57 l-9,57 h-40 z" fill="#a8836a"/>
         </g>
       </g>
 
       <!-- Ultraschallgeraet -->
       <g>
-        <rect x="110" y="452" width="160" height="178" rx="8" fill="#dfe3e0" stroke="#c9cec9" stroke-width="3"/>
-        <rect x="120" y="440" width="140" height="16" rx="5" fill="#eef1ee" stroke="#c9cec9" stroke-width="2"/>
-        <circle cx="134" cy="636" r="10" fill="#6d6a63"/><circle cx="246" cy="636" r="10" fill="#6d6a63"/>
-        <rect x="96" y="300" width="190" height="150" rx="8" fill="#2b3340"/>
-        <rect x="112" y="316" width="158" height="118" rx="3" fill="#0d141c"/>
+        <rect x="96" y="430" width="186" height="204" rx="8" fill="#dfe3e0" stroke="#c9cec9" stroke-width="3"/>
+        <rect x="106" y="416" width="166" height="18" rx="5" fill="#eef1ee" stroke="#c9cec9" stroke-width="2"/>
+        <circle cx="122" cy="642" r="11" fill="#6d6a63"/><circle cx="256" cy="642" r="11" fill="#6d6a63"/>
+        <rect x="84" y="262" width="210" height="166" rx="8" fill="#2b3340"/>
+        <rect x="100" y="278" width="178" height="134" rx="3" fill="#0d141c"/>
         <g clip-path="url(#schirm)">
-          <path d="M191,316 L138,434 L244,434 Z" fill="#3f5768"/>
-          <ellipse cx="184" cy="392" rx="26" ry="18" fill="#6f8ea0" opacity=".75"/>
-          <ellipse cx="200" cy="360" rx="12" ry="9" fill="#8fadbd" opacity=".6"/>
+          <path d="M189,278 L128,412 L250,412 Z" fill="#3f5768"/>
+          <ellipse cx="181" cy="364" rx="30" ry="21" fill="#6f8ea0" opacity=".75"/>
+          <ellipse cx="199" cy="328" rx="14" ry="10" fill="#8fadbd" opacity=".6"/>
           <g class="schallstrahl">
-            <path d="M191,316 L177,434 L205,434 Z" fill="#bfd8e4" opacity=".38"/>
+            <path d="M189,278 L173,412 L205,412 Z" fill="#bfd8e4" opacity=".38"/>
           </g>
         </g>
-        <rect x="120" y="462" width="60" height="8" rx="4" fill="#b9beba"/>
+        <rect x="108" y="442" width="66" height="9" rx="4.5" fill="#b9beba"/>
       </g>
 
       <!-- Rollhocker -->
       <g>
-        <ellipse cx="936" cy="596" rx="46" ry="15" fill="#4f7d70"/>
-        <rect x="930" y="596" width="12" height="72" fill="#b9beba"/>
-        <path d="M902,676 l34,-12 34,12" stroke="#b9beba" stroke-width="8" fill="none" stroke-linecap="round"/>
-        <circle cx="902" cy="678" r="7" fill="#6d6a63"/><circle cx="970" cy="678" r="7" fill="#6d6a63"/>
+        <ellipse cx="880" cy="588" rx="50" ry="16" fill="#4f7d70"/>
+        <rect x="873" y="588" width="14" height="80" fill="#b9beba"/>
+        <path d="M842,678 l38,-14 38,14" stroke="#b9beba" stroke-width="9" fill="none" stroke-linecap="round"/>
+        <circle cx="842" cy="680" r="8" fill="#6d6a63"/><circle cx="918" cy="680" r="8" fill="#6d6a63"/>
       </g>
 
       <!-- Plakat an der Wand -->
@@ -1068,15 +1066,15 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
 
       <!-- Untersuchungsliege -->
       <g>
-        <rect x="400" y="622" width="400" height="86" fill="#d5d0c6"/>
-        <rect x="400" y="700" width="400" height="10" fill="#1b2a4e" opacity=".2"/>
-        <rect x="340" y="590" width="530" height="34" rx="10" fill="#6f8f9b"/>
-        <rect x="340" y="590" width="530" height="9" rx="4" fill="#8aa7b1"/>
-        <rect x="490" y="564" width="118" height="30" rx="13" fill="#eef2f2" stroke="#d3dad9" stroke-width="2"/>
+        <rect x="370" y="580" width="470" height="126" fill="#d5d0c6"/>
+        <rect x="370" y="696" width="470" height="12" fill="#1b2a4e" opacity=".2"/>
+        <rect x="300" y="545" width="600" height="36" rx="11" fill="#6f8f9b"/>
+        <rect x="300" y="545" width="600" height="10" rx="5" fill="#8aa7b1"/>
+        <rect x="480" y="521" width="132" height="34" rx="15" fill="#eef2f2" stroke="#d3dad9" stroke-width="2"/>
       </g>
 
       <!-- Der Patient liegt auf der Liege -->
-      <g transform="matrix(0 -1.45 1.45 0 800 560)">
+      <g transform="matrix(0 -1.75 1.75 0 800 508)">
         <g class="figur patient liegend">
           <g transform="translate(-3 -80)"><g class="gelenk huefte huefte--hint">
             <rect x="-7" y="0" width="14" height="43" rx="7" fill="#333844"/>
@@ -1134,7 +1132,7 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
       </g>
 
       <!-- Die Aerztin oder der Arzt mit dem Schallkopf -->
-      <g transform="translate(790 700) scale(-1.45 1.45)">
+      <g transform="translate(700 700) scale(-1.75 1.75)">
         <g class="figur arzt steher">
           <ellipse class="schatten" cx="4" cy="3" rx="28" ry="6.5"/>
           <g transform="translate(-3 -80)"><g class="gelenk huefte huefte--hint">
@@ -1190,7 +1188,7 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
             <g transform="translate(0 26)"><g class="gelenk ellbogen ellbogen--vorn">
               <rect x="-5" y="0" width="10" height="24" rx="5" fill="#f4f4f1"/>
               <circle cx="0" cy="26" r="7.5" fill="#eec3a2"/>
-              <g transform="translate(0 26) rotate(96)">
+              <g transform="translate(0 26) rotate(146)">
                 <rect x="-6" y="2" width="12" height="18" rx="4" fill="#e4e8e6" stroke="#b9beba" stroke-width="2"/>
                 <path d="M0,2 q-14,-8 -22,-2" stroke="#b9beba" stroke-width="3" fill="none" stroke-linecap="round"/>
               </g>

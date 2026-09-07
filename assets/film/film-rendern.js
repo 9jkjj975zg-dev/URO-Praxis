@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
-   Macht aus gkv-spargesetz.html eine Videodatei (MP4, 1280x720, 25 Bilder/s).
+   Macht aus gkv-spargesetz.html eine Videodatei (MP4, 1280x720, 50 Bilder/s).
 
    Der Film wird dabei nicht "abgefilmt", sondern Bild fuer Bild gesetzt:
    setzeZeit(sekunde) im Film haelt jede Bewegung genau an der richtigen
@@ -25,7 +25,7 @@ const ZIEL    = process.argv[2] || "film.mp4";
 const ADRESSE = process.env.FILM_URL ||
   "http://127.0.0.1:8099/assets/film/gkv-spargesetz.html?pur=1&halt=1";
 const FFMPEG  = process.env.FFMPEG || "ffmpeg";
-const BILDER_PRO_SEKUNDE = 25;
+const BILDER_PRO_SEKUNDE = Number(process.env.FILM_BPS || 50);
 
 /* Liegt musik.m4a neben dem Film, wird sie unterlegt – sonst bleibt der
    Film stumm, bekommt aber eine leere Tonspur (manche Abspieler und

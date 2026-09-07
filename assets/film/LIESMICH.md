@@ -5,7 +5,7 @@
 | Datei | Wozu |
 |---|---|
 | `gkv-spargesetz.html` | Der Film selbst – Zeichnungen, Bewegungen und Texte in einer Datei. Laeuft in jedem Browser, braucht kein Internet und laedt nichts nach. |
-| `vorsorge-gkv-spargesetz.mp4` | Derselbe Film als Videodatei (1280 × 720, 1:59 Minuten, mit Musik). Zum Weitergeben per E-Mail oder Messenger, fuer PowerPoint oder den Bildschirm im Wartezimmer. |
+| `vorsorge-gkv-spargesetz.mp4` | Derselbe Film als Videodatei (1280 × 720, 50 Bilder/s, 1:59 Minuten, mit Musik). Zum Weitergeben per E-Mail oder Messenger, fuer PowerPoint oder den Bildschirm im Wartezimmer. |
 | `musik.m4a` | Die Hintergrundmusik, rund zwei Minuten. |
 | `musik-erzeugen.js` | Rechnet die Musik neu aus, wenn sie anders klingen soll. |
 | `film-rendern.js` | Erzeugt die Videodatei neu, wenn am Film etwas geaendert wurde. |
@@ -38,10 +38,15 @@ alle Figuren, atmen und verlagern langsam ihr Gewicht.
 ## Musik
 
 Die Musik ist nicht eingekauft, sondern in `musik-erzeugen.js` ausgerechnet:
-eine ruhige Flaeche mit sparsamem Glockenspiel, rund 67 Schlaege je Minute.
+108 Schlaege je Minute, eine laufende Achtelfigur auf einem weichen
+Zupfklang, ruhiger Bass, dazu Schuettelei und ein leiser Schlag auf 1 und 3.
 Damit gibt es weder Lizenzgebuehren noch eine GEMA-Anmeldung. Der Verlauf
-folgt den Szenen – freundlich am Anfang, ernster beim Kalender und beim
-Spargesetz, waermer im Sprechzimmer, ruhig zum Schluss.
+folgt den Szenen – freundlich am Anfang, ernster beim Kalender, beim
+Spargesetz und beim rechtlichen Hinweis ohne Percussion und in Vierteln,
+waermer im Sprechzimmer, ruhig zum Schluss.
+
+Das Tempo steht als `BPM` ganz oben in der Datei; wer es flotter oder
+ruhiger mag, aendert nur diese Zahl.
 
 Neu ausrechnen:
 
@@ -106,5 +111,7 @@ node assets/film/film-rendern.js assets/film/vorsorge-gkv-spargesetz.mp4
 
 Der Film wird dabei Bild fuer Bild gesetzt und nicht abgefilmt. Deshalb ist
 das Ergebnis immer gleich lang und ruckelfrei, unabhaengig vom Rechner.
+Er laeuft mit 50 Bildern je Sekunde; `FILM_BPS=25` davor macht die Datei
+kleiner, dafuer wirkt der Gang etwas harter.
 Findet `ffmpeg` sich nicht im Suchpfad, hilft
 `FFMPEG=$(node -e "console.log(require('ffmpeg-static'))")` davor.
