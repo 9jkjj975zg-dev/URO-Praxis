@@ -130,8 +130,8 @@ body {
                        100% { transform: rotate(-16deg); } }
 @keyframes schwung-a { 0%,100% { transform: rotate(20deg); } 50% { transform: rotate(-18deg); } }
 @keyframes schwung-b { 0%,100% { transform: rotate(-18deg); } 50% { transform: rotate(20deg); } }
-@keyframes beuge-a   { 0%,100% { transform: rotate(10deg); } 50% { transform: rotate(32deg); } }
-@keyframes beuge-b   { 0%,100% { transform: rotate(32deg); } 50% { transform: rotate(10deg); } }
+@keyframes beuge-a   { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(-32deg); } }
+@keyframes beuge-b   { 0%,100% { transform: rotate(-32deg); } 50% { transform: rotate(-8deg); } }
 @keyframes rumpf-gang { 0%,100% { transform: translateY(0) rotate(1.5deg); }
                         25% { transform: translateY(-2.6px) rotate(0deg); }
                         50% { transform: translateY(0) rotate(-1.5deg); }
@@ -173,9 +173,9 @@ body {
 .steher .huefte--vorn   { transform: rotate(7deg); }
 .steher .knie--vorn     { transform: rotate(-3deg); }
 .steher .schulter--hint { transform: rotate(5deg); }
-.steher .ellbogen--hint { transform: rotate(7deg); }
+.steher .ellbogen--hint { transform: rotate(-6deg); }
 .steher .schulter--vorn { transform: rotate(-5deg); }
-.steher .ellbogen--vorn { transform: rotate(9deg); }
+.steher .ellbogen--vorn { transform: rotate(-8deg); }
 @keyframes wiegen { from { transform: rotate(-1.2deg); } to { transform: rotate(1.5deg); } }
 .sichtbar .baum { transform-box: view-box; transform-origin: 0px 0px; animation: wiegen 6.5s ease-in-out infinite alternate; }
 .sichtbar .steher        { animation: gewicht 11s ease-in-out infinite; }
@@ -209,8 +209,8 @@ body {
 /* Wer spricht, redet auch mit den Haenden */
 @keyframes gestik      { 0%,100% { transform: rotate(-6deg); } 22% { transform: rotate(-31deg); }
                          46% { transform: rotate(-13deg); } 70% { transform: rotate(-35deg); } }
-@keyframes gestik-arm  { 0%,100% { transform: rotate(10deg); } 22% { transform: rotate(-27deg); }
-                         46% { transform: rotate(-4deg); } 70% { transform: rotate(-36deg); } }
+@keyframes gestik-arm  { 0%,100% { transform: rotate(-8deg); } 22% { transform: rotate(-34deg); }
+                         46% { transform: rotate(-14deg); } 70% { transform: rotate(-42deg); } }
 @keyframes nicken      { 0%,100% { transform: rotate(calc(var(--dreh, 0deg) - .6deg)); }
                          22% { transform: rotate(calc(var(--dreh, 0deg) + 3.2deg)); }
                          46% { transform: rotate(calc(var(--dreh, 0deg) - 2deg)); }
@@ -264,7 +264,7 @@ body {
 .liegend .fuss--vorn   { transform: rotate(-14deg); }
 .liegend .schulter--hint { transform: rotate(7deg); }
 .liegend .schulter--vorn { transform: rotate(-6deg); }
-.liegend .ellbogen--vorn { transform: rotate(12deg); }
+.liegend .ellbogen--vorn { transform: rotate(-14deg); }
 
 /* --- Sprechzimmer: die Hand mit dem Schallkopf wandert ----------------- */
 @keyframes schallen     { 0%,100% { transform: rotate(-67deg); } 50% { transform: rotate(-73deg); } }
@@ -627,16 +627,19 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
               <path d="M-5.6,0 C-5.8,8 -5.2,16 -4.8,22 L4.8,22 C5.2,16 5.8,8 5.6,0 Z" fill="#8a6851" stroke="#8a6851"/>
               <path d="M-5.1,18 L5.1,18" stroke="#8a6851" opacity=".7"/>
               <g transform="translate(0 21)">
-                <path d="M0,0 C4.9,0 7.5,2.7 7.5,6.3 C7.5,10 4.9,12.2 0,12.2 C-4.9,12.2 -7.5,10 -7.5,6.3 C-7.5,2.7 -4.9,0 0,0 Z" fill="#f0c6a4" stroke="#c8926c"/>
-                <path d="M5.2,2.6 C8.3,3.2 8.7,6.2 6.4,7.2" fill="none" stroke="#c8926c" stroke-linecap="round"/>
+                <path d="M-6.6,3.2 C-6.6,.6 -4.4,-.6 -.6,-.6 C3.4,-.6 6.6,1 6.8,4 C7,6.6 6.8,8.8 6.1,10.6
+                         C5.7,12 3.5,12.2 3.1,10.8 C2.7,12.4 .5,12.6 .1,11 C-.3,12.6 -2.5,12.4 -2.9,10.8
+                         C-3.3,12.2 -5.3,11.8 -5.7,10.4 C-6.3,8.4 -6.6,5.8 -6.6,3.2 Z" fill="#f0c6a4" stroke="#c8926c"/>
+                <path d="M3.1,10.8 C3.3,8.4 3.3,6.6 3.1,5.2 M.1,11 C.3,8.6 .3,6.6 .1,5.2 M-2.9,10.8 C-2.7,8.4 -2.7,6.6 -2.9,5.2" fill="none" stroke="#c8926c" opacity=".75"/>
+                <path d="M5.6,2.6 C8.8,3.2 9.4,6.4 7,7.8" fill="none" stroke="#c8926c" stroke-linecap="round"/>
 
               </g>
             </g></g>
           </g></g>
           <g class="rumpf">
-            <path d="M-17,-126 C-12,-131 11,-131 17,-126 C21.5,-113 23,-90 21.5,-67 C10,-62 -7,-62 -18,-67 C-20,-90 -19.5,-110 -17,-126 Z" fill="#a8836a" stroke="#8a6851"/>
-            <path d="M-17,-126 C-19.5,-110 -20,-90 -18,-67 C-14.4,-65.7 -10.6,-64.9 -7,-64.5 C-9,-88 -9,-108 -7,-127.4 C-11,-128.4 -14.6,-127.6 -17,-126 Z" fill="#0b1220" opacity=".08"/>
-            <path d="M1,-129 C5,-124 9.6,-121 13.4,-120 L15.4,-128.4 Z" fill="#f2ece4" stroke="#8a6851"/>
+            <path d="M-17,-126 C-12,-131 11,-131 17,-126 C18.8,-113 18,-90 18.6,-67 C9,-63 -6,-63 -17,-67 C-17.6,-90 -18.4,-113 -17,-126 Z" fill="#a8836a" stroke="#8a6851"/>
+            <path d="M-17,-126 C-18.4,-113 -17.6,-90 -17,-67 C-13.6,-65.8 -10,-65 -6.6,-64.6 C-8.6,-88 -8.6,-108 -6.6,-127.4 C-10.6,-128.4 -14.6,-127.6 -17,-126 Z" fill="#0b1220" opacity=".08"/>
+            <path d="M1.6,-128.6 C5,-124.8 8.8,-122.4 12.2,-121.8 L14.2,-128 Z" fill="#f2ece4" stroke="#8a6851"/>
             <path d="M13.4,-117 C15.4,-101 15.8,-83 14.4,-66" stroke="#8a6851" fill="none" opacity=".9"/>
             <circle cx="13.9" cy="-101" r="1.9" fill="#efe6da" stroke="#8a6851"/>
             <circle cx="14.4" cy="-85" r="1.9" fill="#efe6da" stroke="#8a6851"/>
@@ -686,8 +689,11 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
               <path d="M-5.6,0 C-5.8,8 -5.2,16 -4.8,22 L4.8,22 C5.2,16 5.8,8 5.6,0 Z" fill="#a8836a" stroke="#8a6851"/>
               <path d="M-5.1,18 L5.1,18" stroke="#8a6851" opacity=".7"/>
               <g transform="translate(0 21)">
-                <path d="M0,0 C4.9,0 7.5,2.7 7.5,6.3 C7.5,10 4.9,12.2 0,12.2 C-4.9,12.2 -7.5,10 -7.5,6.3 C-7.5,2.7 -4.9,0 0,0 Z" fill="#f0c6a4" stroke="#c8926c"/>
-                <path d="M5.2,2.6 C8.3,3.2 8.7,6.2 6.4,7.2" fill="none" stroke="#c8926c" stroke-linecap="round"/>
+                <path d="M-6.6,3.2 C-6.6,.6 -4.4,-.6 -.6,-.6 C3.4,-.6 6.6,1 6.8,4 C7,6.6 6.8,8.8 6.1,10.6
+                         C5.7,12 3.5,12.2 3.1,10.8 C2.7,12.4 .5,12.6 .1,11 C-.3,12.6 -2.5,12.4 -2.9,10.8
+                         C-3.3,12.2 -5.3,11.8 -5.7,10.4 C-6.3,8.4 -6.6,5.8 -6.6,3.2 Z" fill="#f0c6a4" stroke="#c8926c"/>
+                <path d="M3.1,10.8 C3.3,8.4 3.3,6.6 3.1,5.2 M.1,11 C.3,8.6 .3,6.6 .1,5.2 M-2.9,10.8 C-2.7,8.4 -2.7,6.6 -2.9,5.2" fill="none" stroke="#c8926c" opacity=".75"/>
+                <path d="M5.6,2.6 C8.8,3.2 9.4,6.4 7,7.8" fill="none" stroke="#c8926c" stroke-linecap="round"/>
 
               </g>
             </g></g>
@@ -729,16 +735,19 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
               <path d="M-5.6,0 C-5.8,8 -5.2,16 -4.8,22 L4.8,22 C5.2,16 5.8,8 5.6,0 Z" fill="#2c4068" stroke="#2c4068"/>
               <path d="M-5.1,18 L5.1,18" stroke="#2c4068" opacity=".7"/>
               <g transform="translate(0 21)">
-                <path d="M0,0 C4.9,0 7.5,2.7 7.5,6.3 C7.5,10 4.9,12.2 0,12.2 C-4.9,12.2 -7.5,10 -7.5,6.3 C-7.5,2.7 -4.9,0 0,0 Z" fill="#e8bd9a" stroke="#c68f6a"/>
-                <path d="M5.2,2.6 C8.3,3.2 8.7,6.2 6.4,7.2" fill="none" stroke="#c68f6a" stroke-linecap="round"/>
+                <path d="M-6.6,3.2 C-6.6,.6 -4.4,-.6 -.6,-.6 C3.4,-.6 6.6,1 6.8,4 C7,6.6 6.8,8.8 6.1,10.6
+                         C5.7,12 3.5,12.2 3.1,10.8 C2.7,12.4 .5,12.6 .1,11 C-.3,12.6 -2.5,12.4 -2.9,10.8
+                         C-3.3,12.2 -5.3,11.8 -5.7,10.4 C-6.3,8.4 -6.6,5.8 -6.6,3.2 Z" fill="#e8bd9a" stroke="#c68f6a"/>
+                <path d="M3.1,10.8 C3.3,8.4 3.3,6.6 3.1,5.2 M.1,11 C.3,8.6 .3,6.6 .1,5.2 M-2.9,10.8 C-2.7,8.4 -2.7,6.6 -2.9,5.2" fill="none" stroke="#c68f6a" opacity=".75"/>
+                <path d="M5.6,2.6 C8.8,3.2 9.4,6.4 7,7.8" fill="none" stroke="#c68f6a" stroke-linecap="round"/>
 
               </g>
             </g></g>
           </g></g>
           <g class="rumpf">
-            <path d="M-17,-126 C-12,-131 11,-131 17,-126 C21.5,-113 23,-90 21.5,-67 C10,-62 -7,-62 -18,-67 C-20,-90 -19.5,-110 -17,-126 Z" fill="#3c5583" stroke="#2c4068"/>
-            <path d="M-17,-126 C-19.5,-110 -20,-90 -18,-67 C-14.4,-65.7 -10.6,-64.9 -7,-64.5 C-9,-88 -9,-108 -7,-127.4 C-11,-128.4 -14.6,-127.6 -17,-126 Z" fill="#0b1220" opacity=".08"/>
-            <path d="M1,-129 C5,-124 9.6,-121 13.4,-120 L15.4,-128.4 Z" fill="#f0efec" stroke="#2c4068"/>
+            <path d="M-17,-126 C-12,-131 11,-131 17,-126 C18.8,-113 18,-90 18.6,-67 C9,-63 -6,-63 -17,-67 C-17.6,-90 -18.4,-113 -17,-126 Z" fill="#3c5583" stroke="#2c4068"/>
+            <path d="M-17,-126 C-18.4,-113 -17.6,-90 -17,-67 C-13.6,-65.8 -10,-65 -6.6,-64.6 C-8.6,-88 -8.6,-108 -6.6,-127.4 C-10.6,-128.4 -14.6,-127.6 -17,-126 Z" fill="#0b1220" opacity=".08"/>
+            <path d="M1.6,-128.6 C5,-124.8 8.8,-122.4 12.2,-121.8 L14.2,-128 Z" fill="#f0efec" stroke="#2c4068"/>
             <path d="M13.4,-117 C15.4,-101 15.8,-83 14.4,-66" stroke="#2c4068" fill="none" opacity=".9"/>
             <circle cx="13.9" cy="-101" r="1.9" fill="#dfe3ea" stroke="#2c4068"/>
             <circle cx="14.4" cy="-85" r="1.9" fill="#dfe3ea" stroke="#2c4068"/>
@@ -788,8 +797,11 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
               <path d="M-5.6,0 C-5.8,8 -5.2,16 -4.8,22 L4.8,22 C5.2,16 5.8,8 5.6,0 Z" fill="#3c5583" stroke="#2c4068"/>
               <path d="M-5.1,18 L5.1,18" stroke="#2c4068" opacity=".7"/>
               <g transform="translate(0 21)">
-                <path d="M0,0 C4.9,0 7.5,2.7 7.5,6.3 C7.5,10 4.9,12.2 0,12.2 C-4.9,12.2 -7.5,10 -7.5,6.3 C-7.5,2.7 -4.9,0 0,0 Z" fill="#e8bd9a" stroke="#c68f6a"/>
-                <path d="M5.2,2.6 C8.3,3.2 8.7,6.2 6.4,7.2" fill="none" stroke="#c68f6a" stroke-linecap="round"/>
+                <path d="M-6.6,3.2 C-6.6,.6 -4.4,-.6 -.6,-.6 C3.4,-.6 6.6,1 6.8,4 C7,6.6 6.8,8.8 6.1,10.6
+                         C5.7,12 3.5,12.2 3.1,10.8 C2.7,12.4 .5,12.6 .1,11 C-.3,12.6 -2.5,12.4 -2.9,10.8
+                         C-3.3,12.2 -5.3,11.8 -5.7,10.4 C-6.3,8.4 -6.6,5.8 -6.6,3.2 Z" fill="#e8bd9a" stroke="#c68f6a"/>
+                <path d="M3.1,10.8 C3.3,8.4 3.3,6.6 3.1,5.2 M.1,11 C.3,8.6 .3,6.6 .1,5.2 M-2.9,10.8 C-2.7,8.4 -2.7,6.6 -2.9,5.2" fill="none" stroke="#c68f6a" opacity=".75"/>
+                <path d="M5.6,2.6 C8.8,3.2 9.4,6.4 7,7.8" fill="none" stroke="#c68f6a" stroke-linecap="round"/>
 
               </g>
             </g></g>
@@ -863,9 +875,9 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
             </g></g>
           </g></g>
           <g class="rumpf">
-            <path d="M-22,-99 C-16,-104 16,-104 22,-99 C25,-86 26,-40 25,-24 C10,-19 -10,-19 -24,-24 C-25,-40 -25,-86 -22,-99 Z" fill="#4f7d70" stroke="#3d6259"/>
-            <path d="M22,-99 C25,-86 26,-40 25,-24 C21,-22.6 17,-21.8 13,-21.4 C15,-46 15,-80 13,-100.4 C17,-101.4 20,-100.8 22,-99 Z" fill="#0b1220" opacity=".07"/>
-            <path d="M-1,-101 C-5,-96 -9.6,-93 -13.4,-92 L-15.4,-100.4 Z" fill="#eef3f1" stroke="#3d6259"/>
+            <path d="M-22,-99 C-16,-104 16,-104 22,-99 C23.8,-86 24.2,-40 23.8,-24 C10,-19 -10,-19 -22.8,-24 C-23.2,-40 -23.8,-86 -22,-99 Z" fill="#4f7d70" stroke="#3d6259"/>
+            <path d="M22,-99 C23.8,-86 24.2,-40 23.8,-24 C20,-22.6 16.4,-21.8 13,-21.4 C15,-46 15,-80 13,-100.4 C17,-101.4 20,-100.8 22,-99 Z" fill="#0b1220" opacity=".07"/>
+            <path d="M-1.6,-100.6 C-5,-96.8 -8.8,-94.4 -12.2,-93.8 L-14.2,-100 Z" fill="#eef3f1" stroke="#3d6259"/>
             <path d="M-24,-78 C-12,-73 12,-73 24,-78" stroke="#3d6259" fill="none" opacity=".55"/>
             <rect x="-22" y="-92" width="19" height="7.4" rx="2" fill="#eef3f1" stroke="#3d6259"/>
             <path d="M4,-56 h14 v12 h-14 z" fill="none" stroke="#3d6259" opacity=".65"/>
@@ -911,8 +923,11 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
               <path d="M-5.6,0 C-5.8,8 -5.2,16 -4.8,22 L4.8,22 C5.2,16 5.8,8 5.6,0 Z" fill="#4f7d70" stroke="#3d6259"/>
               <path d="M-5.1,18 L5.1,18" stroke="#3d6259" opacity=".7"/>
               <g transform="translate(0 21)">
-                <path d="M0,0 C4.9,0 7.5,2.7 7.5,6.3 C7.5,10 4.9,12.2 0,12.2 C-4.9,12.2 -7.5,10 -7.5,6.3 C-7.5,2.7 -4.9,0 0,0 Z" fill="#f0c6a4" stroke="#cb9370"/>
-                <path d="M5.2,2.6 C8.3,3.2 8.7,6.2 6.4,7.2" fill="none" stroke="#cb9370" stroke-linecap="round"/>
+                <path d="M-6.6,3.2 C-6.6,.6 -4.4,-.6 -.6,-.6 C3.4,-.6 6.6,1 6.8,4 C7,6.6 6.8,8.8 6.1,10.6
+                         C5.7,12 3.5,12.2 3.1,10.8 C2.7,12.4 .5,12.6 .1,11 C-.3,12.6 -2.5,12.4 -2.9,10.8
+                         C-3.3,12.2 -5.3,11.8 -5.7,10.4 C-6.3,8.4 -6.6,5.8 -6.6,3.2 Z" fill="#f0c6a4" stroke="#cb9370"/>
+                <path d="M3.1,10.8 C3.3,8.4 3.3,6.6 3.1,5.2 M.1,11 C.3,8.6 .3,6.6 .1,5.2 M-2.9,10.8 C-2.7,8.4 -2.7,6.6 -2.9,5.2" fill="none" stroke="#cb9370" opacity=".75"/>
+                <path d="M5.6,2.6 C8.8,3.2 9.4,6.4 7,7.8" fill="none" stroke="#cb9370" stroke-linecap="round"/>
               </g>
             </g></g>
           </g></g>
@@ -972,16 +987,19 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
               <path d="M-5.6,0 C-5.8,8 -5.2,16 -4.8,22 L4.8,22 C5.2,16 5.8,8 5.6,0 Z" fill="#2c4068" stroke="#2c4068"/>
               <path d="M-5.1,18 L5.1,18" stroke="#2c4068" opacity=".7"/>
               <g transform="translate(0 21)">
-                <path d="M0,0 C4.9,0 7.5,2.7 7.5,6.3 C7.5,10 4.9,12.2 0,12.2 C-4.9,12.2 -7.5,10 -7.5,6.3 C-7.5,2.7 -4.9,0 0,0 Z" fill="#e8bd9a" stroke="#c68f6a"/>
-                <path d="M5.2,2.6 C8.3,3.2 8.7,6.2 6.4,7.2" fill="none" stroke="#c68f6a" stroke-linecap="round"/>
+                <path d="M-6.6,3.2 C-6.6,.6 -4.4,-.6 -.6,-.6 C3.4,-.6 6.6,1 6.8,4 C7,6.6 6.8,8.8 6.1,10.6
+                         C5.7,12 3.5,12.2 3.1,10.8 C2.7,12.4 .5,12.6 .1,11 C-.3,12.6 -2.5,12.4 -2.9,10.8
+                         C-3.3,12.2 -5.3,11.8 -5.7,10.4 C-6.3,8.4 -6.6,5.8 -6.6,3.2 Z" fill="#e8bd9a" stroke="#c68f6a"/>
+                <path d="M3.1,10.8 C3.3,8.4 3.3,6.6 3.1,5.2 M.1,11 C.3,8.6 .3,6.6 .1,5.2 M-2.9,10.8 C-2.7,8.4 -2.7,6.6 -2.9,5.2" fill="none" stroke="#c68f6a" opacity=".75"/>
+                <path d="M5.6,2.6 C8.8,3.2 9.4,6.4 7,7.8" fill="none" stroke="#c68f6a" stroke-linecap="round"/>
 
               </g>
             </g></g>
           </g></g>
           <g class="rumpf">
-            <path d="M-17,-126 C-12,-131 11,-131 17,-126 C21.5,-113 23,-90 21.5,-67 C10,-62 -7,-62 -18,-67 C-20,-90 -19.5,-110 -17,-126 Z" fill="#3c5583" stroke="#2c4068"/>
-            <path d="M-17,-126 C-19.5,-110 -20,-90 -18,-67 C-14.4,-65.7 -10.6,-64.9 -7,-64.5 C-9,-88 -9,-108 -7,-127.4 C-11,-128.4 -14.6,-127.6 -17,-126 Z" fill="#0b1220" opacity=".08"/>
-            <path d="M1,-129 C5,-124 9.6,-121 13.4,-120 L15.4,-128.4 Z" fill="#f0efec" stroke="#2c4068"/>
+            <path d="M-17,-126 C-12,-131 11,-131 17,-126 C18.8,-113 18,-90 18.6,-67 C9,-63 -6,-63 -17,-67 C-17.6,-90 -18.4,-113 -17,-126 Z" fill="#3c5583" stroke="#2c4068"/>
+            <path d="M-17,-126 C-18.4,-113 -17.6,-90 -17,-67 C-13.6,-65.8 -10,-65 -6.6,-64.6 C-8.6,-88 -8.6,-108 -6.6,-127.4 C-10.6,-128.4 -14.6,-127.6 -17,-126 Z" fill="#0b1220" opacity=".08"/>
+            <path d="M1.6,-128.6 C5,-124.8 8.8,-122.4 12.2,-121.8 L14.2,-128 Z" fill="#f0efec" stroke="#2c4068"/>
             <path d="M13.4,-117 C15.4,-101 15.8,-83 14.4,-66" stroke="#2c4068" fill="none" opacity=".9"/>
             <circle cx="13.9" cy="-101" r="1.9" fill="#dfe3ea" stroke="#2c4068"/>
             <circle cx="14.4" cy="-85" r="1.9" fill="#dfe3ea" stroke="#2c4068"/>
@@ -1031,8 +1049,11 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
               <path d="M-5.6,0 C-5.8,8 -5.2,16 -4.8,22 L4.8,22 C5.2,16 5.8,8 5.6,0 Z" fill="#3c5583" stroke="#2c4068"/>
               <path d="M-5.1,18 L5.1,18" stroke="#2c4068" opacity=".7"/>
               <g transform="translate(0 21)">
-                <path d="M0,0 C4.9,0 7.5,2.7 7.5,6.3 C7.5,10 4.9,12.2 0,12.2 C-4.9,12.2 -7.5,10 -7.5,6.3 C-7.5,2.7 -4.9,0 0,0 Z" fill="#e8bd9a" stroke="#c68f6a"/>
-                <path d="M5.2,2.6 C8.3,3.2 8.7,6.2 6.4,7.2" fill="none" stroke="#c68f6a" stroke-linecap="round"/>
+                <path d="M-6.6,3.2 C-6.6,.6 -4.4,-.6 -.6,-.6 C3.4,-.6 6.6,1 6.8,4 C7,6.6 6.8,8.8 6.1,10.6
+                         C5.7,12 3.5,12.2 3.1,10.8 C2.7,12.4 .5,12.6 .1,11 C-.3,12.6 -2.5,12.4 -2.9,10.8
+                         C-3.3,12.2 -5.3,11.8 -5.7,10.4 C-6.3,8.4 -6.6,5.8 -6.6,3.2 Z" fill="#e8bd9a" stroke="#c68f6a"/>
+                <path d="M3.1,10.8 C3.3,8.4 3.3,6.6 3.1,5.2 M.1,11 C.3,8.6 .3,6.6 .1,5.2 M-2.9,10.8 C-2.7,8.4 -2.7,6.6 -2.9,5.2" fill="none" stroke="#c68f6a" opacity=".75"/>
+                <path d="M5.6,2.6 C8.8,3.2 9.4,6.4 7,7.8" fill="none" stroke="#c68f6a" stroke-linecap="round"/>
 
               </g>
             </g></g>
@@ -1255,16 +1276,19 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
               <path d="M-5.6,0 C-5.8,8 -5.2,16 -4.8,22 L4.8,22 C5.2,16 5.8,8 5.6,0 Z" fill="#8ba1c0" stroke="#8ba1c0"/>
               <path d="M-5.1,18 L5.1,18" stroke="#8ba1c0" opacity=".7"/>
               <g transform="translate(0 21)">
-                <path d="M0,0 C4.9,0 7.5,2.7 7.5,6.3 C7.5,10 4.9,12.2 0,12.2 C-4.9,12.2 -7.5,10 -7.5,6.3 C-7.5,2.7 -4.9,0 0,0 Z" fill="#e8bd9a" stroke="#c68f6a"/>
-                <path d="M5.2,2.6 C8.3,3.2 8.7,6.2 6.4,7.2" fill="none" stroke="#c68f6a" stroke-linecap="round"/>
+                <path d="M-6.6,3.2 C-6.6,.6 -4.4,-.6 -.6,-.6 C3.4,-.6 6.6,1 6.8,4 C7,6.6 6.8,8.8 6.1,10.6
+                         C5.7,12 3.5,12.2 3.1,10.8 C2.7,12.4 .5,12.6 .1,11 C-.3,12.6 -2.5,12.4 -2.9,10.8
+                         C-3.3,12.2 -5.3,11.8 -5.7,10.4 C-6.3,8.4 -6.6,5.8 -6.6,3.2 Z" fill="#e8bd9a" stroke="#c68f6a"/>
+                <path d="M3.1,10.8 C3.3,8.4 3.3,6.6 3.1,5.2 M.1,11 C.3,8.6 .3,6.6 .1,5.2 M-2.9,10.8 C-2.7,8.4 -2.7,6.6 -2.9,5.2" fill="none" stroke="#c68f6a" opacity=".75"/>
+                <path d="M5.6,2.6 C8.8,3.2 9.4,6.4 7,7.8" fill="none" stroke="#c68f6a" stroke-linecap="round"/>
 
               </g>
             </g></g>
           </g></g>
           <g class="rumpf">
-            <path d="M-17,-126 C-12,-131 11,-131 17,-126 C21.5,-113 23,-90 21.5,-67 C10,-62 -7,-62 -18,-67 C-20,-90 -19.5,-110 -17,-126 Z" fill="#a9bcd6" stroke="#8ba1c0"/>
-            <path d="M-17,-126 C-19.5,-110 -20,-90 -18,-67 C-14.4,-65.7 -10.6,-64.9 -7,-64.5 C-9,-88 -9,-108 -7,-127.4 C-11,-128.4 -14.6,-127.6 -17,-126 Z" fill="#0b1220" opacity=".08"/>
-            <path d="M1,-129 C5,-124 9.6,-121 13.4,-120 L15.4,-128.4 Z" fill="#f0efec" stroke="#8ba1c0"/>
+            <path d="M-17,-126 C-12,-131 11,-131 17,-126 C18.8,-113 18,-90 18.6,-67 C9,-63 -6,-63 -17,-67 C-17.6,-90 -18.4,-113 -17,-126 Z" fill="#a9bcd6" stroke="#8ba1c0"/>
+            <path d="M-17,-126 C-18.4,-113 -17.6,-90 -17,-67 C-13.6,-65.8 -10,-65 -6.6,-64.6 C-8.6,-88 -8.6,-108 -6.6,-127.4 C-10.6,-128.4 -14.6,-127.6 -17,-126 Z" fill="#0b1220" opacity=".08"/>
+            <path d="M1.6,-128.6 C5,-124.8 8.8,-122.4 12.2,-121.8 L14.2,-128 Z" fill="#f0efec" stroke="#8ba1c0"/>
             <path d="M13.4,-117 C15.4,-101 15.8,-83 14.4,-66" stroke="#8ba1c0" fill="none" opacity=".9"/>
             <circle cx="13.9" cy="-101" r="1.9" fill="#dfe3ea" stroke="#8ba1c0"/>
             <circle cx="14.4" cy="-85" r="1.9" fill="#dfe3ea" stroke="#8ba1c0"/>
@@ -1314,8 +1338,11 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
               <path d="M-5.6,0 C-5.8,8 -5.2,16 -4.8,22 L4.8,22 C5.2,16 5.8,8 5.6,0 Z" fill="#a9bcd6" stroke="#8ba1c0"/>
               <path d="M-5.1,18 L5.1,18" stroke="#8ba1c0" opacity=".7"/>
               <g transform="translate(0 21)">
-                <path d="M0,0 C4.9,0 7.5,2.7 7.5,6.3 C7.5,10 4.9,12.2 0,12.2 C-4.9,12.2 -7.5,10 -7.5,6.3 C-7.5,2.7 -4.9,0 0,0 Z" fill="#e8bd9a" stroke="#c68f6a"/>
-                <path d="M5.2,2.6 C8.3,3.2 8.7,6.2 6.4,7.2" fill="none" stroke="#c68f6a" stroke-linecap="round"/>
+                <path d="M-6.6,3.2 C-6.6,.6 -4.4,-.6 -.6,-.6 C3.4,-.6 6.6,1 6.8,4 C7,6.6 6.8,8.8 6.1,10.6
+                         C5.7,12 3.5,12.2 3.1,10.8 C2.7,12.4 .5,12.6 .1,11 C-.3,12.6 -2.5,12.4 -2.9,10.8
+                         C-3.3,12.2 -5.3,11.8 -5.7,10.4 C-6.3,8.4 -6.6,5.8 -6.6,3.2 Z" fill="#e8bd9a" stroke="#c68f6a"/>
+                <path d="M3.1,10.8 C3.3,8.4 3.3,6.6 3.1,5.2 M.1,11 C.3,8.6 .3,6.6 .1,5.2 M-2.9,10.8 C-2.7,8.4 -2.7,6.6 -2.9,5.2" fill="none" stroke="#c68f6a" opacity=".75"/>
+                <path d="M5.6,2.6 C8.8,3.2 9.4,6.4 7,7.8" fill="none" stroke="#c68f6a" stroke-linecap="round"/>
 
               </g>
             </g></g>
@@ -1353,16 +1380,19 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
               <path d="M-5.6,0 C-5.8,8 -5.2,16 -4.8,22 L4.8,22 C5.2,16 5.8,8 5.6,0 Z" fill="#eaeae6" stroke="#d2d2ca"/>
               <path d="M-5.1,18 L5.1,18" stroke="#d2d2ca" opacity=".7"/>
               <g transform="translate(0 21)">
-                <path d="M0,0 C4.9,0 7.5,2.7 7.5,6.3 C7.5,10 4.9,12.2 0,12.2 C-4.9,12.2 -7.5,10 -7.5,6.3 C-7.5,2.7 -4.9,0 0,0 Z" fill="#eec3a2" stroke="#cb9a75"/>
-                <path d="M5.2,2.6 C8.3,3.2 8.7,6.2 6.4,7.2" fill="none" stroke="#cb9a75" stroke-linecap="round"/>
+                <path d="M-6.6,3.2 C-6.6,.6 -4.4,-.6 -.6,-.6 C3.4,-.6 6.6,1 6.8,4 C7,6.6 6.8,8.8 6.1,10.6
+                         C5.7,12 3.5,12.2 3.1,10.8 C2.7,12.4 .5,12.6 .1,11 C-.3,12.6 -2.5,12.4 -2.9,10.8
+                         C-3.3,12.2 -5.3,11.8 -5.7,10.4 C-6.3,8.4 -6.6,5.8 -6.6,3.2 Z" fill="#eec3a2" stroke="#cb9a75"/>
+                <path d="M3.1,10.8 C3.3,8.4 3.3,6.6 3.1,5.2 M.1,11 C.3,8.6 .3,6.6 .1,5.2 M-2.9,10.8 C-2.7,8.4 -2.7,6.6 -2.9,5.2" fill="none" stroke="#cb9a75" opacity=".75"/>
+                <path d="M5.6,2.6 C8.8,3.2 9.4,6.4 7,7.8" fill="none" stroke="#cb9a75" stroke-linecap="round"/>
 
               </g>
             </g></g>
           </g></g>
           <g class="rumpf">
-            <path d="M-18,-128 C-13,-133 12,-133 18,-128 C22.5,-114 24,-84 22.5,-46 C10,-41 -7,-41 -19,-46 C-21,-84 -20.5,-112 -18,-128 Z" fill="#f7f7f5" stroke="#d2d2ca"/>
-            <path d="M-18,-128 C-20.5,-112 -21,-84 -19,-46 C-15.4,-44.7 -11.6,-43.9 -8,-43.5 C-10,-84 -10,-110 -8,-129.4 C-12,-130.4 -15.6,-129.6 -18,-128 Z" fill="#0b1220" opacity=".06"/>
-            <path d="M1,-131 C5,-126 9.6,-123 13.4,-122 L15.4,-130.4 Z" fill="#c9d3e0" stroke="#d2d2ca"/>
+            <path d="M-18,-128 C-13,-133 12,-133 18,-128 C20.4,-114 20,-84 20,-46 C9,-41.5 -6,-41.5 -18,-46 C-19,-84 -19.4,-112 -18,-128 Z" fill="#f7f7f5" stroke="#d2d2ca"/>
+            <path d="M-18,-128 C-19.4,-112 -19,-84 -18,-46 C-14.6,-44.8 -11,-44 -7.6,-43.6 C-9.6,-84 -9.6,-110 -7.6,-129.4 C-11.6,-130.4 -15.6,-129.6 -18,-128 Z" fill="#0b1220" opacity=".06"/>
+            <path d="M1.6,-130.6 C5,-126.8 8.8,-124.4 12.2,-123.8 L14.2,-130 Z" fill="#c9d3e0" stroke="#d2d2ca"/>
             <path d="M-8,-127 C-10,-105 -14,-95 -17,-90 M9,-128 C11,-106 15,-96 18,-91" stroke="#3a4351" stroke-width="3" fill="none" stroke-linecap="round"/>
             <circle cx="18" cy="-89" r="4.4" fill="#3a4351"/>
             <path d="M13,-118 C14.6,-98 15,-70 13.8,-45" stroke="#d2d2ca" fill="none" opacity=".9"/>
@@ -1411,8 +1441,11 @@ body.pur .buehne { border-radius: 0; box-shadow: none; height: 100vh; aspect-rat
               <path d="M-5.6,0 C-5.8,8 -5.2,16 -4.8,22 L4.8,22 C5.2,16 5.8,8 5.6,0 Z" fill="#f4f4f1" stroke="#d2d2ca"/>
               <path d="M-5.1,18 L5.1,18" stroke="#d2d2ca" opacity=".7"/>
               <g transform="translate(0 21)">
-                <path d="M0,0 C4.9,0 7.5,2.7 7.5,6.3 C7.5,10 4.9,12.2 0,12.2 C-4.9,12.2 -7.5,10 -7.5,6.3 C-7.5,2.7 -4.9,0 0,0 Z" fill="#eec3a2" stroke="#cb9a75"/>
-                <path d="M5.2,2.6 C8.3,3.2 8.7,6.2 6.4,7.2" fill="none" stroke="#cb9a75" stroke-linecap="round"/>
+                <path d="M-6.6,3.2 C-6.6,.6 -4.4,-.6 -.6,-.6 C3.4,-.6 6.6,1 6.8,4 C7,6.6 6.8,8.8 6.1,10.6
+                         C5.7,12 3.5,12.2 3.1,10.8 C2.7,12.4 .5,12.6 .1,11 C-.3,12.6 -2.5,12.4 -2.9,10.8
+                         C-3.3,12.2 -5.3,11.8 -5.7,10.4 C-6.3,8.4 -6.6,5.8 -6.6,3.2 Z" fill="#eec3a2" stroke="#cb9a75"/>
+                <path d="M3.1,10.8 C3.3,8.4 3.3,6.6 3.1,5.2 M.1,11 C.3,8.6 .3,6.6 .1,5.2 M-2.9,10.8 C-2.7,8.4 -2.7,6.6 -2.9,5.2" fill="none" stroke="#cb9a75" opacity=".75"/>
+                <path d="M5.6,2.6 C8.8,3.2 9.4,6.4 7,7.8" fill="none" stroke="#cb9a75" stroke-linecap="round"/>
                 <g transform="translate(0 6) rotate(146)">
                   <rect x="-6.5" y="2" width="13" height="19" rx="5" fill="#e4e8e6" stroke="#b0b5b1"/>
                   <rect x="-4" y="18" width="8" height="4" rx="1.5" fill="#8f9691"/>
