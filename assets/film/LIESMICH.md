@@ -10,15 +10,24 @@
 
 ## Ablauf des Films
 
+Der Film dauert 1:59 Minuten.
+
 | ab | Szene |
 |---|---|
 | 0:00 | Titel |
-| 0:05 | Herr M. geht zur Praxis und tritt ein |
-| 0:16 | Anmeldung: er bittet um einen Vorsorgetermin |
-| 0:32 | Der Kalender blaettert neun Monate weiter |
-| 0:48 | Die MFA erklaert das Spargesetz, dazu ein Schaubild |
-| 1:10 | Texttafel: was sich geaendert hat |
-| 1:33 | Abspann mit Praxisangaben |
+| 0:05 | Herr M. geht zur Praxis, eine andere Patientin verlaesst sie gerade |
+| 0:13 | Anmeldung: er bittet um einen Vorsorgetermin |
+| 0:28 | Der Kalender blaettert neun Monate weiter |
+| 0:44 | Die MFA erklaert das Spargesetz, dazu ein Schaubild |
+| 1:07 | Sprechzimmer: an der Untersuchung selbst aendert sich nichts |
+| 1:19 | Texttafel: was sich geaendert hat |
+| 1:40 | Hinweis: der Film spricht nur ueber GKV-Leistungen |
+| 1:52 | Abspann mit Praxisangaben |
+
+Die Figuren haben Gelenke: Huefte, Knie, Fussgelenk, Schulter und Ellbogen
+werden einzeln gedreht. Die Schrittlaenge ist auf die Laufgeschwindigkeit
+abgestimmt, damit niemand ueber den Gehweg rutscht. Waehrend eine Figur
+spricht, bewegt sich ihr Mund; alle Figuren blinzeln und atmen.
 
 ## Texte aendern
 
@@ -37,6 +46,13 @@ sind zum Mitlesen angenehm.
 Spargesetz sind bewusst allgemein gehalten. Zahlen, Fristen und die genaue
 Bezeichnung des Gesetzes sollten dem Stand entsprechen, den die Praxis
 vertreten moechte.
+
+Die vorletzte Tafel ordnet den Film rechtlich ein: Er spricht ausschliesslich
+ueber Leistungen der gesetzlichen Krankenversicherung, sagt nichts ueber
+Termine bei anderen Kostentraegern und wirbt nicht fuer Selbstzahlerleistungen.
+Der Satz "Termine vergeben wir nach medizinischer Dringlichkeit" gehoert
+inhaltlich dazu und sollte stehen bleiben. Diese Tafel bitte ebenfalls
+gegenlesen lassen, bevor der Film oeffentlich laeuft.
 
 ## Film im Wartezimmer
 
