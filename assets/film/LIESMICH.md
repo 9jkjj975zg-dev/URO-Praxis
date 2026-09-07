@@ -17,7 +17,7 @@ Der Film dauert 1:59 Minuten.
 | ab | Szene |
 |---|---|
 | 0:00 | Titel |
-| 0:05 | Herr M. geht zur Praxis, eine andere Patientin verlaesst sie gerade |
+| 0:05 | Herr M. geht zur Praxis, eine andere Patientin verlaesst sie gerade; die Tuer geht auf, er geht hinein, die Tuer schliesst |
 | 0:13 | Anmeldung: er bittet um einen Vorsorgetermin |
 | 0:28 | Der Kalender zaehlt neun Monate hoch (bewusst ohne Monatsnamen, damit der Film das ganze Jahr ueber stimmt) |
 | 0:44 | Die MFA erklaert das Spargesetz, dazu ein Schaubild |
@@ -30,8 +30,11 @@ Die Figuren haben Gelenke: Huefte, Knie, Fussgelenk, Schulter und Ellbogen
 werden einzeln gedreht. Die Schrittlaenge ist auf die Laufgeschwindigkeit
 abgestimmt, damit niemand ueber den Gehweg rutscht.
 
-Die Gesichter haben Augen mit Pupille und Augenbrauen. Der Mund bewegt sich
-nur, solange die Sprechblase derselben Figur steht. Wer spricht, sieht sein
+Die Koepfe sind im Profil gezeichnet: Stirn, Nasenruecken, Lippe, Kinn und
+Kieferwinkel bilden die Silhouette, das Haar hat einen Ansatz und folgt dem
+Schaedel. Auch die Oberkoerper stehen im Profil – Kragen und Knopfleiste
+liegen vorn, hinten liegt ein leichter Schatten. Der Mund bewegt sich nur,
+solange die Sprechblase derselben Figur steht. Wer spricht, sieht sein
 Gegenueber an: Kopfhaltung und Blickrichtung wechseln mit. Dazu blinzeln
 alle Figuren, atmen und verlagern langsam ihr Gewicht.
 
