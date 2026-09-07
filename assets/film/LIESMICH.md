@@ -5,7 +5,9 @@
 | Datei | Wozu |
 |---|---|
 | `gkv-spargesetz.html` | Der Film selbst – Zeichnungen, Bewegungen und Texte in einer Datei. Laeuft in jedem Browser, braucht kein Internet und laedt nichts nach. |
-| `vorsorge-gkv-spargesetz.mp4` | Derselbe Film als Videodatei (1280 × 720, 1:41 Minuten, ohne Ton). Zum Weitergeben per E-Mail oder Messenger, fuer PowerPoint oder den Bildschirm im Wartezimmer. |
+| `vorsorge-gkv-spargesetz.mp4` | Derselbe Film als Videodatei (1280 × 720, 1:59 Minuten, mit Musik). Zum Weitergeben per E-Mail oder Messenger, fuer PowerPoint oder den Bildschirm im Wartezimmer. |
+| `musik.m4a` | Die Hintergrundmusik, rund zwei Minuten. |
+| `musik-erzeugen.js` | Rechnet die Musik neu aus, wenn sie anders klingen soll. |
 | `film-rendern.js` | Erzeugt die Videodatei neu, wenn am Film etwas geaendert wurde. |
 
 ## Ablauf des Films
@@ -32,6 +34,30 @@ Die Gesichter haben Augen mit Pupille und Augenbrauen. Der Mund bewegt sich
 nur, solange die Sprechblase derselben Figur steht. Wer spricht, sieht sein
 Gegenueber an: Kopfhaltung und Blickrichtung wechseln mit. Dazu blinzeln
 alle Figuren, atmen und verlagern langsam ihr Gewicht.
+
+## Musik
+
+Die Musik ist nicht eingekauft, sondern in `musik-erzeugen.js` ausgerechnet:
+eine ruhige Flaeche mit sparsamem Glockenspiel, rund 67 Schlaege je Minute.
+Damit gibt es weder Lizenzgebuehren noch eine GEMA-Anmeldung. Der Verlauf
+folgt den Szenen – freundlich am Anfang, ernster beim Kalender und beim
+Spargesetz, waermer im Sprechzimmer, ruhig zum Schluss.
+
+Neu ausrechnen:
+
+```sh
+node assets/film/musik-erzeugen.js musik.wav
+ffmpeg -i musik.wav -c:a aac -b:a 112k assets/film/musik.m4a
+```
+
+Die Akkordfolge steht in der Liste `TAKTE`, die Melodie in `MELODIE`.
+Wer lieber eine gekaufte oder selbst eingespielte Musik moechte, legt sie
+einfach als `musik.m4a` dorthin – oder loescht die Datei, dann bleibt der
+Film stumm. Wie laut die Musik im Video liegt, steuert
+`FILM_MUSIK_PEGEL` (Vorgabe 0,55).
+
+Auf der Filmseite ist der Ton zunaechst aus; der Knopf **Ton an** schaltet
+ihn zu, `?ton=1` in der Adresse gleich beim Laden.
 
 ## Texte aendern
 
@@ -63,10 +89,11 @@ gegenlesen lassen, bevor der Film oeffentlich laeuft.
 Die Seite kennt zwei Zusaetze in der Adresse:
 
 * `?schleife=1` – der Film beginnt sofort und laeuft in Dauerschleife,
-* `?pur=1` – bildschirmfuellend, ohne Bedienleiste.
+* `?pur=1` – bildschirmfuellend, ohne Bedienleiste,
+* `?ton=1` – mit Musik.
 
-Beides laesst sich kombinieren:
-`gkv-spargesetz.html?pur=1&schleife=1`
+Das laesst sich kombinieren:
+`gkv-spargesetz.html?pur=1&schleife=1&ton=1`
 
 ## Video neu erzeugen
 
