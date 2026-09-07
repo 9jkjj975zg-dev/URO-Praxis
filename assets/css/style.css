@@ -436,7 +436,29 @@ strong { color: var(--c-heading); }
 /* Grundbreite null: Sonst verlangt das Laufband die Breite seines ganzen
    Inhalts, und der Balken bricht in mehrere Zeilen um.               */
 .hinweisbalken__lauf { flex: 1 1 0; min-width: 0; overflow: hidden; }
-.hinweisbalken__spur { display: flex; width: max-content; gap: 3.5rem; }
+/* Kein Abstand ueber gap, sondern ueber Polsterung und das Trennzeichen:
+   So traegt jede Meldung ihren eigenen Abstand, die Wiederholungen fuegen
+   sich lueckenlos aneinander, und das Skript kommt mit
+   Strecke = Breite des ersten Satzes aus.                                 */
+.hinweisbalken__spur { display: flex; width: max-content; gap: 0; }
+.hinweisbalken__spur p { padding-inline-end: 1.6rem; }
+/* Trennzeichen zwischen zwei Meldungen. Es haengt am Anfang jeder Meldung,
+   nicht am Ende - dann steht auch vor der ersten eines, und im Umlauf ist
+   der Abstand ueberall gleich.                                            */
+.hinweisbalken__spur p::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--c-leiste-marke);
+  vertical-align: .08em;
+  margin-inline-end: 1.6rem;
+}
+/* Steht die Meldung still - ohne JavaScript oder bei bevorzugter
+   Bewegungsreduktion -, gibt es nichts zu trennen. Dann waere der Punkt
+   nur ein Aufzaehlungszeichen vor einem einzelnen Satz.                   */
+.hinweisbalken:not(.hinweisbalken--laeuft) .hinweisbalken__spur p::before { display: none; }
 
 .hinweisbalken--laeuft .hinweisbalken__inner { justify-content: flex-start; text-align: left; }
 .hinweisbalken--laeuft .hinweisbalken__spur {
