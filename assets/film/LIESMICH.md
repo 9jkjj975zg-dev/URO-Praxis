@@ -26,8 +26,12 @@ Der Film dauert 1:59 Minuten.
 
 Die Figuren haben Gelenke: Huefte, Knie, Fussgelenk, Schulter und Ellbogen
 werden einzeln gedreht. Die Schrittlaenge ist auf die Laufgeschwindigkeit
-abgestimmt, damit niemand ueber den Gehweg rutscht. Waehrend eine Figur
-spricht, bewegt sich ihr Mund; alle Figuren blinzeln und atmen.
+abgestimmt, damit niemand ueber den Gehweg rutscht.
+
+Die Gesichter haben Augen mit Pupille und Augenbrauen. Der Mund bewegt sich
+nur, solange die Sprechblase derselben Figur steht. Wer spricht, sieht sein
+Gegenueber an: Kopfhaltung und Blickrichtung wechseln mit. Dazu blinzeln
+alle Figuren, atmen und verlagern langsam ihr Gewicht.
 
 ## Texte aendern
 
