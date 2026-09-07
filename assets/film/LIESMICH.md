@@ -1,4 +1,4 @@
-# Kleiner Zeichentrickfilm zur Vorsorge und zum GKV-Spargesetz
+# Kleiner Zeichentrickfilm zur Krebsfrueherkennung und zum GKV-Spargesetz
 
 ## Was hier liegt
 
@@ -18,7 +18,7 @@ Der Film dauert 1:59 Minuten.
 |---|---|
 | 0:00 | Titel |
 | 0:05 | Herr M. geht zur Praxis, eine andere Patientin verlaesst sie gerade; die Tuer geht auf, er geht hinein, die Tuer schliesst |
-| 0:13 | Anmeldung: er bittet um einen Vorsorgetermin |
+| 0:13 | Anmeldung: er bittet um einen Termin zur gesetzlichen Krebsfrueherkennung |
 | 0:28 | Der Kalender zaehlt neun Monate hoch (bewusst ohne Monatsnamen, damit der Film das ganze Jahr ueber stimmt) |
 | 0:44 | Die MFA erklaert das Spargesetz, dazu ein Schaubild |
 | 1:07 | Sprechzimmer: an der Untersuchung selbst aendert sich nichts |
