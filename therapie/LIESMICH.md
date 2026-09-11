@@ -7,6 +7,11 @@ legen und arbeitet auch ohne Netz.
 
 Adresse: `https://www.hanau-urologie.de/therapie/`
 
+Der Ordner `therapie/` ist **in sich geschlossen**: Er greift auf keine Datei
+ausserhalb zu. Zum Veroeffentlichen genuegt es, ihn als Ganzes in das
+Web-Verzeichnis zu legen - gleich auf welchem Server und neben welcher
+Website.
+
 > **Nur für Fachkreise.** Die Anwendung ist bewusst nicht aus der Website
 > verlinkt, steht in `robots.txt` auf „nicht indexieren“ und zeigt beim ersten
 > Start eine Bestätigung. Grund ist § 10 Heilmittelwerbegesetz: Angaben zu
@@ -28,6 +33,7 @@ Adresse: `https://www.hanau-urologie.de/therapie/`
 | `assets/app.css` | Gestaltung. |
 | `sw.js` | Sorgt dafür, dass die App ohne Netz startet. |
 | `manifest.webmanifest`, `img/` | Symbol und Name auf dem Startbildschirm. |
+| `assets/fonts/` | Die Schrift Jost, damit der Ordner fuer sich allein lauffaehig ist. |
 | `../werkzeuge/zulassung_pruefen.py` | Monatliche Prüfung der Quellen. |
 | `../werkzeuge/symbole_erzeugen.py` | Erzeugt die Symbole neu, falls das Logo sich ändert. |
 

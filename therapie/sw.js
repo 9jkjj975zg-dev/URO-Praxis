@@ -31,7 +31,7 @@ var GRUNDGERUEST = [
   'img/symbol-192.png',
   'img/symbol-512.png',
   'img/symbol-maskiert.png',
-  '../assets/fonts/jost-latin.woff2',
+  'assets/fonts/jost-latin.woff2',
   DATEN
 ];
 
