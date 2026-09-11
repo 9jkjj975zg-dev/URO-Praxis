@@ -1,0 +1,129 @@
+{
+  "hinweis": "Quellen, die der monatliche Auftrag auf Aenderungen prueft. Die Pruefsumme bezieht sich auf den sichtbaren Text der Seite; sie wird vom Werkzeug werkzeuge/zulassung_pruefen.py gepflegt und nicht von Hand geaendert.",
+  "pruefintervall_monate": 1,
+  "erinnerung_nach_monaten": 6,
+  "quellen": [
+    {
+      "id": "zytiga",
+      "titel": "EMA – Zytiga (Abirateronacetat)",
+      "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/zytiga",
+      "wirkstoffe": [
+        "Abirateronacetat"
+      ],
+      "pruefsumme": null,
+      "zuletzt_geprueft": null,
+      "zuletzt_geaendert": null
+    },
+    {
+      "id": "xtandi",
+      "titel": "EMA – Xtandi (Enzalutamid)",
+      "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/xtandi",
+      "wirkstoffe": [
+        "Enzalutamid"
+      ],
+      "pruefsumme": null,
+      "zuletzt_geprueft": null,
+      "zuletzt_geaendert": null
+    },
+    {
+      "id": "erleada",
+      "titel": "EMA – Erleada (Apalutamid)",
+      "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/erleada",
+      "wirkstoffe": [
+        "Apalutamid"
+      ],
+      "pruefsumme": null,
+      "zuletzt_geprueft": null,
+      "zuletzt_geaendert": null
+    },
+    {
+      "id": "taxotere",
+      "titel": "EMA – Taxotere (Docetaxel)",
+      "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/taxotere",
+      "wirkstoffe": [
+        "Docetaxel"
+      ],
+      "pruefsumme": null,
+      "zuletzt_geprueft": null,
+      "zuletzt_geaendert": null
+    },
+    {
+      "id": "nubeqa",
+      "titel": "EMA – Nubeqa (Darolutamid)",
+      "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/nubeqa",
+      "wirkstoffe": [
+        "Darolutamid"
+      ],
+      "pruefsumme": null,
+      "zuletzt_geprueft": null,
+      "zuletzt_geaendert": null
+    },
+    {
+      "id": "akeega",
+      "titel": "EMA – Akeega (Niraparib/Abirateronacetat)",
+      "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/akeega",
+      "wirkstoffe": [
+        "Niraparib / Abirateronacetat"
+      ],
+      "pruefsumme": null,
+      "zuletzt_geprueft": null,
+      "zuletzt_geaendert": null
+    },
+    {
+      "id": "lynparza",
+      "titel": "EMA – Lynparza (Olaparib)",
+      "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/lynparza",
+      "wirkstoffe": [
+        "Olaparib",
+        "Olaparib + Abirateronacetat"
+      ],
+      "pruefsumme": null,
+      "zuletzt_geprueft": null,
+      "zuletzt_geaendert": null
+    },
+    {
+      "id": "talzenna",
+      "titel": "EMA – Talzenna (Talazoparib)",
+      "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/talzenna",
+      "wirkstoffe": [
+        "Talazoparib + Enzalutamid"
+      ],
+      "pruefsumme": null,
+      "zuletzt_geprueft": null,
+      "zuletzt_geaendert": null
+    },
+    {
+      "id": "jevtana",
+      "titel": "EMA – Jevtana (Cabazitaxel)",
+      "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/jevtana",
+      "wirkstoffe": [
+        "Cabazitaxel"
+      ],
+      "pruefsumme": null,
+      "zuletzt_geprueft": null,
+      "zuletzt_geaendert": null
+    },
+    {
+      "id": "xofigo",
+      "titel": "EMA – Xofigo (Radium-223-dichlorid)",
+      "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/xofigo",
+      "wirkstoffe": [
+        "Radium-223-dichlorid"
+      ],
+      "pruefsumme": null,
+      "zuletzt_geprueft": null,
+      "zuletzt_geaendert": null
+    },
+    {
+      "id": "pluvicto",
+      "titel": "EMA – Pluvicto (177Lu-PSMA-617)",
+      "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/pluvicto",
+      "wirkstoffe": [
+        "Lutetium (177Lu) Vipivotid-Tetraxetan (177Lu-PSMA-617)"
+      ],
+      "pruefsumme": null,
+      "zuletzt_geprueft": null,
+      "zuletzt_geaendert": null
+    }
+  ]
+}

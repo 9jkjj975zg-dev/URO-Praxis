@@ -2,4 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /404.html
 
+# Anwendung fuer medizinische Fachkreise, nicht fuer den Suchindex bestimmt
+Disallow: /therapie/
+
 Sitemap: https://www.hanau-urologie.de/sitemap.xml

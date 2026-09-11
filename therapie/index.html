@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Therapiepfad Prostatakarzinom – Urologische Gemeinschaftspraxis Rech</title>
+
+<!-- Fachkreisanwendung: bewusst nicht fuer Suchmaschinen und nicht aus der
+     Website verlinkt. Siehe robots.txt und therapie/LIESMICH.md. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Entscheidungshilfe zu den zugelassenen Systemtherapien beim Prostatakarzinom. Nur fuer medizinische Fachkreise.">
+<meta name="theme-color" content="#1b2a4e">
+<meta name="color-scheme" content="light">
+
+<!-- Startsymbol auf dem Handy -->
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="img/symbol.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/symbol-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Therapiepfad">
+
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+
+<a class="sprungmarke" href="#inhalt">Zum Inhalt springen</a>
+
+<!-- ======================================================================
+     Kopfzeile
+     ====================================================================== -->
+<header class="kopf">
+  <button type="button" class="kopf__zurueck" id="knopf-zurueck" hidden>
+    <span aria-hidden="true">‹</span> Zurück
+  </button>
+  <div class="kopf__mitte">
+    <p class="kopf__titel" id="kopf-titel">Therapiepfad Prostatakarzinom</p>
+    <p class="kopf__stand" id="kopf-stand">Daten werden geladen …</p>
+  </div>
+</header>
+
+<noscript>
+  <p class="warnhinweis">
+    Diese Anwendung rechnet die Angaben unmittelbar auf dem Gerät aus und
+    braucht dafür JavaScript. Bitte JavaScript für diese Seite erlauben.
+  </p>
+</noscript>
+
+<main id="inhalt" tabindex="-1">
+
+  <!-- ==================================================================
+       Ansicht: Start
+       ================================================================== -->
+  <section class="ansicht" id="ansicht-start" data-titel="Therapiepfad Prostatakarzinom">
+    <p class="einleitung">
+      Entscheidungshilfe zu den in Deutschland zugelassenen Systemtherapien
+      beim Prostatakarzinom. Die Auswahl folgt den Anwendungsgebieten der
+      Zulassung – nicht der Leitlinienempfehlung und nicht der
+      Wirtschaftlichkeit.
+    </p>
+
+    <div class="kachelgruppe">
+      <button type="button" class="kachel kachel--stark" data-start="beratung">
+        <span class="kachel__titel">Fall durchgehen</span>
+        <span class="kachel__text">Schritt für Schritt zu den Optionen, die für diesen Patienten zugelassen sind.</span>
+      </button>
+      <button type="button" class="kachel" data-ansicht="uebersicht">
+        <span class="kachel__titel">Gesamtübersicht</span>
+        <span class="kachel__text">Alle Stadien und Substanzen auf einen Blick, wie im gedruckten Schema.</span>
+      </button>
+      <button type="button" class="kachel" data-ansicht="glossar">
+        <span class="kachel__titel">Abkürzungen</span>
+        <span class="kachel__text">mHSPC, nmCRPC, PSADT und die übrigen Kürzel.</span>
+      </button>
+      <button type="button" class="kachel" data-ansicht="info">
+        <span class="kachel__titel">Datenstand &amp; App</span>
+        <span class="kachel__text">Aktualisierung, Symbol auf dem Startbildschirm, Datenschutz.</span>
+      </button>
+    </div>
+
+    <p class="warnhinweis">
+      <strong>Kein Ersatz für die Fachinformation.</strong> Verbindlich ist
+      allein die jeweils aktuelle Fachinformation des gewählten Präparats.
+      Die Angaben hier sind eine Gedächtnisstütze für ärztliches Personal und
+      ersetzen weder die ärztliche Prüfung im Einzelfall noch die
+      Tumorkonferenz.
+    </p>
+  </section>
+
+  <!-- ==================================================================
+       Ansicht: Beratung (Fragen)
+       ================================================================== -->
+  <section class="ansicht" id="ansicht-beratung" data-titel="Fall durchgehen" hidden>
+    <div class="fortschritt">
+      <div class="fortschritt__balken"><span id="fortschritt-balken"></span></div>
+      <p class="fortschritt__text" id="fortschritt-text"></p>
+    </div>
+    <div id="frage-behaelter" aria-live="polite"></div>
+  </section>
+
+  <!-- ==================================================================
+       Ansicht: Ergebnis
+       ================================================================== -->
+  <section class="ansicht" id="ansicht-ergebnis" data-titel="Ergebnis" hidden>
+    <div id="ergebnis-behaelter"></div>
+  </section>
+
+  <!-- ==================================================================
+       Ansicht: Gesamtuebersicht
+       ================================================================== -->
+  <section class="ansicht" id="ansicht-uebersicht" data-titel="Gesamtübersicht" hidden>
+    <div id="uebersicht-behaelter"></div>
+  </section>
+
+  <!-- ==================================================================
+       Ansicht: Glossar
+       ================================================================== -->
+  <section class="ansicht" id="ansicht-glossar" data-titel="Abkürzungen" hidden>
+    <div id="glossar-behaelter"></div>
+  </section>
+
+  <!-- ==================================================================
+       Ansicht: Datenstand und App
+       ================================================================== -->
+  <section class="ansicht" id="ansicht-info" data-titel="Datenstand &amp; App" hidden>
+
+    <h2>Datenstand</h2>
+    <div class="karte" id="stand-karte">
+      <p id="stand-text">Wird geladen …</p>
+      <button type="button" class="knopf knopf--zweit" id="knopf-pruefen">Jetzt auf Änderungen prüfen</button>
+    </div>
+
+    <h2>Was sich automatisch aktualisiert</h2>
+    <div class="karte">
+      <p>
+        Die Therapiedaten liegen getrennt von der App in einer eigenen Datei.
+        Bei jedem Start holt die App diese Datei neu vom Server und merkt sich
+        die Fassung. Ändert sich eine Zulassung, genügt eine Änderung dieser
+        Datei – die App zeigt die neuen Angaben beim nächsten Start, ohne dass
+        jemand etwas neu installieren muss.
+      </p>
+      <p>
+        Ohne Netz arbeitet die App mit der zuletzt geladenen Fassung weiter.
+        Der Datenstand steht immer oben in der Kopfzeile.
+      </p>
+      <p class="hinweis-klein">
+        Die Prüfung der amtlichen Quellen läuft monatlich als automatischer
+        Auftrag und meldet Änderungen zur ärztlichen Durchsicht. Eingetragen
+        werden sie erst nach dieser Durchsicht – eine Zulassungsänderung geht
+        nie ungeprüft in die App.
+      </p>
+    </div>
+
+    <h2>Symbol auf dem Startbildschirm</h2>
+    <div class="karte">
+      <button type="button" class="knopf" id="knopf-installieren" hidden>App installieren</button>
+      <p><strong>iPhone und iPad (Safari):</strong> Teilen-Symbol antippen →
+        „Zum Home-Bildschirm“ → „Hinzufügen“.</p>
+      <p><strong>Android (Chrome):</strong> Menü mit den drei Punkten →
+        „App installieren“ oder „Zum Startbildschirm hinzufügen“.</p>
+      <p><strong>Windows und Mac (Chrome oder Edge):</strong> Symbol in der
+        Adresszeile → „Installieren“.</p>
+      <p class="hinweis-klein">
+        Danach startet die App wie ein eigenes Programm im Vollbild und
+        funktioniert auch ohne Netz.
+      </p>
+    </div>
+
+    <h2>Datenschutz</h2>
+    <div class="karte">
+      <p>
+        Die App verarbeitet keine Patientendaten auf einem Server. Alle
+        Angaben, die während einer Beratung ausgewählt werden, bleiben im
+        Arbeitsspeicher des Geräts und verschwinden mit dem Schließen der
+        Ansicht. Gespeichert werden ausschließlich die Therapiedaten der App
+        selbst.
+      </p>
+      <p>
+        Es werden keine Zugriffszahlen erhoben, keine Dienste Dritter geladen
+        und keine Cookies gesetzt.
+      </p>
+      <p><a href="../datenschutz.html">Datenschutzerklärung der Praxis</a> ·
+         <a href="../impressum.html">Impressum</a></p>
+    </div>
+
+    <h2>Grundlage</h2>
+    <div class="karte" id="grundlage-karte"></div>
+
+    <h2>Änderungen</h2>
+    <div class="karte" id="aenderungen-karte"></div>
+  </section>
+
+</main>
+
+<!-- ======================================================================
+     Tableiste unten
+     ====================================================================== -->
+<nav class="tableiste" aria-label="Hauptbereiche">
+  <button type="button" class="tab" data-ansicht="start" aria-current="page">Start</button>
+  <button type="button" class="tab" data-start="beratung">Fall</button>
+  <button type="button" class="tab" data-ansicht="uebersicht">Übersicht</button>
+  <button type="button" class="tab" data-ansicht="info">App</button>
+</nav>
+
+<!-- Meldungen (neue Daten, offline, Fehler) -->
+<div class="meldung" id="meldung" role="status" aria-live="polite" hidden></div>
+
+<!-- ======================================================================
+     Bestaetigung Fachkreise – liegt ueber allem, bis sie bestaetigt ist
+     ====================================================================== -->
+<div class="schleuse" id="schleuse" hidden>
+  <div class="schleuse__kasten" role="dialog" aria-modal="true" aria-labelledby="schleuse-titel">
+    <h2 id="schleuse-titel">Nur für medizinische Fachkreise</h2>
+    <p>
+      Diese Anwendung nennt verschreibungspflichtige Arzneimittel und ihre
+      zugelassenen Anwendungsgebiete. Sie richtet sich ausschließlich an
+      Ärztinnen und Ärzte sowie an Angehörige weiterer medizinischer
+      Fachkreise und ist keine Information für Patienten.
+    </p>
+    <p>
+      Sie ersetzt weder die Fachinformation noch die ärztliche Entscheidung im
+      Einzelfall.
+    </p>
+    <button type="button" class="knopf" id="knopf-schleuse">Ich gehöre zu den Fachkreisen</button>
+    <p class="hinweis-klein"><a href="../index.html">Zurück zur Praxis-Website</a></p>
+  </div>
+</div>
+
+<script src="assets/logik.js"></script>
+<script src="assets/daten.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

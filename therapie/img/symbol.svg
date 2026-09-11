@@ -1,0 +1,20 @@
+<!-- App-Symbol des Therapiepfads: die beiden ineinanderliegenden Sicheln
+     des Praxislogos, hier vereinfacht aus zwei Kreisen gebildet. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img"
+     aria-label="Therapiepfad Prostatakarzinom">
+  <defs>
+    <mask id="sichel-gold">
+      <rect width="512" height="512" fill="#000"/>
+      <circle cx="256" cy="256" r="159" fill="#fff"/>
+      <circle cx="200" cy="200" r="159" fill="#000"/>
+    </mask>
+    <mask id="sichel-weiss">
+      <rect width="512" height="512" fill="#000"/>
+      <circle cx="256" cy="256" r="159" fill="#fff"/>
+      <circle cx="312" cy="312" r="159" fill="#000"/>
+    </mask>
+  </defs>
+  <rect width="512" height="512" rx="92" fill="#1b2a4e"/>
+  <circle cx="256" cy="256" r="159" fill="#bab2a2" mask="url(#sichel-gold)"/>
+  <circle cx="256" cy="256" r="159" fill="#ffffff" mask="url(#sichel-weiss)"/>
+</svg>

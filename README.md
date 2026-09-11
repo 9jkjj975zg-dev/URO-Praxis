@@ -47,6 +47,9 @@ Weitere Dateien: `assets/css/style.css`, `assets/js/main.js`,
 `assets/img/logo.svg`, `assets/img/favicon.svg`, `robots.txt`, `sitemap.xml`,
 `.htaccess`.
 
+Getrennt davon liegt unter `therapie/` eine eigene Anwendung für Fachkreise,
+die nicht zur Website gehört und nicht verlinkt ist – siehe Abschnitt 13.
+
 ## 3. Wichtig: Diese Angaben bitte vor der Veröffentlichung prüfen
 
 Die Website `www.hanau-urologie.de` war aus der Entwicklungsumgebung heraus nicht
@@ -380,3 +383,33 @@ python3 -m http.server 8000
 ```
 
 Danach im Browser `http://localhost:8000` aufrufen.
+
+## 13. Therapiepfad Prostatakarzinom (Anwendung für Fachkreise)
+
+Unter `therapie/` liegt eine eigenständige Anwendung: eine Entscheidungshilfe,
+die sich mit den Angaben zum Patienten durchklicken lässt und zeigt, welche
+Systemtherapien beim Prostatakarzinom für diese Konstellation zugelassen sind.
+Sie lässt sich auf dem Handy als App auf den Startbildschirm legen und
+funktioniert auch ohne Netz.
+
+Adresse: `https://www.hanau-urologie.de/therapie/`
+
+**Sie ist bewusst nicht mit der Website verbunden.** Kein Menüpunkt, kein Link,
+`Disallow` in `robots.txt`, `noindex` im Kopf der Seite und eine Bestätigung
+beim ersten Start. Grund ist § 10 Heilmittelwerbegesetz: Angaben zu
+verschreibungspflichtigen Arzneimitteln richten sich an Fachkreise, nicht an
+Patienten. Die Adresse wird also weitergegeben, nicht verlinkt.
+
+**Aktualisierung.** Die medizinischen Inhalte stehen vollständig in einer
+einzigen Datei (`therapie/daten/therapie-pca.json`), getrennt vom Programm.
+Ändert sich eine Zulassung, wird nur diese Datei geändert und hochgeladen –
+alle Geräte holen sie beim nächsten Start von selbst und melden den neuen
+Stand. Niemand muss etwas neu installieren.
+
+**Überwachung.** Der Auftrag `.github/workflows/zulassung-pruefen.yml` ruft am
+1. jedes Monats die hinterlegten Seiten der Zulassungsbehörde ab und legt bei
+Änderungen eine Aufgabe zur ärztlichen Durchsicht an. Er ändert von sich aus
+keine medizinischen Angaben.
+
+Die vollständige Anleitung – Regelsprache, neue Substanz aufnehmen, neue Frage
+aufnehmen, Programmfassung erhöhen – steht in `therapie/LIESMICH.md`.
