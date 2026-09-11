@@ -1,0 +1,60 @@
+# ==========================================================================
+# Monatliche Pruefung der Zulassungsquellen
+# --------------------------------------------------------------------------
+# Der Auftrag ruft die hinterlegten Seiten der Zulassungsbehoerde ab und
+# meldet Aenderungen als Aufgabe (Issue). Er aendert von sich aus keine
+# medizinischen Angaben - die Durchsicht bleibt aerztliche Aufgabe.
+# ==========================================================================
+name: Zulassungen pruefen
+
+on:
+  schedule:
+    # Am 1. jedes Monats um 06:00 UTC
+    - cron: '0 6 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  pruefen:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Stand holen
+        uses: actions/checkout@v4
+
+      - name: Python bereitstellen
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Quellen abrufen und vergleichen
+        id: pruefung
+        run: |
+          set +e
+          # --uebernehmen setzt die Pruefsummen auf den heute gesehenen Stand.
+          # Dadurch meldet der naechste Monat dieselbe Aenderung nicht erneut;
+          # die offene Aufgabe bleibt als Merkposten bestehen.
+          python3 werkzeuge/zulassung_pruefen.py --uebernehmen --bericht bericht.md
+          echo "auffaellig=$?" >> "$GITHUB_OUTPUT"
+
+      - name: Aufgabe anlegen
+        if: steps.pruefung.outputs.auffaellig == '1'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          titel="Zulassungspruefung $(date +%d.%m.%Y): bitte durchsehen"
+          gh issue create --title "$titel" --body-file bericht.md --label zulassung \
+            || gh issue create --title "$titel" --body-file bericht.md
+
+      - name: Neue Pruefsummen sichern
+        if: always()
+        run: |
+          if [ -n "$(git status --porcelain therapie/daten/zulassung-quellen.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add therapie/daten/zulassung-quellen.json
+            git commit -m "Zulassungspruefung: Pruefsummen und Pruefdatum aktualisiert"
+            git push
+          fi
