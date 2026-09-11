@@ -26,6 +26,7 @@ var GRUNDGERUEST = [
   'assets/logik.js',
   'manifest.webmanifest',
   'img/symbol.svg',
+  'img/logo.svg',
   'img/symbol-180.png',
   'img/symbol-192.png',
   'img/symbol-512.png',

@@ -1,112 +1,185 @@
 #!/usr/bin/env python3
-"""Erzeugt die App-Symbole fuer den Startbildschirm.
+"""Erzeugt die App-Symbole des Therapiepfads aus dem Praxislogo.
 
-Das Zeichen greift die beiden ineinanderliegenden Sicheln des Praxislogos
-auf: eine Kreisflaeche, aus der ein linsenfoermiger Ausschnitt herausgenommen
-ist. Gezeichnet wird vierfach vergroessert und danach verkleinert, damit die
-Raender glatt werden - dafuer braucht es keine Bildbibliothek.
+Grundlage ist assets/img/logo.svg - dieselben beiden Sicheln in denselben
+Farben wie im Kopf der Website, nur ohne die Einblend-Bewegung und auf
+weissem Grund, damit sie auf jedem Hintergrund des Startbildschirms stehen.
+
+Erzeugt werden:
+    therapie/img/symbol.svg            fuer Browser und Android
+    therapie/img/logo.svg              freistehend, fuer den Kopf der App
+    therapie/img/symbol-512.png        Android, grosse Darstellung
+    therapie/img/symbol-192.png        Android, Startbildschirm
+    therapie/img/symbol-180.png        iPhone und iPad
+    therapie/img/symbol-maskiert.png   Android, wenn das Geraet selbst
+                                       zuschneidet (Kreis, Tropfen, Quadrat)
+
+Die PNG-Dateien liegen fertig im Ordner. Dieses Werkzeug wird nur gebraucht,
+wenn sich das Logo aendert. Zum Umwandeln nach PNG wird ein vorhandener
+Chrome oder Chromium verwendet; ist keiner zu finden, sagt das Werkzeug das
+und die SVG-Datei ist trotzdem geschrieben.
 
 Aufruf:  python3 werkzeuge/symbole_erzeugen.py
 """
 
-import struct
-import zlib
+import glob
+import os
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
 from pathlib import Path
 
-NAVY = (0x1b, 0x2a, 0x4e)
-WEISS = (0xff, 0xff, 0xff)
-GOLD = (0xba, 0xb2, 0xa2)
+WURZEL = Path(__file__).resolve().parent.parent
+LOGO = WURZEL / "assets" / "img" / "logo.svg"
+ZIEL = WURZEL / "therapie" / "img"
 
-ZIEL = Path(__file__).resolve().parent.parent / "therapie" / "img"
+KANTE = 512                 # Bezugsgroesse der SVG-Datei
+LOGO_FELD = 2110            # Kantenlaenge des Logos in seinen eigenen Einheiten
+LOGO_ECKE = (2453, 1426)    # linke obere Ecke des Logos in seinen Einheiten
 
+GRUND = "#ffffff"
+ECKRADIUS = 92              # abgerundetes Quadrat, wie es die Systeme zeigen
 
-def png_schreiben(pfad, breite, hoehe, pixel):
-    """Schreibt eine RGB-PNG-Datei ohne fremde Bibliotheken."""
-    roh = bytearray()
-    for y in range(hoehe):
-        roh.append(0)                      # Filtertyp 0 je Zeile
-        for x in range(breite):
-            roh.extend(pixel[y * breite + x])
+BROWSER = ["chromium", "chromium-browser", "google-chrome", "google-chrome-stable",
+           "chrome", "msedge",
+           "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+           "C:/Program Files/Google/Chrome/Application/chrome.exe"]
 
-    def block(kennung, daten):
-        teil = kennung + daten
-        return (struct.pack(">I", len(daten)) + teil
-                + struct.pack(">I", zlib.crc32(teil) & 0xffffffff))
-
-    kopf = struct.pack(">IIBBBBB", breite, hoehe, 8, 2, 0, 0, 0)
-    datei = (b"\x89PNG\r\n\x1a\n"
-             + block(b"IHDR", kopf)
-             + block(b"IDAT", zlib.compress(bytes(roh), 9))
-             + block(b"IEND", b""))
-    pfad.write_bytes(datei)
+# Zusaetzlich wird nach einer mitgelieferten Chromium-Fassung gesucht.
+MUSTER = ["/opt/pw-browsers/chromium-*/chrome-linux/chrome",
+          "~/.cache/ms-playwright/chromium-*/chrome-linux/chrome"]
 
 
-def zeichnen(kante, anteil, ecke):
-    """Zeichnet das Symbol in vierfacher Groesse und verkleinert es danach.
+def logo_pfade():
+    """Holt die beiden Pfade des Logos samt ihrer Verschiebungen."""
+    text = LOGO.read_text(encoding="utf-8")
+    gruppen = []
+    for teil in re.finditer(
+            r'<g transform="(matrix\([^"]+\))">\s*<g transform="(matrix\([^"]+\))">\s*'
+            r'<path d="([^"]+)" style="fill:([^"]+)"/>', text):
+        gruppen.append({
+            "aussen": teil.group(1),
+            "innen": teil.group(2),
+            "d": teil.group(3),
+            "farbe": teil.group(4),
+        })
+    if len(gruppen) != 2:
+        raise SystemExit("Im Logo wurden nicht die erwarteten zwei Pfade gefunden.")
+    return gruppen
 
-    anteil  Durchmesser des Zeichens im Verhaeltnis zur Kantenlaenge
-    ecke    Eckenradius im Verhaeltnis zur Kantenlaenge (0 = eckig)
-    """
-    f = 4
-    gross = kante * f
-    mitte = gross / 2.0
-    r = gross * anteil / 2.0
-    versatz = r * 0.5 / (2 ** 0.5)         # 0,5 r unter 45 Grad
-    eckradius = gross * ecke
 
-    pixel = []
-    for y in range(gross):
-        for x in range(gross):
-            px, py = x + 0.5, y + 0.5
+def svg_bauen(anteil, eckradius, grund=GRUND):
+    """Setzt das Logo mittig auf einen Grund. anteil = Breite des Logos.
+    grund=None laesst den Grund weg - fuer die Marke innerhalb der App."""
+    gruppen = logo_pfade()
+    groesse = KANTE * anteil
+    massstab = groesse / LOGO_FELD
+    rand = (KANTE - groesse) / 2.0
 
-            # Hintergrund: abgerundetes Quadrat
-            dx = max(eckradius - px, px - (gross - eckradius), 0.0)
-            dy = max(eckradius - py, py - (gross - eckradius), 0.0)
-            if dx * dx + dy * dy > eckradius * eckradius:
-                pixel.append(None)         # ausserhalb: durchsichtig -> spaeter weiss
-                continue
+    zeilen = [
+        '<!-- App-Symbol des Therapiepfads: das Logo der Praxis auf weissem',
+        '     Grund. Erzeugt von werkzeuge/symbole_erzeugen.py aus',
+        '     assets/img/logo.svg - nicht von Hand aendern. -->',
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" role="img"' % (KANTE, KANTE),
+        '     aria-label="Therapiepfad Prostatakarzinom"',
+        '     style="fill-rule:evenodd;clip-rule:evenodd">',
+        ('  <rect width="%d" height="%d"%s fill="%s"/>' % (
+            KANTE, KANTE, (' rx="%d"' % eckradius) if eckradius else "", grund))
+        if grund else '  <!-- ohne Grund: das Logo steht frei -->',
+        '  <g transform="translate(%.4f %.4f) scale(%.6f) translate(%d %d)">' % (
+            rand, rand, massstab, -LOGO_ECKE[0], -LOGO_ECKE[1]),
+    ]
+    for g in gruppen:
+        zeilen.append('    <g transform="%s">' % g["aussen"])
+        zeilen.append('      <g transform="%s">' % g["innen"])
+        zeilen.append('        <path d="%s" style="fill:%s"/>' % (g["d"], g["farbe"]))
+        zeilen.append('      </g>')
+        zeilen.append('    </g>')
+    zeilen.append('  </g>')
+    zeilen.append('</svg>')
+    return "\n".join(zeilen) + "\n"
 
-            farbe = NAVY
-            im_kreis = (px - mitte) ** 2 + (py - mitte) ** 2 <= r * r
-            if im_kreis:
-                oben = (px - (mitte - versatz)) ** 2 + (py - (mitte - versatz)) ** 2 <= r * r
-                unten = (px - (mitte + versatz)) ** 2 + (py - (mitte + versatz)) ** 2 <= r * r
-                if not unten:
-                    farbe = WEISS          # Sichel nach oben links
-                elif not oben:
-                    farbe = GOLD           # Sichel nach unten rechts
-            pixel.append(farbe)
 
-    # Verkleinern: Mittelwert ueber f x f Punkte ergibt weiche Kanten.
-    klein = []
-    for y in range(kante):
-        for x in range(kante):
-            summe = [0, 0, 0]
-            for sy in range(f):
-                for sx in range(f):
-                    p = pixel[(y * f + sy) * gross + (x * f + sx)]
-                    if p is None:
-                        p = NAVY if eckradius == 0 else (0xf5, 0xf2, 0xee)
-                    summe[0] += p[0]
-                    summe[1] += p[1]
-                    summe[2] += p[2]
-            anzahl = f * f
-            klein.append(bytes((summe[0] // anzahl, summe[1] // anzahl, summe[2] // anzahl)))
-    return klein
+def browser_finden():
+    for name in BROWSER:
+        gefunden = shutil.which(name) or (name if Path(name).exists() else None)
+        if gefunden:
+            return gefunden
+    for muster in MUSTER:
+        muster = str(Path(muster).expanduser())
+        treffer = sorted(glob.glob(muster))
+        if treffer:
+            return treffer[-1]
+    return None
+
+
+def png_schreiben(browser, svg_text, ziel, kante):
+    """Laesst den Browser die SVG-Datei in der gewuenschten Groesse ablichten."""
+    with tempfile.TemporaryDirectory() as ordner:
+        ordner = Path(ordner)
+        (ordner / "symbol.svg").write_text(svg_text, encoding="utf-8")
+        (ordner / "seite.html").write_text(
+            '<!DOCTYPE html><meta charset="utf-8">'
+            '<style>html,body{margin:0;padding:0;background:%s}'
+            'img{display:block;width:%dpx;height:%dpx}</style>'
+            '<img src="symbol.svg" alt="">' % (GRUND, kante, kante),
+            encoding="utf-8")
+        befehl = [
+            browser, "--headless=new", "--disable-gpu", "--hide-scrollbars",
+            "--no-sandbox" if hasattr(os, "geteuid") and os.geteuid() == 0 else "--no-first-run",
+            "--force-device-scale-factor=1",
+            "--screenshot=" + str(ordner / "bild.png"),
+            "--window-size=%d,%d" % (kante, kante),
+            (ordner / "seite.html").as_uri(),
+        ]
+        lauf = subprocess.run(befehl, capture_output=True, timeout=120)
+        bild = ordner / "bild.png"
+        if not bild.exists():
+            raise SystemExit("Der Browser hat kein Bild erzeugt:\n"
+                             + lauf.stderr.decode("utf-8", "replace")[-800:])
+        shutil.copy(bild, ziel)
 
 
 def main():
     ZIEL.mkdir(parents=True, exist_ok=True)
+
+    # Das Symbol fuer Browser und Manifest: abgerundetes Quadrat.
+    symbol = svg_bauen(anteil=0.68, eckradius=ECKRADIUS)
+    (ZIEL / "symbol.svg").write_text(symbol, encoding="utf-8")
+    print("geschrieben: symbol.svg")
+
+    # Das freistehende Logo fuer den Startbildschirm der App selbst. Es liegt
+    # hier noch einmal, damit der Ordner therapie/ fuer sich vollstaendig ist.
+    (ZIEL / "logo.svg").write_text(
+        svg_bauen(anteil=1.0, eckradius=0, grund=None), encoding="utf-8")
+    print("geschrieben: logo.svg")
+
+    browser = browser_finden()
+    if not browser:
+        print("\nKein Chrome oder Chromium gefunden - die PNG-Dateien bleiben,")
+        print("wie sie sind. Sie liegen fertig im Ordner therapie/img/ und")
+        print("werden nur gebraucht, wenn sich das Logo aendert.")
+        return 0
+    print("verwende:", browser)
+
+    # Ohne Rundung: iOS und Android runden selbst ab.
+    eckig = svg_bauen(anteil=0.68, eckradius=0)
+    # Deutlich kleiner: Android schneidet bei "maskierbar" bis zu 20 % weg.
+    maskiert = svg_bauen(anteil=0.46, eckradius=0)
+
     auftraege = [
-        ("symbol-512.png", 512, 0.62, 0.18),
-        ("symbol-192.png", 192, 0.62, 0.18),
-        ("symbol-180.png", 180, 0.62, 0.0),      # iOS rundet selbst ab
-        ("symbol-maskiert.png", 512, 0.46, 0.0),  # Android maskiert selbst
+        ("symbol-512.png", symbol, 512),
+        ("symbol-192.png", symbol, 192),
+        ("symbol-180.png", eckig, 180),
+        ("symbol-maskiert.png", maskiert, 512),
     ]
-    for name, kante, anteil, ecke in auftraege:
-        png_schreiben(ZIEL / name, kante, kante, zeichnen(kante, anteil, ecke))
+    for name, quelle, kante in auftraege:
+        png_schreiben(browser, quelle, ZIEL / name, kante)
         print("geschrieben:", name)
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

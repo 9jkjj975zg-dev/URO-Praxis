@@ -6,7 +6,7 @@
   "dir": "ltr",
   "start_url": "./index.html",
   "scope": "./",
-  "id": "/therapie/",
+  "id": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#f5f2ee",
