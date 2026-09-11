@@ -69,6 +69,29 @@
 
   function aktuellerSchritt() { return schritte[schritte.length - 1]; }
 
+  /* Der Weg durch die App wird auch im Verlauf des Browsers vermerkt, damit
+     die Zurueck-Taste des Geraets funktioniert. In abgeschotteten Umgebungen
+     (Vorschau in einem Rahmen, Aufruf ueber file://) verweigert der Browser
+     das. Dann wird ohne den Verlauf weitergearbeitet, statt stehenzubleiben. */
+  var verlaufNutzbar = true;
+
+  function verlaufMerken(ersetzen) {
+    if (!verlaufNutzbar) { return; }
+    try {
+      var stand = { tiefe: schritte.length };
+      if (ersetzen) { history.replaceState(stand, ''); }
+      else { history.pushState(stand, ''); }
+    } catch (f) {
+      verlaufNutzbar = false;
+    }
+  }
+
+  function einenSchrittZurueck() {
+    if (schritte.length < 2) { return; }
+    schritte.pop();
+    zeichnen();
+  }
+
   function zeichnen() {
     var schritt = aktuellerSchritt();
     ANSICHTEN.forEach(function (name) {
@@ -97,19 +120,19 @@
 
   function vor(schritt) {
     schritte.push(schritt);
-    history.pushState({ tiefe: schritte.length }, '');
+    verlaufMerken(false);
     zeichnen();
   }
 
   function zumStart(ansicht) {
     schritte = [{ ansicht: 'start' }];
     if (ansicht && ansicht !== 'start') { schritte.push({ ansicht: ansicht }); }
-    history.replaceState({ tiefe: schritte.length }, '');
+    verlaufMerken(true);
     zeichnen();
   }
 
   window.addEventListener('popstate', function () {
-    if (schritte.length > 1) { schritte.pop(); zeichnen(); }
+    einenSchrittZurueck();
   });
 
   /* ---------------------------------------------------------------------
@@ -120,7 +143,7 @@
     reihenfolge = [];
     var erste = logik.naechsteFrage(daten, antworten);
     schritte = [{ ansicht: 'start' }, { ansicht: 'beratung', frage: erste ? erste.id : null }];
-    history.pushState({ tiefe: 2 }, '');
+    verlaufMerken(false);
     zeichnen();
   }
 
@@ -551,7 +574,9 @@
      Start
      --------------------------------------------------------------------- */
   function verdrahten() {
-    id('knopf-zurueck').addEventListener('click', function () { history.back(); });
+    id('knopf-zurueck').addEventListener('click', function () {
+      if (verlaufNutzbar) { history.back(); } else { einenSchrittZurueck(); }
+    });
 
     Array.prototype.forEach.call(document.querySelectorAll('[data-ansicht], [data-start]'), function (knopf) {
       knopf.addEventListener('click', function () {
@@ -636,7 +661,7 @@
   function starten() {
     verdrahten();
     schleusePruefen();
-    history.replaceState({ tiefe: 1 }, '');
+    verlaufMerken(true);
 
     quelle.laden(function (frisch, art) {
       datenUebernehmen(frisch);
