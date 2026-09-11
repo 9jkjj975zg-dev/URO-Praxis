@@ -1,0 +1,1745 @@
+{
+  "schema": 1,
+  "version": "2026-09-11",
+  "stand": "2026-09-11",
+  "titel": "Therapieoptionen im Krankheitsverlauf – Prostatakarzinom",
+  "grundlage": "Systemtherapie des Prostatakarzinoms nach den in Deutschland zugelassenen Anwendungsgebieten (EU-Zulassung). Aufbau nach dem Schema 'Therapieoptionen im Krankheitsverlauf'.",
+  "aenderungen": [
+    {
+      "datum": "2026-09-11",
+      "text": "Erste Fassung: Stadien, Fragen und Therapieoptionen aus dem Ausgangsschema übernommen und mit Zulassungstexten hinterlegt."
+    }
+  ],
+  "stadien": [
+    {
+      "id": "lokal_hspc",
+      "kurz": "nmHSPC",
+      "name": "Lokales / nicht metastasiertes hormonsensitives Prostatakarzinom",
+      "beschreibung": "Keine Fernmetastasen, hormonsensitiv. Umfasst die Erstdiagnose ebenso wie das biochemische Rezidiv nach lokaler Therapie."
+    },
+    {
+      "id": "mhspc",
+      "kurz": "mHSPC",
+      "name": "Metastasiertes hormonsensitives Prostatakarzinom",
+      "beschreibung": "Fernmetastasen bei erhaltener Hormonempfindlichkeit. Grundlage jeder Kombination ist die Androgendeprivationstherapie (ADT)."
+    },
+    {
+      "id": "nmcrpc",
+      "kurz": "M0CRPC / nmCRPC",
+      "name": "Nicht metastasiertes kastrationsresistentes Prostatakarzinom",
+      "beschreibung": "Progress unter Kastrationsbedingungen ohne Nachweis von Fernmetastasen. Die ADT wird fortgeführt."
+    },
+    {
+      "id": "mcrpc",
+      "kurz": "mCRPC",
+      "name": "Metastasiertes kastrationsresistentes Prostatakarzinom",
+      "beschreibung": "Progress unter Kastrationsbedingungen mit Fernmetastasen. Die ADT wird in allen Linien fortgeführt."
+    }
+  ],
+  "abkuerzungen": [
+    {
+      "kurz": "ADT",
+      "lang": "Androgendeprivationstherapie"
+    },
+    {
+      "kurz": "ARPI",
+      "lang": "Androgenrezeptor-Signalweg-Inhibitor (Abirateron, Apalutamid, Darolutamid, Enzalutamid)"
+    },
+    {
+      "kurz": "BCR",
+      "lang": "Biochemisches Rezidiv"
+    },
+    {
+      "kurz": "mHSPC",
+      "lang": "Metastasiertes hormonsensitives Prostatakarzinom"
+    },
+    {
+      "kurz": "nmHSPC",
+      "lang": "Nicht metastasiertes hormonsensitives Prostatakarzinom"
+    },
+    {
+      "kurz": "M0CRPC / nmCRPC",
+      "lang": "Nicht metastasiertes kastrationsresistentes Prostatakarzinom (ohne Nachweis von Fernmetastasen)"
+    },
+    {
+      "kurz": "mCRPC",
+      "lang": "Metastasiertes kastrationsresistentes Prostatakarzinom"
+    },
+    {
+      "kurz": "PSADT",
+      "lang": "PSA-Verdopplungszeit"
+    },
+    {
+      "kurz": "PSMA",
+      "lang": "Prostataspezifisches Membranantigen"
+    }
+  ],
+  "fragen": [
+    {
+      "id": "metastasen",
+      "text": "Sind Fernmetastasen nachgewiesen?",
+      "hilfe": "Maßgeblich ist die aktuelle Bildgebung. Ein alleiniger Lymphknotenbefall im Becken (N1) gilt hier als nicht fernmetastasiert.",
+      "optionen": [
+        {
+          "wert": "nein",
+          "text": "Nein – keine Fernmetastasen (M0)"
+        },
+        {
+          "wert": "ja",
+          "text": "Ja – Fernmetastasen (M1)"
+        },
+        {
+          "wert": "unbekannt",
+          "text": "Unklar – Staging noch offen",
+          "offen": true
+        }
+      ]
+    },
+    {
+      "id": "kastrationsresistenz",
+      "text": "Liegt eine Kastrationsresistenz vor?",
+      "hilfe": "Progress unter laufender ADT bei Testosteron im Kastrationsbereich (< 50 ng/dl bzw. < 1,7 nmol/l): drei aufeinanderfolgende PSA-Anstiege im Abstand von mindestens einer Woche oder radiologischer Progress.",
+      "optionen": [
+        {
+          "wert": "nein",
+          "text": "Nein – hormonsensitiv"
+        },
+        {
+          "wert": "ja",
+          "text": "Ja – kastrationsresistent"
+        },
+        {
+          "wert": "unbekannt",
+          "text": "Unklar",
+          "offen": true
+        }
+      ]
+    },
+    {
+      "id": "situation_m0",
+      "text": "Welche Situation liegt vor?",
+      "hilfe": "Die beiden Wege unterscheiden sich in den zugelassenen Anwendungsgebieten deutlich.",
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "nein"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "nein"
+            ]
+          }
+        ]
+      },
+      "optionen": [
+        {
+          "wert": "erstdiagnose",
+          "text": "Erstdiagnose eines lokalisierten oder lokal fortgeschrittenen Karzinoms"
+        },
+        {
+          "wert": "bcr",
+          "text": "Biochemisches Rezidiv nach lokaler Therapie"
+        }
+      ]
+    },
+    {
+      "id": "hochrisiko_lokal",
+      "text": "Hochrisiko-Konstellation und Bestrahlung der Prostata geplant oder erfolgt?",
+      "hilfe": "Hochrisiko im Sinne der Zulassung: mindestens zwei der drei Kriterien T3/T4, Gleason-Score 8–10, PSA ≥ 40 ng/ml – oder ein Lymphknotenbefall (N1).",
+      "wenn": {
+        "alle": [
+          {
+            "frage": "situation_m0",
+            "ist": [
+              "erstdiagnose"
+            ]
+          }
+        ]
+      },
+      "optionen": [
+        {
+          "wert": "ja",
+          "text": "Ja – Hochrisiko, Strahlentherapie vorgesehen"
+        },
+        {
+          "wert": "nein",
+          "text": "Nein"
+        },
+        {
+          "wert": "unbekannt",
+          "text": "Noch offen",
+          "offen": true
+        }
+      ]
+    },
+    {
+      "id": "psadt_bcr",
+      "text": "Beträgt die PSA-Verdopplungszeit höchstens 9 Monate?",
+      "hilfe": "Berechnung aus mindestens drei PSA-Werten über mindestens drei Monate unter laufender Beobachtung.",
+      "wenn": {
+        "alle": [
+          {
+            "frage": "situation_m0",
+            "ist": [
+              "bcr"
+            ]
+          }
+        ]
+      },
+      "optionen": [
+        {
+          "wert": "ja",
+          "text": "Ja – PSADT ≤ 9 Monate"
+        },
+        {
+          "wert": "nein",
+          "text": "Nein – PSADT > 9 Monate"
+        },
+        {
+          "wert": "unbekannt",
+          "text": "Nicht bestimmt",
+          "offen": true
+        }
+      ]
+    },
+    {
+      "id": "salvage_rt",
+      "text": "Kommt eine Salvage-Strahlentherapie in Frage?",
+      "hilfe": "Zum Beispiel nach bereits erfolgter Bestrahlung, bei ausgedehntem Rezidiv oder wenn der Patient sie ablehnt, ist sie ungeeignet.",
+      "wenn": {
+        "alle": [
+          {
+            "frage": "situation_m0",
+            "ist": [
+              "bcr"
+            ]
+          }
+        ]
+      },
+      "optionen": [
+        {
+          "wert": "geeignet",
+          "text": "Ja – Salvage-Bestrahlung ist geeignet"
+        },
+        {
+          "wert": "ungeeignet",
+          "text": "Nein – ungeeignet oder abgelehnt"
+        },
+        {
+          "wert": "unbekannt",
+          "text": "Noch offen",
+          "offen": true
+        }
+      ]
+    },
+    {
+      "id": "mhspc_zeitpunkt",
+      "text": "Wann wurde die Metastasierung festgestellt?",
+      "hilfe": "Einzelne Anwendungsgebiete sind auf die Neudiagnose mit Metastasen beschränkt.",
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "nein"
+            ]
+          }
+        ]
+      },
+      "optionen": [
+        {
+          "wert": "erstdiagnose",
+          "text": "Bereits bei Erstdiagnose (de novo metastasiert)"
+        },
+        {
+          "wert": "verlauf",
+          "text": "Erst im Verlauf nach lokaler Therapie"
+        }
+      ]
+    },
+    {
+      "id": "mhspc_hochrisiko",
+      "text": "Liegt eine Hochrisiko-Erkrankung vor?",
+      "hilfe": "Hochrisiko im Sinne der Zulassung: mindestens zwei der drei Kriterien Gleason-Score ≥ 8, mindestens drei Knochenläsionen, viszerale Metastasen.",
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "nein"
+            ]
+          }
+        ]
+      },
+      "optionen": [
+        {
+          "wert": "ja",
+          "text": "Ja – Hochrisiko"
+        },
+        {
+          "wert": "nein",
+          "text": "Nein"
+        },
+        {
+          "wert": "unbekannt",
+          "text": "Noch offen",
+          "offen": true
+        }
+      ]
+    },
+    {
+      "id": "chemo_mhspc",
+      "text": "Kommt eine Chemotherapie mit Docetaxel in Frage?",
+      "hilfe": "Allgemeinzustand, Begleiterkrankungen, Neuropathie, Knochenmark und der Wunsch des Patienten entscheiden.",
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "nein"
+            ]
+          }
+        ]
+      },
+      "optionen": [
+        {
+          "wert": "ja",
+          "text": "Ja – Chemotherapie zumutbar"
+        },
+        {
+          "wert": "nein",
+          "text": "Nein – Chemotherapie nicht zumutbar oder abgelehnt"
+        },
+        {
+          "wert": "unbekannt",
+          "text": "Noch offen",
+          "offen": true
+        }
+      ]
+    },
+    {
+      "id": "psadt_nmcrpc",
+      "text": "Beträgt die PSA-Verdopplungszeit höchstens 10 Monate?",
+      "hilfe": "Alle drei Substanzen sind im nicht metastasierten kastrationsresistenten Stadium auf das hohe Risiko beschränkt.",
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "nein"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          }
+        ]
+      },
+      "optionen": [
+        {
+          "wert": "ja",
+          "text": "Ja – PSADT ≤ 10 Monate"
+        },
+        {
+          "wert": "nein",
+          "text": "Nein – PSADT > 10 Monate"
+        },
+        {
+          "wert": "unbekannt",
+          "text": "Nicht bestimmt",
+          "offen": true
+        }
+      ]
+    },
+    {
+      "id": "vortherapie_arpi",
+      "text": "Wurde bereits eine neue Hormontherapie (ARPI) gegeben?",
+      "hilfe": "Abirateron, Apalutamid, Darolutamid oder Enzalutamid – gleich in welchem Stadium.",
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          }
+        ]
+      },
+      "optionen": [
+        {
+          "wert": "ja",
+          "text": "Ja"
+        },
+        {
+          "wert": "nein",
+          "text": "Nein"
+        }
+      ]
+    },
+    {
+      "id": "vortherapie_docetaxel",
+      "text": "Wurde bereits Docetaxel gegeben?",
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          }
+        ]
+      },
+      "optionen": [
+        {
+          "wert": "ja",
+          "text": "Ja – mit Docetaxel vorbehandelt"
+        },
+        {
+          "wert": "nein",
+          "text": "Nein – chemonaiv"
+        }
+      ]
+    },
+    {
+      "id": "brca",
+      "text": "Ist eine BRCA1/2-Mutation nachgewiesen?",
+      "hilfe": "Keimbahn und/oder somatisch. Die Testung sollte im kastrationsresistenten Stadium frühzeitig veranlasst werden.",
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          }
+        ]
+      },
+      "optionen": [
+        {
+          "wert": "ja",
+          "text": "Ja – BRCA1/2 mutiert"
+        },
+        {
+          "wert": "nein",
+          "text": "Nein – kein Nachweis"
+        },
+        {
+          "wert": "offen",
+          "text": "Nicht getestet oder Befund ausstehend",
+          "offen": true
+        }
+      ]
+    },
+    {
+      "id": "chemo_mcrpc",
+      "text": "Ist eine Chemotherapie klinisch indiziert?",
+      "hilfe": "Mehrere Kombinationen sind ausdrücklich für Patienten zugelassen, bei denen eine Chemotherapie klinisch nicht indiziert ist.",
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          }
+        ]
+      },
+      "optionen": [
+        {
+          "wert": "nein",
+          "text": "Nein – klinisch nicht indiziert"
+        },
+        {
+          "wert": "ja",
+          "text": "Ja – indiziert und zumutbar"
+        },
+        {
+          "wert": "unbekannt",
+          "text": "Noch offen",
+          "offen": true
+        }
+      ]
+    },
+    {
+      "id": "symptomatik",
+      "text": "Wie ausgeprägt sind die Beschwerden?",
+      "hilfe": "Für die chemonaive Anwendung von Abirateron und Enzalutamid ist die Einstufung 'asymptomatisch oder mild symptomatisch' Teil des Anwendungsgebiets.",
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "vortherapie_docetaxel",
+            "ist": [
+              "nein"
+            ]
+          }
+        ]
+      },
+      "optionen": [
+        {
+          "wert": "mild",
+          "text": "Asymptomatisch oder mild symptomatisch"
+        },
+        {
+          "wert": "symptomatisch",
+          "text": "Deutlich symptomatisch"
+        }
+      ]
+    },
+    {
+      "id": "knochenmetastasen",
+      "text": "Bestehen symptomatische Knochenmetastasen?",
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          }
+        ]
+      },
+      "optionen": [
+        {
+          "wert": "ja",
+          "text": "Ja – schmerzhafte Knochenmetastasen"
+        },
+        {
+          "wert": "nein",
+          "text": "Nein"
+        }
+      ]
+    },
+    {
+      "id": "viszeral",
+      "text": "Sind viszerale Metastasen bekannt?",
+      "hilfe": "Vor allem Leber und Lunge. Sie schliessen Radium-223 aus.",
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          }
+        ]
+      },
+      "optionen": [
+        {
+          "wert": "nein",
+          "text": "Nein – keine viszeralen Metastasen"
+        },
+        {
+          "wert": "ja",
+          "text": "Ja"
+        },
+        {
+          "wert": "unbekannt",
+          "text": "Noch offen",
+          "offen": true
+        }
+      ]
+    },
+    {
+      "id": "psma",
+      "text": "Sind im PSMA-PET positive Läsionen nachgewiesen?",
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          }
+        ]
+      },
+      "optionen": [
+        {
+          "wert": "ja",
+          "text": "Ja – PSMA-positiv"
+        },
+        {
+          "wert": "nein",
+          "text": "Nein – nicht PSMA-positiv"
+        },
+        {
+          "wert": "offen",
+          "text": "Kein PSMA-PET durchgeführt",
+          "offen": true
+        }
+      ]
+    },
+    {
+      "id": "linien_mcrpc",
+      "text": "Sind bereits mindestens zwei systemische Therapielinien im kastrationsresistenten Stadium ausgeschöpft?",
+      "hilfe": "Alternativ erfüllt, wenn keine andere verfügbare Therapie für den Patienten geeignet ist.",
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          }
+        ]
+      },
+      "optionen": [
+        {
+          "wert": "ja",
+          "text": "Ja – oder keine andere Therapie geeignet"
+        },
+        {
+          "wert": "nein",
+          "text": "Nein"
+        }
+      ]
+    }
+  ],
+  "therapien": [
+    {
+      "id": "abirateron-nmhspc",
+      "wirkstoff": "Abirateronacetat",
+      "beispiel": "z. B. Zytiga® und Generika",
+      "klasse": "CYP17-Inhibitor (ARPI)",
+      "stadium": "lokal_hspc",
+      "kombination": "mit ADT und Strahlentherapie, dazu Prednison oder Prednisolon",
+      "zulassung": "Neu diagnostiziertes Hochrisiko-Prostatakarzinom ohne Fernmetastasen in Kombination mit Androgendeprivation und Strahlentherapie.",
+      "kriterien": [
+        "Neu diagnostiziertes Hochrisiko-Karzinom",
+        "Strahlentherapie der Prostata geplant oder erfolgt",
+        "Zusätzlich Prednison/Prednisolon"
+      ],
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "nein"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "nein"
+            ]
+          },
+          {
+            "frage": "situation_m0",
+            "ist": [
+              "erstdiagnose"
+            ]
+          },
+          {
+            "frage": "hochrisiko_lokal",
+            "ist": [
+              "ja"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Dieses Anwendungsgebiet ist präparatabhängig: Es steht nicht in jeder Fachinformation für Abirateronacetat. Vor der Verordnung die Fachinformation des gewählten Präparats prüfen.",
+        "Blutdruck, Kalium, Leberwerte und Flüssigkeitshaushalt engmaschig kontrollieren."
+      ],
+      "quelle": {
+        "titel": "EMA – Zytiga (Abirateronacetat)",
+        "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/zytiga"
+      }
+    },
+    {
+      "id": "enzalutamid-bcr",
+      "wirkstoff": "Enzalutamid",
+      "beispiel": "z. B. Xtandi®",
+      "klasse": "Androgenrezeptor-Inhibitor (ARPI)",
+      "stadium": "lokal_hspc",
+      "kombination": "mit oder ohne ADT",
+      "zulassung": "Hormonsensitives Prostatakarzinom mit biochemischem Rezidiv und hohem Risiko, wenn eine Salvage-Strahlentherapie nicht geeignet ist.",
+      "kriterien": [
+        "Biochemisches Rezidiv mit hohem Risiko",
+        "PSA-Verdopplungszeit ≤ 9 Monate",
+        "Salvage-Strahlentherapie ungeeignet",
+        "Hormonsensitive Erkrankung"
+      ],
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "nein"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "nein"
+            ]
+          },
+          {
+            "frage": "situation_m0",
+            "ist": [
+              "bcr"
+            ]
+          },
+          {
+            "frage": "psadt_bcr",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "salvage_rt",
+            "ist": [
+              "ungeeignet"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Als Monotherapie oder zusammen mit einer ADT möglich.",
+        "Auf Müdigkeit, Sturzrisiko und Krampfanfälle in der Vorgeschichte achten."
+      ],
+      "quelle": {
+        "titel": "EMA – Xtandi (Enzalutamid)",
+        "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/xtandi"
+      }
+    },
+    {
+      "id": "apalutamid-mhspc",
+      "wirkstoff": "Apalutamid",
+      "beispiel": "z. B. Erleada®",
+      "klasse": "Androgenrezeptor-Inhibitor (ARPI)",
+      "stadium": "mhspc",
+      "kombination": "zusätzlich zur ADT",
+      "zulassung": "Metastasiertes hormonsensitives Prostatakarzinom in Kombination mit einer Androgendeprivationstherapie.",
+      "kriterien": [
+        "Mindestens eine Fernmetastase",
+        "Hormonsensitive Erkrankung"
+      ],
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "nein"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Unabhängig von Metastasenlast und Zeitpunkt der Metastasierung zugelassen.",
+        "Hautausschlag, Schilddrüsenwerte und Wechselwirkungen über CYP-Enzyme beachten."
+      ],
+      "quelle": {
+        "titel": "EMA – Erleada (Apalutamid)",
+        "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/erleada"
+      }
+    },
+    {
+      "id": "abirateron-mhspc",
+      "wirkstoff": "Abirateronacetat",
+      "beispiel": "z. B. Zytiga® und Generika",
+      "klasse": "CYP17-Inhibitor (ARPI)",
+      "stadium": "mhspc",
+      "kombination": "zusätzlich zur ADT, dazu Prednison oder Prednisolon",
+      "zulassung": "Neu diagnostiziertes Hochrisiko-Prostatakarzinom mit Metastasen in Kombination mit Androgendeprivation und Prednison/Prednisolon.",
+      "kriterien": [
+        "Metastasen bereits bei Erstdiagnose",
+        "Hochrisiko-Erkrankung",
+        "Zusätzlich Prednison/Prednisolon"
+      ],
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "nein"
+            ]
+          },
+          {
+            "frage": "mhspc_zeitpunkt",
+            "ist": [
+              "erstdiagnose"
+            ]
+          }
+        ]
+      },
+      "pruefen": [
+        {
+          "frage": "mhspc_hochrisiko",
+          "ist": [
+            "ja"
+          ],
+          "text": "Ohne Hochrisiko-Einstufung ist das Anwendungsgebiet präparatabhängig: Einzelne Abirateron-Präparate sind auch für neu diagnostizierte Patienten ohne Hochrisiko zugelassen. Fachinformation des gewählten Präparats prüfen."
+        }
+      ],
+      "hinweise": [
+        "Blutdruck, Kalium, Leberwerte und Flüssigkeitshaushalt kontrollieren.",
+        "Einnahme nüchtern – mindestens zwei Stunden nach und eine Stunde vor einer Mahlzeit."
+      ],
+      "quelle": {
+        "titel": "EMA – Zytiga (Abirateronacetat)",
+        "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/zytiga"
+      }
+    },
+    {
+      "id": "docetaxel-mhspc",
+      "wirkstoff": "Docetaxel",
+      "beispiel": "z. B. Taxotere® und Generika",
+      "klasse": "Taxan (Chemotherapie)",
+      "stadium": "mhspc",
+      "kombination": "zusätzlich zur ADT, mit oder ohne Prednison/Prednisolon",
+      "zulassung": "Metastasiertes hormonsensitives Prostatakarzinom in Kombination mit einer Androgendeprivationstherapie.",
+      "kriterien": [
+        "Mindestens eine Fernmetastase",
+        "Mit oder ohne Prednison/Prednisolon"
+      ],
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "nein"
+            ]
+          }
+        ]
+      },
+      "pruefen": [
+        {
+          "frage": "chemo_mhspc",
+          "ist": [
+            "ja"
+          ],
+          "text": "Chemotherapie war als nicht zumutbar oder noch offen angegeben – Allgemeinzustand, Blutbild und Patientenwunsch klären."
+        }
+      ],
+      "hinweise": [
+        "Üblich sind sechs Zyklen alle drei Wochen, begonnen innerhalb weniger Monate nach Start der ADT.",
+        "Kombination mit einem ARPI (Triplet) je nach Fachinformation und Leitlinie erwägen."
+      ],
+      "quelle": {
+        "titel": "EMA – Taxotere (Docetaxel)",
+        "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/taxotere"
+      }
+    },
+    {
+      "id": "enzalutamid-mhspc",
+      "wirkstoff": "Enzalutamid",
+      "beispiel": "z. B. Xtandi®",
+      "klasse": "Androgenrezeptor-Inhibitor (ARPI)",
+      "stadium": "mhspc",
+      "kombination": "zusätzlich zur ADT",
+      "zulassung": "Metastasiertes hormonsensitives Prostatakarzinom in Kombination mit einer Androgendeprivationstherapie.",
+      "kriterien": [
+        "Mindestens eine Fernmetastase",
+        "Hormonsensitive Erkrankung"
+      ],
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "nein"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Auf Müdigkeit, Sturzrisiko und Krampfanfälle in der Vorgeschichte achten."
+      ],
+      "quelle": {
+        "titel": "EMA – Xtandi (Enzalutamid)",
+        "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/xtandi"
+      }
+    },
+    {
+      "id": "darolutamid-mhspc",
+      "wirkstoff": "Darolutamid",
+      "beispiel": "z. B. Nubeqa®",
+      "klasse": "Androgenrezeptor-Inhibitor (ARPI)",
+      "stadium": "mhspc",
+      "kombination": "zusätzlich zur ADT, mit oder ohne Docetaxel",
+      "zulassung": "Metastasiertes hormonsensitives Prostatakarzinom in Kombination mit einer Androgendeprivationstherapie, mit oder ohne Docetaxel.",
+      "kriterien": [
+        "Mindestens eine Fernmetastase",
+        "Mit oder ohne Docetaxel"
+      ],
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "nein"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Günstiges Nebenwirkungsprofil im Hinblick auf Müdigkeit und Stürze; wenige Wechselwirkungen im zentralen Nervensystem.",
+        "Bei Kombination mit Docetaxel Beginn möglichst zeitnah zum Chemotherapiestart."
+      ],
+      "quelle": {
+        "titel": "EMA – Nubeqa (Darolutamid)",
+        "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/nubeqa"
+      }
+    },
+    {
+      "id": "apalutamid-nmcrpc",
+      "wirkstoff": "Apalutamid",
+      "beispiel": "z. B. Erleada®",
+      "klasse": "Androgenrezeptor-Inhibitor (ARPI)",
+      "stadium": "nmcrpc",
+      "kombination": "zusätzlich zur laufenden ADT",
+      "zulassung": "Nicht metastasiertes kastrationsresistentes Prostatakarzinom mit hohem Risiko für eine Metastasierung.",
+      "kriterien": [
+        "Keine Fernmetastasen",
+        "Kastrationsresistenz",
+        "Hohes Risiko: PSADT ≤ 10 Monate"
+      ],
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "nein"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "psadt_nmcrpc",
+            "ist": [
+              "ja"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "ADT unverändert fortführen.",
+        "Hautausschlag und Schilddrüsenwerte kontrollieren."
+      ],
+      "quelle": {
+        "titel": "EMA – Erleada (Apalutamid)",
+        "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/erleada"
+      }
+    },
+    {
+      "id": "enzalutamid-nmcrpc",
+      "wirkstoff": "Enzalutamid",
+      "beispiel": "z. B. Xtandi®",
+      "klasse": "Androgenrezeptor-Inhibitor (ARPI)",
+      "stadium": "nmcrpc",
+      "kombination": "zusätzlich zur laufenden ADT",
+      "zulassung": "Nicht metastasiertes kastrationsresistentes Prostatakarzinom mit hohem Risiko für eine Metastasierung.",
+      "kriterien": [
+        "Keine Fernmetastasen",
+        "Kastrationsresistenz",
+        "Hohes Risiko: PSADT ≤ 10 Monate"
+      ],
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "nein"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "psadt_nmcrpc",
+            "ist": [
+              "ja"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Auf Müdigkeit, Sturzrisiko und Krampfanfälle in der Vorgeschichte achten."
+      ],
+      "quelle": {
+        "titel": "EMA – Xtandi (Enzalutamid)",
+        "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/xtandi"
+      }
+    },
+    {
+      "id": "darolutamid-nmcrpc",
+      "wirkstoff": "Darolutamid",
+      "beispiel": "z. B. Nubeqa®",
+      "klasse": "Androgenrezeptor-Inhibitor (ARPI)",
+      "stadium": "nmcrpc",
+      "kombination": "zusätzlich zur laufenden ADT",
+      "zulassung": "Nicht metastasiertes kastrationsresistentes Prostatakarzinom mit hohem Risiko für eine Metastasierung.",
+      "kriterien": [
+        "Keine Fernmetastasen",
+        "Kastrationsresistenz",
+        "Hohes Risiko: PSADT ≤ 10 Monate"
+      ],
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "nein"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "psadt_nmcrpc",
+            "ist": [
+              "ja"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Günstig bei Patienten mit Sturzneigung oder zentralnervösen Begleiterkrankungen."
+      ],
+      "quelle": {
+        "titel": "EMA – Nubeqa (Darolutamid)",
+        "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/nubeqa"
+      }
+    },
+    {
+      "id": "niraparib-abirateron",
+      "wirkstoff": "Niraparib / Abirateronacetat",
+      "beispiel": "z. B. Akeega®",
+      "klasse": "PARP-Inhibitor mit CYP17-Inhibitor",
+      "stadium": "mcrpc",
+      "kombination": "mit Prednison oder Prednisolon, ADT fortführen",
+      "zulassung": "Metastasiertes kastrationsresistentes Prostatakarzinom mit BRCA1/2-Mutation, wenn eine Chemotherapie klinisch nicht indiziert ist.",
+      "kriterien": [
+        "BRCA1/2-Mutation (Keimbahn und/oder somatisch)",
+        "Chemotherapie klinisch nicht indiziert",
+        "Zusätzlich Prednison/Prednisolon"
+      ],
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "brca",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "chemo_mcrpc",
+            "ist": [
+              "nein"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Vor Beginn molekulare Testung auf BRCA1/2 sichern.",
+        "Blutbild regelmäßig kontrollieren; zusätzlich Blutdruck, Kalium und Leberwerte wegen des Abirateron-Anteils."
+      ],
+      "quelle": {
+        "titel": "EMA – Akeega (Niraparib/Abirateronacetat)",
+        "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/akeega"
+      }
+    },
+    {
+      "id": "olaparib-mono",
+      "wirkstoff": "Olaparib",
+      "beispiel": "z. B. Lynparza®",
+      "klasse": "PARP-Inhibitor",
+      "stadium": "mcrpc",
+      "kombination": "Monotherapie, ADT fortführen",
+      "zulassung": "Metastasiertes kastrationsresistentes Prostatakarzinom mit BRCA1/2-Mutation nach Progress unter einer vorangegangenen neuen Hormontherapie.",
+      "kriterien": [
+        "BRCA1/2-Mutation (Keimbahn und/oder somatisch)",
+        "Vorbehandlung mit einer neuen Hormontherapie (ARPI)"
+      ],
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "brca",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "vortherapie_arpi",
+            "ist": [
+              "ja"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Blutbild monatlich kontrollieren; auf Übelkeit und Anämie achten."
+      ],
+      "quelle": {
+        "titel": "EMA – Lynparza (Olaparib)",
+        "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/lynparza"
+      }
+    },
+    {
+      "id": "olaparib-abirateron",
+      "wirkstoff": "Olaparib + Abirateronacetat",
+      "beispiel": "z. B. Lynparza® mit Zytiga®",
+      "klasse": "PARP-Inhibitor mit CYP17-Inhibitor",
+      "stadium": "mcrpc",
+      "kombination": "mit Prednison oder Prednisolon, ADT fortführen",
+      "zulassung": "Metastasiertes kastrationsresistentes Prostatakarzinom in Kombination mit Abirateron und Prednison/Prednisolon, wenn eine Chemotherapie klinisch nicht indiziert ist.",
+      "kriterien": [
+        "Chemotherapie klinisch nicht indiziert",
+        "Zusätzlich Prednison/Prednisolon"
+      ],
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "chemo_mcrpc",
+            "ist": [
+              "nein"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Anders als die Monotherapie ist diese Kombination nicht an einen BRCA-Nachweis gebunden."
+      ],
+      "quelle": {
+        "titel": "EMA – Lynparza (Olaparib)",
+        "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/lynparza"
+      }
+    },
+    {
+      "id": "talazoparib-enzalutamid",
+      "wirkstoff": "Talazoparib + Enzalutamid",
+      "beispiel": "z. B. Talzenna® mit Xtandi®",
+      "klasse": "PARP-Inhibitor mit Androgenrezeptor-Inhibitor",
+      "stadium": "mcrpc",
+      "kombination": "in Kombination mit Enzalutamid, ADT fortführen",
+      "zulassung": "Metastasiertes kastrationsresistentes Prostatakarzinom in Kombination mit Enzalutamid, wenn eine Chemotherapie klinisch nicht indiziert ist.",
+      "kriterien": [
+        "Chemotherapie klinisch nicht indiziert",
+        "Kombination mit Enzalutamid"
+      ],
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "chemo_mcrpc",
+            "ist": [
+              "nein"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Blutbild engmaschig kontrollieren; Anämie ist die häufigste dosislimitierende Nebenwirkung."
+      ],
+      "quelle": {
+        "titel": "EMA – Talzenna (Talazoparib)",
+        "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/talzenna"
+      }
+    },
+    {
+      "id": "enzalutamid-mcrpc-chemonaiv",
+      "wirkstoff": "Enzalutamid",
+      "beispiel": "z. B. Xtandi®",
+      "klasse": "Androgenrezeptor-Inhibitor (ARPI)",
+      "stadium": "mcrpc",
+      "kombination": "ADT fortführen",
+      "zulassung": "Metastasiertes kastrationsresistentes Prostatakarzinom bei asymptomatischen oder mild symptomatischen Patienten nach Versagen der Androgendeprivation, wenn eine Chemotherapie noch nicht angezeigt ist.",
+      "kriterien": [
+        "Chemonaiv",
+        "Asymptomatisch oder mild symptomatisch"
+      ],
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "vortherapie_docetaxel",
+            "ist": [
+              "nein"
+            ]
+          },
+          {
+            "frage": "symptomatik",
+            "ist": [
+              "mild"
+            ]
+          }
+        ]
+      },
+      "pruefen": [
+        {
+          "frage": "vortherapie_arpi",
+          "ist": [
+            "nein"
+          ],
+          "text": "Nach Vorbehandlung mit einem anderen ARPI ist mit einer deutlich geringeren Wirksamkeit zu rechnen (Kreuzresistenz)."
+        }
+      ],
+      "hinweise": [
+        "Auf Müdigkeit, Sturzrisiko und Krampfanfälle in der Vorgeschichte achten."
+      ],
+      "quelle": {
+        "titel": "EMA – Xtandi (Enzalutamid)",
+        "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/xtandi"
+      }
+    },
+    {
+      "id": "enzalutamid-mcrpc-nach-chemo",
+      "wirkstoff": "Enzalutamid",
+      "beispiel": "z. B. Xtandi®",
+      "klasse": "Androgenrezeptor-Inhibitor (ARPI)",
+      "stadium": "mcrpc",
+      "kombination": "ADT fortführen",
+      "zulassung": "Metastasiertes kastrationsresistentes Prostatakarzinom bei Patienten, deren Erkrankung während oder nach einer Docetaxel-Therapie fortschreitet.",
+      "kriterien": [
+        "Mit Docetaxel vorbehandelt"
+      ],
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "vortherapie_docetaxel",
+            "ist": [
+              "ja"
+            ]
+          }
+        ]
+      },
+      "pruefen": [
+        {
+          "frage": "vortherapie_arpi",
+          "ist": [
+            "nein"
+          ],
+          "text": "Nach Vorbehandlung mit einem anderen ARPI ist mit einer deutlich geringeren Wirksamkeit zu rechnen (Kreuzresistenz)."
+        }
+      ],
+      "hinweise": [
+        "Auf Müdigkeit, Sturzrisiko und Krampfanfälle in der Vorgeschichte achten."
+      ],
+      "quelle": {
+        "titel": "EMA – Xtandi (Enzalutamid)",
+        "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/xtandi"
+      }
+    },
+    {
+      "id": "abirateron-mcrpc-chemonaiv",
+      "wirkstoff": "Abirateronacetat",
+      "beispiel": "z. B. Zytiga® und Generika",
+      "klasse": "CYP17-Inhibitor (ARPI)",
+      "stadium": "mcrpc",
+      "kombination": "mit Prednison oder Prednisolon, ADT fortführen",
+      "zulassung": "Metastasiertes kastrationsresistentes Prostatakarzinom bei asymptomatischen oder mild symptomatischen Patienten nach Versagen der Androgendeprivation, wenn eine Chemotherapie noch nicht angezeigt ist.",
+      "kriterien": [
+        "Chemonaiv",
+        "Asymptomatisch oder mild symptomatisch",
+        "Zusätzlich Prednison/Prednisolon"
+      ],
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "vortherapie_docetaxel",
+            "ist": [
+              "nein"
+            ]
+          },
+          {
+            "frage": "symptomatik",
+            "ist": [
+              "mild"
+            ]
+          }
+        ]
+      },
+      "pruefen": [
+        {
+          "frage": "vortherapie_arpi",
+          "ist": [
+            "nein"
+          ],
+          "text": "Nach Vorbehandlung mit einem anderen ARPI ist mit einer deutlich geringeren Wirksamkeit zu rechnen (Kreuzresistenz)."
+        }
+      ],
+      "hinweise": [
+        "Blutdruck, Kalium und Leberwerte kontrollieren.",
+        "Einnahme nüchtern."
+      ],
+      "quelle": {
+        "titel": "EMA – Zytiga (Abirateronacetat)",
+        "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/zytiga"
+      }
+    },
+    {
+      "id": "abirateron-mcrpc-nach-chemo",
+      "wirkstoff": "Abirateronacetat",
+      "beispiel": "z. B. Zytiga® und Generika",
+      "klasse": "CYP17-Inhibitor (ARPI)",
+      "stadium": "mcrpc",
+      "kombination": "mit Prednison oder Prednisolon, ADT fortführen",
+      "zulassung": "Metastasiertes kastrationsresistentes Prostatakarzinom bei Patienten, deren Erkrankung während oder nach einer Docetaxel-Therapie fortschreitet.",
+      "kriterien": [
+        "Mit Docetaxel vorbehandelt",
+        "Zusätzlich Prednison/Prednisolon"
+      ],
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "vortherapie_docetaxel",
+            "ist": [
+              "ja"
+            ]
+          }
+        ]
+      },
+      "pruefen": [
+        {
+          "frage": "vortherapie_arpi",
+          "ist": [
+            "nein"
+          ],
+          "text": "Nach Vorbehandlung mit einem anderen ARPI ist mit einer deutlich geringeren Wirksamkeit zu rechnen (Kreuzresistenz)."
+        }
+      ],
+      "hinweise": [
+        "Blutdruck, Kalium und Leberwerte kontrollieren."
+      ],
+      "quelle": {
+        "titel": "EMA – Zytiga (Abirateronacetat)",
+        "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/zytiga"
+      }
+    },
+    {
+      "id": "docetaxel-mcrpc",
+      "wirkstoff": "Docetaxel",
+      "beispiel": "z. B. Taxotere® und Generika",
+      "klasse": "Taxan (Chemotherapie)",
+      "stadium": "mcrpc",
+      "kombination": "mit Prednison oder Prednisolon, ADT fortführen",
+      "zulassung": "Metastasiertes kastrationsresistentes Prostatakarzinom in Kombination mit Prednison oder Prednisolon.",
+      "kriterien": [
+        "Kastrationsresistenz mit Metastasen",
+        "Zusätzlich Prednison/Prednisolon"
+      ],
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          }
+        ]
+      },
+      "pruefen": [
+        {
+          "frage": "chemo_mcrpc",
+          "ist": [
+            "ja"
+          ],
+          "text": "Chemotherapie war als nicht indiziert oder noch offen angegeben – Allgemeinzustand, Blutbild und Patientenwunsch klären."
+        }
+      ],
+      "hinweise": [
+        "Blutbild, Neuropathie und Nägel im Verlauf kontrollieren."
+      ],
+      "quelle": {
+        "titel": "EMA – Taxotere (Docetaxel)",
+        "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/taxotere"
+      }
+    },
+    {
+      "id": "cabazitaxel",
+      "wirkstoff": "Cabazitaxel",
+      "beispiel": "z. B. Jevtana®",
+      "klasse": "Taxan (Chemotherapie)",
+      "stadium": "mcrpc",
+      "kombination": "mit Prednison oder Prednisolon, ADT fortführen",
+      "zulassung": "Metastasiertes kastrationsresistentes Prostatakarzinom bei mit Docetaxel vorbehandelten Patienten, in Kombination mit Prednison oder Prednisolon.",
+      "kriterien": [
+        "Mit Docetaxel vorbehandelt",
+        "Zusätzlich Prednison/Prednisolon"
+      ],
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "vortherapie_docetaxel",
+            "ist": [
+              "ja"
+            ]
+          }
+        ]
+      },
+      "pruefen": [
+        {
+          "frage": "chemo_mcrpc",
+          "ist": [
+            "ja"
+          ],
+          "text": "Chemotherapie war als nicht indiziert oder noch offen angegeben – Allgemeinzustand und Blutbild klären."
+        }
+      ],
+      "hinweise": [
+        "Prophylaxe mit G-CSF erwägen; Neutropenie ist die wichtigste Nebenwirkung."
+      ],
+      "quelle": {
+        "titel": "EMA – Jevtana (Cabazitaxel)",
+        "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/jevtana"
+      }
+    },
+    {
+      "id": "radium-223",
+      "wirkstoff": "Radium-223-dichlorid",
+      "beispiel": "z. B. Xofigo®",
+      "klasse": "Radionuklidtherapie (Alphastrahler)",
+      "stadium": "mcrpc",
+      "kombination": "ADT fortführen",
+      "zulassung": "Kastrationsresistentes Prostatakarzinom mit symptomatischen Knochenmetastasen ohne bekannte viszerale Metastasen, nach mindestens zwei vorausgehenden systemischen Therapielinien oder wenn keine andere Therapie geeignet ist.",
+      "kriterien": [
+        "Symptomatische Knochenmetastasen",
+        "Keine bekannten viszeralen Metastasen",
+        "Mindestens zwei Vortherapien im kastrationsresistenten Stadium oder keine andere Therapie geeignet"
+      ],
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "knochenmetastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "viszeral",
+            "ist": [
+              "nein"
+            ]
+          },
+          {
+            "frage": "linien_mcrpc",
+            "ist": [
+              "ja"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "Sechs Gaben im Abstand von vier Wochen in einer nuklearmedizinischen Einrichtung.",
+        "Nicht zusammen mit Abirateron und Prednison/Prednisolon anwenden.",
+        "Blutbild vor jeder Gabe kontrollieren."
+      ],
+      "quelle": {
+        "titel": "EMA – Xofigo (Radium-223-dichlorid)",
+        "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/xofigo"
+      }
+    },
+    {
+      "id": "lutetium-psma",
+      "wirkstoff": "Lutetium (177Lu) Vipivotid-Tetraxetan (177Lu-PSMA-617)",
+      "beispiel": "z. B. Pluvicto®",
+      "klasse": "Radioligandentherapie",
+      "stadium": "mcrpc",
+      "kombination": "in Kombination mit ADT, mit oder ohne Inhibition des Androgenrezeptor-Signalwegs",
+      "zulassung": "Progredientes, PSMA-positives metastasiertes kastrationsresistentes Prostatakarzinom nach Behandlung mit einem Androgenrezeptor-Signalweg-Inhibitor und einer taxanhaltigen Chemotherapie.",
+      "kriterien": [
+        "PSMA-positive Läsionen",
+        "Vorbehandlung mit einem ARPI",
+        "Vorbehandlung mit einer taxanhaltigen Chemotherapie",
+        "Progrediente Erkrankung"
+      ],
+      "wenn": {
+        "alle": [
+          {
+            "frage": "metastasen",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "kastrationsresistenz",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "psma",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "vortherapie_arpi",
+            "ist": [
+              "ja"
+            ]
+          },
+          {
+            "frage": "vortherapie_docetaxel",
+            "ist": [
+              "ja"
+            ]
+          }
+        ]
+      },
+      "hinweise": [
+        "PSMA-PET zur Bestätigung der Zielexpression ist Voraussetzung.",
+        "Bis zu sechs Zyklen alle sechs Wochen in einer nuklearmedizinischen Einrichtung.",
+        "Nieren- und Knochenmarkfunktion sowie Mundtrockenheit beachten."
+      ],
+      "quelle": {
+        "titel": "EMA – Pluvicto (177Lu-PSMA-617)",
+        "url": "https://www.ema.europa.eu/en/medicines/human/EPAR/pluvicto"
+      }
+    }
+  ],
+  "grundsaetzliches": [
+    "Die ADT bleibt in allen metastasierten und kastrationsresistenten Stadien die Basis und wird neben jeder Kombination fortgeführt.",
+    "Bei Knochenmetastasen zusätzlich eine knochenschützende Therapie (Denosumab oder Zoledronsäure) sowie Calcium und Vitamin D erwägen.",
+    "Im kastrationsresistenten Stadium frühzeitig eine Testung auf BRCA1/2 (Keimbahn und somatisch) veranlassen.",
+    "Jede Therapieentscheidung gehört in die interdisziplinäre Tumorkonferenz."
+  ]
+}

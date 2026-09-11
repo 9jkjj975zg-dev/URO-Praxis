@@ -1,0 +1,403 @@
+/* ==========================================================================
+   Therapiepfad Prostatakarzinom — Stylesheet
+   Farben und Schrift stammen von der Praxis-Website, das Layout folgt aber
+   den Gewohnheiten einer App: Kopfzeile oben, Tableiste unten, grosse
+   Schaltflaechen dazwischen.
+   ========================================================================== */
+
+@font-face {
+  font-family: "Jost";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("../../assets/fonts/jost-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  --c-primary:      #1b2a4e;
+  --c-primary-dark: #121d38;
+  --c-accent:       #5f574a;
+  --c-text:         #25201a;
+  --c-text-muted:   #534f48;
+  --c-bg:           #f5f2ee;
+  --c-surface:      #ffffff;
+  --c-surface-2:    #eae6df;
+  --c-border:       #dad5cc;
+  --c-focus:        #1c4fa1;
+
+  /* Ampel der drei Zustaende. Bewusst gedaempft: Die Farbe ordnet, sie
+     soll nicht werten. */
+  --c-ja-bg:     #e8efe6;
+  --c-ja-rand:   #9db393;
+  --c-ja-text:   #2f4a2a;
+  --c-offen-bg:  #f4eddc;
+  --c-offen-rand:#d3bd8c;
+  --c-offen-text:#5a4a22;
+  --c-nein-bg:   #eeeae6;
+  --c-nein-rand: #cfc7bd;
+  --c-nein-text: #56504a;
+
+  --font-display: "Jost", "Futura", "Century Gothic", sans-serif;
+  --font-base: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+               "Noto Sans", Arial, sans-serif;
+  --radius: 12px;
+  --kopf-h: 60px;
+  --tab-h: 58px;
+  --schatten: 0 2px 6px rgba(20, 32, 58, .08), 0 10px 24px rgba(20, 32, 58, .06);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Mehrere Bausteine hier haben ein eigenes display (flex, grid). Das wuerde
+   das Attribut "hidden" aushebeln - versteckte Elemente blieben unsichtbar,
+   fingen aber weiter Klicks ab. Deshalb bekommt "hidden" Vorrang. */
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-base);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--c-text);
+  background: var(--c-bg);
+  padding-top: calc(var(--kopf-h) + env(safe-area-inset-top));
+  padding-bottom: calc(var(--tab-h) + env(safe-area-inset-bottom));
+  overscroll-behavior-y: none;
+}
+
+body.gesperrt { overflow: hidden; }
+
+h1, h2, h3, h4 { font-family: var(--font-display); color: var(--c-primary); line-height: 1.25; }
+h2 { font-size: 1.3rem; margin: 1.75rem 0 .6rem; }
+h3 { font-size: 1.1rem; margin: 1.25rem 0 .5rem; }
+h4 { font-size: .95rem; margin: 1rem 0 .25rem; text-transform: uppercase; letter-spacing: .04em; color: var(--c-accent); }
+p { margin: 0 0 .8rem; }
+ul { margin: 0 0 .8rem; padding-left: 1.2rem; }
+li { margin-bottom: .3rem; }
+a { color: var(--c-accent); }
+
+:focus-visible {
+  outline: 3px solid var(--c-focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.sprungmarke {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  background: var(--c-primary); color: #fff; padding: .6rem 1rem;
+}
+.sprungmarke:focus { left: 0; }
+
+/* --------------------------------------------------------------------------
+   Kopfzeile
+   -------------------------------------------------------------------------- */
+.kopf {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 30;
+  display: flex; align-items: center; gap: .5rem;
+  height: calc(var(--kopf-h) + env(safe-area-inset-top));
+  padding: env(safe-area-inset-top) .75rem 0;
+  background: var(--c-primary);
+  color: #fff;
+}
+.kopf__zurueck {
+  flex: 0 0 auto;
+  background: none; border: 0; color: #fff;
+  font: inherit; font-size: .95rem; padding: .5rem .4rem;
+  cursor: pointer; min-height: 44px;
+}
+.kopf__zurueck span { font-size: 1.4rem; line-height: 1; vertical-align: -.1em; }
+.kopf__mitte { flex: 1 1 auto; min-width: 0; }
+.kopf__titel {
+  margin: 0; font-family: var(--font-display); font-weight: 500;
+  font-size: 1.05rem; line-height: 1.2;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.kopf__stand { margin: 0; font-size: .72rem; opacity: .75; line-height: 1.3; }
+
+/* --------------------------------------------------------------------------
+   Inhalt
+   -------------------------------------------------------------------------- */
+main { max-width: 720px; margin: 0 auto; padding: 1rem 1rem 2rem; }
+main:focus { outline: none; }
+
+.einleitung { color: var(--c-text-muted); }
+
+/* Marke auf dem Startbildschirm: das Praxislogo mit dem Namen daneben.
+   Sie steht nur hier - auf den Arbeitsansichten waere sie im Weg. */
+.marke {
+  display: flex; align-items: center; gap: .75rem;
+  margin: .25rem 0 1.25rem;
+}
+.marke__zeichen { flex: 0 0 auto; width: 52px; height: 52px; }
+.marke__text {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: .95rem; line-height: 1.3; color: var(--c-primary);
+}
+
+.karte {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.karte > :last-child { margin-bottom: 0; }
+.karte--grund { background: var(--c-surface-2); }
+
+.hinweis-klein { font-size: .85rem; color: var(--c-text-muted); }
+
+.warnhinweis {
+  border-left: 4px solid var(--c-accent);
+  background: var(--c-surface-2);
+  padding: .8rem 1rem;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: .92rem;
+  margin: 1.5rem 0;
+}
+
+/* --------------------------------------------------------------------------
+   Startkacheln
+   -------------------------------------------------------------------------- */
+.kachelgruppe { display: grid; gap: .75rem; margin: 1.25rem 0; }
+.kachel {
+  display: block; width: 100%; text-align: left;
+  background: var(--c-surface); border: 1px solid var(--c-border);
+  border-radius: var(--radius); padding: 1rem;
+  font: inherit; color: inherit; cursor: pointer;
+  box-shadow: var(--schatten);
+}
+.kachel:hover { border-color: var(--c-primary); }
+.kachel--stark { background: var(--c-primary); color: #fff; border-color: var(--c-primary); }
+.kachel--stark .kachel__titel { color: #fff; }
+.kachel--stark .kachel__text { color: rgba(255,255,255,.85); }
+.kachel__titel {
+  display: block; font-family: var(--font-display); font-weight: 500;
+  font-size: 1.15rem; color: var(--c-primary); margin-bottom: .2rem;
+}
+.kachel__text { display: block; font-size: .92rem; color: var(--c-text-muted); }
+
+/* --------------------------------------------------------------------------
+   Fragebogen
+   -------------------------------------------------------------------------- */
+.fortschritt { margin-bottom: 1.25rem; }
+.fortschritt__balken {
+  height: 6px; background: var(--c-surface-2); border-radius: 3px; overflow: hidden;
+}
+.fortschritt__balken span {
+  display: block; height: 100%; width: 0;
+  background: var(--c-primary); transition: width .25s ease;
+}
+.fortschritt__text { margin: .4rem 0 0; font-size: .8rem; color: var(--c-text-muted); }
+
+.frage__text { font-size: 1.35rem; margin: 0 0 .5rem; }
+.frage__hilfe { color: var(--c-text-muted); font-size: .92rem; margin-bottom: 1.25rem; }
+
+.antwortliste { display: grid; gap: .6rem; margin-bottom: 1.5rem; }
+.antwort {
+  display: block; width: 100%; text-align: left;
+  min-height: 56px; padding: .9rem 1rem;
+  background: var(--c-surface); border: 2px solid var(--c-border);
+  border-radius: var(--radius);
+  font: inherit; color: inherit; cursor: pointer;
+}
+.antwort:hover { border-color: var(--c-primary); background: #fff; }
+.antwort--offen { color: var(--c-text-muted); border-style: dashed; }
+
+.textknopf {
+  display: block; width: 100%;
+  background: none; border: 0; padding: .75rem;
+  font: inherit; font-size: .88rem; color: var(--c-accent);
+  text-decoration: underline; cursor: pointer;
+}
+
+/* Bisherige Angaben */
+.angaben { margin: 1.5rem 0; }
+.angaben > summary {
+  font-family: var(--font-display); font-size: .85rem;
+  text-transform: uppercase; letter-spacing: .04em; color: var(--c-accent);
+  cursor: pointer; padding: .4rem 0; min-height: 36px;
+}
+.angaben__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: .3rem; }
+.angabe {
+  display: flex; flex-wrap: wrap; gap: .2rem .5rem; width: 100%;
+  text-align: left; background: var(--c-surface-2); border: 1px solid var(--c-border);
+  border-radius: 8px; padding: .45rem .7rem;
+  font: inherit; font-size: .85rem; color: inherit; cursor: pointer;
+}
+.angabe:hover { border-color: var(--c-primary); }
+.angabe__frage { color: var(--c-text-muted); }
+.angabe__wert { font-weight: 600; }
+
+/* --------------------------------------------------------------------------
+   Ergebnis
+   -------------------------------------------------------------------------- */
+.stadiumkopf {
+  background: var(--c-primary); color: #fff;
+  border-radius: var(--radius); padding: 1rem; margin-bottom: 1rem;
+}
+.stadiumkopf__kurz {
+  margin: 0; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase;
+  opacity: .8;
+}
+.stadiumkopf__name { margin: .15rem 0 .4rem; color: #fff; font-size: 1.2rem; }
+.stadiumkopf__text { margin: 0; font-size: .9rem; color: rgba(255,255,255,.85); }
+
+.gruppe { margin: 1.5rem 0; border-radius: var(--radius); padding: .85rem; border: 1px solid; }
+.gruppe__titel { margin: 0 0 .6rem; font-size: 1rem; }
+.gruppe__leer { margin: 0; font-size: .9rem; }
+.gruppe--ja    { background: var(--c-ja-bg);    border-color: var(--c-ja-rand); }
+.gruppe--ja .gruppe__titel { color: var(--c-ja-text); }
+.gruppe--offen { background: var(--c-offen-bg); border-color: var(--c-offen-rand); }
+.gruppe--offen .gruppe__titel { color: var(--c-offen-text); }
+.gruppe--nein  { background: var(--c-nein-bg);  border-color: var(--c-nein-rand); }
+.gruppe--nein > summary {
+  font-family: var(--font-display); color: var(--c-nein-text);
+  cursor: pointer; padding: .2rem 0; min-height: 36px;
+}
+
+/* --------------------------------------------------------------------------
+   Therapiekarte
+   -------------------------------------------------------------------------- */
+.therapie {
+  background: var(--c-surface); border: 1px solid var(--c-border);
+  border-radius: 10px; padding: .25rem .85rem; margin-bottom: .6rem;
+}
+.therapie > summary {
+  display: flex; flex-direction: column; gap: .1rem;
+  padding: .75rem 0; cursor: pointer; min-height: 48px;
+  list-style-position: outside;
+}
+.therapie__name { font-family: var(--font-display); font-weight: 500; font-size: 1.08rem; color: var(--c-primary); }
+.therapie__klasse { font-size: .82rem; color: var(--c-text-muted); }
+.therapie__kombi {
+  font-size: .88rem; color: var(--c-accent); font-weight: 600;
+  margin: 0 0 .6rem;
+}
+.therapie__zulassung { font-size: .95rem; }
+.therapie__kriterien, .therapie__hinweise { font-size: .9rem; }
+.therapie__fuss {
+  margin: .75rem 0 .75rem; padding-top: .6rem;
+  border-top: 1px solid var(--c-border);
+  font-size: .8rem; color: var(--c-text-muted);
+}
+
+.merker {
+  border-radius: 8px; padding: .6rem .75rem; margin: 0 0 .6rem;
+  font-size: .88rem;
+}
+.merker ul { margin: .3rem 0 0; }
+.merker--pruefen { background: var(--c-offen-bg); border: 1px solid var(--c-offen-rand); color: var(--c-offen-text); }
+.merker--offen   { background: var(--c-offen-bg); border: 1px solid var(--c-offen-rand); color: var(--c-offen-text); }
+.merker--aus     { background: var(--c-nein-bg);  border: 1px solid var(--c-nein-rand);  color: var(--c-nein-text); }
+
+/* --------------------------------------------------------------------------
+   Gesamtuebersicht
+   -------------------------------------------------------------------------- */
+.stadium { margin: 2rem 0; }
+.stadium__kurz {
+  margin: 0; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--c-accent); font-weight: 700;
+}
+.stadium__name { margin: .1rem 0 .3rem; font-size: 1.15rem; }
+.stadium__text { font-size: .9rem; color: var(--c-text-muted); }
+
+.glossar { margin: 0; }
+.glossar dt { font-family: var(--font-display); font-weight: 600; color: var(--c-primary); margin-top: .9rem; }
+.glossar dd { margin: .1rem 0 0; font-size: .95rem; }
+
+/* --------------------------------------------------------------------------
+   Schaltflaechen
+   -------------------------------------------------------------------------- */
+.knopf {
+  display: inline-block; min-height: 48px;
+  padding: .7rem 1.2rem;
+  background: var(--c-primary); color: #fff;
+  border: 2px solid var(--c-primary); border-radius: var(--radius);
+  font: inherit; font-weight: 600; cursor: pointer;
+}
+.knopf:hover { background: var(--c-primary-dark); border-color: var(--c-primary-dark); }
+.knopf--zweit { background: transparent; color: var(--c-primary); }
+.knopf--zweit:hover { background: var(--c-surface-2); }
+.knopf[disabled] { opacity: .6; cursor: default; }
+.knopfzeile { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1.5rem 0 1rem; }
+
+/* --------------------------------------------------------------------------
+   Tableiste unten
+   -------------------------------------------------------------------------- */
+.tableiste {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+  display: flex;
+  height: calc(var(--tab-h) + env(safe-area-inset-bottom));
+  padding-bottom: env(safe-area-inset-bottom);
+  background: var(--c-surface);
+  border-top: 1px solid var(--c-border);
+}
+.tab {
+  flex: 1 1 0; min-width: 0;
+  background: none; border: 0; border-top: 3px solid transparent;
+  font: inherit; font-size: .78rem; color: var(--c-text-muted);
+  cursor: pointer; padding: .35rem .2rem;
+}
+.tab[aria-current="page"] { color: var(--c-primary); border-top-color: var(--c-primary); font-weight: 600; }
+
+/* --------------------------------------------------------------------------
+   Meldungen
+   -------------------------------------------------------------------------- */
+.meldung {
+  position: fixed; z-index: 40;
+  left: 1rem; right: 1rem;
+  bottom: calc(var(--tab-h) + env(safe-area-inset-bottom) + .75rem);
+  max-width: 690px; margin: 0 auto;
+  display: flex; align-items: center; gap: .75rem; flex-wrap: wrap;
+  background: var(--c-primary-dark); color: #fff;
+  border-radius: var(--radius); padding: .8rem 1rem;
+  font-size: .9rem; box-shadow: var(--schatten);
+}
+.meldung__knopf {
+  margin-left: auto;
+  background: #fff; color: var(--c-primary-dark);
+  border: 0; border-radius: 8px; padding: .45rem .8rem;
+  font: inherit; font-weight: 600; cursor: pointer; min-height: 40px;
+}
+
+/* --------------------------------------------------------------------------
+   Bestaetigung Fachkreise
+   -------------------------------------------------------------------------- */
+.schleuse {
+  position: fixed; inset: 0; z-index: 60;
+  background: rgba(18, 29, 56, .96);
+  display: flex; align-items: center; justify-content: center;
+  padding: 1.25rem;
+  overflow-y: auto;
+}
+.schleuse__kasten {
+  background: var(--c-bg); border-radius: var(--radius);
+  padding: 1.5rem; max-width: 480px;
+}
+.schleuse__kasten h2 { margin-top: 0; }
+.schleuse__kasten p { font-size: .95rem; }
+
+/* --------------------------------------------------------------------------
+   Grosse Bildschirme
+   -------------------------------------------------------------------------- */
+@media (min-width: 620px) {
+  .kachelgruppe { grid-template-columns: 1fr 1fr; }
+  .kachel--stark { grid-column: 1 / -1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+
+/* Drucken: Die Ergebnisliste soll sich fuer die Akte ausdrucken lassen. */
+@media print {
+  .kopf, .tableiste, .meldung, .knopfzeile, .textknopf, .schleuse { display: none !important; }
+  body { padding: 0; background: #fff; }
+  .therapie[open] > summary ~ * { display: block; }
+  .gruppe { border: 1px solid #999; }
+}

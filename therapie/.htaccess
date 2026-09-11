@@ -1,0 +1,38 @@
+# ==========================================================================
+# Zusaetzliche Einstellungen fuer den Therapiepfad (Apache)
+# Die Vorgaben der Hauptdatei /.htaccess gelten weiter; hier stehen nur die
+# Punkte, die eine installierbare App zusaetzlich braucht.
+# ==========================================================================
+
+# ---- Dateityp des Manifests ----------------------------------------------
+<IfModule mod_mime.c>
+  AddType application/manifest+json .webmanifest
+</IfModule>
+
+# ---- Zwischenspeicher ----------------------------------------------------
+# Drei Dateien duerfen nie aus dem Browser-Zwischenspeicher kommen, sonst
+# bemerkt ein Geraet eine Aktualisierung erst Wochen spaeter:
+#   sw.js                  steuert die Aktualisierung selbst
+#   manifest.webmanifest   beschreibt das Startsymbol
+#   therapie-pca.json      enthaelt die Zulassungsangaben
+<IfModule mod_headers.c>
+  <FilesMatch "^(sw\.js|manifest\.webmanifest)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.json$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType application/json         "access plus 0 seconds"
+  ExpiresByType application/manifest+json "access plus 0 seconds"
+</IfModule>
+
+# ---- Nicht in den Suchindex ----------------------------------------------
+# Die Anwendung richtet sich an Fachkreise und wird nicht oeffentlich
+# verlinkt (siehe auch /robots.txt).
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>
