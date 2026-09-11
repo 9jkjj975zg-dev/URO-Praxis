@@ -126,6 +126,53 @@
     return null;
   }
 
+  /* Steht die Gesamtzahl der Fragen schon fest?
+
+     Am Anfang sind nur zwei Fragen vorgesehen; aus deren Antworten ergeben
+     sich alle weiteren. Eine Angabe wie "Frage 1 von 2" waere also falsch.
+     Die Zahl steht erst fest, wenn keine weitere Frage mehr dazukommen kann.
+
+     Dazukommen kann eine Frage nur, wenn ihre Bedingung sich noch aendert -
+     also auf eine Frage verweist, die noch offen ist oder ihrerseits noch
+     dazukommen kann. Diese Kette wird hier so lange verfolgt, bis sich
+     nichts mehr aendert. */
+  function zahlStehtFest(daten, antworten) {
+    var karte = index(daten);
+    var fragen = daten.fragen || [];
+    var beweglich = {};
+
+    fragen.forEach(function (frage) {
+      if (frageGestellt(frage, antworten, karte) && antworten[frage.id] === undefined) {
+        beweglich[frage.id] = true;
+      }
+    });
+
+    var geaendert = true;
+    while (geaendert) {
+      geaendert = false;
+      fragen.forEach(function (frage) {
+        if (beweglich[frage.id]) { return; }
+        if (frageGestellt(frage, antworten, karte)) { return; }
+        if (!frage.wenn) { return; }
+        var bezug = false;
+        ['alle', 'eine', 'nicht'].forEach(function (schluessel) {
+          (frage.wenn[schluessel] || []).forEach(function (atom) {
+            if (beweglich[atom.frage]) { bezug = true; }
+          });
+        });
+        if (bezug) { beweglich[frage.id] = true; geaendert = true; }
+      });
+    }
+
+    var zuwachsMoeglich = false;
+    fragen.forEach(function (frage) {
+      if (beweglich[frage.id] && !frageGestellt(frage, antworten, karte)) {
+        zuwachsMoeglich = true;
+      }
+    });
+    return !zuwachsMoeglich;
+  }
+
   /* Klartext einer Bedingung: "Fernmetastasen: Ja – Fernmetastasen (M1)" */
   function atomText(atom, karte) {
     var frage = karte[atom.frage];
@@ -196,6 +243,7 @@
     frageGestellt: frageGestellt,
     offeneFragen: offeneFragen,
     naechsteFrage: naechsteFrage,
+    zahlStehtFest: zahlStehtFest,
     bewerte: bewerte,
     stadium: stadium
   };

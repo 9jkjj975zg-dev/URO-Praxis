@@ -149,10 +149,11 @@
     var behaelter = id('frage-behaelter');
     leeren(behaelter);
 
+    var karteFragen = logik.index(daten);
+
     /* Welche Frage steht an? Der Schritt merkt sie sich, damit "Zurueck"
        wieder bei derselben Frage landet und nicht bei der naechsten. */
     var schritt = aktuellerSchritt();
-    var karteFragen = logik.index(daten);
     var frage = schritt.frage ? karteFragen[schritt.frage] : logik.naechsteFrage(daten, antworten);
 
     if (frage && antworten[frage.id] !== undefined) {
@@ -170,12 +171,17 @@
     }
     schritt.frage = frage.id;
 
-    /* Fortschritt: beantwortete Fragen von allen derzeit vorgesehenen. */
+    /* Fortschritt. Die Gesamtzahl steht erst fest, wenn keine Frage mehr an
+       einer noch unbeantworteten Bedingung haengt: Am Anfang sind nur zwei
+       Fragen vorgesehen, aus deren Antworten sich alle weiteren ergeben. */
     var vorgesehen = logik.offeneFragen(daten, antworten);
     var erledigt = vorgesehen.filter(function (f) { return antworten[f.id] !== undefined; }).length;
+    var zahlSteht = logik.zahlStehtFest(daten, antworten);
     var anteil = Math.round((erledigt / Math.max(vorgesehen.length, 1)) * 100);
     id('fortschritt-balken').style.width = anteil + '%';
-    id('fortschritt-text').textContent = 'Frage ' + (erledigt + 1) + ' von ' + vorgesehen.length;
+    id('fortschritt-text').textContent = zahlSteht
+      ? 'Frage ' + (erledigt + 1) + ' von ' + vorgesehen.length
+      : 'Frage ' + (erledigt + 1) + ' – weitere ergeben sich aus den Angaben';
 
     behaelter.appendChild(e('h2', { klasse: 'frage__text', text: frage.text }));
     if (frage.hilfe) {
