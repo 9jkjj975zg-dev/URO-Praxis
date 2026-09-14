@@ -99,15 +99,17 @@
   --gutter: clamp(1.1rem, 4vw, 2rem);
   --abschnitt: clamp(3.5rem, 7vw, 6rem);
 
-  /* Rechte Winkel, ohne Ausnahme. Der erste Entwurf rundet ueberall
-     leicht ab; hier steht jede Kante scharf. Das ist der schnellste
-     sichtbare Unterschied - und der Grund, warum die Striche wirken:
-     Eine Kante neben einer Kante ist eine Linie, eine Kante neben einer
-     Rundung ist ein Ausrutscher.                                         */
-  --radius-xs: 0;
-  --radius:    0;
-  --radius-lg: 0;
-  --radius-xl: 0;
+  /* Rundungen nach Aufgabe, nicht nach Gefuehl. Vier Stufen fuer alles,
+     was eine Flaeche ist; eine Pille fuer Etiketten, die keine Flaeche
+     sind, sondern eine Beschriftung; und der Kreis nur da, wo etwas
+     wirklich rund ist. Weicher oder haerter wird die ganze Website ueber
+     diese sechs Zeilen.                                                  */
+  --radius-xs:    8px;    /* Sinnbilder, Felder, kleine Kaesten */
+  --radius:      12px;    /* Hinweise, Rahmen, Tabellen */
+  --radius-lg:   16px;    /* Karten und Kacheln */
+  --radius-xl:   22px;    /* Fotos, die Karte im Hero */
+  --radius-knopf: 10px;   /* Schaltflaechen */
+  --radius-pille: 999px;  /* Marken und Etiketten */
 
   /* Schatten blaeulich statt grau: auf weissem Grund wirkt Grau schmutzig. */
   /* Sparsam eingesetzt: Getrennt wird ueber Haarlinien. Schatten tragen
@@ -174,14 +176,24 @@ p { text-wrap: pretty; }
 
 a { color: var(--c-brand-tief); text-underline-offset: .18em; text-decoration-thickness: .07em; }
 a:hover { color: var(--c-brand); }
+/* Im Fliesstext traegt die Unterlaenge den Verweis, nicht die Farbe
+   allein: Wer Farben schlecht unterscheidet, sieht ihn trotzdem.         */
+.prose a, .faq a, .note a, .check__ergebnis a {
+  text-decoration-color: color-mix(in srgb, var(--c-brand) 45%, transparent);
+}
+.prose a:hover, .faq a:hover, .note a:hover, .check__ergebnis a:hover {
+  text-decoration-color: currentColor;
+}
 
 strong { font-weight: 650; color: #17203a; }
+
+::selection { background: var(--c-brand-hell); color: var(--c-navy); }
 small { font-size: .875em; }
 
 :focus-visible {
   outline: 3px solid var(--c-focus);
   outline-offset: 2px;
-  border-radius: 0;
+  border-radius: 4px;
 }
 
 .skip-link {
@@ -192,7 +204,7 @@ small { font-size: .875em; }
   color: #fff;
   padding: .85rem 1.25rem;
   z-index: 200;
-  border-radius: 0;
+  border-radius: 0 0 var(--radius) 0;
   text-decoration: none;
 }
 .skip-link:focus { left: 0; color: #fff; }
@@ -255,7 +267,7 @@ small { font-size: .875em; }
   content: "";
   width: 1.6rem;
   height: 2px;
-  border-radius: 0;
+  border-radius: 2px;
   background: var(--c-verlauf);
   flex: none;
 }
@@ -263,7 +275,7 @@ small { font-size: .875em; }
   content: "";
   width: 1.6rem;
   height: 2px;
-  border-radius: 0;
+  border-radius: 2px;
   background: var(--c-verlauf);
   flex: none;
 }
@@ -325,7 +337,7 @@ small { font-size: .875em; }
   gap: .55rem;
   padding: .82rem 1.5rem;
   border: 1px solid transparent;
-  border-radius: 0;
+  border-radius: var(--radius-knopf);
   background: var(--btn-bg);
   color: var(--btn-fg);
   font: inherit;
@@ -411,7 +423,7 @@ small { font-size: .875em; }
   background: var(--c-verlauf);
   color: #fff;
   border: 0;
-  border-radius: 0;
+  border-radius: var(--radius-pille);
   padding: .2rem .7rem;
   font-family: inherit;
   line-height: inherit;
@@ -512,6 +524,20 @@ small { font-size: .875em; }
 .site-header.ist-geklebt {
   border-bottom-color: var(--c-border);
   box-shadow: 0 6px 24px rgba(24, 44, 94, .07);
+}
+/* Wie weit man auf der Seite ist - derselbe Strich, nur ueber die ganze
+   Breite gezogen. Auf den langen Leistungsseiten sagt er mit einem Blick,
+   wie viel noch kommt. Ohne JavaScript bleibt er bei null und damit
+   unsichtbar.                                                             */
+.site-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 2px;
+  width: var(--fortschritt, 0%);
+  background: var(--c-verlauf);
+  transition: width .12s linear;
 }
 .site-header__inner {
   display: flex;
@@ -625,7 +651,7 @@ small { font-size: .875em; }
 .nav__sub a {
   display: block;
   padding: .5rem .7rem;
-  border-radius: 0;
+  border-radius: var(--radius-xs);
   font-size: .93rem;
   color: var(--c-text);
   text-decoration: none;
@@ -641,7 +667,7 @@ small { font-size: .875em; }
   gap: .55rem;
   background: #fff;
   border: 1px solid var(--c-border-stark);
-  border-radius: 0;
+  border-radius: var(--radius-knopf);
   padding: .5rem 1rem .5rem .85rem;
   font: inherit;
   font-weight: 600;
@@ -650,7 +676,7 @@ small { font-size: .875em; }
   box-shadow: var(--schatten-s);
 }
 .nav-toggle__bars { position: relative; width: 18px; height: 2px; background: currentColor;
-                    border-radius: 0; transition: background-color .2s ease; }
+                    border-radius: 2px; transition: background-color .2s ease; }
 .nav-toggle__bars::before, .nav-toggle__bars::after {
   content: "";
   position: absolute;
@@ -658,7 +684,7 @@ small { font-size: .875em; }
   width: 18px;
   height: 2px;
   background: currentColor;
-  border-radius: 0;
+  border-radius: 2px;
   transition: transform .22s ease;
 }
 .nav-toggle__bars::before { top: -6px; }
@@ -700,7 +726,7 @@ small { font-size: .875em; }
     width: 2.4rem;
     height: 2.4rem;
     border: 1px solid var(--c-border);
-    border-radius: 0;
+    border-radius: var(--radius-knopf);
     background: #fff;
     color: var(--c-brand-tief);
     cursor: pointer;
@@ -716,7 +742,7 @@ small { font-size: .875em; }
     transform: none;
     box-shadow: none;
     border: 0;
-    border-radius: 0;
+    border-radius: var(--radius);
     padding: 0 0 .6rem .4rem;
     display: none;
   }
@@ -792,7 +818,7 @@ html.menue-offen body { overflow: hidden; }
   gap: .5rem;
   background: #fff;
   border: 1px solid var(--c-border);
-  border-radius: 0;
+  border-radius: var(--radius-pille);
   padding: .35rem .9rem .35rem .5rem;
   font-size: .85rem;
   font-weight: 600;
@@ -854,7 +880,7 @@ html.menue-offen body { overflow: hidden; }
   gap: .45rem;
   font-size: .82rem;
   font-weight: 650;
-  border-radius: 0;
+  border-radius: var(--radius-pille);
   padding: .2rem .7rem .2rem .5rem;
   margin-bottom: .6rem;
 }
@@ -891,7 +917,7 @@ html.menue-offen body { overflow: hidden; }
   width: 2.4rem;
   height: 2.4rem;
   padding: .55rem;
-  border-radius: 0;
+  border-radius: var(--radius-xs);
   background: var(--c-brand-hell);
   color: var(--c-brand-tief);
 }
@@ -999,18 +1025,21 @@ html.menue-offen body { overflow: hidden; }
   transition: transform .22s cubic-bezier(.22,.8,.3,1), box-shadow .22s ease,
               border-color .22s ease;
 }
-/* Der Strich oben links. Er ist das wiederkehrende Zeichen dieses
-   Entwurfs: dieselbe Form traegt die Kennzeile ueber jeder Ueberschrift,
-   die Nummer auf den Leistungskacheln und die Zahlen im Zahlenband.
-   Beim Ueberfahren laeuft er ueber die ganze Kante.                       */
+/* Der Strich in der Kachel. Er steht genau so da wie der Strich vor der
+   Kennzeile eines Abschnitts - gleiche Laenge, gleiche Staerke, gleicher
+   Verlauf - nur eben in der Kachel statt ueber der Ueberschrift. Damit
+   faengt jede Kachel so an wie jeder Abschnitt. Beim Ueberfahren waechst
+   er auf das Doppelte.                                                    */
+.card--link { padding-top: 2.9rem; }
 .card--link::before {
   content: "";
   position: absolute;
-  top: 0; left: 0;
-  width: 2.75rem;
+  top: 1.75rem;
+  left: 1.75rem;
+  width: 1.6rem;
   height: 2px;
   background: var(--c-verlauf);
-  transition: width .35s cubic-bezier(.22, .8, .3, 1);
+  transition: width .3s cubic-bezier(.22, .8, .3, 1);
 }
 .card--link:hover {
   transform: translateY(-3px);
@@ -1018,14 +1047,14 @@ html.menue-offen body { overflow: hidden; }
   border-color: var(--c-border-stark);
   color: inherit;
 }
-.card--link:hover::before { width: 100%; }
+.card--link:hover::before { width: 3.2rem; }
 
 .card__icon {
   display: inline-grid;
   place-items: center;
   width: 3.1rem;
   height: 3.1rem;
-  border-radius: 0;
+  border-radius: var(--radius-xs);
   background: var(--c-brand-hell);
   color: var(--c-brand-tief);
   margin-bottom: 1.1rem;
@@ -1057,6 +1086,9 @@ html.menue-offen body { overflow: hidden; }
   height: 2px;
   background: currentColor;
 }
+/* Traegt die Kachel eine Nummer, ist deren Strich schon der Strich der
+   Kachel - dann faellt der eigene weg, sonst staenden zwei uebereinander. */
+.card--link:has(.card__nr) { padding-top: 1.75rem; }
 .card--link:has(.card__nr)::before { content: none; }
 .card__more {
   margin-top: auto;
@@ -1084,11 +1116,12 @@ html.menue-offen body { overflow: hidden; }
 }
 .spektrum > li { min-width: 0; display: flex; margin: 0; }
 .spektrum a {
+  position: relative;
   flex: 1;
   display: flex;
   align-items: flex-start;
   gap: .9rem;
-  padding: 1.25rem 1.2rem;
+  padding: 2.6rem 1.2rem 1.3rem;
   background: rgba(255, 255, 255, .72);
   border: 1px solid rgba(255, 255, 255, .95);
   border-radius: var(--radius-lg);
@@ -1097,6 +1130,18 @@ html.menue-offen body { overflow: hidden; }
               border-color .2s ease;
 }
 .spektrum a:hover { transform: translateY(-2px); background: #fff; border-color: var(--c-brand); }
+/* Derselbe Strich wie auf den Karten und vor jeder Kennzeile. */
+.spektrum a::before {
+  content: "";
+  position: absolute;
+  top: 1.3rem;
+  left: 1.2rem;
+  width: 1.6rem;
+  height: 2px;
+  background: var(--c-verlauf);
+  transition: width .3s cubic-bezier(.22, .8, .3, 1);
+}
+.spektrum a:hover::before { width: 3.2rem; }
 .spektrum__icon {
   display: inline-flex;
   align-items: center;
@@ -1104,7 +1149,7 @@ html.menue-offen body { overflow: hidden; }
   flex: none;
   width: 2.6rem;
   height: 2.6rem;
-  border-radius: 0;
+  border-radius: var(--radius-xs);
   background: var(--c-tuerkis-hell);
   color: var(--c-tuerkis);
 }
@@ -1184,8 +1229,8 @@ html.menue-offen body { overflow: hidden; }
 .hours tr:last-child th, .hours tr:last-child td { border-bottom: 0; }
 .hours tr.is-today th, .hours tr.is-today td { background: var(--c-brand-hell); color: var(--c-brand-tief);
                                                font-weight: 650; }
-.hours tr.is-today th:first-child { border-radius: 0 0 0 10px; }
-.hours tr.is-today td:last-child { border-radius: 0 10px 10px 0; }
+.hours tr.is-today th:first-child { border-radius: var(--radius-xs) 0 0 var(--radius-xs) 0 0 10px; }
+.hours tr.is-today td:last-child { border-radius: 0 var(--radius-xs) var(--radius-xs) 0 10px 10px 0; }
 .hours .closed { color: #8b93a5; }
 
 .vergleich { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: .97rem; }
@@ -1199,12 +1244,15 @@ html.menue-offen body { overflow: hidden; }
   text-transform: uppercase;
   letter-spacing: .08em;
 }
-.vergleich thead th:first-child { border-radius: 0 0 0 0; }
-.vergleich thead th:last-child { border-radius: 0 10px 0 0; }
+.vergleich thead th:first-child { border-radius: var(--radius-xs) 0 0 0 0 0 0; }
+.vergleich thead th:last-child { border-radius: 0 var(--radius-xs) 0 0 10px 0 0; }
 .vergleich tbody th { font-weight: 600; color: var(--c-navy); }
 .vergleich td { color: var(--c-text-leise); }
 .vergleich .ja   { color: #15774c; font-weight: 650; }
 .vergleich .nein { color: var(--c-warm-tief); font-weight: 650; }
+.vergleich tbody tr { transition: background-color .15s ease; }
+.vergleich tbody tr:hover { background: var(--c-bg-soft); }
+
 .tabelle-rahmen {
   overflow-x: auto;
   border: 1px solid var(--c-border);
@@ -1228,7 +1276,7 @@ html.menue-offen body { overflow: hidden; }
   background: var(--c-platzhalter-bg);
   border: 1px dashed var(--c-platzhalter-rand);
   color: var(--c-platzhalter-text);
-  border-radius: 0;
+  border-radius: 6px;
   padding: .15rem .5rem;
   font-size: .82rem;
   font-weight: 600;
@@ -1246,7 +1294,7 @@ html.menue-offen body { overflow: hidden; }
   width: 2.3rem;
   height: 2.3rem;
   padding: .5rem;
-  border-radius: 0;
+  border-radius: var(--radius-xs);
   background: var(--c-tuerkis-hell);
   color: var(--c-tuerkis);
 }
@@ -1305,7 +1353,7 @@ html.menue-offen body { overflow: hidden; }
   font-weight: 600;
   color: var(--c-brand-tief);
   background: var(--c-brand-hell);
-  border-radius: 0;
+  border-radius: var(--radius-pille);
   padding: .22rem .75rem;
 }
 .person__weg { font-size: .93rem; color: var(--c-text-leise); padding-top: .9rem;
@@ -1348,7 +1396,7 @@ html.menue-offen body { overflow: hidden; }
 .foto--platzhalter svg { width: 40px; height: 40px; color: var(--c-brand); }
 .foto--platzhalter strong { display: block; color: var(--c-navy); }
 .foto--platzhalter code { background: #fff; border: 1px solid var(--c-border);
-                          border-radius: 0; padding: .1rem .4rem; font-size: .88em; }
+                          border-radius: 6px; padding: .1rem .4rem; font-size: .88em; }
 
 /* --------------------------------------------------------------------------
    15. Formular
@@ -1476,7 +1524,21 @@ html.menue-offen body { overflow: hidden; }
    19. Inhaltstypografie (Leistungs- und Rechtsseiten)
    -------------------------------------------------------------------------- */
 .prose { max-width: 70ch; }
-.prose h2 { margin-top: 2.75rem; }
+.prose h2 {
+  position: relative;
+  margin-top: 3rem;
+  padding-top: 1.15rem;
+}
+.prose h2::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.6rem;
+  height: 2px;
+  background: var(--c-verlauf);
+}
+.prose > h2:first-child { margin-top: 0; }
 .prose h3 { margin-top: 1.9rem; }
 .prose > :first-child { margin-top: 0; }
 .prose ul li::marker { color: var(--c-brand); }
@@ -1511,7 +1573,7 @@ html.menue-offen body { overflow: hidden; }
 .tag-list li {
   background: var(--c-brand-hell);
   color: var(--c-brand-tief);
-  border-radius: 0;
+  border-radius: var(--radius-pille);
   padding: .35rem .9rem;
   font-size: .88rem;
   font-weight: 600;
@@ -1545,7 +1607,7 @@ html.menue-offen body { overflow: hidden; }
   flex: none;
   width: 1.7rem;
   height: 1.7rem;
-  border-radius: 0;
+  border-radius: var(--radius-xs);
   border: 1px solid var(--c-border-stark);
   background: #fff no-repeat center;
   background-image: linear-gradient(var(--c-brand-tief), var(--c-brand-tief)),
@@ -1581,7 +1643,7 @@ html.menue-offen body { overflow: hidden; }
 .meldung__art {
   background: var(--c-brand-hell);
   color: var(--c-brand-tief);
-  border-radius: 0;
+  border-radius: var(--radius-pille);
   padding: .22rem .75rem;
   font-size: .74rem;
   font-weight: 700;
@@ -1610,7 +1672,7 @@ html.menue-offen body { overflow: hidden; }
 .stimmen:focus-visible { outline: 3px solid var(--c-focus); outline-offset: 4px;
                          border-radius: var(--radius); }
 .stimmen::-webkit-scrollbar { height: 8px; }
-.stimmen::-webkit-scrollbar-thumb { background: var(--c-border-stark); border-radius: 0; }
+.stimmen::-webkit-scrollbar-thumb { background: var(--c-border-stark); border-radius: var(--radius-pille); }
 .stimmen::-webkit-scrollbar-track { background: transparent; }
 .stimmen > .stimme { flex: 0 0 min(430px, 85%); scroll-snap-align: start; }
 
@@ -1618,7 +1680,7 @@ html.menue-offen body { overflow: hidden; }
 .stimmen-knopf {
   width: 46px;
   height: 46px;
-  border-radius: 0;
+  border-radius: var(--radius-knopf);
   border: 1px solid var(--c-border-stark);
   background: #fff;
   color: var(--c-brand-tief);
@@ -1691,7 +1753,7 @@ html.menue-offen body { overflow: hidden; }
   flex: none;
   width: 1.7rem;
   height: 1.7rem;
-  border-radius: 0;
+  border-radius: var(--radius-xs);
   background: var(--c-verlauf);
   color: #fff;
   font-size: .85rem;
@@ -1710,7 +1772,7 @@ html.menue-offen body { overflow: hidden; }
   margin: 0;
   padding: .55rem .8rem;
   border: 1px solid var(--c-border);
-  border-radius: 0;
+  border-radius: var(--radius-pille);
   background: var(--c-bg-soft);
   font-size: .9rem;
   line-height: 1.3;
@@ -1783,7 +1845,7 @@ html.menue-offen body { overflow: hidden; }
 .ipss-stufe {
   display: inline-block;
   padding: .22rem .8rem;
-  border-radius: 0;
+  border-radius: var(--radius-pille);
   background: var(--c-brand-hell);
   color: var(--c-brand-tief);
   font-size: .88rem;
@@ -1817,7 +1879,7 @@ html.menue-offen body { overflow: hidden; }
 .check__punkt-kopf h4 { margin: 0; font-size: 1.02rem; flex: 1 1 14rem; }
 .check__fein { font-size: .92rem; color: var(--c-text-leise); }
 .marke { flex: none; font-size: .78rem; font-weight: 650; letter-spacing: .02em;
-         padding: .22rem .7rem; border-radius: 0; white-space: nowrap; }
+         padding: .22rem .7rem; border-radius: var(--radius-pille); white-space: nowrap; }
 .marke--kasse  { background: #e3f6ec; color: #14663c; }
 .marke--selbst { background: var(--c-warm-hell); color: var(--c-warm-tief); }
 .marke--goae   { background: var(--c-brand-hell); color: var(--c-brand-tief); }
@@ -1919,7 +1981,7 @@ html.menue-offen body { overflow: hidden; }
   color: var(--c-text-leise);
   background: #fff;
   border: 1px solid var(--c-border-stark);
-  border-radius: 0;
+  border-radius: var(--radius-pille);
   cursor: pointer;
 }
 .schema__wieder:hover { color: var(--c-brand-tief); border-color: var(--c-brand); }

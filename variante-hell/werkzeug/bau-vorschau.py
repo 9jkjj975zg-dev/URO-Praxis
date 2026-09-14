@@ -53,28 +53,50 @@ for name in ("jost-latin", "jost-latin-ext"):
                       'url(%s)' % daten_uri("assets/fonts/%s.woff2" % name, "font/woff2"))
 
 # ------------------------------------------------------------------- Skript
-zeilen = open("assets/js/main.js", encoding="utf-8").read().split("\n")
+# Geschnitten wird an den Ueberschriften der Abschnitte, nicht an
+# Zeilennummern: Sonst verschiebt jede Aenderung an main.js die Schnitte
+# und die Vorschau bricht, ohne dass man es beim Bauen merkt.
+js = open("assets/js/main.js", encoding="utf-8").read()
 
 
-def teil(von, bis):            # 1-basiert, beide einschliesslich
-    return "\n".join(zeilen[von - 1:bis])
+def block(marke):
+    """Anfang des Kommentarblocks, in dem die Marke steht."""
+    stelle = js.index(marke)
+    return max(js.rindex("/* ---", 0, stelle), js.rindex("/* ==", 0, stelle))
 
 
-# Was an der Kopf- und Fussleiste haengt, laeuft genau einmal.
-# Was zur jeweiligen Seite gehoert, laeuft nach jedem Seitenwechsel neu.
+def nach_iife(ab):
+    """Ende der Funktion, die bei oder nach `ab` geschlossen wird."""
+    return js.index("\n})();", ab) + len("\n})();")
+
+
+# Was an Kopf- und Fussleiste haengt, laeuft genau einmel; was zur
+# jeweiligen Seite gehoert, nach jedem Wechsel neu.
+a_wochentag = block("2. Aktuellen Wochentag")
+a_jahr      = block("4. Jahreszahl im Fussbereich")
+e_erste     = nach_iife(a_jahr)
+a_unter     = block("Nachtrag: aufklappbare Untermenues")
+e_unter     = nach_iife(a_unter)
+a_stimmen   = block("Nachtrag: seitlich scrollbare Patientenstimmen")
+e_stimmen   = nach_iife(a_stimmen)
+a_vorsorge  = block("6. Orientierungshilfe")
+a_laufband  = block("13. Laufband im Hinweisbalken")
+e_laufband  = js.index("/* @vorschau-ende */")
+a_kopfband  = js.index("/* ---", e_laufband)
+a_geoeffnet = block('C. "Heute geoeffnet"')
+
 rumpf_skript = "\n".join([
-    teil(1, 39) + "\n" + teil(115, 121),      # Grundgeruest, Menue, Jahreszahl
-    teil(131, 163),                           # aufklappbare Untermenues
-    "(function () {\n" + teil(598, 672) + "\n})();",   # Laufband im Meldungsbalken
-    teil(685, 699),                           # klebender Kopfbereich
-    teil(709, 740),                           # Menueflaeche auf schmalen Schirmen
+    js[:a_wochentag] + js[a_jahr:e_erste],          # Grundgeruest, Menue, Jahreszahl
+    js[a_unter:e_unter],                            # aufklappbare Untermenues
+    "(function () {\n" + js[a_laufband:e_laufband] + "\n})();",   # Laufband
+    js[a_kopfband:a_geoeffnet],                     # Kopfband und Menueflaeche
 ])
 
 seiten_skript = "\n".join([
-    teil(40, 114),     # Wochentag hervorheben, Kontaktformular
-    teil(170, 205),    # Patientenstimmen
-    teil(207, 597),    # Vorsorge-Check, Vertretung, Schema, Einblenden, Parallax, IPSS
-    teil(752, 789),    # "Jetzt geoeffnet"
+    js[a_wochentag:a_jahr],        # Wochentag hervorheben, Kontaktformular
+    js[a_stimmen:e_stimmen],       # Patientenstimmen
+    js[a_vorsorge:a_laufband],     # Vorsorge-Check, Schema, Einblenden, IPSS
+    js[a_geoeffnet:],              # "Jetzt geoeffnet"
 ])
 
 # Damit sich bei jedem Seitenwechsel nichts anhaeuft, werden die Beobachter
@@ -83,6 +105,27 @@ seiten_skript = (seiten_skript
                  .replace("window.addEventListener(", "MERKER.fenster(")
                  .replace("document.addEventListener(", "MERKER.dokument(")
                  .replace("new IntersectionObserver(", "MERKER.beobachter("))
+
+# Pruefen, dass die Schnitte sitzen: Jeder Abschnitt muss genau einmal
+# vorkommen, und zwar auf der richtigen Seite.
+for marke, wo in [("1. Mobiles Navigationsmenue", "rumpf"),
+                  ("4. Jahreszahl", "rumpf"),
+                  ("aufklappbare Untermenues", "rumpf"),
+                  ("13. Laufband", "rumpf"),
+                  ("A. Kopfbereich beim Scrollen", "rumpf"),
+                  ("B. Menueflaeche", "rumpf"),
+                  ("2. Aktuellen Wochentag", "seiten"),
+                  ("3. Kontaktformular", "seiten"),
+                  ("scrollbare Patientenstimmen", "seiten"),
+                  ("6. Orientierungshilfe", "seiten"),
+                  ("8. Schemazeichnung", "seiten"),
+                  ("9. Sanftes Einblenden", "seiten"),
+                  ("12. Selbsttest", "seiten"),
+                  ('C. "Heute geoeffnet"', "seiten")]:
+    drin = rumpf_skript if wo == "rumpf" else seiten_skript
+    daneben = seiten_skript if wo == "rumpf" else rumpf_skript
+    assert drin.count(marke) == 1, "fehlt oder doppelt: " + marke
+    assert daneben.count(marke) == 0, "steht auf der falschen Seite: " + marke
 
 # ------------------------------------------------------- Kopf- und Fussteil
 index = open("index.html", encoding="utf-8").read()

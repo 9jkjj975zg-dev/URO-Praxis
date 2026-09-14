@@ -689,7 +689,13 @@
 
   var laeuft = false;
   var pruefen = function () {
-    kopf.classList.toggle("ist-geklebt", (window.scrollY || window.pageYOffset) > 12);
+    var oben = window.scrollY || window.pageYOffset;
+    kopf.classList.toggle("ist-geklebt", oben > 12);
+
+    /* Lesefortschritt: der Strich unter dem Kopfband. */
+    var strecke = document.documentElement.scrollHeight - window.innerHeight;
+    kopf.style.setProperty("--fortschritt",
+      (strecke > 40 ? Math.min(100, (oben / strecke) * 100) : 0).toFixed(1) + "%");
     laeuft = false;
   };
   window.addEventListener("scroll", function () {

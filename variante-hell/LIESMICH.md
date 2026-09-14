@@ -69,38 +69,51 @@ Alle Farben stehen gesammelt am Anfang von `assets/css/style.css` im Block
   Das Teamfoto steht auf der Startseite jetzt im Hero und nicht mehr weiter
   unten – es kommt also weiterhin nur einmal vor.
 
-### Formen: rechte Winkel
+### Formen
 
-**Keine Rundungen, nirgends.** Kacheln, Knöpfe, Eingabefelder, Marken und
-Sinnbilder stehen scharfkantig. Rund bleiben nur zwei Dinge: der Lichtpunkt
-neben „Jetzt geöffnet“ und die beiden Farbwolken im Hintergrund des Heros –
-beides keine Formen, sondern Zustände.
+Gerundet wird nach Aufgabe, nicht nach Gefühl. Sechs Werte am Anfang von
+`assets/css/style.css` steuern das für die ganze Website:
 
-Alle Rundungen hängen an vier Werten am Anfang von `assets/css/style.css`
-(`--radius-xs` bis `--radius-xl`). Wer es doch weicher möchte, setzt dort
-Zahlen ein, und die ganze Website rundet wieder ab.
+| Wert | Wofür |
+|---|---|
+| `--radius-xs` 8 px | Sinnbilder, Eingabefelder, kleine Kästen |
+| `--radius` 12 px | Hinweise, Rahmen, Tabellen |
+| `--radius-lg` 16 px | Karten und Kacheln |
+| `--radius-xl` 22 px | Fotos, die Karte im Hero |
+| `--radius-knopf` 10 px | Schaltflächen |
+| `--radius-pille` 999 px | Marken und Etiketten |
+
+Weicher oder härter wird alles über diese sechs Zeilen. Ein echter Kreis
+bleibt nur, wo etwas wirklich rund ist: der Lichtpunkt neben „Jetzt
+geöffnet“ und die Farbwolken im Hintergrund des Heros.
 
 ### Der Strich
 
 Das wiederkehrende Zeichen dieses Entwurfs ist ein **2 Pixel hoher Strich**
-in Blau-Türkis. Er kommt an fünf Stellen vor:
+in Blau-Türkis, 1,6 rem lang. Er steht überall dort, wo etwas anfängt:
 
 | Wo | Wie |
 |---|---|
-| Über jeder Überschrift | kurzer Strich, dann die Kennzeile |
-| Oben links auf jeder Kachel | 2,75 rem lang; beim Überfahren läuft er über die ganze Kante |
+| Über jeder Überschrift | Strich, dann die Kennzeile |
+| In jeder Kachel, oben links | genauso wie über der Überschrift; beim Überfahren wächst er auf das Doppelte |
 | Auf den Leistungskacheln | derselbe Strich, dann die Nummer: `— 01` |
+| Über jeder Zwischenüberschrift | auf den langen Leistungs- und Rechtsseiten |
 | Im Zahlenband | auf der Trennlinie über jeder Zahl |
 | Unter dem Menüpunkt | markiert die Seite, auf der man steht |
+| Unter dem Kopfband | als Lesefortschritt über die ganze Breite |
 
-Trägt eine Kachel eine Nummer, entfällt ihr Strich an der Kante – sonst
-stünden zwei übereinander.
+Trägt eine Kachel eine Nummer, entfällt ihr eigener Strich – sonst stünden
+zwei übereinander.
 
 ### Gestaltung im Kleinen
 
 * Getrennt wird über Haarlinien, nicht über Schatten. Schatten tragen nur
   noch, was wirklich über der Seite schwebt: das Foto im Hero, die Karte
   davor, das aufgeklappte Menü.
+* Verweise im Fließtext tragen eine Unterlänge in Blau, nicht nur Farbe –
+  wer Farben schlecht unterscheidet, sieht sie trotzdem.
+* Zeilen in den langen Tabellen heben sich beim Überfahren.
+* Markierter Text erscheint im hellen Blau der Palette.
 * Kacheln einer Reihe sind gleich hoch und stehen oben wie unten bündig.
 * Die Fragen im FAQ sind einzelne Karten mit einem Plus, das sich beim
   Aufklappen dreht.
