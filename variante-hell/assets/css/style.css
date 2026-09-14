@@ -26,7 +26,60 @@
 }
 
 /* --------------------------------------------------------------------------
-   0a. Schriften zur Auswahl
+   0a. Host Grotesk - die Schrift dieses Entwurfs
+   Sie traegt hier alles: Ueberschriften, Wortmarke und den Fliesstext. Vier
+   Dateien, alle vom eigenen Server: lateinischer Grundausschnitt und
+   erweiterter Ausschnitt, jeweils aufrecht und kursiv.
+
+   Eine variable Schrift - eine Datei deckt die Strichstaerken 300 bis 800
+   ab. Die Kursive ist eine echte, keine schraeggestellte Aufrechte.
+
+   Host Grotesk von Hanken Design Co. steht unter der SIL Open Font
+   License 1.1, siehe assets/fonts/LIESMICH.txt.
+   -------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Host Grotesk";
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url("../fonts/host-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Host Grotesk";
+  font-style: italic;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url("../fonts/host-latin-italic.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Host Grotesk";
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url("../fonts/host-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+                 U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF,
+                 U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Host Grotesk";
+  font-style: italic;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url("../fonts/host-latin-ext-italic.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+                 U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF,
+                 U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* --------------------------------------------------------------------------
+   0b. Schriften zum Vergleichen
    Vier weitere Ueberschriftenschriften, alle unter der SIL Open Font
    License und alle vom eigenen Server. Welche gilt, entscheidet ein
    einziger Wert weiter unten: --font-display. Die uebrigen laedt der
@@ -116,7 +169,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   0b. Weitere Grotesken zum Vergleichen
+   0c. Weitere Grotesken zum Vergleichen
    Von diesen sechs liegt nur der lateinische Grundausschnitt hier - er
    enthaelt die Umlaute und das scharfe S und reicht zum Vergleichen.
    Sobald eine davon gewaehlt ist, gehoert der erweiterte Ausschnitt dazu;
@@ -138,16 +191,6 @@
   font-weight: 300 800;
   font-display: swap;
   src: url("../fonts/funnel-latin.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
-                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: "Host Grotesk";
-  font-style: normal;
-  font-weight: 300 800;
-  font-display: swap;
-  src: url("../fonts/host-latin.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
                  U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
                  U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
@@ -249,10 +292,10 @@
      ausprobieren will, tauscht hier die vier Zeilen - der Rest der
      Website zieht mit. Die Schnitte liegen unter assets/fonts/.
 
-       Bricolage Grotesque  650 / -.02em  / normal    (eingestellt)
+       Host Grotesk         650 / -.02em  / normal    (eingestellt)
+       Bricolage Grotesque  650 / -.02em  / normal
        Familjen Grotesk     600 / -.015em / normal
        Funnel Display       600 / -.02em  / normal
-       Host Grotesk         650 / -.02em  / normal
        Gabarito             600 / -.015em / normal
        Schibsted Grotesk    650 / -.02em  / normal
        Darker Grotesque     700 / -.01em  / normal
@@ -260,12 +303,23 @@
        Jost                 600 / -.015em / normal
        Fraunces             600 / -.01em  / "WONK" 1
        Instrument Serif     400 / -.005em / normal                              */
-  --font-display: "Bricolage Grotesque", "Helvetica Neue", var(--font-base);
+  --font-display: "Host Grotesk", "Helvetica Neue", var(--font-base);
   --schrift-staerke:   650;
   --schrift-abstand:   -.02em;
   --schrift-variation: normal;
-  --font-base: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
-               "Noto Sans", Arial, sans-serif;
+  /* Eine Schrift fuer alles: Host Grotesk traegt hier auch den Fliesstext.
+     Der erste Entwurf setzt ihn in die Systemschrift des Geraets, weil
+     geometrische Schriften wie Jost auf langen Strecken anstrengend
+     werden. Host Grotesk ist keine geometrische, sondern eine Textgrotesk
+     mit hoher Mittellaenge und offenen Formen - sie liest sich auch ueber
+     lange Strecken ruhig, und die Seite bekommt einen einheitlichen
+     Auftritt.
+
+     Die Systemschriften bleiben als Rueckfall dahinter: Solange die Datei
+     laedt - und falls sie ausfaellt - steht der Text in der Schrift des
+     Geraets, nie unsichtbar (font-display: swap).                        */
+  --font-base: "Host Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI",
+               "Helvetica Neue", "Noto Sans", Arial, sans-serif;
   --fs-base: 1.0625rem;   /* 17px */
   --lh-base: 1.72;
 

@@ -90,13 +90,13 @@ html { scroll-padding-top: calc(var(--vs-hoehe) + 6.5rem); }
   </label>
 
   <label class="vs-feld" for="vs-schrift">
-    <span>Schrift</span>
+    <span>&Uuml;berschrift</span>
     <select id="vs-schrift">
       <optgroup label="Moderne Grotesk">
-        <option value="bricolage">Bricolage Grotesque (eingestellt)</option>
+        <option value="host">Host Grotesk (eingestellt)</option>
+        <option value="bricolage">Bricolage Grotesque</option>
         <option value="familjen">Familjen Grotesk</option>
         <option value="funnel">Funnel Display</option>
-        <option value="host">Host Grotesk</option>
         <option value="gabarito">Gabarito</option>
         <option value="schibsted">Schibsted Grotesk</option>
         <option value="darker">Darker Grotesque &ndash; schmal</option>
@@ -290,8 +290,13 @@ html { scroll-padding-top: calc(var(--vs-hoehe) + 6.5rem); }
 
   zeigen("index.html", "");
 
-  /* Sind Bilder und Schriften da, stehen die Hoehen fest. Was dann im Bild
-     steht und noch blass ist, wird nachgereicht.                          */
+  /* Bilder und Schriften kommen nach und verschieben die Hoehen. Jedes Mal
+     wird nachgereicht, was danach im Bild steht und noch blass ist. Ein
+     zweiter Durchlauf schadet nicht: Was schon sichtbar ist, bleibt es.   */
   window.addEventListener("load", function () { nachreichen(false); });
+  window.setTimeout(function () { nachreichen(false); }, 600);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () { nachreichen(false); });
+  }
 })();
 </script>

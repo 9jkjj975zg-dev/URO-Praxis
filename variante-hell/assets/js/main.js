@@ -463,6 +463,10 @@
      IntersectionObserver bleibt die Ueberschrift einfach normal sichtbar.
      ---------------------------------------------------------------------- */
   if (window.IntersectionObserver) {
+    // Der Hero steht bewusst nicht in dieser Liste: Er ist das erste Bild
+    // der Seite. Was dort steht, muss ohne Scrollen dastehen - sonst wartet
+    // die Begruessung auf eine Bewegung, die noch keiner gemacht hat.
+    //
     // Im ersten Entwurf blendete sich nur an wenigen Stellen etwas ein, dafuer
     // verschwanden die Bloecke am oberen Bildrand. Hier ist es umgekehrt: Der
     // obere Rand bleibt ruhig, dafuer kommt jeder Baustein beim Erreichen des
@@ -473,12 +477,19 @@
       "[data-reveal]", "#inhalt .section-head", "#inhalt .card", "#inhalt .zahl",
       "#inhalt .spektrum > li", "#inhalt .stimme", "#inhalt .meldung",
       "#inhalt .person", "#inhalt .foto", "#inhalt .note", "#inhalt .schema",
-      "#inhalt .hero__fact", "#inhalt .map-box", "#inhalt .faq details"
+      "#inhalt .map-box", "#inhalt .faq details"
     ].join(", ");
 
     Array.prototype.forEach.call(
       document.querySelectorAll(EINBLENDEN),
       function (element, i) {
+        // Was beim Aufschlagen schon im Bild steht, wird nicht versteckt.
+        // Sonst wartet es auf eine Bewegung, die vielleicht nie kommt - und
+        // an der unteren Bildkante entscheiden ein paar Pixel darueber, ob
+        // eine Kachel erscheint und ihre Nachbarin blass stehen bleibt.
+        var bildhoehe = window.innerHeight || document.documentElement.clientHeight;
+        if (element.getBoundingClientRect().top < bildhoehe) { return; }
+
         // Nachbarn kommen leicht versetzt herein. Mehr als vier Stufen nicht:
         // sonst wartet man bei einer Reihe aus acht Kacheln auf die letzte.
         var geschwister = element.parentElement

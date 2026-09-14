@@ -169,27 +169,41 @@ Das Skript liest die Seiten dieses Ordners und setzt sie mit
   nur: das flacher werdende Kopfband, die Zeile „Jetzt geöffnet“, das
   laufende Meldungsband, das sanfte Einblenden und die aufklappbaren
   Untermenüs auf dem Handy (die stehen dann offen da).
-* Der **Fließtext** steht weiter in der Systemschrift des jeweiligen Geräts –
-  daran ändert auch die Schriftauswahl unten nichts. Lange Strecken liest man
-  in der Schrift am besten, die das Gerät ohnehin überall verwendet.
+* **Anders als im ersten Entwurf:** Der Fließtext steht nicht mehr in der
+  Systemschrift, sondern in derselben Schrift wie die Überschriften – siehe
+  Abschnitt 2a.
 
 ---
 
 ## 2a. Die Schrift der Überschriften
 
-Zur Auswahl stehen elf Schriften. Alle liegen unter `assets/fonts/` auf dem
+Alle Schriften liegen unter `assets/fonts/` auf dem
 eigenen Server, alle unter der SIL Open Font License – es wird weiterhin
 nichts von Google nachgeladen.
 
-**Eingestellt ist Bricolage Grotesque.** Zehn weitere stehen zum Vergleich
-bereit:
+**Eingestellt ist Host Grotesk – für Überschriften *und* Fließtext.**
+
+Der erste Entwurf setzt den Fließtext in die Systemschrift des Geräts, weil
+geometrische Schriften wie Jost auf langen Strecken anstrengend werden. Host
+Grotesk ist keine geometrische, sondern eine Textgrotesk mit hoher
+Mittellänge und offenen Formen: Sie liest sich auch über lange Strecken
+ruhig, und die Seite bekommt einen einheitlichen Auftritt. Von ihr liegen
+deshalb vier Dateien bereit – Grund- und erweiterter Zeichensatz, jeweils
+aufrecht und kursiv.
+
+Die Systemschriften stehen als Rückfall dahinter: Solange die Schriftdatei
+lädt – und falls sie ausfällt – erscheint der Text in der Schrift des
+Geräts, nie unsichtbar.
+
+Zehn weitere Schriften stehen zum Vergleich bereit. Sie wechseln nur die
+Überschriften; der Fließtext bleibt Host Grotesk:
 
 | Schrift | Charakter |
 |---|---|
-| **Bricolage Grotesque** | ungleiche Formen, kantig und modern – **eingestellt** |
+| **Host Grotesk** | redaktionell, ruhig eigenwillig – **eingestellt** |
+| **Bricolage Grotesque** | ungleiche Formen, kantig und modern |
 | **Familjen Grotesk** | schwedische Grotesk, sachlich mit Ecken |
 | **Funnel Display** | jung, engere Formen, hohe Mittellänge |
-| **Host Grotesk** | redaktionell, ruhig eigenwillig |
 | **Gabarito** | freundlich, offene Formen |
 | **Schibsted Grotesk** | Zeitungsgrotesk, klar und geradeaus |
 | **Darker Grotesque** | schmal und hoch, sehr eigen |
@@ -207,7 +221,7 @@ stehen vier Werte beieinander – `--font-display`, `--schrift-staerke`,
 ist die passende Zeile als Kommentar hinterlegt; eintragen genügt, die ganze
 Website zieht mit.
 
-Von den sechs jüngsten Kandidaten liegt nur der lateinische Grundausschnitt
+Von den fünf jüngsten Kandidaten liegt nur der lateinische Grundausschnitt
 bereit. Er enthält Umlaute und scharfes S und reicht zum Vergleichen; fällt
 die Wahl auf eine davon, fehlt noch der erweiterte Ausschnitt – wie man ihn
 nachholt, steht in `assets/fonts/LIESMICH.txt`.

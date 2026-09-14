@@ -93,10 +93,6 @@ zum Vergleichen:
                          https://fonts.google.com/specimen/Funnel+Display
                          Jung, engere Formen, hohe Mittellaenge. 300-800.
 
-  host-latin.woff2       Host Grotesk
-                         https://fonts.google.com/specimen/Host+Grotesk
-                         Redaktionell, ruhig eigenwillig. 300-800.
-
   gabarito-latin.woff2   Gabarito
                          https://fonts.google.com/specimen/Gabarito
                          Freundlich, offene Formen. 400-900.
@@ -110,8 +106,15 @@ zum Vergleichen:
                          Schmal und hoch, sehr eigen. 300-900. Braucht mehr
                          Strichstaerke als die anderen (700 statt 650).
 
-Eingestellt ist derzeit Bricolage Grotesque; von ihr liegen beide Ausschnitte
-bereit, sie ist also vollstaendig.
+Host Grotesk gehoerte zunaechst auch in diese Reihe. Sie ist inzwischen die
+Schrift des Entwurfs - fuer Ueberschriften und Fliesstext - und liegt
+deshalb vollstaendig hier: Grund- und erweiterter Zeichensatz, jeweils
+aufrecht und kursiv (host-latin.woff2, host-latin-ext.woff2,
+host-latin-italic.woff2, host-latin-ext-italic.woff2). Entwurf: Hanken
+Design Co., https://fonts.google.com/specimen/Host+Grotesk
+
+Von Bricolage Grotesque liegen ebenfalls beide Ausschnitte bereit, aufrecht;
+sie ist damit als Ueberschriftenschrift vollstaendig.
 
 Faellt die Wahl auf eine der sechs, fehlt noch der erweiterte lateinische
 Ausschnitt. Ihn holt man so:
