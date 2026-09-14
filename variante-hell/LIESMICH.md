@@ -169,7 +169,39 @@ Das Skript liest die Seiten dieses Ordners und setzt sie mit
   nur: das flacher werdende Kopfband, die Zeile „Jetzt geöffnet“, das
   laufende Meldungsband, das sanfte Einblenden und die aufklappbaren
   Untermenüs auf dem Handy (die stehen dann offen da).
-* Die Schriftart **Jost** für Überschriften, Systemschrift im Fließtext.
+* Der **Fließtext** steht weiter in der Systemschrift des jeweiligen Geräts –
+  daran ändert auch die Schriftauswahl unten nichts. Lange Strecken liest man
+  in der Schrift am besten, die das Gerät ohnehin überall verwendet.
+
+---
+
+## 2a. Die Schrift der Überschriften
+
+Zur Auswahl stehen fünf Schriften. Alle liegen unter `assets/fonts/` auf dem
+eigenen Server, alle unter der SIL Open Font License – es wird weiterhin
+nichts von Google nachgeladen.
+
+| Schrift | Charakter |
+|---|---|
+| **Jost** | geometrisch, sachlich (derzeit eingestellt) |
+| **Fraunces** | weiche Serifen, warm und eigenwillig |
+| **Bricolage Grotesque** | Grotesk mit ungleichen Formen, kantig und modern |
+| **Instrument Serif** | hoher Strichstärkenkontrast, schmal und elegant |
+| **Epilogue** | ruhige Grotesk mit eigenen Endungen |
+
+**Zum Vergleichen:** in `vorschau.html` oben rechts in der Leiste umschalten.
+Die Umschaltung ändert nichts an den Dateien, sie zeigt nur.
+
+**Zum Festlegen:** im Block `:root` am Anfang von `assets/css/style.css`
+stehen vier Werte beieinander – `--font-display`, `--schrift-staerke`,
+`--schrift-abstand` und `--schrift-variation`. Für jede der fünf Schriften
+ist die passende Zeile als Kommentar hinterlegt; eintragen genügt, die ganze
+Website zieht mit.
+
+Steht die Entscheidung, können die übrigen Schriftdateien gelöscht werden –
+zusammen mit ihren `@font-face`-Blöcken im Stylesheet. Solange sie liegen
+bleiben, kosten sie nichts: Der Browser holt eine Schriftdatei erst, wenn sie
+tatsächlich gebraucht wird.
 
 ---
 

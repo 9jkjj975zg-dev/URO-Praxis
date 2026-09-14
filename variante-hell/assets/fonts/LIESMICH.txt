@@ -26,3 +26,52 @@ bis 600 ab. Ueberschriften stehen deshalb auf font-weight 600.
 Verwendet wird die Schrift nur fuer Ueberschriften und die Wortmarke. Der
 Fliesstext steht in der Systemschrift des jeweiligen Geraets - geometrische
 Schriften wie Jost sind auf langen Strecken anstrengender zu lesen.
+
+
+Vier Schriften zur Auswahl
+==========================
+
+Fuer den hellen Entwurf liegen vier weitere Ueberschriftenschriften bereit.
+Alle stehen unter der SIL Open Font License 1.1 - es gilt also Wort fuer Wort
+dasselbe wie oben fuer Jost: kostenfrei verwendbar, auf eigenen Servern
+bereitzustellen und weiterzugeben, auch gewerblich, solange sie nicht fuer
+sich allein verkauft wird und dieser Hinweis erhalten bleibt.
+
+  fraunces-*.woff2     Fraunces
+                       Entwurf: Phaedra Charles und Flavia Zimbardi
+                       https://fonts.google.com/specimen/Fraunces
+                       Weiche Serifen, warm und eigenwillig. Variabel von 400
+                       bis 700; die Achse WONK schaltet die schraegen Formen
+                       zu (im Stylesheet ueber --schrift-variation).
+
+  bricolage-*.woff2    Bricolage Grotesque
+                       Entwurf: Mathieu Triay
+                       https://fonts.google.com/specimen/Bricolage+Grotesque
+                       Grotesk mit ungleichen Formen, modern und kantig.
+                       Variabel von 300 bis 800, mit optischer Groesse.
+
+  instrument-*.woff2   Instrument Serif
+                       Entwurf: Rodrigo Fuenzalida und Jordan Egstad
+                       https://fonts.google.com/specimen/Instrument+Serif
+                       Hoher Strichstaerkenkontrast, schmal und elegant. Nur
+                       ein Schnitt (400) - Ueberschriften stehen deshalb auf
+                       400, nicht auf 600.
+
+  epilogue-*.woff2     Epilogue
+                       Entwurf: Tyler Finck
+                       https://fonts.google.com/specimen/Epilogue
+                       Ruhige Grotesk mit eigenen Endungen. Variabel von 400
+                       bis 700.
+
+Umgestellt wird an einer einzigen Stelle: im Block :root am Anfang von
+assets/css/style.css stehen vier Werte beieinander - --font-display,
+--schrift-staerke, --schrift-abstand und --schrift-variation. Dort ist fuer
+jede der fuenf Schriften die passende Zeile als Kommentar hinterlegt.
+
+In der Vorschau (vorschau.html) laesst sich die Schrift oben in der Leiste
+umschalten, ohne etwas zu aendern.
+
+Die Dateien, die am Ende nicht verwendet werden, koennen aus diesem Ordner
+geloescht werden - zusammen mit ihren @font-face-Bloecken im Stylesheet.
+Solange sie liegen bleiben, kosten sie nichts: Der Browser holt eine
+Schriftdatei erst, wenn sie tatsaechlich gebraucht wird.

@@ -48,9 +48,14 @@ def daten_uri(pfad, typ):
 
 # ---------------------------------------------------------------- Stylesheet
 css = open("assets/css/style.css", encoding="utf-8").read()
-for name in ("jost-latin", "jost-latin-ext"):
-    css = css.replace('url("../fonts/%s.woff2")' % name,
-                      'url(%s)' % daten_uri("assets/fonts/%s.woff2" % name, "font/woff2"))
+# Alle Schriften einbetten - die Vorschau soll jede davon zeigen koennen,
+# ohne eine einzige Datei nachzuladen.
+import glob
+for datei in sorted(glob.glob("assets/fonts/*.woff2")):
+    name = os.path.basename(datei)
+    css = css.replace('url("../fonts/%s")' % name,
+                      'url(%s)' % daten_uri(datei, "font/woff2"))
+assert "../fonts/" not in css, "eine Schriftdatei ist nicht eingebettet worden"
 
 # ------------------------------------------------------------------- Skript
 # Geschnitten wird an den Ueberschriften der Abschnitte, nicht an

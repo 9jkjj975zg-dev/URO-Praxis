@@ -25,6 +25,96 @@
                  U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
+/* --------------------------------------------------------------------------
+   0a. Schriften zur Auswahl
+   Vier weitere Ueberschriftenschriften, alle unter der SIL Open Font
+   License und alle vom eigenen Server. Welche gilt, entscheidet ein
+   einziger Wert weiter unten: --font-display. Die uebrigen laedt der
+   Browser nicht - eine Schriftdatei wird erst geholt, wenn sie gebraucht
+   wird.
+   Einzelheiten und die Lizenztexte stehen in assets/fonts/LIESMICH.txt.
+   -------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/fraunces-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/fraunces-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+                 U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF,
+                 U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url("../fonts/bricolage-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url("../fonts/bricolage-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+                 U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF,
+                 U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/instrument-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/instrument-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+                 U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF,
+                 U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Epilogue";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/epilogue-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Epilogue";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/epilogue-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+                 U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF,
+                 U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
 /* ==========================================================================
    Urologische Gemeinschaftspraxis Rech - Entwurf "hell"
    Zweite Gestaltung derselben Inhalte: weisser Grund statt Sand, ein
@@ -87,7 +177,19 @@
   --c-platzhalter-text: #7a5410;
 
   /* Typografie */
+  /* Die Ueberschriftenschrift haengt an vier Werten. Wer eine andere
+     ausprobieren will, tauscht hier die vier Zeilen - der Rest der
+     Website zieht mit. Die Schnitte liegen unter assets/fonts/.
+
+       Jost                 600 / -.015em / normal          (geometrisch)
+       Fraunces             600 / -.01em  / "WONK" 1        (weiche Serifen)
+       Bricolage Grotesque  650 / -.02em  / normal          (eigenwillige Grotesk)
+       Instrument Serif     400 / -.005em / normal          (hoher Kontrast)
+       Epilogue             650 / -.02em  / normal          (ruhige Grotesk)      */
   --font-display: "Jost", "Futura", "Century Gothic", var(--font-base);
+  --schrift-staerke:   600;
+  --schrift-abstand:   -.015em;
+  --schrift-variation: normal;
   --font-base: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
                "Noto Sans", Arial, sans-serif;
   --fs-base: 1.0625rem;   /* 17px */
@@ -156,11 +258,12 @@ img { height: auto; }
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-variation-settings: var(--schrift-variation);
+  font-weight: var(--schrift-staerke);
   font-synthesis: none;
   color: var(--c-heading);
   line-height: 1.14;
-  letter-spacing: -.015em;
+  letter-spacing: var(--schrift-abstand);
   margin: 0 0 .85rem;
   text-wrap: balance;
 }
@@ -256,7 +359,9 @@ small { font-size: .875em; }
   align-items: center;
   gap: .55rem;
   font-family: var(--font-display);
-  font-weight: 600;
+  font-variation-settings: var(--schrift-variation);
+  font-synthesis: none;
+  font-weight: var(--schrift-staerke);
   font-size: .82rem;
   letter-spacing: .12em;
   text-transform: uppercase;
@@ -557,7 +662,9 @@ small { font-size: .875em; }
 .brand__text { display: flex; flex-direction: column; line-height: 1.1; }
 .brand__name {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-variation-settings: var(--schrift-variation);
+  font-synthesis: none;
+  font-weight: var(--schrift-staerke);
   font-size: 1.24rem;
   letter-spacing: -.01em;
   color: var(--c-navy);
@@ -1071,7 +1178,8 @@ html.menue-offen body { overflow: hidden; }
   align-items: center;
   gap: .55rem;
   font-family: var(--font-display);
-  font-weight: 600;
+  font-variation-settings: var(--schrift-variation);
+  font-weight: var(--schrift-staerke);
   font-synthesis: none;
   font-size: .76rem;
   letter-spacing: .16em;
@@ -1158,7 +1266,9 @@ html.menue-offen body { overflow: hidden; }
 .spektrum__name {
   display: block;
   font-family: var(--font-display);
-  font-weight: 600;
+  font-variation-settings: var(--schrift-variation);
+  font-synthesis: none;
+  font-weight: var(--schrift-staerke);
   font-size: 1.05rem;
   line-height: 1.25;
   color: var(--c-navy);
@@ -1199,7 +1309,9 @@ html.menue-offen body { overflow: hidden; }
 }
 .zahl__wert {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-variation-settings: var(--schrift-variation);
+  font-synthesis: none;
+  font-weight: var(--schrift-staerke);
   font-size: clamp(2rem, 1.6rem + 1.4vw, 2.7rem);
   line-height: 1;
   margin: 0 0 .45rem;
@@ -1218,7 +1330,9 @@ html.menue-offen body { overflow: hidden; }
 .hours caption {
   text-align: left;
   font-family: var(--font-display);
-  font-weight: 600;
+  font-variation-settings: var(--schrift-variation);
+  font-synthesis: none;
+  font-weight: var(--schrift-staerke);
   font-size: 1.15rem;
   color: var(--c-heading);
   padding-bottom: .75rem;
@@ -1707,9 +1821,11 @@ html.menue-offen body { overflow: hidden; }
 .stimme__marke {
   display: block;
   font-family: var(--font-display);
+  font-variation-settings: var(--schrift-variation);
+  font-synthesis: none;
   font-size: 3rem;
   line-height: .7;
-  font-weight: 600;
+  font-weight: var(--schrift-staerke);
   margin-bottom: .5rem;
   background: var(--c-verlauf);
   -webkit-background-clip: text;
@@ -1818,7 +1934,8 @@ html.menue-offen body { overflow: hidden; }
   flex: none;
 }
 .selbsttest[open] > summary::after { transform: rotate(-135deg) translate(-.15rem, -.15rem); }
-.selbsttest__titel { font-family: var(--font-display); font-weight: 600; font-synthesis: none;
+.selbsttest__titel { font-family: var(--font-display);
+  font-variation-settings: var(--schrift-variation); font-weight: var(--schrift-staerke); font-synthesis: none;
                      font-size: 1.15rem; color: var(--c-navy); }
 .selbsttest__hinweis { font-size: .9rem; color: var(--c-text-leise); }
 .selbsttest__inhalt { padding: 0 1.4rem 1.5rem; }
@@ -1831,7 +1948,8 @@ html.menue-offen body { overflow: hidden; }
   align-items: baseline;
   gap: .6rem;
   font-family: var(--font-display);
-  font-weight: 600;
+  font-variation-settings: var(--schrift-variation);
+  font-weight: var(--schrift-staerke);
   font-synthesis: none;
   font-size: 2.1rem;
   margin: 0 0 .35rem;

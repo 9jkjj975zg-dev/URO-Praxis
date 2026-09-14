@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <title>Heller Entwurf Urologie Rech</title>
 
 <style>
@@ -85,6 +86,17 @@ html { scroll-padding-top: calc(var(--vs-hoehe) + 6.5rem); }
     <span>Seite</span>
     <select id="vs-seite">
 <!--AUSWAHL-->
+    </select>
+  </label>
+
+  <label class="vs-feld" for="vs-schrift">
+    <span>Schrift</span>
+    <select id="vs-schrift">
+      <option value="jost">Jost &ndash; geometrisch (jetzt)</option>
+      <option value="fraunces">Fraunces &ndash; weiche Serifen</option>
+      <option value="bricolage">Bricolage &ndash; eigenwillige Grotesk</option>
+      <option value="instrument">Instrument Serif &ndash; hoher Kontrast</option>
+      <option value="epilogue">Epilogue &ndash; ruhige Grotesk</option>
     </select>
   </label>
 </div>
@@ -210,6 +222,28 @@ html { scroll-padding-top: calc(var(--vs-hoehe) + 6.5rem); }
   }
 
   auswahl.addEventListener("change", function () { zeigen(auswahl.value, ""); });
+
+  /* Die Ueberschriftenschrift haengt an vier Werten. Hier werden sie auf
+     einen Schlag umgesetzt - die ganze Seite zieht mit, weil jede Regel,
+     die die Anzeigeschrift verwendet, auf diesen Werten steht.            */
+  var SCHRIFTEN = {
+    jost:       ['"Jost", "Futura", "Century Gothic", sans-serif', "600", "-.015em", "normal"],
+    fraunces:   ['"Fraunces", Georgia, "Times New Roman", serif', "600", "-.01em", '"WONK" 1'],
+    bricolage:  ['"Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif', "650", "-.02em", "normal"],
+    instrument: ['"Instrument Serif", Georgia, "Times New Roman", serif', "400", "-.005em", "normal"],
+    epilogue:   ['"Epilogue", "Helvetica Neue", Arial, sans-serif', "650", "-.02em", "normal"]
+  };
+
+  var schrift = document.getElementById("vs-schrift");
+  schrift.addEventListener("change", function () {
+    var satz = SCHRIFTEN[schrift.value];
+    if (!satz) { return; }
+    var wurzel = document.documentElement.style;
+    wurzel.setProperty("--font-display", satz[0]);
+    wurzel.setProperty("--schrift-staerke", satz[1]);
+    wurzel.setProperty("--schrift-abstand", satz[2]);
+    wurzel.setProperty("--schrift-variation", satz[3]);
+  });
 
   /* Jeder Verweis auf eine andere Seite wird abgefangen und im Dokument
      selbst umgeschaltet. Verweise nach au&szlig;en und Spr&uuml;nge innerhalb einer
