@@ -75,3 +75,54 @@ Die Dateien, die am Ende nicht verwendet werden, koennen aus diesem Ordner
 geloescht werden - zusammen mit ihren @font-face-Bloecken im Stylesheet.
 Solange sie liegen bleiben, kosten sie nichts: Der Browser holt eine
 Schriftdatei erst, wenn sie tatsaechlich gebraucht wird.
+
+
+Sechs weitere Grotesken zum Vergleichen
+=======================================
+
+Alle unter der SIL Open Font License 1.1, alle von Google Fonts bezogen, alle
+hier im Ordner. Von diesen sechs liegt allerdings nur der lateinische
+Grundausschnitt bereit - er enthaelt die Umlaute und das scharfe S und reicht
+zum Vergleichen:
+
+  familjen-latin.woff2   Familjen Grotesk
+                         https://fonts.google.com/specimen/Familjen+Grotesk
+                         Schwedische Grotesk, sachlich mit Ecken. 400-700.
+
+  funnel-latin.woff2     Funnel Display
+                         https://fonts.google.com/specimen/Funnel+Display
+                         Jung, engere Formen, hohe Mittellaenge. 300-800.
+
+  host-latin.woff2       Host Grotesk
+                         https://fonts.google.com/specimen/Host+Grotesk
+                         Redaktionell, ruhig eigenwillig. 300-800.
+
+  gabarito-latin.woff2   Gabarito
+                         https://fonts.google.com/specimen/Gabarito
+                         Freundlich, offene Formen. 400-900.
+
+  schibsted-latin.woff2  Schibsted Grotesk
+                         https://fonts.google.com/specimen/Schibsted+Grotesk
+                         Zeitungsgrotesk, klar und geradeaus. 400-900.
+
+  darker-latin.woff2     Darker Grotesque
+                         https://fonts.google.com/specimen/Darker+Grotesque
+                         Schmal und hoch, sehr eigen. 300-900. Braucht mehr
+                         Strichstaerke als die anderen (700 statt 650).
+
+Eingestellt ist derzeit Bricolage Grotesque; von ihr liegen beide Ausschnitte
+bereit, sie ist also vollstaendig.
+
+Faellt die Wahl auf eine der sechs, fehlt noch der erweiterte lateinische
+Ausschnitt. Ihn holt man so:
+
+  1. https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@300..800
+     im Browser aufrufen (den Namen entsprechend ersetzen).
+  2. Im Ergebnis den Block unter /* latin-ext */ suchen und die Adresse
+     hinter url(...) aufrufen - das laedt die Datei.
+  3. Sie als <name>-latin-ext.woff2 in diesen Ordner legen und im
+     Stylesheet einen zweiten @font-face-Block dafuer anlegen. Der
+     unicode-range steht bei Jost und Bricolage zum Abschreiben.
+
+Alles, was am Ende nicht verwendet wird, kann geloescht werden - zusammen mit
+den zugehoerigen @font-face-Bloecken.

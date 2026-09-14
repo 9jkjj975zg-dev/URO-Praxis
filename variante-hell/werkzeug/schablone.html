@@ -92,11 +92,23 @@ html { scroll-padding-top: calc(var(--vs-hoehe) + 6.5rem); }
   <label class="vs-feld" for="vs-schrift">
     <span>Schrift</span>
     <select id="vs-schrift">
-      <option value="jost">Jost &ndash; geometrisch (jetzt)</option>
-      <option value="fraunces">Fraunces &ndash; weiche Serifen</option>
-      <option value="bricolage">Bricolage &ndash; eigenwillige Grotesk</option>
-      <option value="instrument">Instrument Serif &ndash; hoher Kontrast</option>
-      <option value="epilogue">Epilogue &ndash; ruhige Grotesk</option>
+      <optgroup label="Moderne Grotesk">
+        <option value="bricolage">Bricolage Grotesque (eingestellt)</option>
+        <option value="familjen">Familjen Grotesk</option>
+        <option value="funnel">Funnel Display</option>
+        <option value="host">Host Grotesk</option>
+        <option value="gabarito">Gabarito</option>
+        <option value="schibsted">Schibsted Grotesk</option>
+        <option value="darker">Darker Grotesque &ndash; schmal</option>
+        <option value="epilogue">Epilogue &ndash; ruhig</option>
+      </optgroup>
+      <optgroup label="Geometrisch">
+        <option value="jost">Jost</option>
+      </optgroup>
+      <optgroup label="Serifen">
+        <option value="fraunces">Fraunces &ndash; weich, warm</option>
+        <option value="instrument">Instrument Serif &ndash; hoher Kontrast</option>
+      </optgroup>
     </select>
   </label>
 </div>
@@ -226,12 +238,19 @@ html { scroll-padding-top: calc(var(--vs-hoehe) + 6.5rem); }
   /* Die Ueberschriftenschrift haengt an vier Werten. Hier werden sie auf
      einen Schlag umgesetzt - die ganze Seite zieht mit, weil jede Regel,
      die die Anzeigeschrift verwendet, auf diesen Werten steht.            */
+  var SANS = ', "Helvetica Neue", Arial, sans-serif';
   var SCHRIFTEN = {
-    jost:       ['"Jost", "Futura", "Century Gothic", sans-serif', "600", "-.015em", "normal"],
+    bricolage:  ['"Bricolage Grotesque"' + SANS, "650", "-.02em", "normal"],
+    familjen:   ['"Familjen Grotesk"' + SANS, "600", "-.015em", "normal"],
+    funnel:     ['"Funnel Display"' + SANS, "600", "-.02em", "normal"],
+    host:       ['"Host Grotesk"' + SANS, "650", "-.02em", "normal"],
+    gabarito:   ['"Gabarito"' + SANS, "600", "-.015em", "normal"],
+    schibsted:  ['"Schibsted Grotesk"' + SANS, "650", "-.02em", "normal"],
+    darker:     ['"Darker Grotesque"' + SANS, "700", "-.01em", "normal"],
+    epilogue:   ['"Epilogue"' + SANS, "650", "-.02em", "normal"],
+    jost:       ['"Jost", "Futura", "Century Gothic"' + SANS, "600", "-.015em", "normal"],
     fraunces:   ['"Fraunces", Georgia, "Times New Roman", serif', "600", "-.01em", '"WONK" 1'],
-    bricolage:  ['"Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif', "650", "-.02em", "normal"],
-    instrument: ['"Instrument Serif", Georgia, "Times New Roman", serif', "400", "-.005em", "normal"],
-    epilogue:   ['"Epilogue", "Helvetica Neue", Arial, sans-serif', "650", "-.02em", "normal"]
+    instrument: ['"Instrument Serif", Georgia, "Times New Roman", serif', "400", "-.005em", "normal"]
   };
 
   var schrift = document.getElementById("vs-schrift");

@@ -177,17 +177,26 @@ Das Skript liest die Seiten dieses Ordners und setzt sie mit
 
 ## 2a. Die Schrift der Überschriften
 
-Zur Auswahl stehen fünf Schriften. Alle liegen unter `assets/fonts/` auf dem
+Zur Auswahl stehen elf Schriften. Alle liegen unter `assets/fonts/` auf dem
 eigenen Server, alle unter der SIL Open Font License – es wird weiterhin
 nichts von Google nachgeladen.
 
+**Eingestellt ist Bricolage Grotesque.** Zehn weitere stehen zum Vergleich
+bereit:
+
 | Schrift | Charakter |
 |---|---|
-| **Jost** | geometrisch, sachlich (derzeit eingestellt) |
-| **Fraunces** | weiche Serifen, warm und eigenwillig |
-| **Bricolage Grotesque** | Grotesk mit ungleichen Formen, kantig und modern |
-| **Instrument Serif** | hoher Strichstärkenkontrast, schmal und elegant |
+| **Bricolage Grotesque** | ungleiche Formen, kantig und modern – **eingestellt** |
+| **Familjen Grotesk** | schwedische Grotesk, sachlich mit Ecken |
+| **Funnel Display** | jung, engere Formen, hohe Mittellänge |
+| **Host Grotesk** | redaktionell, ruhig eigenwillig |
+| **Gabarito** | freundlich, offene Formen |
+| **Schibsted Grotesk** | Zeitungsgrotesk, klar und geradeaus |
+| **Darker Grotesque** | schmal und hoch, sehr eigen |
 | **Epilogue** | ruhige Grotesk mit eigenen Endungen |
+| **Jost** | geometrisch, sachlich (der erste Entwurf) |
+| **Fraunces** | weiche Serifen, warm und eigenwillig |
+| **Instrument Serif** | hoher Strichstärkenkontrast, schmal und elegant |
 
 **Zum Vergleichen:** in `vorschau.html` oben rechts in der Leiste umschalten.
 Die Umschaltung ändert nichts an den Dateien, sie zeigt nur.
@@ -197,6 +206,11 @@ stehen vier Werte beieinander – `--font-display`, `--schrift-staerke`,
 `--schrift-abstand` und `--schrift-variation`. Für jede der fünf Schriften
 ist die passende Zeile als Kommentar hinterlegt; eintragen genügt, die ganze
 Website zieht mit.
+
+Von den sechs jüngsten Kandidaten liegt nur der lateinische Grundausschnitt
+bereit. Er enthält Umlaute und scharfes S und reicht zum Vergleichen; fällt
+die Wahl auf eine davon, fehlt noch der erweiterte Ausschnitt – wie man ihn
+nachholt, steht in `assets/fonts/LIESMICH.txt`.
 
 Steht die Entscheidung, können die übrigen Schriftdateien gelöscht werden –
 zusammen mit ihren `@font-face`-Blöcken im Stylesheet. Solange sie liegen

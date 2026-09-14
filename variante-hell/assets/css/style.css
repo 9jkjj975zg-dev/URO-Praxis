@@ -115,6 +115,74 @@
                  U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
+/* --------------------------------------------------------------------------
+   0b. Weitere Grotesken zum Vergleichen
+   Von diesen sechs liegt nur der lateinische Grundausschnitt hier - er
+   enthaelt die Umlaute und das scharfe S und reicht zum Vergleichen.
+   Sobald eine davon gewaehlt ist, gehoert der erweiterte Ausschnitt dazu;
+   wie man ihn holt, steht in assets/fonts/LIESMICH.txt.
+   -------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Familjen Grotesk";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/familjen-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Funnel Display";
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url("../fonts/funnel-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Host Grotesk";
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url("../fonts/host-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Gabarito";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("../fonts/gabarito-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Schibsted Grotesk";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("../fonts/schibsted-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Darker Grotesque";
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: swap;
+  src: url("../fonts/darker-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* ==========================================================================
    Urologische Gemeinschaftspraxis Rech - Entwurf "hell"
    Zweite Gestaltung derselben Inhalte: weisser Grund statt Sand, ein
@@ -181,14 +249,20 @@
      ausprobieren will, tauscht hier die vier Zeilen - der Rest der
      Website zieht mit. Die Schnitte liegen unter assets/fonts/.
 
-       Jost                 600 / -.015em / normal          (geometrisch)
-       Fraunces             600 / -.01em  / "WONK" 1        (weiche Serifen)
-       Bricolage Grotesque  650 / -.02em  / normal          (eigenwillige Grotesk)
-       Instrument Serif     400 / -.005em / normal          (hoher Kontrast)
-       Epilogue             650 / -.02em  / normal          (ruhige Grotesk)      */
-  --font-display: "Jost", "Futura", "Century Gothic", var(--font-base);
-  --schrift-staerke:   600;
-  --schrift-abstand:   -.015em;
+       Bricolage Grotesque  650 / -.02em  / normal    (eingestellt)
+       Familjen Grotesk     600 / -.015em / normal
+       Funnel Display       600 / -.02em  / normal
+       Host Grotesk         650 / -.02em  / normal
+       Gabarito             600 / -.015em / normal
+       Schibsted Grotesk    650 / -.02em  / normal
+       Darker Grotesque     700 / -.01em  / normal
+       Epilogue             650 / -.02em  / normal
+       Jost                 600 / -.015em / normal
+       Fraunces             600 / -.01em  / "WONK" 1
+       Instrument Serif     400 / -.005em / normal                              */
+  --font-display: "Bricolage Grotesque", "Helvetica Neue", var(--font-base);
+  --schrift-staerke:   650;
+  --schrift-abstand:   -.02em;
   --schrift-variation: normal;
   --font-base: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
                "Noto Sans", Arial, sans-serif;
