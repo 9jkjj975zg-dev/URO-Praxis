@@ -69,13 +69,42 @@ Alle Farben stehen gesammelt am Anfang von `assets/css/style.css` im Block
   Das Teamfoto steht auf der Startseite jetzt im Hero und nicht mehr weiter
   unten – es kommt also weiterhin nur einmal vor.
 
+### Formen: rechte Winkel
+
+**Keine Rundungen, nirgends.** Kacheln, Knöpfe, Eingabefelder, Marken und
+Sinnbilder stehen scharfkantig. Rund bleiben nur zwei Dinge: der Lichtpunkt
+neben „Jetzt geöffnet“ und die beiden Farbwolken im Hintergrund des Heros –
+beides keine Formen, sondern Zustände.
+
+Alle Rundungen hängen an vier Werten am Anfang von `assets/css/style.css`
+(`--radius-xs` bis `--radius-xl`). Wer es doch weicher möchte, setzt dort
+Zahlen ein, und die ganze Website rundet wieder ab.
+
+### Der Strich
+
+Das wiederkehrende Zeichen dieses Entwurfs ist ein **2 Pixel hoher Strich**
+in Blau-Türkis. Er kommt an fünf Stellen vor:
+
+| Wo | Wie |
+|---|---|
+| Über jeder Überschrift | kurzer Strich, dann die Kennzeile |
+| Oben links auf jeder Kachel | 2,75 rem lang; beim Überfahren läuft er über die ganze Kante |
+| Auf den Leistungskacheln | derselbe Strich, dann die Nummer: `— 01` |
+| Im Zahlenband | auf der Trennlinie über jeder Zahl |
+| Unter dem Menüpunkt | markiert die Seite, auf der man steht |
+
+Trägt eine Kachel eine Nummer, entfällt ihr Strich an der Kante – sonst
+stünden zwei übereinander.
+
 ### Gestaltung im Kleinen
 
-* Deutlich weichere Rundungen (16 bis 32 Pixel statt 8 bis 14).
-* Schatten in einem blauen statt grauen Ton – auf Weiß wirkt Grau schmutzig.
-* Karten heben sich beim Überfahren und bekommen oben einen farbigen Strich.
+* Getrennt wird über Haarlinien, nicht über Schatten. Schatten tragen nur
+  noch, was wirklich über der Seite schwebt: das Foto im Hero, die Karte
+  davor, das aufgeklappte Menü.
+* Kacheln einer Reihe sind gleich hoch und stehen oben wie unten bündig.
 * Die Fragen im FAQ sind einzelne Karten mit einem Plus, das sich beim
   Aufklappen dreht.
+* Die Haken in den Aufzählungen stehen frei, ohne Feld dahinter.
 * Zwei Farbwolken im Hintergrund des Heros bewegen sich sehr langsam.
 * Der Farbverlauf sitzt an drei Stellen in der Schrift selbst: in der Zeile
   „Ihre Urologen in Hanau“, in den großen Zahlen und im Anführungszeichen

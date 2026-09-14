@@ -114,6 +114,7 @@ html { scroll-padding-top: calc(var(--vs-hoehe) + 6.5rem); }
   var buehne = document.getElementById("vs-inhalt");
   var auswahl = document.getElementById("vs-seite");
   var aktuell = "";
+  var erster = true;
 
   /* Die Skripte der einzelnen Seiten laufen nach jedem Wechsel neu. Damit
      sich dabei nichts anhaeuft, merkt sich MERKER, was sie an window, an
@@ -167,11 +168,45 @@ html { scroll-padding-top: calc(var(--vs-hoehe) + 6.5rem); }
       }
     });
 
-    seitenSkripte();
-
     var ziel = marke ? document.getElementById(marke) : null;
     if (ziel) { ziel.scrollIntoView(); } else { window.scrollTo(0, 0); }
+
+    /* Erst das naechste Bild abwarten: Die Beobachter, die das Einblenden
+       ausloesen, messen sonst gegen ein Bild, das es noch nicht gibt, und
+       melden alles als "ausserhalb". Danach wird nachgereicht, was schon
+       im Bild steht - ohne das bliebe es unsichtbar, bis jemand scrollt. */
+    window.requestAnimationFrame(function () {
+      /* Bricht ein Skript auf einer Seite ab, soll die Seite trotzdem
+         dastehen - lesbar ist sie auch ohne ihre Skripte.               */
+      try { seitenSkripte(); } catch (fehler) { }
+      var ganz = !erster;
+      erster = false;
+      window.requestAnimationFrame(function () { nachreichen(ganz); });
+    });
     return true;
+  }
+
+  /* Auf der Website blendet sich jeder Baustein ein, sobald er ins Bild
+     kommt. Beim ersten Aufschlagen der Vorschau ist das auch hier so.
+
+     Beim Umschalten auf eine andere Seite nicht: Die Beobachter, die das
+     ausloesen, messen dann gegen ein Bild, das es noch nicht gibt, und
+     melden alles als "ausserhalb" - die Seite bliebe blass stehen, bis
+     jemand scrollt. Nach einem Wechsel wird deshalb die ganze Seite auf
+     einmal eingeblendet.                                                 */
+  function nachreichen(ganz) {
+    /* Etwas Vorlauf: Bilder und Schriften kommen nach und verschieben die
+       Hoehen noch ein Stueck. Was knapp unter der Kante steht, ist gleich
+       oben - dann lieber sichtbar als blass.                              */
+    var hoehe = (window.innerHeight || document.documentElement.clientHeight) + 120;
+    Array.prototype.forEach.call(
+      document.querySelectorAll(".reveal--ready:not(.reveal--visible)"),
+      function (el) {
+        if (ganz) { el.classList.add("reveal--visible"); return; }
+        var mass = el.getBoundingClientRect();
+        if (mass.top < hoehe && mass.bottom > 0) { el.classList.add("reveal--visible"); }
+      }
+    );
   }
 
   auswahl.addEventListener("change", function () { zeigen(auswahl.value, ""); });
@@ -201,5 +236,9 @@ html { scroll-padding-top: calc(var(--vs-hoehe) + 6.5rem); }
   });
 
   zeigen("index.html", "");
+
+  /* Sind Bilder und Schriften da, stehen die Hoehen fest. Was dann im Bild
+     steht und noch blass ist, wird nachgereicht.                          */
+  window.addEventListener("load", function () { nachreichen(false); });
 })();
 </script>
