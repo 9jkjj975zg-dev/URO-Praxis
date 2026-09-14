@@ -1,0 +1,28 @@
+Jost
+====
+
+Entwurf: Owen Earl, nach Futura von Paul Renner
+Lizenz:  SIL Open Font License, Version 1.1 (OFL-1.1)
+Bezug:   https://fonts.google.com/specimen/Jost
+
+Die OFL erlaubt es ausdruecklich, die Schrift kostenfrei zu verwenden, auf
+eigenen Servern bereitzustellen und weiterzugeben - auch fuer gewerbliche
+Zwecke. Einzige Bedingung: Die Schrift darf nicht fuer sich allein verkauft
+werden, und dieser Lizenzhinweis muss erhalten bleiben.
+
+In diesem Ordner liegen zwei Ausschnitte der Schrift:
+
+  jost-latin.woff2       lateinische Grundzeichen
+  jost-latin-ext.woff2   erweiterte lateinische Zeichen
+
+Beide werden in assets/css/style.css ueber @font-face eingebunden und vom
+eigenen Server ausgeliefert. Sie werden bewusst NICHT von Google nachgeladen:
+Dabei ginge die IP-Adresse jedes Besuchers an einen Dritten, was eine
+Einwilligung erfordern wuerde.
+
+Jost ist eine variable Schrift: Eine Datei deckt alle Strichstaerken von 400
+bis 600 ab. Ueberschriften stehen deshalb auf font-weight 600.
+
+Verwendet wird die Schrift nur fuer Ueberschriften und die Wortmarke. Der
+Fliesstext steht in der Systemschrift des jeweiligen Geraets - geometrische
+Schriften wie Jost sind auf langen Strecken anstrengender zu lesen.
