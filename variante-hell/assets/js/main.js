@@ -21,7 +21,7 @@
 
     // Menue schliessen, wenn ein Link angeklickt wird
     nav.addEventListener("click", function (e) {
-      if (e.target.closest("a") && window.innerWidth <= 1040) {
+      if (e.target.closest("a") && window.innerWidth <= 1060) {
         toggle.setAttribute("aria-expanded", "false");
         nav.classList.remove("is-open");
       }

@@ -89,6 +89,30 @@ jeder Baustein einmal sanft von unten herein, wenn er ins Bild kommt.
 
 ---
 
+## 1a. Die Vorschau in einer Datei
+
+`vorschau.html` im selben Ordner enthält **alle 20 Seiten in einer einzigen
+Datei** – Stylesheet, Skript, Schriften und das Teamfoto sind darin
+eingebettet, es wird nichts nachgeladen. Ein Doppelklick genügt, auch ohne
+Webserver; die Datei lässt sich weitergeben oder verschicken.
+
+Oben sitzt eine schmale Leiste mit einer Auswahl aller Seiten. Verweise
+innerhalb der Seite schalten die Vorschau um, statt eine neue Datei zu
+öffnen; sonst verhält sich alles wie auf der fertigen Website.
+
+Die Datei ist erzeugt, nicht von Hand gepflegt. Nach jeder Änderung am
+Entwurf neu bauen:
+
+```
+python3 werkzeug/bau-vorschau.py
+```
+
+Das Skript liest die Seiten dieses Ordners und setzt sie mit
+`werkzeug/schablone.html` zusammen. Geändert wird immer der Entwurf, nie
+`vorschau.html`.
+
+---
+
 ## 2. Was gleich geblieben ist
 
 * **Alle Texte** – Wort für Wort dieselben wie im Hauptverzeichnis.

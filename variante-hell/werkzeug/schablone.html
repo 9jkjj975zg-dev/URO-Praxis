@@ -1,0 +1,205 @@
+<title>Heller Entwurf Urologie Rech</title>
+
+<style>
+/* ==========================================================================
+   Die Leiste der Vorschau. Sie geh&ouml;rt nicht zur Website, sondern ist der
+   Rahmen, in dem sie hier gezeigt wird - deshalb eigene Klassennamen mit
+   dem K&uuml;rzel "vs-", die sich mit dem Stylesheet der Seite nicht bei&szlig;en.
+
+   Die Vorschau bleibt bewusst hell, in beiden Themen: Sie zeigt einen
+   Entwurf, der hell gemeint ist. Alle Farben stehen deshalb ausgeschrieben.
+   ========================================================================== */
+:root { --vs-hoehe: 44px; color-scheme: light; }
+
+.vs-leiste {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  height: var(--vs-hoehe);
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding-inline: clamp(.75rem, 3vw, 1.25rem);
+  background: #101a2e;
+  color: #e8edf6;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Arial, sans-serif;
+  font-size: 14px;
+}
+.vs-marke { display: flex; align-items: baseline; gap: .5rem; margin: 0 auto 0 0; min-width: 0; }
+.vs-marke b { font-weight: 650; white-space: nowrap; }
+.vs-marke span {
+  color: #93a2ba;
+  font-size: .8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.vs-feld { display: flex; align-items: center; gap: .5rem; min-width: 0; }
+.vs-feld > span {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #93a2ba;
+}
+.vs-feld select {
+  font: inherit;
+  font-size: .88rem;
+  color: #101a2e;
+  background: #f2f5fa;
+  border: 1px solid #33405c;
+  border-radius: 8px;
+  padding: .3rem .5rem;
+  max-width: min(16rem, 58vw);
+}
+.vs-feld select:focus-visible { outline: 2px solid #7aa8ff; outline-offset: 2px; }
+
+@media (max-width: 620px) {
+  .vs-marke span { display: none; }
+  .vs-feld > span { display: none; }
+}
+</style>
+
+<style>
+/*STYLESHEET*/
+</style>
+
+<style>
+/* Die Leiste steht fest oben; alles andere r&uuml;ckt um ihre H&ouml;he nach unten,
+   damit der klebende Kopfbereich der Seite darunter einrastet. */
+body { padding-top: var(--vs-hoehe); }
+.site-header { top: var(--vs-hoehe); }
+html { scroll-padding-top: calc(var(--vs-hoehe) + 6.5rem); }
+.skip-link { top: var(--vs-hoehe); }
+@media (max-width: 1060px) {
+  .nav { top: var(--vs-hoehe); padding-top: 4.5rem; }
+  .nav-grund { top: var(--vs-hoehe); }
+}
+</style>
+
+<div class="vs-leiste">
+  <p class="vs-marke"><b>Urologie Rech</b> <span>heller Entwurf, zum Durchklicken</span></p>
+  <label class="vs-feld" for="vs-seite">
+    <span>Seite</span>
+    <select id="vs-seite">
+<!--AUSWAHL-->
+    </select>
+  </label>
+</div>
+
+<!--RUMPF-VOR-->
+<div id="vs-inhalt"></div>
+<!--RUMPF-NACH-->
+
+<!--VORLAGEN-->
+
+<script>
+(function () {
+  "use strict";
+/*RUMPF-SKRIPT*/
+})();
+</script>
+
+<script>
+(function () {
+  "use strict";
+
+  var vorlagen = {};
+  Array.prototype.forEach.call(document.querySelectorAll("template[data-seite]"), function (v) {
+    vorlagen[v.getAttribute("data-seite")] = v;
+  });
+
+  var buehne = document.getElementById("vs-inhalt");
+  var auswahl = document.getElementById("vs-seite");
+  var aktuell = "";
+
+  /* Die Skripte der einzelnen Seiten laufen nach jedem Wechsel neu. Damit
+     sich dabei nichts anhaeuft, merkt sich MERKER, was sie an window, an
+     document und an Beobachter gehaengt haben - vor dem naechsten Durchlauf
+     wird alles davon wieder geloest.                                      */
+  var gemerkt = [];
+  var beobachtet = [];
+  var MERKER = {
+    fenster: function (art, fn, opt) {
+      gemerkt.push([window, art, fn, opt]);
+      window.addEventListener(art, fn, opt);
+    },
+    dokument: function (art, fn, opt) {
+      gemerkt.push([document, art, fn, opt]);
+      document.addEventListener(art, fn, opt);
+    },
+    beobachter: function (rueckruf, opt) {
+      var b = new IntersectionObserver(rueckruf, opt);
+      beobachtet.push(b);
+      return b;
+    }
+  };
+
+  function aufraeumen() {
+    gemerkt.forEach(function (e) { e[0].removeEventListener(e[1], e[2], e[3]); });
+    beobachtet.forEach(function (b) { b.disconnect(); });
+    gemerkt = [];
+    beobachtet = [];
+  }
+
+  function seitenSkripte() {
+/*SEITEN-SKRIPT*/
+  }
+
+  function zeigen(datei, marke) {
+    var vorlage = vorlagen[datei];
+    if (!vorlage) { return false; }
+
+    aufraeumen();
+    buehne.textContent = "";
+    buehne.appendChild(vorlage.content.cloneNode(true));
+    aktuell = datei;
+    auswahl.value = datei;
+    document.title = vorlage.getAttribute("data-titel") || document.title;
+
+    Array.prototype.forEach.call(document.querySelectorAll(".nav__link"), function (a) {
+      if (a.getAttribute("href") === datei) {
+        a.setAttribute("aria-current", "page");
+      } else {
+        a.removeAttribute("aria-current");
+      }
+    });
+
+    seitenSkripte();
+
+    var ziel = marke ? document.getElementById(marke) : null;
+    if (ziel) { ziel.scrollIntoView(); } else { window.scrollTo(0, 0); }
+    return true;
+  }
+
+  auswahl.addEventListener("change", function () { zeigen(auswahl.value, ""); });
+
+  /* Jeder Verweis auf eine andere Seite wird abgefangen und im Dokument
+     selbst umgeschaltet. Verweise nach au&szlig;en und Spr&uuml;nge innerhalb einer
+     Seite bleiben unangetastet.                                          */
+  document.addEventListener("click", function (e) {
+    var a = e.target && e.target.closest ? e.target.closest("a[href]") : null;
+    if (!a) { return; }
+
+    var wohin = a.getAttribute("href");
+    if (!wohin || /^(https?:|mailto:|tel:|#)/.test(wohin)) { return; }
+
+    var stuecke = wohin.split("#");
+    var datei = stuecke[0];
+    var marke = stuecke[1] || "";
+    if (!vorlagen[datei]) { return; }
+
+    e.preventDefault();
+    if (datei === aktuell) {
+      var hier = marke ? document.getElementById(marke) : null;
+      if (hier) { hier.scrollIntoView(); } else { window.scrollTo(0, 0); }
+      return;
+    }
+    zeigen(datei, marke);
+  });
+
+  zeigen("index.html", "");
+})();
+</script>
