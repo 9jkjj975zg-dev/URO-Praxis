@@ -46,9 +46,9 @@
   /* Farben – Navy-Blau mit hellem Grau */
   /* Tiefes Navy fuer alles Dunkle: Kopfbereich, dunkle Baender, Streifen.
      Der Ton stammt vom Logo, ist aber eine Stufe tiefer als dort.          */
-  --c-primary:        #1b2a4e;
-  --c-primary-dark:   #121d38;
-  --c-primary-light:  #3c5583;
+  --c-primary:        #263762;
+  --c-primary-dark:   #1c2a4d;
+  --c-primary-light:  #455f8f;
 
   /* Bronze traegt Links, Knoepfe und Hervorhebungen - der zweite Ton neben
      dem Navy, warm statt kuehl.                                            */
@@ -66,7 +66,7 @@
 
   --c-text:           #25201a;
   --c-text-muted:     #534f48;
-  --c-heading:        #1f2c4a;
+  --c-heading:        #29385a;
 
   /* Sand statt Blaugrau. Die drei Stufen liegen bewusst dicht beieinander:
      Sie sollen Abschnitte trennen, nicht Flecken bilden.                    */
@@ -91,7 +91,7 @@
   --c-leiste-bg:      #d8d3c8;
   --c-leiste-rand:    #cec7b9;
   --c-leiste-text:    #3a362f;
-  --c-leiste-marke:   #1b2a4e;
+  --c-leiste-marke:   #263762;
 
   /* Leichte Hervorhebung innerhalb der Seite - etwa der etwas waermere
      Rahmen einer wichtigen Meldung. Kein eigener Farbton, sondern eine
@@ -240,11 +240,11 @@ strong { color: var(--c-heading); }
    statt eines Weissschleiers - darauf steht der Text auf einem definierten
    Feld statt auf einem Verlauf.                                            */
 .section--dunkel .card {
-  background: #243352;
+  background: #304165;
   border-color: rgba(255, 255, 255, .22);
   box-shadow: none;
 }
-.section--dunkel .card--link:hover { background: #2b3c60; }
+.section--dunkel .card--link:hover { background: #374a73; }
 
 /* Wichtig: Regeln wie ".card p" stehen weiter unten in dieser Datei und
    haben dieselbe Gewichtung wie ".section--dunkel p" - die spaetere gewinnt.
