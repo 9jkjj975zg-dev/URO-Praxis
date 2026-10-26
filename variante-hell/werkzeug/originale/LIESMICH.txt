@@ -1,0 +1,34 @@
+Hier kommen die Originalaufnahmen aus der Praxis hinein - unbearbeitet und
+so gross, wie die Kamera sie liefert.
+
+Erwartet werden diese fuenf Dateien:
+
+    anmeldung-weit.jpg    Blick ueber den Tresen in den Flur (breites Bild
+                          oben, ueber den vier Kacheln)
+    empfang.jpg           Empfangstresen mit der glaesernen Eingangstuer
+    wartebereich.jpg      Wartebereich
+    sprechzimmer.jpg      Sprechzimmer
+    eingriffsraum.jpg     Eingriffsraum
+
+Danach einmal
+
+    python3 werkzeug/praxisbilder-einbauen.py
+
+aufrufen. Das Skript schneidet jedes Bild auf das Seitenverhaeltnis 3:2,
+legt es in zwei Groessen unter assets/img/ ab - eine fuer normale, eine fuer
+hochaufloesende Bildschirme - und ersetzt in praxis.html den jeweiligen
+Platzhalter durch das fertige Bild samt Bildbeschreibung. Fehlt eine Datei,
+bleibt ihr Platzhalter stehen; das Skript laesst sich beliebig oft laufen.
+
+Die Aufnahmedaten (EXIF) werden beim Verkleinern entfernt. In ihnen stehen
+sonst Kameramodell, Aufnahmezeitpunkt und unter Umstaenden der Standort.
+
+Format: JPEG oder PNG, Querformat, mindestens 1800 Bildpunkte breit. Kein
+HEIC - das liefern iPhones standardmaessig, und Browser zeigen es nicht an.
+Am iPhone unter Einstellungen > Kamera > Formate auf "Maximale Kompatibilitaet"
+stellen, dann kommen JPEG-Dateien heraus.
+
+Worauf zu achten ist: Auf keinem Bild duerfen Patientinnen und Patienten zu
+sehen sein, ebenso wenig Bildschirme mit Patientendaten oder beschriftete
+Unterlagen. Von Mitarbeiterinnen und Mitarbeitern, die erkennbar sind, muss
+eine schriftliche Einwilligung zur Veroeffentlichung vorliegen.
