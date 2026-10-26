@@ -142,15 +142,23 @@ rumpf_vor = rumpf_vor.replace('<a class="skip-link" href="#inhalt">',
                               '<a class="skip-link" href="#inhalt">')
 
 # --------------------------------------------------------- Seiten einsammeln
-foto = daten_uri("assets/img/team-rech.jpg", "image/jpeg")
+# Alle Fotos werden eingebettet - in der einfachen Aufloesung. Die zweite,
+# doppelt so grosse braucht die Vorschau nicht; sie wuerde die Datei nur
+# ohne sichtbaren Gewinn verdoppeln.
+fotos = {}
+for datei in sorted(glob.glob("assets/img/*.jpg")):
+    if datei.endswith("@2x.jpg"):
+        continue
+    fotos[datei] = daten_uri(datei, "image/jpeg")
+
 vorlagen = []
 for datei in ALLE:
     quelle = open(datei, encoding="utf-8").read()
     haupt = "<main" + quelle.split("<main", 1)[1].split("</main>")[0] + "</main>"
-    # Das Foto wird eingebettet; die zweite Aufloesung braucht die Vorschau nicht.
-    haupt = re.sub(r'\s*srcset="[^"]*team-rech[^"]*"', "", haupt)
+    haupt = re.sub(r'\s*srcset="[^"]*"', "", haupt)
     haupt = re.sub(r'\s*sizes="[^"]*"', "", haupt)
-    haupt = haupt.replace("assets/img/team-rech.jpg", foto)
+    for pfad, eingebettet in fotos.items():
+        haupt = haupt.replace(pfad, eingebettet)
     titel = re.search(r"<title>(.*?)</title>", quelle, re.S).group(1).strip()
     vorlagen.append(
         '<template data-seite="%s" data-titel="%s">\n%s\n</template>'

@@ -36,8 +36,11 @@ QUELLEN = os.path.join(ORDNER, "originale")
 ZIEL = "assets/img"
 
 # Seitenverhaeltnis 3:2, wie beim Teamfoto. Breiten in Bildpunkten.
-BREIT = 1600          # das breite Bild oben
-KACHEL = 900          # die vier Kacheln darunter
+BREIT = 1000          # das breite Bild oben
+KACHEL = 700          # die vier Kacheln darunter
+
+# Hochgerechnet wird nie: Was groesser waere als das Original, bleibt beim
+# Original. Ein hochgerechnetes Bild ist nicht schaerfer, nur schwerer.
 
 BILDER = [
     # Datei           Breite  Ueberschrift             Bildbeschreibung
@@ -85,14 +88,19 @@ def aufbereiten(name, breite):
     hoehe = round(breite * 2 / 3)
 
     for faktor, zusatz in ((1, ""), (2, "@2x")):
-        fassung = ImageOps.fit(bild, (breite * faktor, hoehe * faktor),
+        b, h = breite * faktor, hoehe * faktor
+        if b > bild.width:
+            print("  Hinweis: %s ist nur %d breit - %s bleibt bei dieser Breite."
+                  % (os.path.basename(quelle), bild.width, zusatz or "1x"))
+            h = round(bild.width * 2 / 3)
+            b = bild.width
+        fassung = ImageOps.fit(bild, (b, h),
                                method=Image.LANCZOS, centering=(0.5, 0.5))
         ziel = os.path.join(ZIEL, "praxis-%s%s.jpg" % (name, zusatz))
         # ohne exif= gespeichert: die Aufnahmedaten bleiben draussen
         fassung.save(ziel, "JPEG", quality=82, optimize=True, progressive=True)
         print("  %-34s %5d x %4d  %5.0f KB"
-              % (os.path.basename(ziel), breite * faktor, hoehe * faktor,
-                 os.path.getsize(ziel) / 1024))
+              % (os.path.basename(ziel), b, h, os.path.getsize(ziel) / 1024))
     return breite, hoehe
 
 
@@ -101,7 +109,7 @@ def figur(name, titel, beschreibung, masse, breit=False):
     b, h = masse
     klasse = "foto foto--breit" if breit else "foto"
     groessen = ("(max-width: 900px) 100vw, 820px" if breit
-                else "(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 340px")
+                else "(max-width: 700px) 100vw, 560px")
     return """      <figure class="%s">
         <img src="%s/praxis-%s.jpg"
              srcset="%s/praxis-%s.jpg %dw, %s/praxis-%s@2x.jpg %dw"

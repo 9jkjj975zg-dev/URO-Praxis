@@ -238,7 +238,18 @@ tatsächlich gebraucht wird.
 Alles, was in der `README.md` des Hauptverzeichnisses unter „Wichtig: Diese
 Angaben bitte vor der Veröffentlichung prüfen“ steht, gilt hier genauso –
 die Inhalte sind ja dieselben. Insbesondere die Preise auf
-`selbstzahler-preise.html`, die Beispielmeldungen und die Praxisbilder.
+`selbstzahler-preise.html` und die Beispielmeldungen.
+
+**Die Praxisbilder sind eingebaut.** Auf `praxis.html` steht unter „So sieht
+es bei uns aus“ eine weite Aufnahme vom Empfang, darunter vier Kacheln:
+Empfang, Wartebereich, Sprechzimmer und Eingriffsraum. Die Originale liegen
+unter `werkzeug/originale/`, die zugeschnittenen Fassungen unter
+`assets/img/`.
+
+Sollen Bilder ausgetauscht werden: neue Datei unter demselben Namen nach
+`werkzeug/originale/` legen und `python3 werkzeug/praxisbilder-einbauen.py`
+aufrufen. Das Skript schneidet, verkleinert und entfernt die Aufnahmedaten.
+Einzelheiten in `werkzeug/originale/LIESMICH.txt`.
 
 Zusätzlich für diesen Entwurf:
 

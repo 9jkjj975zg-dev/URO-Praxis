@@ -1614,11 +1614,14 @@ html.menue-offen body { overflow: hidden; }
 .foto figcaption { padding: .9rem 1.3rem; font-size: .9rem; color: var(--c-text-leise);
                    border-top: 1px solid var(--c-border); }
 
+/* Zwei Kacheln je Reihe, nicht vier: Bei vier Spalten ist von einem Raum
+   nur noch zu ahnen, wie er aussieht. 26rem als Mindestbreite ergibt am
+   Rechner zwei Spalten, am Handy eine.                                    */
 .bildergalerie {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(26rem, 100%), 1fr));
   gap: 1.25rem;
-  margin-top: 2rem;
+  margin-top: 1.25rem;
 }
 .bildergalerie .foto { margin: 0; }
 .bildergalerie .foto--platzhalter { padding: 2.5rem 1.25rem; }
